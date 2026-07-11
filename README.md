@@ -34,3 +34,14 @@ npm run start:dev
 
 - `GET /` returns a basic status message.
 - `GET /health` checks the database connection.
+- `POST /auth/register` creates a user and returns access and refresh tokens.
+- `POST /auth/login` authenticates with email or phone and returns tokens.
+- `POST /auth/refresh` exchanges a valid refresh token for a new token pair.
+- `GET /auth/me` returns the authenticated user profile.
+
+## Auth Environment Variables
+
+- `ACCESS_TOKEN_SECRET`
+- `REFRESH_TOKEN_SECRET`
+- `ACCESS_TOKEN_TTL` defaults to `15m`
+- `REFRESH_TOKEN_TTL` defaults to `7d`

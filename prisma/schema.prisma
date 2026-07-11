@@ -1,17 +1,57 @@
-generator client {
-  provider = "prisma-client-js"
-}
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  
 }
 
+generator client {
+  provider = "prisma-client"
+  output   = "./generated"
+}
+
+// All enums are defined here
+
+enum UserRole {
+  superAdmin
+  manager
+  Salesman
+  inventor
+  Reseller
+}
+
+enum CommonStatus {
+  Active
+  Deactivate
+  Pending
+}
+
+
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  name      String?
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                 String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name               String       @db.VarChar(255)
+  email              String       @unique @db.VarChar(255)
+  phone              String       @unique @db.VarChar(20)
+  secondaryPhone     String?      @db.VarChar(20)
+  passwordHash       String       @map("password_hash") @db.VarChar(255)
+  refreshTokenHash   String?      @map("refresh_token_hash") @db.Text
+  refreshTokenExpiresAt DateTime?  @map("refresh_token_expires_at")
+  role               UserRole
+  OrganizationId      String       @map("organization_id") @db.Uuid
+  imageUrl           String?      @map("image_url") @db.Text
+  status             CommonStatus @default(Pending)
+  pageName           String?      @unique @map("page_name") @db.VarChar(100)
+  presentDistrict    String       @map("present_district") @db.VarChar(100)
+  presentThana       String       @map("present_thana") @db.VarChar(100)
+  permanentDistrict  String       @map("permanent_district") @db.VarChar(100)
+  permanentThana     String       @map("permanent_thana") @db.VarChar(100)
+  createdAt          DateTime     @default(now()) @map("created_at")
+  updatedAt          DateTime     @updatedAt @map("updated_at")
+  deletedAt          DateTime?    @map("deleted_at")
+
+// TODO : apply when carts and orders are implemented 
+
+  // carts              Cart[]  
+  // orders             Order[]
+
+  @@map("user")
 }
