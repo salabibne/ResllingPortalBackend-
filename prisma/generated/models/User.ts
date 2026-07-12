@@ -414,7 +414,7 @@ export type UserCreateInput = {
   passwordHash: string
   refreshTokenHash?: string | null
   refreshTokenExpiresAt?: Date | string | null
-  role: $Enums.UserRole
+  role?: $Enums.UserRole
   OrganizationId: string
   imageUrl?: string | null
   status?: $Enums.CommonStatus
@@ -437,7 +437,7 @@ export type UserUncheckedCreateInput = {
   passwordHash: string
   refreshTokenHash?: string | null
   refreshTokenExpiresAt?: Date | string | null
-  role: $Enums.UserRole
+  role?: $Enums.UserRole
   OrganizationId: string
   imageUrl?: string | null
   status?: $Enums.CommonStatus
@@ -506,7 +506,7 @@ export type UserCreateManyInput = {
   passwordHash: string
   refreshTokenHash?: string | null
   refreshTokenExpiresAt?: Date | string | null
-  role: $Enums.UserRole
+  role?: $Enums.UserRole
   OrganizationId: string
   imageUrl?: string | null
   status?: $Enums.CommonStatus

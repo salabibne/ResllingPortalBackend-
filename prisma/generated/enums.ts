@@ -10,20 +10,22 @@
 */
 
 export const UserRole = {
-  superAdmin: 'superAdmin',
-  manager: 'manager',
-  Salesman: 'Salesman',
-  inventor: 'inventor',
-  Reseller: 'Reseller'
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  ADMIN: 'ADMIN',
+  MANAGER: 'MANAGER',
+  SALES_EXECUTIVE: 'SALES_EXECUTIVE',
+  INVENTOR: 'INVENTOR',
+  RESELLER: 'RESELLER',
+  USER: 'USER'
 } as const
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const CommonStatus = {
-  Active: 'Active',
-  Deactivate: 'Deactivate',
-  Pending: 'Pending'
+  ACTIVE: 'ACTIVE',
+  DEACTIVATED: 'DEACTIVATED',
+  PENDING: 'PENDING'
 } as const
 
 export type CommonStatus = (typeof CommonStatus)[keyof typeof CommonStatus]

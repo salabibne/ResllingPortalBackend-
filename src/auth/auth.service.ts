@@ -52,7 +52,7 @@ export class AuthService {
         role: dto.role,
         OrganizationId: dto.organizationId,
         imageUrl: dto.imageUrl,
-        status: dto.status ?? CommonStatus.Active,
+        status: dto.status ?? CommonStatus.PENDING,
         pageName: dto.pageName,
         presentDistrict: dto.presentDistrict,
         presentThana: dto.presentThana,
@@ -68,7 +68,7 @@ export class AuthService {
     const user = await this.prismaService.user.findFirst({
       where: {
         deletedAt: null,
-        OR: [{ email: dto.identifier.toLowerCase() }, { phone: dto.identifier }],
+        OR: [{ email: dto.email.toLowerCase() }, { phone: dto.email }],
       },
     });
 
@@ -76,7 +76,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    if (user.status === CommonStatus.Deactivate) {
+    if (user.status === CommonStatus.DEACTIVATED) {
       throw new ForbiddenException('User account is deactivated');
     }
 
