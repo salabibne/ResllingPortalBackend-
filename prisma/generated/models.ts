@@ -9,4 +9,18 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User'
+export type * from './models/Category'
+export type * from './models/Subcategory'
+export type * from './models/ChildCategory'
+export type * from './models/Brand'
+export type * from './models/Product'
+export type * from './models/ProductImage'
+export type * from './models/Color'
+export type * from './models/ProductColor'
+export type * from './models/Size'
+export type * from './models/ProductSize'
+export type * from './models/AgeVariant'
+export type * from './models/ProductAge'
+export type * from './models/Inventory'
+export type * from './models/InventoryTransaction'
 export type * from './commonInputTypes'

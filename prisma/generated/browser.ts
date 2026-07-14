@@ -22,3 +22,73 @@ export * from './enums';
  * 
  */
 export type User = Prisma.UserModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
+ * Model Subcategory
+ * 
+ */
+export type Subcategory = Prisma.SubcategoryModel
+/**
+ * Model ChildCategory
+ * 
+ */
+export type ChildCategory = Prisma.ChildCategoryModel
+/**
+ * Model Brand
+ * 
+ */
+export type Brand = Prisma.BrandModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model ProductImage
+ * 
+ */
+export type ProductImage = Prisma.ProductImageModel
+/**
+ * Model Color
+ * 
+ */
+export type Color = Prisma.ColorModel
+/**
+ * Model ProductColor
+ * 
+ */
+export type ProductColor = Prisma.ProductColorModel
+/**
+ * Model Size
+ * 
+ */
+export type Size = Prisma.SizeModel
+/**
+ * Model ProductSize
+ * 
+ */
+export type ProductSize = Prisma.ProductSizeModel
+/**
+ * Model AgeVariant
+ * 
+ */
+export type AgeVariant = Prisma.AgeVariantModel
+/**
+ * Model ProductAge
+ * 
+ */
+export type ProductAge = Prisma.ProductAgeModel
+/**
+ * Model Inventory
+ * 
+ */
+export type Inventory = Prisma.InventoryModel
+/**
+ * Model InventoryTransaction
+ * 
+ */
+export type InventoryTransaction = Prisma.InventoryTransactionModel

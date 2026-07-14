@@ -6,6 +6,7 @@ import { ACCESS_TOKEN_SECRET, ACCESS_TOKEN_TTL } from './auth.constants';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtAccessGuard } from './guards/jwt-access.guard';
+import { RolesGuard } from './guards/roles.guard';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { JwtAccessGuard } from './guards/jwt-access.guard';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtAccessGuard],
-  exports: [AuthService, JwtAccessGuard],
+  providers: [AuthService, JwtAccessGuard, RolesGuard],
+  exports: [AuthService, JwtAccessGuard, RolesGuard],
 })
-export class AuthModule {}
+export class AuthModule {}

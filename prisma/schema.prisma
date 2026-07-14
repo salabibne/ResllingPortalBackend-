@@ -28,6 +28,21 @@ enum CommonStatus {
 }
 
 
+
+enum InventoryTxType {
+  STOCK_IN
+  STOCK_OUT
+}
+
+enum InventoryTxPurpose {
+  SELL
+  PURCHASE
+  RETURN
+  DAMAGE
+}
+
+
+
 model User {
   id                 String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name               String       @db.VarChar(255)
@@ -57,3 +72,201 @@ model User {
 
   @@map("user")
 }
+
+model Category {
+  id        String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String       @db.VarChar(100)
+  imageUrl  String       @map("image_url") @db.Text
+  status    CommonStatus @default(ACTIVE)
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @updatedAt @map("updated_at")
+  products  Product[]
+  subcategories Subcategory[]
+
+  @@map("category")
+}
+
+model Subcategory {
+  id          String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String         @db.VarChar(100)
+  categoryId  String         @map("category_id") @db.Uuid
+  status      CommonStatus   @default(ACTIVE)
+  createdAt   DateTime       @default(now()) @map("created_at")
+  updatedAt   DateTime       @updatedAt @map("updated_at")
+  category    Category       @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  products    Product[]
+  childCategories ChildCategory[]
+
+  @@map("subcategory")
+}
+
+model ChildCategory {
+  id            String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String       @db.VarChar(100)
+  subcategoryId String       @map("subcategory_id") @db.Uuid
+  status        CommonStatus @default(ACTIVE)
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  subcategory   Subcategory  @relation(fields: [subcategoryId], references: [id], onDelete: Restrict)
+  products      Product[]
+
+  @@map("child_category")
+}
+
+model Brand {
+  id        String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String       @db.VarChar(100)
+  imageUrl  String       @map("image_url") @db.Text
+  status    CommonStatus @default(ACTIVE)
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @updatedAt @map("updated_at")
+  products  Product[]
+
+  @@map("brand")
+}
+
+model Product {
+  id                String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name              String         @db.VarChar(255)
+  categoryId        String         @map("category_id") @db.Uuid
+  subcategoryId     String?        @map("subcategory_id") @db.Uuid
+  childCategoryId   String?        @map("child_category_id") @db.Uuid
+  brandId           String         @map("brand_id") @db.Uuid
+  purchasePrice     Decimal        @map("purchase_price") @db.Decimal(12, 2)
+  oldPrice          Decimal        @map("old_price") @db.Decimal(12, 2)
+  newPrice          Decimal        @map("new_price") @db.Decimal(12, 2)
+  resellerPrice     Decimal        @map("reseller_price") @db.Decimal(12, 2)
+  videoUrl          String?        @map("video_url") @db.Text
+  unit              String         @default("piece") @db.VarChar(50)
+  description       String         @db.Text
+  status            CommonStatus   @default(ACTIVE)
+  showAsNewArrival  Boolean        @default(true) @map("show_as_new_arrival")
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+  deletedAt         DateTime?      @map("deleted_at")
+  
+  category          Category       @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  subcategory       Subcategory?   @relation(fields: [subcategoryId], references: [id], onDelete: SetNull)
+  childCategory     ChildCategory? @relation(fields: [childCategoryId], references: [id], onDelete: SetNull)
+  brand             Brand          @relation(fields: [brandId], references: [id], onDelete: Restrict)
+  inventories       Inventory[]
+  // TODO : apply when carts and orders are implemented
+  // cartItems         CartItem[]
+  // orderItems        OrderItem[]
+  images            ProductImage[]
+  colors            ProductColor[]
+  sizes             ProductSize[]
+  ages              ProductAge[]
+  // TODO: apply when product pages are implemented
+  // productPages      ProductPage[]
+
+  @@map("product")
+}
+
+model ProductImage {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId  String   @map("product_id") @db.Uuid
+  imageUrl   String   @map("image_url") @db.Text
+  isPrimary  Boolean  @default(false) @map("is_primary")
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_image")
+}
+
+model Color {
+  id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String         @db.VarChar(50)
+  colorCode String         @map("color_code") @db.VarChar(7)
+  status    CommonStatus   @default(ACTIVE)
+  products  ProductColor[]
+
+  @@map("color")
+}
+
+model ProductColor {
+  productId String  @map("product_id") @db.Uuid
+  colorId   String  @map("color_id") @db.Uuid
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  color     Color   @relation(fields: [colorId], references: [id], onDelete: Cascade)
+
+  @@id([productId, colorId])
+  @@map("product_color_variant")
+}
+
+model Size {
+  id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String        @db.VarChar(50)
+  status      CommonStatus  @default(ACTIVE)
+  products    ProductSize[]
+
+  @@map("size")
+}
+
+model ProductSize {
+  id        String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId String      @map("product_id") @db.Uuid
+  sizeId    String      @map("size_id") @db.Uuid
+  product   Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  size      Size        @relation(fields: [sizeId], references: [id], onDelete: Cascade)
+  inventories Inventory[]
+
+  @@unique([productId, sizeId])
+  @@map("product_size_variant")
+}
+
+model AgeVariant {
+  id       String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ageRange String       @map("age_range") @db.VarChar(50)
+  status   CommonStatus @default(ACTIVE)
+  products ProductAge[]
+
+  @@map("age_variant")
+}
+
+model ProductAge {
+  productId    String     @map("product_id") @db.Uuid
+  ageVariantId String     @map("age_variant_id") @db.Uuid
+  product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  ageVariant   AgeVariant @relation(fields: [ageVariantId], references: [id], onDelete: Cascade)
+
+  @@id([productId, ageVariantId])
+  @@map("product_age_variant")
+}
+
+model Inventory {
+  id               String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId        String                 @map("product_id") @db.Uuid
+  productSizeId    String?                @map("product_size_id") @db.Uuid
+  currentStock     Int                    @default(0) @map("current_stock")
+  costPerUnit      Decimal                @default(0) @map("cost_per_unit") @db.Decimal(12, 2)
+  supplierName     String                 @map("supplier_name") @db.VarChar(255)
+  supplierMobile   String                 @map("supplier_mobile") @db.VarChar(20)
+  stockLimitAlert  Int                    @default(10) @map("stock_limit_alert")
+  notes            String?                @db.Text
+  createdAt        DateTime               @default(now()) @map("created_at")
+  updatedAt        DateTime               @updatedAt @map("updated_at")
+  product          Product                @relation(fields: [productId], references: [id], onDelete: Restrict)
+  productSize      ProductSize?           @relation(fields: [productSizeId], references: [id], onDelete: Restrict)
+  transactions     InventoryTransaction[]
+
+  @@unique([productId, productSizeId])
+  @@map("inventory")
+}
+
+model InventoryTransaction {
+  id                  String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  inventoryId         String               @map("inventory_id") @db.Uuid
+  transactionQuantity Int                  @map("transaction_quantity")
+  stockBefore         Int                  @map("stock_before")
+  stockAfter          Int                  @map("stock_after")
+  stockType           InventoryTxType      @map("stock_type")
+  purpose             InventoryTxPurpose
+  reference           String?              @db.VarChar(100)
+  performedBy         String               @map("performed_by") @db.Uuid
+  notes               String?              @db.Text
+  createdAt           DateTime             @default(now()) @map("created_at")
+  inventory           Inventory            @relation(fields: [inventoryId], references: [id], onDelete: Restrict)
+
+  @@map("inventory_transaction")
+}
+

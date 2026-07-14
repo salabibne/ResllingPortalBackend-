@@ -162,7 +162,7 @@ export class AuthService {
       accessToken,
       refreshToken,
       tokenType: 'Bearer',
-      accessTokenExpiresIn: this.configService.get<string>(ACCESS_TOKEN_TTL) ?? '15m',
+      accessTokenExpiresIn: this.configService.get<string>(ACCESS_TOKEN_TTL) ?? '1d',
       refreshTokenExpiresIn: this.configService.get<string>(REFRESH_TOKEN_TTL) ?? '7d',
     };
   }

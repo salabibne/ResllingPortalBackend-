@@ -29,3 +29,21 @@ export const CommonStatus = {
 } as const
 
 export type CommonStatus = (typeof CommonStatus)[keyof typeof CommonStatus]
+
+
+export const InventoryTxType = {
+  STOCK_IN: 'STOCK_IN',
+  STOCK_OUT: 'STOCK_OUT'
+} as const
+
+export type InventoryTxType = (typeof InventoryTxType)[keyof typeof InventoryTxType]
+
+
+export const InventoryTxPurpose = {
+  SELL: 'SELL',
+  PURCHASE: 'PURCHASE',
+  RETURN: 'RETURN',
+  DAMAGE: 'DAMAGE'
+} as const
+
+export type InventoryTxPurpose = (typeof InventoryTxPurpose)[keyof typeof InventoryTxPurpose]
