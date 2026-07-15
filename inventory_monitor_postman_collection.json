@@ -1,0 +1,236 @@
+{
+  "info": {
+    "name": "Inventory Monitor Service",
+    "description": "Mock requests and responses for testing the Inventory Monitor endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Dashboard Overview",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer YOUR_JWT_TOKEN",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/inventory/monitor/dashboard",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventory",
+            "monitor",
+            "dashboard"
+          ],
+          "query": [
+            {
+              "key": "startDate",
+              "value": "2024-01-01",
+              "disabled": true
+            },
+            {
+              "key": "endDate",
+              "value": "2024-12-31",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inventory/monitor/dashboard",
+              "host": ["{{baseUrl}}"],
+              "path": ["inventory", "monitor", "dashboard"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "{\n    \"totalProducts\": 45,\n    \"totalInventoryRecords\": 120,\n    \"totalStockUnits\": 1540,\n    \"totalStockValue\": \"42500.50\",\n    \"lowStockCount\": 8,\n    \"outOfStockCount\": 3,\n    \"periodMovement\": {\n        \"totalStockIn\": 500,\n        \"totalStockOut\": 350,\n        \"totalPurchased\": 480,\n        \"totalSold\": 320,\n        \"totalReturned\": 20,\n        \"totalDamaged\": 10\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Low Stock Alerts",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer YOUR_JWT_TOKEN",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/inventory/monitor/low-stock?page=1&limit=20&includeOutOfStock=false",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventory",
+            "monitor",
+            "low-stock"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "includeOutOfStock",
+              "value": "false"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inventory/monitor/low-stock",
+              "host": ["{{baseUrl}}"],
+              "path": ["inventory", "monitor", "low-stock"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "{\n    \"data\": [\n        {\n            \"id\": \"uuid-1234\",\n            \"productId\": \"prod-uuid-5678\",\n            \"currentStock\": 5,\n            \"stockLimitAlert\": 10,\n            \"costPerUnit\": \"12.50\",\n            \"supplierName\": \"Global Suppliers Inc\",\n            \"supplierMobile\": \"01700000000\",\n            \"product\": {\n                \"id\": \"prod-uuid-5678\",\n                \"name\": \"Premium White T-Shirt\"\n            },\n            \"productSize\": null,\n            \"status\": \"LOW_STOCK\"\n        }\n    ],\n    \"meta\": {\n        \"total\": 1,\n        \"page\": 1,\n        \"limit\": 20,\n        \"totalPages\": 1\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Transaction Log",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer YOUR_JWT_TOKEN",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/inventory/monitor/transactions?page=1&limit=20",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventory",
+            "monitor",
+            "transactions"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "stockType",
+              "value": "STOCK_IN",
+              "disabled": true
+            },
+            {
+              "key": "purpose",
+              "value": "PURCHASE",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inventory/monitor/transactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["inventory", "monitor", "transactions"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "{\n    \"data\": [\n        {\n            \"id\": \"tx-uuid-123\",\n            \"inventoryId\": \"inv-uuid-456\",\n            \"transactionQuantity\": 50,\n            \"stockBefore\": 10,\n            \"stockAfter\": 60,\n            \"stockType\": \"STOCK_IN\",\n            \"purpose\": \"PURCHASE\",\n            \"reference\": \"PO-998877\",\n            \"performedBy\": \"user-uuid-999\",\n            \"notes\": \"Restocking for winter\",\n            \"createdAt\": \"2024-03-01T10:00:00Z\",\n            \"inventory\": {\n                \"product\": {\n                    \"id\": \"prod-uuid-111\",\n                    \"name\": \"Winter Jacket\"\n                }\n            }\n        }\n    ],\n    \"meta\": {\n        \"total\": 1,\n        \"page\": 1,\n        \"limit\": 20,\n        \"totalPages\": 1\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Get Product Summary",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer YOUR_JWT_TOKEN",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/inventory/monitor/product-summary?page=1&limit=20",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "inventory",
+            "monitor",
+            "product-summary"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/inventory/monitor/product-summary",
+              "host": ["{{baseUrl}}"],
+              "path": ["inventory", "monitor", "product-summary"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "body": "{\n    \"data\": [\n        {\n            \"productId\": \"prod-uuid-111\",\n            \"productName\": \"Winter Jacket\",\n            \"totalStockUnits\": 120,\n            \"totalStockValue\": \"3600.00\",\n            \"avgCostPerUnit\": \"30.00\",\n            \"sizeBreakdown\": [\n                {\n                    \"productSizeId\": \"size-uuid-M\",\n                    \"sizeName\": \"M\",\n                    \"currentStock\": 70,\n                    \"costPerUnit\": \"30.00\"\n                },\n                {\n                    \"productSizeId\": \"size-uuid-L\",\n                    \"sizeName\": \"L\",\n                    \"currentStock\": 50,\n                    \"costPerUnit\": \"30.00\"\n                }\n            ],\n            \"periodMovement\": {\n                \"totalPurchased\": 200,\n                \"totalSold\": 80,\n                \"totalReturned\": 5,\n                \"totalDamaged\": 2\n            }\n        }\n    ],\n    \"meta\": {\n        \"total\": 1,\n        \"page\": 1,\n        \"limit\": 20,\n        \"totalPages\": 1\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ]
+}
