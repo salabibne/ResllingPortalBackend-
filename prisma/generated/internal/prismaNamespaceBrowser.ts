@@ -65,7 +65,11 @@ export const ModelName = {
   AgeVariant: 'AgeVariant',
   ProductAge: 'ProductAge',
   Inventory: 'Inventory',
-  InventoryTransaction: 'InventoryTransaction'
+  InventoryTransaction: 'InventoryTransaction',
+  Cart: 'Cart',
+  CartItem: 'CartItem',
+  Order: 'Order',
+  OrderItem: 'OrderItem'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -203,6 +207,7 @@ export type ColorScalarFieldEnum = (typeof ColorScalarFieldEnum)[keyof typeof Co
 
 
 export const ProductColorScalarFieldEnum = {
+  id: 'id',
   productId: 'productId',
   colorId: 'colorId'
 } as const
@@ -277,6 +282,72 @@ export const InventoryTransactionScalarFieldEnum = {
 } as const
 
 export type InventoryTransactionScalarFieldEnum = (typeof InventoryTransactionScalarFieldEnum)[keyof typeof InventoryTransactionScalarFieldEnum]
+
+
+export const CartScalarFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  promoCode: 'promoCode',
+  courierCharge: 'courierCharge',
+  total: 'total',
+  notes: 'notes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CartScalarFieldEnum = (typeof CartScalarFieldEnum)[keyof typeof CartScalarFieldEnum]
+
+
+export const CartItemScalarFieldEnum = {
+  id: 'id',
+  cartId: 'cartId',
+  productId: 'productId',
+  productSizeId: 'productSizeId',
+  productColorId: 'productColorId',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  subtotal: 'subtotal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typeof CartItemScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  cartId: 'cartId',
+  customerId: 'customerId',
+  paymentStatus: 'paymentStatus',
+  paymentMethod: 'paymentMethod',
+  processingStatus: 'processingStatus',
+  orderProcessedBy: 'orderProcessedBy',
+  subtotal: 'subtotal',
+  courierCharge: 'courierCharge',
+  discount: 'discount',
+  total: 'total',
+  shippingAddress: 'shippingAddress',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  productId: 'productId',
+  productSizeId: 'productSizeId',
+  productColorId: 'productColorId',
+  quantity: 'quantity',
+  snapshotPrice: 'snapshotPrice',
+  subtotal: 'subtotal'
+} as const
+
+export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
 
 
 export const SortOrder = {

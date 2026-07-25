@@ -25,16 +25,19 @@ export type AggregateProductColor = {
 }
 
 export type ProductColorMinAggregateOutputType = {
+  id: string | null
   productId: string | null
   colorId: string | null
 }
 
 export type ProductColorMaxAggregateOutputType = {
+  id: string | null
   productId: string | null
   colorId: string | null
 }
 
 export type ProductColorCountAggregateOutputType = {
+  id: number
   productId: number
   colorId: number
   _all: number
@@ -42,16 +45,19 @@ export type ProductColorCountAggregateOutputType = {
 
 
 export type ProductColorMinAggregateInputType = {
+  id?: true
   productId?: true
   colorId?: true
 }
 
 export type ProductColorMaxAggregateInputType = {
+  id?: true
   productId?: true
   colorId?: true
 }
 
 export type ProductColorCountAggregateInputType = {
+  id?: true
   productId?: true
   colorId?: true
   _all?: true
@@ -130,6 +136,7 @@ export type ProductColorGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 export type ProductColorGroupByOutputType = {
+  id: string
   productId: string
   colorId: string
   _count: ProductColorCountAggregateOutputType | null
@@ -156,20 +163,27 @@ export type ProductColorWhereInput = {
   AND?: Prisma.ProductColorWhereInput | Prisma.ProductColorWhereInput[]
   OR?: Prisma.ProductColorWhereInput[]
   NOT?: Prisma.ProductColorWhereInput | Prisma.ProductColorWhereInput[]
+  id?: Prisma.UuidFilter<"ProductColor"> | string
   productId?: Prisma.UuidFilter<"ProductColor"> | string
   colorId?: Prisma.UuidFilter<"ProductColor"> | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   color?: Prisma.XOR<Prisma.ColorScalarRelationFilter, Prisma.ColorWhereInput>
+  cartItems?: Prisma.CartItemListRelationFilter
+  orderItems?: Prisma.OrderItemListRelationFilter
 }
 
 export type ProductColorOrderByWithRelationInput = {
+  id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   colorId?: Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
   color?: Prisma.ColorOrderByWithRelationInput
+  cartItems?: Prisma.CartItemOrderByRelationAggregateInput
+  orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
 }
 
 export type ProductColorWhereUniqueInput = Prisma.AtLeast<{
+  id?: string
   productId_colorId?: Prisma.ProductColorProductIdColorIdCompoundUniqueInput
   AND?: Prisma.ProductColorWhereInput | Prisma.ProductColorWhereInput[]
   OR?: Prisma.ProductColorWhereInput[]
@@ -178,9 +192,12 @@ export type ProductColorWhereUniqueInput = Prisma.AtLeast<{
   colorId?: Prisma.UuidFilter<"ProductColor"> | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   color?: Prisma.XOR<Prisma.ColorScalarRelationFilter, Prisma.ColorWhereInput>
-}, "productId_colorId">
+  cartItems?: Prisma.CartItemListRelationFilter
+  orderItems?: Prisma.OrderItemListRelationFilter
+}, "id" | "productId_colorId">
 
 export type ProductColorOrderByWithAggregationInput = {
+  id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   colorId?: Prisma.SortOrder
   _count?: Prisma.ProductColorCountOrderByAggregateInput
@@ -192,40 +209,55 @@ export type ProductColorScalarWhereWithAggregatesInput = {
   AND?: Prisma.ProductColorScalarWhereWithAggregatesInput | Prisma.ProductColorScalarWhereWithAggregatesInput[]
   OR?: Prisma.ProductColorScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProductColorScalarWhereWithAggregatesInput | Prisma.ProductColorScalarWhereWithAggregatesInput[]
+  id?: Prisma.UuidWithAggregatesFilter<"ProductColor"> | string
   productId?: Prisma.UuidWithAggregatesFilter<"ProductColor"> | string
   colorId?: Prisma.UuidWithAggregatesFilter<"ProductColor"> | string
 }
 
 export type ProductColorCreateInput = {
+  id?: string
   product: Prisma.ProductCreateNestedOneWithoutColorsInput
   color: Prisma.ColorCreateNestedOneWithoutProductsInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutProductColorInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductColorInput
 }
 
 export type ProductColorUncheckedCreateInput = {
+  id?: string
   productId: string
   colorId: string
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductColorInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductColorInput
 }
 
 export type ProductColorUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   product?: Prisma.ProductUpdateOneRequiredWithoutColorsNestedInput
   color?: Prisma.ColorUpdateOneRequiredWithoutProductsNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutProductColorNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutProductColorNestedInput
 }
 
 export type ProductColorUncheckedUpdateInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   colorId?: Prisma.StringFieldUpdateOperationsInput | string
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductColorNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductColorNestedInput
 }
 
 export type ProductColorCreateManyInput = {
+  id?: string
   productId: string
   colorId: string
 }
 
 export type ProductColorUpdateManyMutationInput = {
-
+  id?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductColorUncheckedUpdateManyInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
   colorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -246,18 +278,26 @@ export type ProductColorProductIdColorIdCompoundUniqueInput = {
 }
 
 export type ProductColorCountOrderByAggregateInput = {
+  id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   colorId?: Prisma.SortOrder
 }
 
 export type ProductColorMaxOrderByAggregateInput = {
+  id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   colorId?: Prisma.SortOrder
 }
 
 export type ProductColorMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   colorId?: Prisma.SortOrder
+}
+
+export type ProductColorNullableScalarRelationFilter = {
+  is?: Prisma.ProductColorWhereInput | null
+  isNot?: Prisma.ProductColorWhereInput | null
 }
 
 export type ProductColorCreateNestedManyWithoutProductInput = {
@@ -344,12 +384,50 @@ export type ProductColorUncheckedUpdateManyWithoutColorNestedInput = {
   deleteMany?: Prisma.ProductColorScalarWhereInput | Prisma.ProductColorScalarWhereInput[]
 }
 
+export type ProductColorCreateNestedOneWithoutCartItemsInput = {
+  create?: Prisma.XOR<Prisma.ProductColorCreateWithoutCartItemsInput, Prisma.ProductColorUncheckedCreateWithoutCartItemsInput>
+  connectOrCreate?: Prisma.ProductColorCreateOrConnectWithoutCartItemsInput
+  connect?: Prisma.ProductColorWhereUniqueInput
+}
+
+export type ProductColorUpdateOneWithoutCartItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductColorCreateWithoutCartItemsInput, Prisma.ProductColorUncheckedCreateWithoutCartItemsInput>
+  connectOrCreate?: Prisma.ProductColorCreateOrConnectWithoutCartItemsInput
+  upsert?: Prisma.ProductColorUpsertWithoutCartItemsInput
+  disconnect?: Prisma.ProductColorWhereInput | boolean
+  delete?: Prisma.ProductColorWhereInput | boolean
+  connect?: Prisma.ProductColorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductColorUpdateToOneWithWhereWithoutCartItemsInput, Prisma.ProductColorUpdateWithoutCartItemsInput>, Prisma.ProductColorUncheckedUpdateWithoutCartItemsInput>
+}
+
+export type ProductColorCreateNestedOneWithoutOrderItemsInput = {
+  create?: Prisma.XOR<Prisma.ProductColorCreateWithoutOrderItemsInput, Prisma.ProductColorUncheckedCreateWithoutOrderItemsInput>
+  connectOrCreate?: Prisma.ProductColorCreateOrConnectWithoutOrderItemsInput
+  connect?: Prisma.ProductColorWhereUniqueInput
+}
+
+export type ProductColorUpdateOneWithoutOrderItemsNestedInput = {
+  create?: Prisma.XOR<Prisma.ProductColorCreateWithoutOrderItemsInput, Prisma.ProductColorUncheckedCreateWithoutOrderItemsInput>
+  connectOrCreate?: Prisma.ProductColorCreateOrConnectWithoutOrderItemsInput
+  upsert?: Prisma.ProductColorUpsertWithoutOrderItemsInput
+  disconnect?: Prisma.ProductColorWhereInput | boolean
+  delete?: Prisma.ProductColorWhereInput | boolean
+  connect?: Prisma.ProductColorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProductColorUpdateToOneWithWhereWithoutOrderItemsInput, Prisma.ProductColorUpdateWithoutOrderItemsInput>, Prisma.ProductColorUncheckedUpdateWithoutOrderItemsInput>
+}
+
 export type ProductColorCreateWithoutProductInput = {
+  id?: string
   color: Prisma.ColorCreateNestedOneWithoutProductsInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutProductColorInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductColorInput
 }
 
 export type ProductColorUncheckedCreateWithoutProductInput = {
+  id?: string
   colorId: string
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductColorInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductColorInput
 }
 
 export type ProductColorCreateOrConnectWithoutProductInput = {
@@ -382,16 +460,23 @@ export type ProductColorScalarWhereInput = {
   AND?: Prisma.ProductColorScalarWhereInput | Prisma.ProductColorScalarWhereInput[]
   OR?: Prisma.ProductColorScalarWhereInput[]
   NOT?: Prisma.ProductColorScalarWhereInput | Prisma.ProductColorScalarWhereInput[]
+  id?: Prisma.UuidFilter<"ProductColor"> | string
   productId?: Prisma.UuidFilter<"ProductColor"> | string
   colorId?: Prisma.UuidFilter<"ProductColor"> | string
 }
 
 export type ProductColorCreateWithoutColorInput = {
+  id?: string
   product: Prisma.ProductCreateNestedOneWithoutColorsInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutProductColorInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductColorInput
 }
 
 export type ProductColorUncheckedCreateWithoutColorInput = {
+  id?: string
   productId: string
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductColorInput
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductColorInput
 }
 
 export type ProductColorCreateOrConnectWithoutColorInput = {
@@ -420,48 +505,195 @@ export type ProductColorUpdateManyWithWhereWithoutColorInput = {
   data: Prisma.XOR<Prisma.ProductColorUpdateManyMutationInput, Prisma.ProductColorUncheckedUpdateManyWithoutColorInput>
 }
 
+export type ProductColorCreateWithoutCartItemsInput = {
+  id?: string
+  product: Prisma.ProductCreateNestedOneWithoutColorsInput
+  color: Prisma.ColorCreateNestedOneWithoutProductsInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutProductColorInput
+}
+
+export type ProductColorUncheckedCreateWithoutCartItemsInput = {
+  id?: string
+  productId: string
+  colorId: string
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutProductColorInput
+}
+
+export type ProductColorCreateOrConnectWithoutCartItemsInput = {
+  where: Prisma.ProductColorWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductColorCreateWithoutCartItemsInput, Prisma.ProductColorUncheckedCreateWithoutCartItemsInput>
+}
+
+export type ProductColorUpsertWithoutCartItemsInput = {
+  update: Prisma.XOR<Prisma.ProductColorUpdateWithoutCartItemsInput, Prisma.ProductColorUncheckedUpdateWithoutCartItemsInput>
+  create: Prisma.XOR<Prisma.ProductColorCreateWithoutCartItemsInput, Prisma.ProductColorUncheckedCreateWithoutCartItemsInput>
+  where?: Prisma.ProductColorWhereInput
+}
+
+export type ProductColorUpdateToOneWithWhereWithoutCartItemsInput = {
+  where?: Prisma.ProductColorWhereInput
+  data: Prisma.XOR<Prisma.ProductColorUpdateWithoutCartItemsInput, Prisma.ProductColorUncheckedUpdateWithoutCartItemsInput>
+}
+
+export type ProductColorUpdateWithoutCartItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutColorsNestedInput
+  color?: Prisma.ColorUpdateOneRequiredWithoutProductsNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutProductColorNestedInput
+}
+
+export type ProductColorUncheckedUpdateWithoutCartItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  colorId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductColorNestedInput
+}
+
+export type ProductColorCreateWithoutOrderItemsInput = {
+  id?: string
+  product: Prisma.ProductCreateNestedOneWithoutColorsInput
+  color: Prisma.ColorCreateNestedOneWithoutProductsInput
+  cartItems?: Prisma.CartItemCreateNestedManyWithoutProductColorInput
+}
+
+export type ProductColorUncheckedCreateWithoutOrderItemsInput = {
+  id?: string
+  productId: string
+  colorId: string
+  cartItems?: Prisma.CartItemUncheckedCreateNestedManyWithoutProductColorInput
+}
+
+export type ProductColorCreateOrConnectWithoutOrderItemsInput = {
+  where: Prisma.ProductColorWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProductColorCreateWithoutOrderItemsInput, Prisma.ProductColorUncheckedCreateWithoutOrderItemsInput>
+}
+
+export type ProductColorUpsertWithoutOrderItemsInput = {
+  update: Prisma.XOR<Prisma.ProductColorUpdateWithoutOrderItemsInput, Prisma.ProductColorUncheckedUpdateWithoutOrderItemsInput>
+  create: Prisma.XOR<Prisma.ProductColorCreateWithoutOrderItemsInput, Prisma.ProductColorUncheckedCreateWithoutOrderItemsInput>
+  where?: Prisma.ProductColorWhereInput
+}
+
+export type ProductColorUpdateToOneWithWhereWithoutOrderItemsInput = {
+  where?: Prisma.ProductColorWhereInput
+  data: Prisma.XOR<Prisma.ProductColorUpdateWithoutOrderItemsInput, Prisma.ProductColorUncheckedUpdateWithoutOrderItemsInput>
+}
+
+export type ProductColorUpdateWithoutOrderItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  product?: Prisma.ProductUpdateOneRequiredWithoutColorsNestedInput
+  color?: Prisma.ColorUpdateOneRequiredWithoutProductsNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutProductColorNestedInput
+}
+
+export type ProductColorUncheckedUpdateWithoutOrderItemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  productId?: Prisma.StringFieldUpdateOperationsInput | string
+  colorId?: Prisma.StringFieldUpdateOperationsInput | string
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductColorNestedInput
+}
+
 export type ProductColorCreateManyProductInput = {
+  id?: string
   colorId: string
 }
 
 export type ProductColorUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   color?: Prisma.ColorUpdateOneRequiredWithoutProductsNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutProductColorNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutProductColorNestedInput
 }
 
 export type ProductColorUncheckedUpdateWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   colorId?: Prisma.StringFieldUpdateOperationsInput | string
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductColorNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductColorNestedInput
 }
 
 export type ProductColorUncheckedUpdateManyWithoutProductInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   colorId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ProductColorCreateManyColorInput = {
+  id?: string
   productId: string
 }
 
 export type ProductColorUpdateWithoutColorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   product?: Prisma.ProductUpdateOneRequiredWithoutColorsNestedInput
+  cartItems?: Prisma.CartItemUpdateManyWithoutProductColorNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutProductColorNestedInput
 }
 
 export type ProductColorUncheckedUpdateWithoutColorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
+  cartItems?: Prisma.CartItemUncheckedUpdateManyWithoutProductColorNestedInput
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutProductColorNestedInput
 }
 
 export type ProductColorUncheckedUpdateManyWithoutColorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   productId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
+/**
+ * Count Type ProductColorCountOutputType
+ */
+
+export type ProductColorCountOutputType = {
+  cartItems: number
+  orderItems: number
+}
+
+export type ProductColorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  cartItems?: boolean | ProductColorCountOutputTypeCountCartItemsArgs
+  orderItems?: boolean | ProductColorCountOutputTypeCountOrderItemsArgs
+}
+
+/**
+ * ProductColorCountOutputType without action
+ */
+export type ProductColorCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ProductColorCountOutputType
+   */
+  select?: Prisma.ProductColorCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProductColorCountOutputType without action
+ */
+export type ProductColorCountOutputTypeCountCartItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CartItemWhereInput
+}
+
+/**
+ * ProductColorCountOutputType without action
+ */
+export type ProductColorCountOutputTypeCountOrderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderItemWhereInput
+}
+
 
 export type ProductColorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
   productId?: boolean
   colorId?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   color?: boolean | Prisma.ColorDefaultArgs<ExtArgs>
+  cartItems?: boolean | Prisma.ProductColor$cartItemsArgs<ExtArgs>
+  orderItems?: boolean | Prisma.ProductColor$orderItemsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProductColorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productColor"]>
 
 export type ProductColorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
   productId?: boolean
   colorId?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -469,6 +701,7 @@ export type ProductColorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
 }, ExtArgs["result"]["productColor"]>
 
 export type ProductColorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+  id?: boolean
   productId?: boolean
   colorId?: boolean
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -476,14 +709,18 @@ export type ProductColorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
 }, ExtArgs["result"]["productColor"]>
 
 export type ProductColorSelectScalar = {
+  id?: boolean
   productId?: boolean
   colorId?: boolean
 }
 
-export type ProductColorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"productId" | "colorId", ExtArgs["result"]["productColor"]>
+export type ProductColorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "colorId", ExtArgs["result"]["productColor"]>
 export type ProductColorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   color?: boolean | Prisma.ColorDefaultArgs<ExtArgs>
+  cartItems?: boolean | Prisma.ProductColor$cartItemsArgs<ExtArgs>
+  orderItems?: boolean | Prisma.ProductColor$orderItemsArgs<ExtArgs>
+  _count?: boolean | Prisma.ProductColorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProductColorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -499,8 +736,11 @@ export type $ProductColorPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     product: Prisma.$ProductPayload<ExtArgs>
     color: Prisma.$ColorPayload<ExtArgs>
+    cartItems: Prisma.$CartItemPayload<ExtArgs>[]
+    orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
+    id: string
     productId: string
     colorId: string
   }, ExtArgs["result"]["productColor"]>
@@ -586,8 +826,8 @@ export interface ProductColorDelegate<ExtArgs extends runtime.Types.Extensions.I
    * // Get first 10 ProductColors
    * const productColors = await prisma.productColor.findMany({ take: 10 })
    * 
-   * // Only select the `productId`
-   * const productColorWithProductIdOnly = await prisma.productColor.findMany({ select: { productId: true } })
+   * // Only select the `id`
+   * const productColorWithIdOnly = await prisma.productColor.findMany({ select: { id: true } })
    * 
    */
   findMany<T extends ProductColorFindManyArgs>(args?: Prisma.SelectSubset<T, ProductColorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductColorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -631,9 +871,9 @@ export interface ProductColorDelegate<ExtArgs extends runtime.Types.Extensions.I
    *   ]
    * })
    * 
-   * // Create many ProductColors and only return the `productId`
-   * const productColorWithProductIdOnly = await prisma.productColor.createManyAndReturn({
-   *   select: { productId: true },
+   * // Create many ProductColors and only return the `id`
+   * const productColorWithIdOnly = await prisma.productColor.createManyAndReturn({
+   *   select: { id: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -722,9 +962,9 @@ export interface ProductColorDelegate<ExtArgs extends runtime.Types.Extensions.I
    *   ]
    * })
    * 
-   * // Update zero or more ProductColors and only return the `productId`
-   * const productColorWithProductIdOnly = await prisma.productColor.updateManyAndReturn({
-   *   select: { productId: true },
+   * // Update zero or more ProductColors and only return the `id`
+   * const productColorWithIdOnly = await prisma.productColor.updateManyAndReturn({
+   *   select: { id: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -899,6 +1139,8 @@ export interface Prisma__ProductColorClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   color<T extends Prisma.ColorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ColorDefaultArgs<ExtArgs>>): Prisma.Prisma__ColorClient<runtime.Types.Result.GetResult<Prisma.$ColorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  cartItems<T extends Prisma.ProductColor$cartItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductColor$cartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orderItems<T extends Prisma.ProductColor$orderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductColor$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -928,6 +1170,7 @@ export interface Prisma__ProductColorClient<T, Null = never, ExtArgs extends run
  * Fields of the ProductColor model
  */
 export interface ProductColorFieldRefs {
+  readonly id: Prisma.FieldRef<"ProductColor", 'String'>
   readonly productId: Prisma.FieldRef<"ProductColor", 'String'>
   readonly colorId: Prisma.FieldRef<"ProductColor", 'String'>
 }
@@ -1328,6 +1571,54 @@ export type ProductColorDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many ProductColors to delete.
    */
   limit?: number
+}
+
+/**
+ * ProductColor.cartItems
+ */
+export type ProductColor$cartItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CartItem
+   */
+  select?: Prisma.CartItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CartItem
+   */
+  omit?: Prisma.CartItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CartItemInclude<ExtArgs> | null
+  where?: Prisma.CartItemWhereInput
+  orderBy?: Prisma.CartItemOrderByWithRelationInput | Prisma.CartItemOrderByWithRelationInput[]
+  cursor?: Prisma.CartItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CartItemScalarFieldEnum | Prisma.CartItemScalarFieldEnum[]
+}
+
+/**
+ * ProductColor.orderItems
+ */
+export type ProductColor$orderItemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrderItem
+   */
+  select?: Prisma.OrderItemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrderItem
+   */
+  omit?: Prisma.OrderItemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderItemInclude<ExtArgs> | null
+  where?: Prisma.OrderItemWhereInput
+  orderBy?: Prisma.OrderItemOrderByWithRelationInput | Prisma.OrderItemOrderByWithRelationInput[]
+  cursor?: Prisma.OrderItemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderItemScalarFieldEnum | Prisma.OrderItemScalarFieldEnum[]
 }
 
 /**

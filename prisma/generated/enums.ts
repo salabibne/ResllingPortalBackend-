@@ -47,3 +47,36 @@ export const InventoryTxPurpose = {
 } as const
 
 export type InventoryTxPurpose = (typeof InventoryTxPurpose)[keyof typeof InventoryTxPurpose]
+
+
+export const PaymentStatus = {
+  DUE: 'DUE',
+  PAID: 'PAID',
+  PARTIAL: 'PARTIAL',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const PaymentMethod = {
+  CASH_ON_DELIVERY: 'CASH_ON_DELIVERY',
+  BKASH: 'BKASH',
+  NAGAD: 'NAGAD',
+  BANK_TRANSFER: 'BANK_TRANSFER'
+} as const
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
+
+
+export const OrderProcessingStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  PROCESSING: 'PROCESSING',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
+  RETURNED: 'RETURNED'
+} as const
+
+export type OrderProcessingStatus = (typeof OrderProcessingStatus)[keyof typeof OrderProcessingStatus]
