@@ -266,7 +266,7 @@ export class OrderService {
   }
 
   /**
-   * Update Order status (Admin/Staff only)
+   * Update Order status (Admin/Staff only) & adjust Inventory on CANCELLED / RETURNED
    */
   async updateOrderStatus(
     orderId: string,
@@ -275,25 +275,126 @@ export class OrderService {
   ) {
     const order = await this.prisma.order.findUnique({
       where: { id: orderId },
+      include: {
+        orderItems: true,
+      },
     });
 
     if (!order) {
       throw new NotFoundException('Order not found');
     }
 
-    const updated = await this.prisma.order.update({
-      where: { id: orderId },
-      data: {
-        ...(dto.processingStatus && { processingStatus: dto.processingStatus }),
-        ...(dto.paymentStatus && { paymentStatus: dto.paymentStatus }),
-        orderProcessedBy: staffUser.id,
-      },
-      include: {
-        customer: { select: { id: true, name: true, email: true } },
-        orderItems: true,
-      },
-    });
+    const isRestockStatus = (status?: string) =>
+      status === 'CANCELLED' || status === 'RETURNED';
 
-    return updated;
+    const wasRestocked = isRestockStatus(order.processingStatus);
+    const willBeRestocked = isRestockStatus(dto.processingStatus);
+
+    return this.prisma.$transaction(async (tx) => {
+      // 1. If transitioning from active -> CANCELLED/RETURNED, restore stock (STOCK_IN)
+      if (!wasRestocked && willBeRestocked && dto.processingStatus) {
+        for (const item of order.orderItems) {
+          const inv = await tx.inventory.findFirst({
+            where: {
+              productId: item.productId,
+              productSizeId: item.productSizeId || null,
+            },
+          });
+
+          if (inv) {
+            const stockBefore = inv.currentStock;
+            const stockAfter = stockBefore + item.quantity;
+
+            await tx.inventory.update({
+              where: { id: inv.id },
+              data: { currentStock: stockAfter },
+            });
+
+            await tx.inventoryTransaction.create({
+              data: {
+                inventoryId: inv.id,
+                transactionQuantity: item.quantity,
+                stockBefore,
+                stockAfter,
+                stockType: InventoryTxType.STOCK_IN,
+                purpose: InventoryTxPurpose.RETURN,
+                reference: `${dto.processingStatus}-ORDER-${order.id.substring(0, 8).toUpperCase()}`,
+                performedBy: staffUser.id,
+                notes: `Order #${order.id} status changed to ${dto.processingStatus}`,
+              },
+            });
+          }
+        }
+      }
+
+      // 2. If transitioning from CANCELLED/RETURNED -> active status, re-deduct stock (STOCK_OUT)
+      if (wasRestocked && dto.processingStatus && !willBeRestocked) {
+        // Validate stock availability first
+        for (const item of order.orderItems) {
+          const inv = await tx.inventory.findFirst({
+            where: {
+              productId: item.productId,
+              productSizeId: item.productSizeId || null,
+            },
+          });
+
+          if (!inv || inv.currentStock < item.quantity) {
+            throw new BadRequestException(
+              `Cannot reactivate order. Insufficient stock for product ID "${item.productId}". Available: ${inv?.currentStock || 0}, Required: ${item.quantity}`,
+            );
+          }
+        }
+
+        // Deduct stock
+        for (const item of order.orderItems) {
+          const inv = await tx.inventory.findFirst({
+            where: {
+              productId: item.productId,
+              productSizeId: item.productSizeId || null,
+            },
+          });
+
+          if (inv) {
+            const stockBefore = inv.currentStock;
+            const stockAfter = stockBefore - item.quantity;
+
+            await tx.inventory.update({
+              where: { id: inv.id },
+              data: { currentStock: stockAfter },
+            });
+
+            await tx.inventoryTransaction.create({
+              data: {
+                inventoryId: inv.id,
+                transactionQuantity: item.quantity,
+                stockBefore,
+                stockAfter,
+                stockType: InventoryTxType.STOCK_OUT,
+                purpose: InventoryTxPurpose.SELL,
+                reference: `REACTIVATE-ORDER-${order.id.substring(0, 8).toUpperCase()}`,
+                performedBy: staffUser.id,
+                notes: `Order #${order.id} status updated from ${order.processingStatus} to ${dto.processingStatus}`,
+              },
+            });
+          }
+        }
+      }
+
+      // 3. Update order status in DB
+      const updated = await tx.order.update({
+        where: { id: orderId },
+        data: {
+          ...(dto.processingStatus && { processingStatus: dto.processingStatus }),
+          ...(dto.paymentStatus && { paymentStatus: dto.paymentStatus }),
+          orderProcessedBy: staffUser.id,
+        },
+        include: {
+          customer: { select: { id: true, name: true, email: true } },
+          orderItems: true,
+        },
+      });
+
+      return updated;
+    });
   }
 }
