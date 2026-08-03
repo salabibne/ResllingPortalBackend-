@@ -69,7 +69,15 @@ export const ModelName = {
   Cart: 'Cart',
   CartItem: 'CartItem',
   Order: 'Order',
-  OrderItem: 'OrderItem'
+  OrderItem: 'OrderItem',
+  CmsSocialMedia: 'CmsSocialMedia',
+  CmsContact: 'CmsContact',
+  CmsHero: 'CmsHero',
+  CmsAbout: 'CmsAbout',
+  CmsSection: 'CmsSection',
+  CmsFounder: 'CmsFounder',
+  CmsFounderBlog: 'CmsFounderBlog',
+  CmsFounderVideo: 'CmsFounderVideo'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -348,6 +356,125 @@ export const OrderItemScalarFieldEnum = {
 } as const
 
 export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+export const CmsSocialMediaScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  iconName: 'iconName',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsSocialMediaScalarFieldEnum = (typeof CmsSocialMediaScalarFieldEnum)[keyof typeof CmsSocialMediaScalarFieldEnum]
+
+
+export const CmsContactScalarFieldEnum = {
+  id: 'id',
+  phone: 'phone',
+  email: 'email',
+  address: 'address',
+  telegram: 'telegram',
+  whatsapp: 'whatsapp',
+  facebook: 'facebook',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsContactScalarFieldEnum = (typeof CmsContactScalarFieldEnum)[keyof typeof CmsContactScalarFieldEnum]
+
+
+export const CmsHeroScalarFieldEnum = {
+  id: 'id',
+  heroTitle: 'heroTitle',
+  heroSubtitle: 'heroSubtitle',
+  buttonText1: 'buttonText1',
+  buttonLink1: 'buttonLink1',
+  buttonText2: 'buttonText2',
+  buttonLink2: 'buttonLink2',
+  imageUrl: 'imageUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsHeroScalarFieldEnum = (typeof CmsHeroScalarFieldEnum)[keyof typeof CmsHeroScalarFieldEnum]
+
+
+export const CmsAboutScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  youtubeLink: 'youtubeLink',
+  buttonText1: 'buttonText1',
+  buttonLink1: 'buttonLink1',
+  buttonText2: 'buttonText2',
+  buttonLink2: 'buttonLink2',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsAboutScalarFieldEnum = (typeof CmsAboutScalarFieldEnum)[keyof typeof CmsAboutScalarFieldEnum]
+
+
+export const CmsSectionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  cardTitle: 'cardTitle',
+  cardIcon: 'cardIcon',
+  cardDescription: 'cardDescription',
+  cardButton: 'cardButton',
+  cardLink: 'cardLink',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsSectionScalarFieldEnum = (typeof CmsSectionScalarFieldEnum)[keyof typeof CmsSectionScalarFieldEnum]
+
+
+export const CmsFounderScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsFounderScalarFieldEnum = (typeof CmsFounderScalarFieldEnum)[keyof typeof CmsFounderScalarFieldEnum]
+
+
+export const CmsFounderBlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  imageUrl: 'imageUrl',
+  description: 'description',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsFounderBlogScalarFieldEnum = (typeof CmsFounderBlogScalarFieldEnum)[keyof typeof CmsFounderBlogScalarFieldEnum]
+
+
+export const CmsFounderVideoScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  videoLink: 'videoLink',
+  description: 'description',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsFounderVideoScalarFieldEnum = (typeof CmsFounderVideoScalarFieldEnum)[keyof typeof CmsFounderVideoScalarFieldEnum]
 
 
 export const SortOrder = {

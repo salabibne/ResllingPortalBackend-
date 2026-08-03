@@ -371,3 +371,115 @@ model OrderItem {
   @@index([productId])
   @@map("order_item")
 }
+
+model CmsSocialMedia {
+  id        String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String       @db.VarChar(100)
+  iconName  String       @map("icon_name") @db.VarChar(100)
+  status    CommonStatus @default(ACTIVE)
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @updatedAt @map("updated_at")
+
+  @@map("cms_social_media")
+}
+
+model CmsContact {
+  id        String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  phone     String       @db.VarChar(20)
+  email     String       @db.VarChar(255)
+  address   String       @db.Text
+  telegram  String?      @db.VarChar(255)
+  whatsapp  String?      @db.VarChar(255)
+  facebook  String?      @db.VarChar(255)
+  status    CommonStatus @default(ACTIVE)
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @updatedAt @map("updated_at")
+
+  @@map("cms_contact")
+}
+
+model CmsHero {
+  id           String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  heroTitle    String       @map("hero_title") @db.VarChar(255)
+  heroSubtitle String       @map("hero_subtitle") @db.Text
+  buttonText1  String       @map("button_text_1") @db.VarChar(50)
+  buttonLink1  String       @map("button_link_1") @db.Text
+  buttonText2  String?      @map("button_text_2") @db.VarChar(50)
+  buttonLink2  String?      @map("button_link_2") @db.Text
+  imageUrl     String       @map("image_url") @db.Text
+  status       CommonStatus @default(ACTIVE)
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+
+  @@map("cms_hero")
+}
+
+model CmsAbout {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String       @db.VarChar(255)
+  description String       @db.Text
+  youtubeLink String       @map("youtube_link") @db.Text
+  buttonText1 String       @map("button_text_1") @db.VarChar(50)
+  buttonLink1 String       @map("button_link_1") @db.Text
+  buttonText2 String?      @map("button_text_2") @db.VarChar(50)
+  buttonLink2 String?      @map("button_link_2") @db.Text
+  status      CommonStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("cms_about")
+}
+
+model CmsSection {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title           String       @db.VarChar(255)
+  description     String       @db.Text
+  imageUrl        String?    @map("image_url") @db.Text
+  cardTitle       String       @map("card_title") @db.VarChar(255)
+  cardIcon        String       @map("card_icon") @db.VarChar(100)
+  cardDescription String       @map("card_description") @db.Text
+  cardButton      String?      @map("card_button") @db.VarChar(50)
+  cardLink        String?      @map("card_link") @db.Text
+  status          CommonStatus @default(ACTIVE)
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  @@map("cms_section")
+}
+
+model CmsFounder {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String       @db.VarChar(255)
+  description String       @db.Text
+  imageUrl    String       @map("image_url") @db.Text
+  status      CommonStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("cms_founder")
+}
+
+model CmsFounderBlog {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String       @db.VarChar(255)
+  imageUrl    String       @map("image_url") @db.Text
+  description String       @db.Text
+  status      CommonStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("cms_founder_blog")
+}
+
+model CmsFounderVideo {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String       @db.VarChar(255)
+  videoLink   String       @map("video_link") @db.Text
+  description String       @db.Text
+  status      CommonStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("cms_founder_video")
+}
+

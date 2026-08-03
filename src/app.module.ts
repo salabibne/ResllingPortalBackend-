@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CartModule } from './cart/cart.module';
+import { CmsModule } from './cms/cms.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { MetadataModule } from './metadata/metadata.module';
 import { OrderModule } from './order/order.module';
@@ -25,8 +26,10 @@ import { ProductModule } from './product/product.module';
     InventoryModule,
     CartModule,
     OrderModule,
+    CmsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+

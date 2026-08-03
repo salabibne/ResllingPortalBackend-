@@ -112,3 +112,43 @@ export type Order = Prisma.OrderModel
  * 
  */
 export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model CmsSocialMedia
+ * 
+ */
+export type CmsSocialMedia = Prisma.CmsSocialMediaModel
+/**
+ * Model CmsContact
+ * 
+ */
+export type CmsContact = Prisma.CmsContactModel
+/**
+ * Model CmsHero
+ * 
+ */
+export type CmsHero = Prisma.CmsHeroModel
+/**
+ * Model CmsAbout
+ * 
+ */
+export type CmsAbout = Prisma.CmsAboutModel
+/**
+ * Model CmsSection
+ * 
+ */
+export type CmsSection = Prisma.CmsSectionModel
+/**
+ * Model CmsFounder
+ * 
+ */
+export type CmsFounder = Prisma.CmsFounderModel
+/**
+ * Model CmsFounderBlog
+ * 
+ */
+export type CmsFounderBlog = Prisma.CmsFounderBlogModel
+/**
+ * Model CmsFounderVideo
+ * 
+ */
+export type CmsFounderVideo = Prisma.CmsFounderVideoModel
