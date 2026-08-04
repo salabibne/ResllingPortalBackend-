@@ -80,3 +80,12 @@ export const OrderProcessingStatus = {
 } as const
 
 export type OrderProcessingStatus = (typeof OrderProcessingStatus)[keyof typeof OrderProcessingStatus]
+
+
+export const PageStatus = {
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type PageStatus = (typeof PageStatus)[keyof typeof PageStatus]

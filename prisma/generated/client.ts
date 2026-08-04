@@ -174,3 +174,38 @@ export type CmsFounderBlog = Prisma.CmsFounderBlogModel
  * 
  */
 export type CmsFounderVideo = Prisma.CmsFounderVideoModel
+/**
+ * Model CustomPage
+ * 
+ */
+export type CustomPage = Prisma.CustomPageModel
+/**
+ * Model PageSection
+ * 
+ */
+export type PageSection = Prisma.PageSectionModel
+/**
+ * Model ProductPageConfig
+ * 
+ */
+export type ProductPageConfig = Prisma.ProductPageConfigModel
+/**
+ * Model ProductPageSection
+ * 
+ */
+export type ProductPageSection = Prisma.ProductPageSectionModel
+/**
+ * Model Announcement
+ * 
+ */
+export type Announcement = Prisma.AnnouncementModel
+/**
+ * Model ExternalApi
+ * 
+ */
+export type ExternalApi = Prisma.ExternalApiModel
+/**
+ * Model LegalDocument
+ * 
+ */
+export type LegalDocument = Prisma.LegalDocumentModel

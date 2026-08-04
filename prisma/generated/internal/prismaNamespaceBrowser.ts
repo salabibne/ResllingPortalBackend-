@@ -77,7 +77,14 @@ export const ModelName = {
   CmsSection: 'CmsSection',
   CmsFounder: 'CmsFounder',
   CmsFounderBlog: 'CmsFounderBlog',
-  CmsFounderVideo: 'CmsFounderVideo'
+  CmsFounderVideo: 'CmsFounderVideo',
+  CustomPage: 'CustomPage',
+  PageSection: 'PageSection',
+  ProductPageConfig: 'ProductPageConfig',
+  ProductPageSection: 'ProductPageSection',
+  Announcement: 'Announcement',
+  ExternalApi: 'ExternalApi',
+  LegalDocument: 'LegalDocument'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -477,12 +484,138 @@ export const CmsFounderVideoScalarFieldEnum = {
 export type CmsFounderVideoScalarFieldEnum = (typeof CmsFounderVideoScalarFieldEnum)[keyof typeof CmsFounderVideoScalarFieldEnum]
 
 
+export const CustomPageScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  content: 'content',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  status: 'status',
+  isSystem: 'isSystem',
+  buttonTitle: 'buttonTitle',
+  buttonLink: 'buttonLink',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CustomPageScalarFieldEnum = (typeof CustomPageScalarFieldEnum)[keyof typeof CustomPageScalarFieldEnum]
+
+
+export const PageSectionScalarFieldEnum = {
+  id: 'id',
+  customPageId: 'customPageId',
+  title: 'title',
+  subtitle: 'subtitle',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  images: 'images',
+  imageDescription: 'imageDescription',
+  buttonText: 'buttonText',
+  buttonLink: 'buttonLink',
+  content: 'content',
+  sortOrder: 'sortOrder'
+} as const
+
+export type PageSectionScalarFieldEnum = (typeof PageSectionScalarFieldEnum)[keyof typeof PageSectionScalarFieldEnum]
+
+
+export const ProductPageConfigScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  customTitle: 'customTitle',
+  customDescription: 'customDescription',
+  bannerImageUrl: 'bannerImageUrl',
+  videoUrl: 'videoUrl',
+  showReviews: 'showReviews',
+  showFaq: 'showFaq',
+  showRelatedItems: 'showRelatedItems',
+  isLandingPage: 'isLandingPage',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductPageConfigScalarFieldEnum = (typeof ProductPageConfigScalarFieldEnum)[keyof typeof ProductPageConfigScalarFieldEnum]
+
+
+export const ProductPageSectionScalarFieldEnum = {
+  id: 'id',
+  productPageConfigId: 'productPageConfigId',
+  title: 'title',
+  subtitle: 'subtitle',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  images: 'images',
+  imageDescription: 'imageDescription',
+  buttonText: 'buttonText',
+  buttonLink: 'buttonLink',
+  productIds: 'productIds',
+  content: 'content',
+  sortOrder: 'sortOrder'
+} as const
+
+export type ProductPageSectionScalarFieldEnum = (typeof ProductPageSectionScalarFieldEnum)[keyof typeof ProductPageSectionScalarFieldEnum]
+
+
+export const AnnouncementScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  linkUrl: 'linkUrl',
+  expiresDate: 'expiresDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AnnouncementScalarFieldEnum = (typeof AnnouncementScalarFieldEnum)[keyof typeof AnnouncementScalarFieldEnum]
+
+
+export const ExternalApiScalarFieldEnum = {
+  id: 'id',
+  apiName: 'apiName',
+  apiUrl: 'apiUrl',
+  credentials: 'credentials',
+  description: 'description',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExternalApiScalarFieldEnum = (typeof ExternalApiScalarFieldEnum)[keyof typeof ExternalApiScalarFieldEnum]
+
+
+export const LegalDocumentScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  content: 'content',
+  version: 'version',
+  isSystem: 'isSystem',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LegalDocumentScalarFieldEnum = (typeof LegalDocumentScalarFieldEnum)[keyof typeof LegalDocumentScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -499,4 +632,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

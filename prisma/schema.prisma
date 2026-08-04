@@ -62,6 +62,13 @@ enum OrderProcessingStatus {
   RETURNED
 }
 
+enum PageStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+
 model User {
   id                 String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name               String       @db.VarChar(255)
@@ -173,6 +180,7 @@ model Product {
   colors            ProductColor[]
   sizes             ProductSize[]
   ages              ProductAge[]
+  pageConfig        ProductPageConfig?
 
   @@map("product")
 }
@@ -482,4 +490,149 @@ model CmsFounderVideo {
 
   @@map("cms_founder_video")
 }
+
+model CustomPage {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title           String       @db.VarChar(255)
+  slug            String       @unique @db.VarChar(255)
+  content         String?      @db.Text
+  metaTitle       String?      @map("meta_title") @db.VarChar(255)
+  metaDescription String?      @map("meta_description") @db.Text
+  status          PageStatus   @default(DRAFT)
+  isSystem        Boolean      @default(false) @map("is_system")
+  buttonTitle     String?      @map("button_title") @db.VarChar(100)
+  buttonLink      String?      @map("button_link") @db.Text
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  sections        PageSection[]
+
+  @@index([slug])
+  @@map("custom_page")
+}
+
+model PageSection {
+  id               String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customPageId     String     @map("custom_page_id") @db.Uuid
+  
+  // Section Header & Text
+  title            String?    @db.VarChar(255)
+  subtitle         String?    @db.VarChar(255)
+  description      String?    @db.Text
+  
+  // Media / Card Images & Descriptions
+  imageUrl         String?    @map("image_url") @db.Text
+  images           String[]   @default([]) @map("images")
+  imageDescription String?    @map("image_description") @db.Text
+  
+  // Action Buttons
+  buttonText       String?    @map("button_text") @db.VarChar(100)
+  buttonLink       String?    @map("button_link") @db.Text
+  
+  // Flexible Content (WYSIWYG or Card Grid payloads)
+  content          Json?
+  
+  sortOrder        Int        @default(0) @map("sort_order")
+  
+  customPage       CustomPage @relation(fields: [customPageId], references: [id], onDelete: Cascade)
+
+  @@map("page_section")
+}
+
+model ProductPageConfig {
+  id                String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productId         String       @unique @map("product_id") @db.Uuid
+  
+  // Custom Landing Content
+  customTitle       String?      @map("custom_title") @db.VarChar(255)
+  customDescription String?      @map("custom_description") @db.Text
+  bannerImageUrl    String?      @map("banner_image_url") @db.Text
+  videoUrl          String?      @map("video_url") @db.Text
+  
+  // Display & Feature Toggles
+  showReviews       Boolean      @default(false) @map("show_reviews")
+  showFaq           Boolean      @default(false) @map("show_faq")
+  showRelatedItems  Boolean      @default(false) @map("show_related_items")
+  isLandingPage     Boolean      @default(false) @map("is_landing_page")
+
+  // SEO Overrides
+  metaTitle         String?      @map("meta_title") @db.VarChar(255)
+  metaDescription   String?      @map("meta_description") @db.Text
+
+  createdAt         DateTime     @default(now()) @map("created_at")
+  updatedAt         DateTime     @updatedAt @map("updated_at")
+
+  product           Product              @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sections          ProductPageSection[]
+
+  @@map("product_page_config")
+}
+
+model ProductPageSection {
+  id                  String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  productPageConfigId String            @map("product_page_config_id") @db.Uuid
+  
+  title               String?           @db.VarChar(255)
+  subtitle            String?           @db.VarChar(255)
+  description         String?           @db.Text
+  imageUrl            String?           @map("image_url") @db.Text
+  images              String[]          @default([]) @map("images")
+  imageDescription    String?           @map("image_description") @db.Text
+  
+  buttonText          String?           @map("button_text") @db.VarChar(100)
+  buttonLink          String?           @map("button_link") @db.Text
+  
+  // Showcase Products for this Product Landing Section
+  productIds          String[]          @default([]) @map("product_ids") @db.Uuid
+  
+  content             Json?
+  sortOrder           Int               @default(0) @map("sort_order")
+  
+  productPageConfig   ProductPageConfig @relation(fields: [productPageConfigId], references: [id], onDelete: Cascade)
+
+  @@map("product_page_section")
+}
+
+model Announcement {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title       String       @db.VarChar(255)
+  content     String       @db.Text
+  linkUrl     String?      @map("link_url") @db.Text
+  expiresDate DateTime?    @map("expires_date")
+  status      CommonStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("cms_announcement")
+}
+
+model ExternalApi {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  apiName     String       @map("api_name") @db.VarChar(100)
+  apiUrl      String       @map("api_url") @db.Text
+  credentials String       @db.Text
+  description String?      @db.Text
+  status      CommonStatus @default(ACTIVE)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("external_api")
+}
+
+model LegalDocument {
+  id        String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title     String     @db.VarChar(255)
+  slug      String     @unique @db.VarChar(100)
+  content   String     @db.Text
+  version   String?    @default("1.0") @db.VarChar(20)
+  isSystem  Boolean    @default(false) @map("is_system")
+  status    PageStatus @default(DRAFT)
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+
+  @@index([slug])
+  @@map("legal_document")
+}
+
+
 
