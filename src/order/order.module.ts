@@ -4,10 +4,12 @@ import { PrismaModule } from '../prisma/prisma.module';
 import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
 
+import { SteadfastService } from './steadfast.service';
+
 @Module({
   imports: [AuthModule, PrismaModule],
   controllers: [OrderController],
-  providers: [OrderService],
-  exports: [OrderService],
+  providers: [OrderService, SteadfastService],
+  exports: [OrderService, SteadfastService],
 })
 export class OrderModule {}

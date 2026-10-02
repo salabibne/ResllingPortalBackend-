@@ -11,6 +11,8 @@ import { MetadataModule } from './metadata/metadata.module';
 import { OrderModule } from './order/order.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProductModule } from './product/product.module';
+import { UserModule } from './user/user.module';
+import { WithdrawalModule } from './withdrawal/withdrawal.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { ProductModule } from './product/product.module';
     CartModule,
     OrderModule,
     CmsModule,
+    UserModule,
+    WithdrawalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

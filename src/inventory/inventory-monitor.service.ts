@@ -27,12 +27,13 @@ export class InventoryMonitorService {
     const totalInventoryRecords = agg._count;
     const totalStockUnits = agg._sum.currentStock || 0;
 
-    // Use queryRaw for computed total stock value
+    // Use queryRaw for computed total stock value based on product purchase price
     const [{ totalStockValue }] = await this.prisma.$queryRaw<
       { totalStockValue: number }[]
     >`
-      SELECT COALESCE(SUM(current_stock * cost_per_unit), 0)::float as "totalStockValue"
-      FROM inventory
+      SELECT COALESCE(SUM(i.current_stock * p.purchase_price), 0)::float as "totalStockValue"
+      FROM inventory i
+      JOIN product p ON i.product_id = p.id
     `;
 
     // Separate count queries
@@ -148,7 +149,7 @@ export class InventoryMonitorService {
     const paginated = await this.prisma.inventory.findMany({
       where: { id: { in: ids } },
       include: {
-        product: { select: { id: true, name: true } },
+        product: { select: { id: true, name: true, purchasePrice: true } },
         productSize: { include: { size: { select: { id: true, name: true } } } },
       },
       orderBy: { currentStock: 'asc' },
@@ -159,7 +160,7 @@ export class InventoryMonitorService {
       productId: inv.productId,
       currentStock: inv.currentStock,
       stockLimitAlert: inv.stockLimitAlert,
-      costPerUnit: inv.costPerUnit,
+      costPerUnit: Number(inv.product?.purchasePrice ?? inv.costPerUnit ?? 0),
       supplierName: inv.supplierName,
       supplierMobile: inv.supplierMobile,
       product: inv.product,
@@ -224,7 +225,7 @@ export class InventoryMonitorService {
         include: {
           inventory: {
             include: {
-              product: { select: { id: true, name: true } },
+              product: { select: { id: true, name: true, purchasePrice: true } },
               productSize: { include: { size: { select: { id: true, name: true } } } },
             },
           },
@@ -273,7 +274,7 @@ export class InventoryMonitorService {
     const inventories = await this.prisma.inventory.findMany({
       where: { productId: { in: paginatedProductIds } },
       include: {
-        product: { select: { id: true, name: true } },
+        product: { select: { id: true, name: true, purchasePrice: true } },
         productSize: { include: { size: { select: { id: true, name: true } } } },
       },
       orderBy: { createdAt: 'asc' },
@@ -341,16 +342,17 @@ export class InventoryMonitorService {
 
       const sizeBreakdown = group.inventories.map((inv) => {
         const stock = inv.currentStock;
-        const cost = Number(inv.costPerUnit);
+        const purchasePrice = Number(inv.product.purchasePrice || 0);
         totalStockUnits += stock;
-        totalStockValue += stock * cost;
-        totalCostWeighted += cost;
+        totalStockValue += stock * purchasePrice;
+        totalCostWeighted += purchasePrice;
 
         return {
           productSizeId: inv.productSizeId,
           sizeName: inv.productSize?.size?.name ?? null,
           currentStock: stock,
-          costPerUnit: inv.costPerUnit,
+          costPerUnit: purchasePrice,
+          purchasePrice: purchasePrice,
         };
       });
 
@@ -383,13 +385,18 @@ export class InventoryMonitorService {
       }
 
       const invCount = group.inventories.length;
+      const productPurchasePrice =
+        group.inventories[0]?.product?.purchasePrice
+          ? Number(group.inventories[0].product.purchasePrice).toFixed(2)
+          : '0.00';
+
       return {
         productId: group.productId,
         productName: group.productName,
+        purchasePrice: productPurchasePrice,
         totalStockUnits,
         totalStockValue: totalStockValue.toFixed(2),
-        avgCostPerUnit:
-          invCount > 0 ? (totalCostWeighted / invCount).toFixed(2) : '0.00',
+        avgCostPerUnit: productPurchasePrice,
         sizeBreakdown,
         periodMovement,
       };

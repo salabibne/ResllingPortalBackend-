@@ -89,3 +89,25 @@ export const PageStatus = {
 } as const
 
 export type PageStatus = (typeof PageStatus)[keyof typeof PageStatus]
+
+
+export const WithdrawalStatus = {
+  PENDING: 'PENDING',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type WithdrawalStatus = (typeof WithdrawalStatus)[keyof typeof WithdrawalStatus]
+
+
+export const PayoutMethod = {
+  BKASH: 'BKASH',
+  NAGAD: 'NAGAD',
+  ROCKET: 'ROCKET',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  CASH: 'CASH'
+} as const
+
+export type PayoutMethod = (typeof PayoutMethod)[keyof typeof PayoutMethod]

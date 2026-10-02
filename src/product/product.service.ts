@@ -19,6 +19,7 @@ const PRODUCT_INCLUDE = {
   sizes: { include: { size: true } },
   ages: { include: { ageVariant: true } },
   inventories: { include: { productSize: { include: { size: true } } } },
+  pageConfig: true,
 } satisfies Prisma.ProductInclude;
 
 @Injectable()

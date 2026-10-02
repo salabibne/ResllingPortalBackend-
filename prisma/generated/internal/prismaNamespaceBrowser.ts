@@ -78,13 +78,16 @@ export const ModelName = {
   CmsFounder: 'CmsFounder',
   CmsFounderBlog: 'CmsFounderBlog',
   CmsFounderVideo: 'CmsFounderVideo',
+  CmsTeam: 'CmsTeam',
   CustomPage: 'CustomPage',
   PageSection: 'PageSection',
   ProductPageConfig: 'ProductPageConfig',
   ProductPageSection: 'ProductPageSection',
   Announcement: 'Announcement',
   ExternalApi: 'ExternalApi',
-  LegalDocument: 'LegalDocument'
+  LegalDocument: 'LegalDocument',
+  CourierSetting: 'CourierSetting',
+  Withdrawal: 'Withdrawal'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -332,8 +335,21 @@ export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typ
 
 export const OrderScalarFieldEnum = {
   id: 'id',
+  orderRef: 'orderRef',
   cartId: 'cartId',
   customerId: 'customerId',
+  isResellerOrder: 'isResellerOrder',
+  resellerId: 'resellerId',
+  customerName: 'customerName',
+  customerPhone: 'customerPhone',
+  customerSecondaryPhone: 'customerSecondaryPhone',
+  customerDistrict: 'customerDistrict',
+  customerThana: 'customerThana',
+  resellerSubtotal: 'resellerSubtotal',
+  resellerSellPrice: 'resellerSellPrice',
+  resellerProfit: 'resellerProfit',
+  isAdvanceCourierPaid: 'isAdvanceCourierPaid',
+  advanceCourierAmount: 'advanceCourierAmount',
   paymentStatus: 'paymentStatus',
   paymentMethod: 'paymentMethod',
   processingStatus: 'processingStatus',
@@ -344,6 +360,14 @@ export const OrderScalarFieldEnum = {
   total: 'total',
   shippingAddress: 'shippingAddress',
   notes: 'notes',
+  courierProvider: 'courierProvider',
+  courierConsignmentId: 'courierConsignmentId',
+  courierTrackingCode: 'courierTrackingCode',
+  courierStatus: 'courierStatus',
+  courierSubmittedAt: 'courierSubmittedAt',
+  courierLastSyncedAt: 'courierLastSyncedAt',
+  courierDeliveryType: 'courierDeliveryType',
+  courierNotes: 'courierNotes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -359,6 +383,8 @@ export const OrderItemScalarFieldEnum = {
   productColorId: 'productColorId',
   quantity: 'quantity',
   snapshotPrice: 'snapshotPrice',
+  resellerUnitCost: 'resellerUnitCost',
+  resellerSellingPrice: 'resellerSellingPrice',
   subtotal: 'subtotal'
 } as const
 
@@ -484,6 +510,21 @@ export const CmsFounderVideoScalarFieldEnum = {
 export type CmsFounderVideoScalarFieldEnum = (typeof CmsFounderVideoScalarFieldEnum)[keyof typeof CmsFounderVideoScalarFieldEnum]
 
 
+export const CmsTeamScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  designation: 'designation',
+  imageUrl: 'imageUrl',
+  message: 'message',
+  status: 'status',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsTeamScalarFieldEnum = (typeof CmsTeamScalarFieldEnum)[keyof typeof CmsTeamScalarFieldEnum]
+
+
 export const CustomPageScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -600,6 +641,38 @@ export const LegalDocumentScalarFieldEnum = {
 } as const
 
 export type LegalDocumentScalarFieldEnum = (typeof LegalDocumentScalarFieldEnum)[keyof typeof LegalDocumentScalarFieldEnum]
+
+
+export const CourierSettingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  chargeText: 'chargeText',
+  defaultCharge: 'defaultCharge',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CourierSettingScalarFieldEnum = (typeof CourierSettingScalarFieldEnum)[keyof typeof CourierSettingScalarFieldEnum]
+
+
+export const WithdrawalScalarFieldEnum = {
+  id: 'id',
+  resellerId: 'resellerId',
+  amount: 'amount',
+  payoutMethod: 'payoutMethod',
+  accountDetails: 'accountDetails',
+  status: 'status',
+  resellerNotes: 'resellerNotes',
+  transactionId: 'transactionId',
+  proofImageUrl: 'proofImageUrl',
+  adminNotes: 'adminNotes',
+  processedBy: 'processedBy',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
 
 
 export const SortOrder = {

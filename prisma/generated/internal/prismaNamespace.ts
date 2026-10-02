@@ -411,13 +411,16 @@ export const ModelName = {
   CmsFounder: 'CmsFounder',
   CmsFounderBlog: 'CmsFounderBlog',
   CmsFounderVideo: 'CmsFounderVideo',
+  CmsTeam: 'CmsTeam',
   CustomPage: 'CustomPage',
   PageSection: 'PageSection',
   ProductPageConfig: 'ProductPageConfig',
   ProductPageSection: 'ProductPageSection',
   Announcement: 'Announcement',
   ExternalApi: 'ExternalApi',
-  LegalDocument: 'LegalDocument'
+  LegalDocument: 'LegalDocument',
+  CourierSetting: 'CourierSetting',
+  Withdrawal: 'Withdrawal'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -433,7 +436,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "category" | "subcategory" | "childCategory" | "brand" | "product" | "productImage" | "color" | "productColor" | "size" | "productSize" | "ageVariant" | "productAge" | "inventory" | "inventoryTransaction" | "cart" | "cartItem" | "order" | "orderItem" | "cmsSocialMedia" | "cmsContact" | "cmsHero" | "cmsAbout" | "cmsSection" | "cmsFounder" | "cmsFounderBlog" | "cmsFounderVideo" | "customPage" | "pageSection" | "productPageConfig" | "productPageSection" | "announcement" | "externalApi" | "legalDocument"
+    modelProps: "user" | "category" | "subcategory" | "childCategory" | "brand" | "product" | "productImage" | "color" | "productColor" | "size" | "productSize" | "ageVariant" | "productAge" | "inventory" | "inventoryTransaction" | "cart" | "cartItem" | "order" | "orderItem" | "cmsSocialMedia" | "cmsContact" | "cmsHero" | "cmsAbout" | "cmsSection" | "cmsFounder" | "cmsFounderBlog" | "cmsFounderVideo" | "cmsTeam" | "customPage" | "pageSection" | "productPageConfig" | "productPageSection" | "announcement" | "externalApi" | "legalDocument" | "courierSetting" | "withdrawal"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2435,6 +2438,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CmsTeam: {
+      payload: Prisma.$CmsTeamPayload<ExtArgs>
+      fields: Prisma.CmsTeamFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CmsTeamFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CmsTeamFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>
+        }
+        findFirst: {
+          args: Prisma.CmsTeamFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CmsTeamFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>
+        }
+        findMany: {
+          args: Prisma.CmsTeamFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>[]
+        }
+        create: {
+          args: Prisma.CmsTeamCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>
+        }
+        createMany: {
+          args: Prisma.CmsTeamCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CmsTeamCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>[]
+        }
+        delete: {
+          args: Prisma.CmsTeamDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>
+        }
+        update: {
+          args: Prisma.CmsTeamUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>
+        }
+        deleteMany: {
+          args: Prisma.CmsTeamDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CmsTeamUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CmsTeamUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>[]
+        }
+        upsert: {
+          args: Prisma.CmsTeamUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>
+        }
+        aggregate: {
+          args: Prisma.CmsTeamAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCmsTeam>
+        }
+        groupBy: {
+          args: Prisma.CmsTeamGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CmsTeamGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CmsTeamCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CmsTeamCountAggregateOutputType> | number
+        }
+      }
+    }
     CustomPage: {
       payload: Prisma.$CustomPagePayload<ExtArgs>
       fields: Prisma.CustomPageFieldRefs
@@ -2953,6 +3030,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CourierSetting: {
+      payload: Prisma.$CourierSettingPayload<ExtArgs>
+      fields: Prisma.CourierSettingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CourierSettingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CourierSettingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>
+        }
+        findFirst: {
+          args: Prisma.CourierSettingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CourierSettingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>
+        }
+        findMany: {
+          args: Prisma.CourierSettingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>[]
+        }
+        create: {
+          args: Prisma.CourierSettingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>
+        }
+        createMany: {
+          args: Prisma.CourierSettingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CourierSettingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>[]
+        }
+        delete: {
+          args: Prisma.CourierSettingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>
+        }
+        update: {
+          args: Prisma.CourierSettingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>
+        }
+        deleteMany: {
+          args: Prisma.CourierSettingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CourierSettingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CourierSettingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>[]
+        }
+        upsert: {
+          args: Prisma.CourierSettingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>
+        }
+        aggregate: {
+          args: Prisma.CourierSettingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCourierSetting>
+        }
+        groupBy: {
+          args: Prisma.CourierSettingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourierSettingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CourierSettingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourierSettingCountAggregateOutputType> | number
+        }
+      }
+    }
+    Withdrawal: {
+      payload: Prisma.$WithdrawalPayload<ExtArgs>
+      fields: Prisma.WithdrawalFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WithdrawalFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WithdrawalFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>
+        }
+        findFirst: {
+          args: Prisma.WithdrawalFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WithdrawalFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>
+        }
+        findMany: {
+          args: Prisma.WithdrawalFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>[]
+        }
+        create: {
+          args: Prisma.WithdrawalCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>
+        }
+        createMany: {
+          args: Prisma.WithdrawalCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WithdrawalCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>[]
+        }
+        delete: {
+          args: Prisma.WithdrawalDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>
+        }
+        update: {
+          args: Prisma.WithdrawalUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>
+        }
+        deleteMany: {
+          args: Prisma.WithdrawalDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WithdrawalUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WithdrawalUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>[]
+        }
+        upsert: {
+          args: Prisma.WithdrawalUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>
+        }
+        aggregate: {
+          args: Prisma.WithdrawalAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWithdrawal>
+        }
+        groupBy: {
+          args: Prisma.WithdrawalGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WithdrawalGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WithdrawalCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WithdrawalCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3221,8 +3446,21 @@ export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typ
 
 export const OrderScalarFieldEnum = {
   id: 'id',
+  orderRef: 'orderRef',
   cartId: 'cartId',
   customerId: 'customerId',
+  isResellerOrder: 'isResellerOrder',
+  resellerId: 'resellerId',
+  customerName: 'customerName',
+  customerPhone: 'customerPhone',
+  customerSecondaryPhone: 'customerSecondaryPhone',
+  customerDistrict: 'customerDistrict',
+  customerThana: 'customerThana',
+  resellerSubtotal: 'resellerSubtotal',
+  resellerSellPrice: 'resellerSellPrice',
+  resellerProfit: 'resellerProfit',
+  isAdvanceCourierPaid: 'isAdvanceCourierPaid',
+  advanceCourierAmount: 'advanceCourierAmount',
   paymentStatus: 'paymentStatus',
   paymentMethod: 'paymentMethod',
   processingStatus: 'processingStatus',
@@ -3233,6 +3471,14 @@ export const OrderScalarFieldEnum = {
   total: 'total',
   shippingAddress: 'shippingAddress',
   notes: 'notes',
+  courierProvider: 'courierProvider',
+  courierConsignmentId: 'courierConsignmentId',
+  courierTrackingCode: 'courierTrackingCode',
+  courierStatus: 'courierStatus',
+  courierSubmittedAt: 'courierSubmittedAt',
+  courierLastSyncedAt: 'courierLastSyncedAt',
+  courierDeliveryType: 'courierDeliveryType',
+  courierNotes: 'courierNotes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -3248,6 +3494,8 @@ export const OrderItemScalarFieldEnum = {
   productColorId: 'productColorId',
   quantity: 'quantity',
   snapshotPrice: 'snapshotPrice',
+  resellerUnitCost: 'resellerUnitCost',
+  resellerSellingPrice: 'resellerSellingPrice',
   subtotal: 'subtotal'
 } as const
 
@@ -3373,6 +3621,21 @@ export const CmsFounderVideoScalarFieldEnum = {
 export type CmsFounderVideoScalarFieldEnum = (typeof CmsFounderVideoScalarFieldEnum)[keyof typeof CmsFounderVideoScalarFieldEnum]
 
 
+export const CmsTeamScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  designation: 'designation',
+  imageUrl: 'imageUrl',
+  message: 'message',
+  status: 'status',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsTeamScalarFieldEnum = (typeof CmsTeamScalarFieldEnum)[keyof typeof CmsTeamScalarFieldEnum]
+
+
 export const CustomPageScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -3489,6 +3752,38 @@ export const LegalDocumentScalarFieldEnum = {
 } as const
 
 export type LegalDocumentScalarFieldEnum = (typeof LegalDocumentScalarFieldEnum)[keyof typeof LegalDocumentScalarFieldEnum]
+
+
+export const CourierSettingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  chargeText: 'chargeText',
+  defaultCharge: 'defaultCharge',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CourierSettingScalarFieldEnum = (typeof CourierSettingScalarFieldEnum)[keyof typeof CourierSettingScalarFieldEnum]
+
+
+export const WithdrawalScalarFieldEnum = {
+  id: 'id',
+  resellerId: 'resellerId',
+  amount: 'amount',
+  payoutMethod: 'payoutMethod',
+  accountDetails: 'accountDetails',
+  status: 'status',
+  resellerNotes: 'resellerNotes',
+  transactionId: 'transactionId',
+  proofImageUrl: 'proofImageUrl',
+  adminNotes: 'adminNotes',
+  processedBy: 'processedBy',
+  processedAt: 'processedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -3728,6 +4023,34 @@ export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
 
 
 /**
+ * Reference to a field of type 'PayoutMethod'
+ */
+export type EnumPayoutMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayoutMethod'>
+    
+
+
+/**
+ * Reference to a field of type 'PayoutMethod[]'
+ */
+export type ListEnumPayoutMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayoutMethod[]'>
+    
+
+
+/**
+ * Reference to a field of type 'WithdrawalStatus'
+ */
+export type EnumWithdrawalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WithdrawalStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'WithdrawalStatus[]'
+ */
+export type ListEnumWithdrawalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WithdrawalStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -3877,6 +4200,7 @@ export type GlobalOmitConfig = {
   cmsFounder?: Prisma.CmsFounderOmit
   cmsFounderBlog?: Prisma.CmsFounderBlogOmit
   cmsFounderVideo?: Prisma.CmsFounderVideoOmit
+  cmsTeam?: Prisma.CmsTeamOmit
   customPage?: Prisma.CustomPageOmit
   pageSection?: Prisma.PageSectionOmit
   productPageConfig?: Prisma.ProductPageConfigOmit
@@ -3884,6 +4208,8 @@ export type GlobalOmitConfig = {
   announcement?: Prisma.AnnouncementOmit
   externalApi?: Prisma.ExternalApiOmit
   legalDocument?: Prisma.LegalDocumentOmit
+  courierSetting?: Prisma.CourierSettingOmit
+  withdrawal?: Prisma.WithdrawalOmit
 }
 
 /* Types for Logging */

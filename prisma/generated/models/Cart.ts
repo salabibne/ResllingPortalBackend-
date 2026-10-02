@@ -474,6 +474,11 @@ export type CartScalarRelationFilter = {
   isNot?: Prisma.CartWhereInput
 }
 
+export type CartNullableScalarRelationFilter = {
+  is?: Prisma.CartWhereInput | null
+  isNot?: Prisma.CartWhereInput | null
+}
+
 export type CartCreateNestedManyWithoutCustomerInput = {
   create?: Prisma.XOR<Prisma.CartCreateWithoutCustomerInput, Prisma.CartUncheckedCreateWithoutCustomerInput> | Prisma.CartCreateWithoutCustomerInput[] | Prisma.CartUncheckedCreateWithoutCustomerInput[]
   connectOrCreate?: Prisma.CartCreateOrConnectWithoutCustomerInput | Prisma.CartCreateOrConnectWithoutCustomerInput[]
@@ -536,10 +541,12 @@ export type CartCreateNestedOneWithoutOrdersInput = {
   connect?: Prisma.CartWhereUniqueInput
 }
 
-export type CartUpdateOneRequiredWithoutOrdersNestedInput = {
+export type CartUpdateOneWithoutOrdersNestedInput = {
   create?: Prisma.XOR<Prisma.CartCreateWithoutOrdersInput, Prisma.CartUncheckedCreateWithoutOrdersInput>
   connectOrCreate?: Prisma.CartCreateOrConnectWithoutOrdersInput
   upsert?: Prisma.CartUpsertWithoutOrdersInput
+  disconnect?: Prisma.CartWhereInput | boolean
+  delete?: Prisma.CartWhereInput | boolean
   connect?: Prisma.CartWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CartUpdateToOneWithWhereWithoutOrdersInput, Prisma.CartUpdateWithoutOrdersInput>, Prisma.CartUncheckedUpdateWithoutOrdersInput>
 }

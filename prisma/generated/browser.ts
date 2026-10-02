@@ -153,6 +153,11 @@ export type CmsFounderBlog = Prisma.CmsFounderBlogModel
  */
 export type CmsFounderVideo = Prisma.CmsFounderVideoModel
 /**
+ * Model CmsTeam
+ * 
+ */
+export type CmsTeam = Prisma.CmsTeamModel
+/**
  * Model CustomPage
  * 
  */
@@ -187,3 +192,13 @@ export type ExternalApi = Prisma.ExternalApiModel
  * 
  */
 export type LegalDocument = Prisma.LegalDocumentModel
+/**
+ * Model CourierSetting
+ * 
+ */
+export type CourierSetting = Prisma.CourierSettingModel
+/**
+ * Model Withdrawal
+ * 
+ */
+export type Withdrawal = Prisma.WithdrawalModel

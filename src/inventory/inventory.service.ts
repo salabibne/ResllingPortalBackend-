@@ -19,22 +19,10 @@ export class InventoryService {
    * Steps:
    * 1. Fetch inventory by productId + sizeId (acts as implicit row lock).
    * 2. Validate stock sufficiency for STOCK_OUT.
-   * 3. Compute weighted moving average for STOCK_IN + PURCHASE.
-   * 4. Apply stock delta.
-   * 5. Write immutable InventoryTransaction record.
+   * 3. Apply stock delta.
+   * 4. Write immutable InventoryTransaction record.
    */
   async adjustStock(dto: AdjustStockDto) {
-    // Validate incomingCostPerUnit is provided for PURCHASE operations
-    if (
-      dto.stockType === InventoryTxType.STOCK_IN &&
-      dto.purpose === InventoryTxPurpose.PURCHASE &&
-      (dto.incomingCostPerUnit === undefined || dto.incomingCostPerUnit === null)
-    ) {
-      throw new BadRequestException(
-        'incomingCostPerUnit is required when stockType is STOCK_IN and purpose is PURCHASE',
-      );
-    }
-
     return this.prisma.$transaction(
       async (tx) => {
         // 1. Fetch current inventory state by productId + productSizeId
@@ -63,7 +51,6 @@ export class InventoryService {
         }
 
         const stockBefore = inventory.currentStock;
-        const currentCostPerUnit = Number(inventory.costPerUnit);
 
         // 2. Validate stock sufficiency for STOCK_OUT
         if (dto.stockType === InventoryTxType.STOCK_OUT) {
@@ -75,53 +62,21 @@ export class InventoryService {
           }
         }
 
-        // 3. Compute new cost per unit (weighted moving average) for PURCHASE
-        let newCostPerUnit = currentCostPerUnit;
-
-        if (
-          dto.stockType === InventoryTxType.STOCK_IN &&
-          dto.purpose === InventoryTxPurpose.PURCHASE &&
-          dto.incomingCostPerUnit !== undefined
-        ) {
-          const totalExistingValue = stockBefore * currentCostPerUnit;
-          const totalIncomingValue =
-            dto.transactionQuantity * dto.incomingCostPerUnit;
-          const totalQuantity = stockBefore + dto.transactionQuantity;
-
-          // Avoid division by zero (shouldn't happen since qty >= 1, but guard anyway)
-          newCostPerUnit =
-            totalQuantity > 0
-              ? (totalExistingValue + totalIncomingValue) / totalQuantity
-              : dto.incomingCostPerUnit;
-        }
-
-        // 4. Compute stock delta
+        // 3. Compute stock delta
         const stockAfter =
           dto.stockType === InventoryTxType.STOCK_IN
             ? stockBefore + dto.transactionQuantity
             : stockBefore - dto.transactionQuantity;
 
-        // 5. Update inventory record
-        const updateData: Prisma.InventoryUpdateInput = {
-          currentStock: stockAfter,
-        };
-
-        // Only update costPerUnit for PURCHASE operations
-        if (
-          dto.stockType === InventoryTxType.STOCK_IN &&
-          dto.purpose === InventoryTxPurpose.PURCHASE
-        ) {
-          updateData.costPerUnit = new Prisma.Decimal(
-            newCostPerUnit.toFixed(2),
-          );
-        }
-
+        // 4. Update inventory record
         await tx.inventory.update({
           where: { id: inventory.id },
-          data: updateData,
+          data: {
+            currentStock: stockAfter,
+          },
         });
 
-        // 6. Write immutable transaction record
+        // 5. Write immutable transaction record
         const transaction = await tx.inventoryTransaction.create({
           data: {
             inventoryId: inventory.id,
@@ -137,7 +92,7 @@ export class InventoryService {
           include: {
             inventory: {
               include: {
-                product: { select: { id: true, name: true } },
+                product: { select: { id: true, name: true, purchasePrice: true } },
                 productSize: { include: { size: { select: { id: true, name: true } } } },
               },
             },
@@ -164,7 +119,7 @@ export class InventoryService {
     const inventories = await this.prisma.inventory.findMany({
       where: { productId },
       include: {
-        product: { select: { id: true, name: true } },
+        product: { select: { id: true, name: true, purchasePrice: true } },
         productSize: { include: { size: { select: { id: true, name: true } } } },
         transactions: {
           orderBy: { createdAt: 'desc' },

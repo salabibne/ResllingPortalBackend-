@@ -27,23 +27,46 @@ export type AggregateOrder = {
 }
 
 export type OrderAvgAggregateOutputType = {
+  resellerSubtotal: runtime.Decimal | null
+  resellerSellPrice: runtime.Decimal | null
+  resellerProfit: runtime.Decimal | null
+  advanceCourierAmount: runtime.Decimal | null
   subtotal: runtime.Decimal | null
   courierCharge: runtime.Decimal | null
   discount: runtime.Decimal | null
   total: runtime.Decimal | null
+  courierDeliveryType: number | null
 }
 
 export type OrderSumAggregateOutputType = {
+  resellerSubtotal: runtime.Decimal | null
+  resellerSellPrice: runtime.Decimal | null
+  resellerProfit: runtime.Decimal | null
+  advanceCourierAmount: runtime.Decimal | null
   subtotal: runtime.Decimal | null
   courierCharge: runtime.Decimal | null
   discount: runtime.Decimal | null
   total: runtime.Decimal | null
+  courierDeliveryType: number | null
 }
 
 export type OrderMinAggregateOutputType = {
   id: string | null
+  orderRef: string | null
   cartId: string | null
   customerId: string | null
+  isResellerOrder: boolean | null
+  resellerId: string | null
+  customerName: string | null
+  customerPhone: string | null
+  customerSecondaryPhone: string | null
+  customerDistrict: string | null
+  customerThana: string | null
+  resellerSubtotal: runtime.Decimal | null
+  resellerSellPrice: runtime.Decimal | null
+  resellerProfit: runtime.Decimal | null
+  isAdvanceCourierPaid: boolean | null
+  advanceCourierAmount: runtime.Decimal | null
   paymentStatus: $Enums.PaymentStatus | null
   paymentMethod: $Enums.PaymentMethod | null
   processingStatus: $Enums.OrderProcessingStatus | null
@@ -54,14 +77,35 @@ export type OrderMinAggregateOutputType = {
   total: runtime.Decimal | null
   shippingAddress: string | null
   notes: string | null
+  courierProvider: string | null
+  courierConsignmentId: string | null
+  courierTrackingCode: string | null
+  courierStatus: string | null
+  courierSubmittedAt: Date | null
+  courierLastSyncedAt: Date | null
+  courierDeliveryType: number | null
+  courierNotes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type OrderMaxAggregateOutputType = {
   id: string | null
+  orderRef: string | null
   cartId: string | null
   customerId: string | null
+  isResellerOrder: boolean | null
+  resellerId: string | null
+  customerName: string | null
+  customerPhone: string | null
+  customerSecondaryPhone: string | null
+  customerDistrict: string | null
+  customerThana: string | null
+  resellerSubtotal: runtime.Decimal | null
+  resellerSellPrice: runtime.Decimal | null
+  resellerProfit: runtime.Decimal | null
+  isAdvanceCourierPaid: boolean | null
+  advanceCourierAmount: runtime.Decimal | null
   paymentStatus: $Enums.PaymentStatus | null
   paymentMethod: $Enums.PaymentMethod | null
   processingStatus: $Enums.OrderProcessingStatus | null
@@ -72,14 +116,35 @@ export type OrderMaxAggregateOutputType = {
   total: runtime.Decimal | null
   shippingAddress: string | null
   notes: string | null
+  courierProvider: string | null
+  courierConsignmentId: string | null
+  courierTrackingCode: string | null
+  courierStatus: string | null
+  courierSubmittedAt: Date | null
+  courierLastSyncedAt: Date | null
+  courierDeliveryType: number | null
+  courierNotes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type OrderCountAggregateOutputType = {
   id: number
+  orderRef: number
   cartId: number
   customerId: number
+  isResellerOrder: number
+  resellerId: number
+  customerName: number
+  customerPhone: number
+  customerSecondaryPhone: number
+  customerDistrict: number
+  customerThana: number
+  resellerSubtotal: number
+  resellerSellPrice: number
+  resellerProfit: number
+  isAdvanceCourierPaid: number
+  advanceCourierAmount: number
   paymentStatus: number
   paymentMethod: number
   processingStatus: number
@@ -90,6 +155,14 @@ export type OrderCountAggregateOutputType = {
   total: number
   shippingAddress: number
   notes: number
+  courierProvider: number
+  courierConsignmentId: number
+  courierTrackingCode: number
+  courierStatus: number
+  courierSubmittedAt: number
+  courierLastSyncedAt: number
+  courierDeliveryType: number
+  courierNotes: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -97,23 +170,46 @@ export type OrderCountAggregateOutputType = {
 
 
 export type OrderAvgAggregateInputType = {
+  resellerSubtotal?: true
+  resellerSellPrice?: true
+  resellerProfit?: true
+  advanceCourierAmount?: true
   subtotal?: true
   courierCharge?: true
   discount?: true
   total?: true
+  courierDeliveryType?: true
 }
 
 export type OrderSumAggregateInputType = {
+  resellerSubtotal?: true
+  resellerSellPrice?: true
+  resellerProfit?: true
+  advanceCourierAmount?: true
   subtotal?: true
   courierCharge?: true
   discount?: true
   total?: true
+  courierDeliveryType?: true
 }
 
 export type OrderMinAggregateInputType = {
   id?: true
+  orderRef?: true
   cartId?: true
   customerId?: true
+  isResellerOrder?: true
+  resellerId?: true
+  customerName?: true
+  customerPhone?: true
+  customerSecondaryPhone?: true
+  customerDistrict?: true
+  customerThana?: true
+  resellerSubtotal?: true
+  resellerSellPrice?: true
+  resellerProfit?: true
+  isAdvanceCourierPaid?: true
+  advanceCourierAmount?: true
   paymentStatus?: true
   paymentMethod?: true
   processingStatus?: true
@@ -124,14 +220,35 @@ export type OrderMinAggregateInputType = {
   total?: true
   shippingAddress?: true
   notes?: true
+  courierProvider?: true
+  courierConsignmentId?: true
+  courierTrackingCode?: true
+  courierStatus?: true
+  courierSubmittedAt?: true
+  courierLastSyncedAt?: true
+  courierDeliveryType?: true
+  courierNotes?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type OrderMaxAggregateInputType = {
   id?: true
+  orderRef?: true
   cartId?: true
   customerId?: true
+  isResellerOrder?: true
+  resellerId?: true
+  customerName?: true
+  customerPhone?: true
+  customerSecondaryPhone?: true
+  customerDistrict?: true
+  customerThana?: true
+  resellerSubtotal?: true
+  resellerSellPrice?: true
+  resellerProfit?: true
+  isAdvanceCourierPaid?: true
+  advanceCourierAmount?: true
   paymentStatus?: true
   paymentMethod?: true
   processingStatus?: true
@@ -142,14 +259,35 @@ export type OrderMaxAggregateInputType = {
   total?: true
   shippingAddress?: true
   notes?: true
+  courierProvider?: true
+  courierConsignmentId?: true
+  courierTrackingCode?: true
+  courierStatus?: true
+  courierSubmittedAt?: true
+  courierLastSyncedAt?: true
+  courierDeliveryType?: true
+  courierNotes?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type OrderCountAggregateInputType = {
   id?: true
+  orderRef?: true
   cartId?: true
   customerId?: true
+  isResellerOrder?: true
+  resellerId?: true
+  customerName?: true
+  customerPhone?: true
+  customerSecondaryPhone?: true
+  customerDistrict?: true
+  customerThana?: true
+  resellerSubtotal?: true
+  resellerSellPrice?: true
+  resellerProfit?: true
+  isAdvanceCourierPaid?: true
+  advanceCourierAmount?: true
   paymentStatus?: true
   paymentMethod?: true
   processingStatus?: true
@@ -160,6 +298,14 @@ export type OrderCountAggregateInputType = {
   total?: true
   shippingAddress?: true
   notes?: true
+  courierProvider?: true
+  courierConsignmentId?: true
+  courierTrackingCode?: true
+  courierStatus?: true
+  courierSubmittedAt?: true
+  courierLastSyncedAt?: true
+  courierDeliveryType?: true
+  courierNotes?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -253,8 +399,21 @@ export type OrderGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 
 export type OrderGroupByOutputType = {
   id: string
-  cartId: string
+  orderRef: string | null
+  cartId: string | null
   customerId: string
+  isResellerOrder: boolean
+  resellerId: string | null
+  customerName: string | null
+  customerPhone: string | null
+  customerSecondaryPhone: string | null
+  customerDistrict: string | null
+  customerThana: string | null
+  resellerSubtotal: runtime.Decimal | null
+  resellerSellPrice: runtime.Decimal | null
+  resellerProfit: runtime.Decimal | null
+  isAdvanceCourierPaid: boolean
+  advanceCourierAmount: runtime.Decimal
   paymentStatus: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus: $Enums.OrderProcessingStatus
@@ -265,6 +424,14 @@ export type OrderGroupByOutputType = {
   total: runtime.Decimal
   shippingAddress: string | null
   notes: string | null
+  courierProvider: string | null
+  courierConsignmentId: string | null
+  courierTrackingCode: string | null
+  courierStatus: string | null
+  courierSubmittedAt: Date | null
+  courierLastSyncedAt: Date | null
+  courierDeliveryType: number
+  courierNotes: string | null
   createdAt: Date
   updatedAt: Date
   _count: OrderCountAggregateOutputType | null
@@ -294,8 +461,21 @@ export type OrderWhereInput = {
   OR?: Prisma.OrderWhereInput[]
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   id?: Prisma.UuidFilter<"Order"> | string
-  cartId?: Prisma.UuidFilter<"Order"> | string
+  orderRef?: Prisma.StringNullableFilter<"Order"> | string | null
+  cartId?: Prisma.UuidNullableFilter<"Order"> | string | null
   customerId?: Prisma.UuidFilter<"Order"> | string
+  isResellerOrder?: Prisma.BoolFilter<"Order"> | boolean
+  resellerId?: Prisma.UuidNullableFilter<"Order"> | string | null
+  customerName?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerSecondaryPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerDistrict?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerThana?: Prisma.StringNullableFilter<"Order"> | string | null
+  resellerSubtotal?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFilter<"Order"> | boolean
+  advanceCourierAmount?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"Order"> | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFilter<"Order"> | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFilter<"Order"> | $Enums.OrderProcessingStatus
@@ -306,17 +486,39 @@ export type OrderWhereInput = {
   total?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.StringNullableFilter<"Order"> | string | null
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierProvider?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierConsignmentId?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierTrackingCode?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierStatus?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierSubmittedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  courierLastSyncedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  courierDeliveryType?: Prisma.IntFilter<"Order"> | number
+  courierNotes?: Prisma.StringNullableFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
-  cart?: Prisma.XOR<Prisma.CartScalarRelationFilter, Prisma.CartWhereInput>
+  cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
   customer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reseller?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   orderItems?: Prisma.OrderItemListRelationFilter
 }
 
 export type OrderOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  cartId?: Prisma.SortOrder
+  orderRef?: Prisma.SortOrderInput | Prisma.SortOrder
+  cartId?: Prisma.SortOrderInput | Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  isResellerOrder?: Prisma.SortOrder
+  resellerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerSecondaryPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerDistrict?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerThana?: Prisma.SortOrderInput | Prisma.SortOrder
+  resellerSubtotal?: Prisma.SortOrderInput | Prisma.SortOrder
+  resellerSellPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  resellerProfit?: Prisma.SortOrderInput | Prisma.SortOrder
+  isAdvanceCourierPaid?: Prisma.SortOrder
+  advanceCourierAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrder
   processingStatus?: Prisma.SortOrder
@@ -327,20 +529,42 @@ export type OrderOrderByWithRelationInput = {
   total?: Prisma.SortOrder
   shippingAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierProvider?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierConsignmentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierTrackingCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierSubmittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierLastSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierDeliveryType?: Prisma.SortOrder
+  courierNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cart?: Prisma.CartOrderByWithRelationInput
   customer?: Prisma.UserOrderByWithRelationInput
+  reseller?: Prisma.UserOrderByWithRelationInput
   orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
 }
 
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  orderRef?: string
   AND?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   OR?: Prisma.OrderWhereInput[]
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
-  cartId?: Prisma.UuidFilter<"Order"> | string
+  cartId?: Prisma.UuidNullableFilter<"Order"> | string | null
   customerId?: Prisma.UuidFilter<"Order"> | string
+  isResellerOrder?: Prisma.BoolFilter<"Order"> | boolean
+  resellerId?: Prisma.UuidNullableFilter<"Order"> | string | null
+  customerName?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerSecondaryPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerDistrict?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerThana?: Prisma.StringNullableFilter<"Order"> | string | null
+  resellerSubtotal?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFilter<"Order"> | boolean
+  advanceCourierAmount?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"Order"> | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFilter<"Order"> | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFilter<"Order"> | $Enums.OrderProcessingStatus
@@ -351,17 +575,39 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   total?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.StringNullableFilter<"Order"> | string | null
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierProvider?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierConsignmentId?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierTrackingCode?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierStatus?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierSubmittedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  courierLastSyncedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  courierDeliveryType?: Prisma.IntFilter<"Order"> | number
+  courierNotes?: Prisma.StringNullableFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
-  cart?: Prisma.XOR<Prisma.CartScalarRelationFilter, Prisma.CartWhereInput>
+  cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
   customer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  reseller?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   orderItems?: Prisma.OrderItemListRelationFilter
-}, "id">
+}, "id" | "orderRef">
 
 export type OrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  cartId?: Prisma.SortOrder
+  orderRef?: Prisma.SortOrderInput | Prisma.SortOrder
+  cartId?: Prisma.SortOrderInput | Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  isResellerOrder?: Prisma.SortOrder
+  resellerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerSecondaryPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerDistrict?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerThana?: Prisma.SortOrderInput | Prisma.SortOrder
+  resellerSubtotal?: Prisma.SortOrderInput | Prisma.SortOrder
+  resellerSellPrice?: Prisma.SortOrderInput | Prisma.SortOrder
+  resellerProfit?: Prisma.SortOrderInput | Prisma.SortOrder
+  isAdvanceCourierPaid?: Prisma.SortOrder
+  advanceCourierAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrder
   processingStatus?: Prisma.SortOrder
@@ -372,6 +618,14 @@ export type OrderOrderByWithAggregationInput = {
   total?: Prisma.SortOrder
   shippingAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierProvider?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierConsignmentId?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierTrackingCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierSubmittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierLastSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierDeliveryType?: Prisma.SortOrder
+  courierNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.OrderCountOrderByAggregateInput
@@ -386,8 +640,21 @@ export type OrderScalarWhereWithAggregatesInput = {
   OR?: Prisma.OrderScalarWhereWithAggregatesInput[]
   NOT?: Prisma.OrderScalarWhereWithAggregatesInput | Prisma.OrderScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"Order"> | string
-  cartId?: Prisma.UuidWithAggregatesFilter<"Order"> | string
+  orderRef?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  cartId?: Prisma.UuidNullableWithAggregatesFilter<"Order"> | string | null
   customerId?: Prisma.UuidWithAggregatesFilter<"Order"> | string
+  isResellerOrder?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  resellerId?: Prisma.UuidNullableWithAggregatesFilter<"Order"> | string | null
+  customerName?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  customerPhone?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  customerSecondaryPhone?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  customerDistrict?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  customerThana?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  resellerSubtotal?: Prisma.DecimalNullableWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.DecimalNullableWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.DecimalNullableWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  advanceCourierAmount?: Prisma.DecimalWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusWithAggregatesFilter<"Order"> | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodWithAggregatesFilter<"Order"> | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusWithAggregatesFilter<"Order"> | $Enums.OrderProcessingStatus
@@ -398,12 +665,32 @@ export type OrderScalarWhereWithAggregatesInput = {
   total?: Prisma.DecimalWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierProvider?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierConsignmentId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierTrackingCode?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierStatus?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierSubmittedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  courierLastSyncedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
+  courierDeliveryType?: Prisma.IntWithAggregatesFilter<"Order"> | number
+  courierNotes?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
 }
 
 export type OrderCreateInput = {
   id?: string
+  orderRef?: string | null
+  isResellerOrder?: boolean
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -414,17 +701,39 @@ export type OrderCreateInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  cart: Prisma.CartCreateNestedOneWithoutOrdersInput
+  cart?: Prisma.CartCreateNestedOneWithoutOrdersInput
   customer: Prisma.UserCreateNestedOneWithoutOrdersInput
+  reseller?: Prisma.UserCreateNestedOneWithoutResellerOrdersInput
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateInput = {
   id?: string
-  cartId: string
+  orderRef?: string | null
+  cartId?: string | null
   customerId: string
+  isResellerOrder?: boolean
+  resellerId?: string | null
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -435,6 +744,14 @@ export type OrderUncheckedCreateInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -442,6 +759,18 @@ export type OrderUncheckedCreateInput = {
 
 export type OrderUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -452,17 +781,39 @@ export type OrderUpdateInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  cart?: Prisma.CartUpdateOneRequiredWithoutOrdersNestedInput
+  cart?: Prisma.CartUpdateOneWithoutOrdersNestedInput
   customer?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
+  reseller?: Prisma.UserUpdateOneWithoutResellerOrdersNestedInput
   orderItems?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  cartId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cartId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  resellerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -473,6 +824,14 @@ export type OrderUncheckedUpdateInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -480,8 +839,21 @@ export type OrderUncheckedUpdateInput = {
 
 export type OrderCreateManyInput = {
   id?: string
-  cartId: string
+  orderRef?: string | null
+  cartId?: string | null
   customerId: string
+  isResellerOrder?: boolean
+  resellerId?: string | null
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -492,12 +864,32 @@ export type OrderCreateManyInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type OrderUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -508,14 +900,35 @@ export type OrderUpdateManyMutationInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type OrderUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  cartId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cartId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  resellerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -526,6 +939,14 @@ export type OrderUncheckedUpdateManyInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -542,8 +963,21 @@ export type OrderOrderByRelationAggregateInput = {
 
 export type OrderCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  orderRef?: Prisma.SortOrder
   cartId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  isResellerOrder?: Prisma.SortOrder
+  resellerId?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
+  customerPhone?: Prisma.SortOrder
+  customerSecondaryPhone?: Prisma.SortOrder
+  customerDistrict?: Prisma.SortOrder
+  customerThana?: Prisma.SortOrder
+  resellerSubtotal?: Prisma.SortOrder
+  resellerSellPrice?: Prisma.SortOrder
+  resellerProfit?: Prisma.SortOrder
+  isAdvanceCourierPaid?: Prisma.SortOrder
+  advanceCourierAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrder
   processingStatus?: Prisma.SortOrder
@@ -554,21 +988,47 @@ export type OrderCountOrderByAggregateInput = {
   total?: Prisma.SortOrder
   shippingAddress?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  courierProvider?: Prisma.SortOrder
+  courierConsignmentId?: Prisma.SortOrder
+  courierTrackingCode?: Prisma.SortOrder
+  courierStatus?: Prisma.SortOrder
+  courierSubmittedAt?: Prisma.SortOrder
+  courierLastSyncedAt?: Prisma.SortOrder
+  courierDeliveryType?: Prisma.SortOrder
+  courierNotes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type OrderAvgOrderByAggregateInput = {
+  resellerSubtotal?: Prisma.SortOrder
+  resellerSellPrice?: Prisma.SortOrder
+  resellerProfit?: Prisma.SortOrder
+  advanceCourierAmount?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   courierCharge?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  courierDeliveryType?: Prisma.SortOrder
 }
 
 export type OrderMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  orderRef?: Prisma.SortOrder
   cartId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  isResellerOrder?: Prisma.SortOrder
+  resellerId?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
+  customerPhone?: Prisma.SortOrder
+  customerSecondaryPhone?: Prisma.SortOrder
+  customerDistrict?: Prisma.SortOrder
+  customerThana?: Prisma.SortOrder
+  resellerSubtotal?: Prisma.SortOrder
+  resellerSellPrice?: Prisma.SortOrder
+  resellerProfit?: Prisma.SortOrder
+  isAdvanceCourierPaid?: Prisma.SortOrder
+  advanceCourierAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrder
   processingStatus?: Prisma.SortOrder
@@ -579,14 +1039,35 @@ export type OrderMaxOrderByAggregateInput = {
   total?: Prisma.SortOrder
   shippingAddress?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  courierProvider?: Prisma.SortOrder
+  courierConsignmentId?: Prisma.SortOrder
+  courierTrackingCode?: Prisma.SortOrder
+  courierStatus?: Prisma.SortOrder
+  courierSubmittedAt?: Prisma.SortOrder
+  courierLastSyncedAt?: Prisma.SortOrder
+  courierDeliveryType?: Prisma.SortOrder
+  courierNotes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type OrderMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  orderRef?: Prisma.SortOrder
   cartId?: Prisma.SortOrder
   customerId?: Prisma.SortOrder
+  isResellerOrder?: Prisma.SortOrder
+  resellerId?: Prisma.SortOrder
+  customerName?: Prisma.SortOrder
+  customerPhone?: Prisma.SortOrder
+  customerSecondaryPhone?: Prisma.SortOrder
+  customerDistrict?: Prisma.SortOrder
+  customerThana?: Prisma.SortOrder
+  resellerSubtotal?: Prisma.SortOrder
+  resellerSellPrice?: Prisma.SortOrder
+  resellerProfit?: Prisma.SortOrder
+  isAdvanceCourierPaid?: Prisma.SortOrder
+  advanceCourierAmount?: Prisma.SortOrder
   paymentStatus?: Prisma.SortOrder
   paymentMethod?: Prisma.SortOrder
   processingStatus?: Prisma.SortOrder
@@ -597,15 +1078,28 @@ export type OrderMinOrderByAggregateInput = {
   total?: Prisma.SortOrder
   shippingAddress?: Prisma.SortOrder
   notes?: Prisma.SortOrder
+  courierProvider?: Prisma.SortOrder
+  courierConsignmentId?: Prisma.SortOrder
+  courierTrackingCode?: Prisma.SortOrder
+  courierStatus?: Prisma.SortOrder
+  courierSubmittedAt?: Prisma.SortOrder
+  courierLastSyncedAt?: Prisma.SortOrder
+  courierDeliveryType?: Prisma.SortOrder
+  courierNotes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type OrderSumOrderByAggregateInput = {
+  resellerSubtotal?: Prisma.SortOrder
+  resellerSellPrice?: Prisma.SortOrder
+  resellerProfit?: Prisma.SortOrder
+  advanceCourierAmount?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   courierCharge?: Prisma.SortOrder
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  courierDeliveryType?: Prisma.SortOrder
 }
 
 export type OrderScalarRelationFilter = {
@@ -620,10 +1114,24 @@ export type OrderCreateNestedManyWithoutCustomerInput = {
   connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
 }
 
+export type OrderCreateNestedManyWithoutResellerInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutResellerInput, Prisma.OrderUncheckedCreateWithoutResellerInput> | Prisma.OrderCreateWithoutResellerInput[] | Prisma.OrderUncheckedCreateWithoutResellerInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutResellerInput | Prisma.OrderCreateOrConnectWithoutResellerInput[]
+  createMany?: Prisma.OrderCreateManyResellerInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
 export type OrderUncheckedCreateNestedManyWithoutCustomerInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutCustomerInput, Prisma.OrderUncheckedCreateWithoutCustomerInput> | Prisma.OrderCreateWithoutCustomerInput[] | Prisma.OrderUncheckedCreateWithoutCustomerInput[]
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutCustomerInput | Prisma.OrderCreateOrConnectWithoutCustomerInput[]
   createMany?: Prisma.OrderCreateManyCustomerInputEnvelope
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+}
+
+export type OrderUncheckedCreateNestedManyWithoutResellerInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutResellerInput, Prisma.OrderUncheckedCreateWithoutResellerInput> | Prisma.OrderCreateWithoutResellerInput[] | Prisma.OrderUncheckedCreateWithoutResellerInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutResellerInput | Prisma.OrderCreateOrConnectWithoutResellerInput[]
+  createMany?: Prisma.OrderCreateManyResellerInputEnvelope
   connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
 }
 
@@ -641,6 +1149,20 @@ export type OrderUpdateManyWithoutCustomerNestedInput = {
   deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
 }
 
+export type OrderUpdateManyWithoutResellerNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutResellerInput, Prisma.OrderUncheckedCreateWithoutResellerInput> | Prisma.OrderCreateWithoutResellerInput[] | Prisma.OrderUncheckedCreateWithoutResellerInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutResellerInput | Prisma.OrderCreateOrConnectWithoutResellerInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutResellerInput | Prisma.OrderUpsertWithWhereUniqueWithoutResellerInput[]
+  createMany?: Prisma.OrderCreateManyResellerInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutResellerInput | Prisma.OrderUpdateWithWhereUniqueWithoutResellerInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutResellerInput | Prisma.OrderUpdateManyWithWhereWithoutResellerInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
 export type OrderUncheckedUpdateManyWithoutCustomerNestedInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutCustomerInput, Prisma.OrderUncheckedCreateWithoutCustomerInput> | Prisma.OrderCreateWithoutCustomerInput[] | Prisma.OrderUncheckedCreateWithoutCustomerInput[]
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutCustomerInput | Prisma.OrderCreateOrConnectWithoutCustomerInput[]
@@ -652,6 +1174,20 @@ export type OrderUncheckedUpdateManyWithoutCustomerNestedInput = {
   connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
   update?: Prisma.OrderUpdateWithWhereUniqueWithoutCustomerInput | Prisma.OrderUpdateWithWhereUniqueWithoutCustomerInput[]
   updateMany?: Prisma.OrderUpdateManyWithWhereWithoutCustomerInput | Prisma.OrderUpdateManyWithWhereWithoutCustomerInput[]
+  deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
+}
+
+export type OrderUncheckedUpdateManyWithoutResellerNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderCreateWithoutResellerInput, Prisma.OrderUncheckedCreateWithoutResellerInput> | Prisma.OrderCreateWithoutResellerInput[] | Prisma.OrderUncheckedCreateWithoutResellerInput[]
+  connectOrCreate?: Prisma.OrderCreateOrConnectWithoutResellerInput | Prisma.OrderCreateOrConnectWithoutResellerInput[]
+  upsert?: Prisma.OrderUpsertWithWhereUniqueWithoutResellerInput | Prisma.OrderUpsertWithWhereUniqueWithoutResellerInput[]
+  createMany?: Prisma.OrderCreateManyResellerInputEnvelope
+  set?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  disconnect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  delete?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  connect?: Prisma.OrderWhereUniqueInput | Prisma.OrderWhereUniqueInput[]
+  update?: Prisma.OrderUpdateWithWhereUniqueWithoutResellerInput | Prisma.OrderUpdateWithWhereUniqueWithoutResellerInput[]
+  updateMany?: Prisma.OrderUpdateManyWithWhereWithoutResellerInput | Prisma.OrderUpdateManyWithWhereWithoutResellerInput[]
   deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
 }
 
@@ -697,6 +1233,14 @@ export type OrderUncheckedUpdateManyWithoutCartNestedInput = {
   deleteMany?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
 }
 
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type EnumPaymentStatusFieldUpdateOperationsInput = {
   set?: $Enums.PaymentStatus
 }
@@ -725,6 +1269,18 @@ export type OrderUpdateOneRequiredWithoutOrderItemsNestedInput = {
 
 export type OrderCreateWithoutCustomerInput = {
   id?: string
+  orderRef?: string | null
+  isResellerOrder?: boolean
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -735,15 +1291,37 @@ export type OrderCreateWithoutCustomerInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  cart: Prisma.CartCreateNestedOneWithoutOrdersInput
+  cart?: Prisma.CartCreateNestedOneWithoutOrdersInput
+  reseller?: Prisma.UserCreateNestedOneWithoutResellerOrdersInput
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutCustomerInput = {
   id?: string
-  cartId: string
+  orderRef?: string | null
+  cartId?: string | null
+  isResellerOrder?: boolean
+  resellerId?: string | null
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -754,6 +1332,14 @@ export type OrderUncheckedCreateWithoutCustomerInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -766,6 +1352,94 @@ export type OrderCreateOrConnectWithoutCustomerInput = {
 
 export type OrderCreateManyCustomerInputEnvelope = {
   data: Prisma.OrderCreateManyCustomerInput | Prisma.OrderCreateManyCustomerInput[]
+  skipDuplicates?: boolean
+}
+
+export type OrderCreateWithoutResellerInput = {
+  id?: string
+  orderRef?: string | null
+  isResellerOrder?: boolean
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentStatus?: $Enums.PaymentStatus
+  paymentMethod: $Enums.PaymentMethod
+  processingStatus?: $Enums.OrderProcessingStatus
+  orderProcessedBy?: string | null
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  courierCharge?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingAddress?: string | null
+  notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  cart?: Prisma.CartCreateNestedOneWithoutOrdersInput
+  customer: Prisma.UserCreateNestedOneWithoutOrdersInput
+  orderItems?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
+}
+
+export type OrderUncheckedCreateWithoutResellerInput = {
+  id?: string
+  orderRef?: string | null
+  cartId?: string | null
+  customerId: string
+  isResellerOrder?: boolean
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentStatus?: $Enums.PaymentStatus
+  paymentMethod: $Enums.PaymentMethod
+  processingStatus?: $Enums.OrderProcessingStatus
+  orderProcessedBy?: string | null
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  courierCharge?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingAddress?: string | null
+  notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
+}
+
+export type OrderCreateOrConnectWithoutResellerInput = {
+  where: Prisma.OrderWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderCreateWithoutResellerInput, Prisma.OrderUncheckedCreateWithoutResellerInput>
+}
+
+export type OrderCreateManyResellerInputEnvelope = {
+  data: Prisma.OrderCreateManyResellerInput | Prisma.OrderCreateManyResellerInput[]
   skipDuplicates?: boolean
 }
 
@@ -790,8 +1464,21 @@ export type OrderScalarWhereInput = {
   OR?: Prisma.OrderScalarWhereInput[]
   NOT?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
   id?: Prisma.UuidFilter<"Order"> | string
-  cartId?: Prisma.UuidFilter<"Order"> | string
+  orderRef?: Prisma.StringNullableFilter<"Order"> | string | null
+  cartId?: Prisma.UuidNullableFilter<"Order"> | string | null
   customerId?: Prisma.UuidFilter<"Order"> | string
+  isResellerOrder?: Prisma.BoolFilter<"Order"> | boolean
+  resellerId?: Prisma.UuidNullableFilter<"Order"> | string | null
+  customerName?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerSecondaryPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerDistrict?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerThana?: Prisma.StringNullableFilter<"Order"> | string | null
+  resellerSubtotal?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFilter<"Order"> | boolean
+  advanceCourierAmount?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"Order"> | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFilter<"Order"> | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFilter<"Order"> | $Enums.OrderProcessingStatus
@@ -802,12 +1489,48 @@ export type OrderScalarWhereInput = {
   total?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.StringNullableFilter<"Order"> | string | null
   notes?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierProvider?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierConsignmentId?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierTrackingCode?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierStatus?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierSubmittedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  courierLastSyncedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
+  courierDeliveryType?: Prisma.IntFilter<"Order"> | number
+  courierNotes?: Prisma.StringNullableFilter<"Order"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
 }
 
+export type OrderUpsertWithWhereUniqueWithoutResellerInput = {
+  where: Prisma.OrderWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderUpdateWithoutResellerInput, Prisma.OrderUncheckedUpdateWithoutResellerInput>
+  create: Prisma.XOR<Prisma.OrderCreateWithoutResellerInput, Prisma.OrderUncheckedCreateWithoutResellerInput>
+}
+
+export type OrderUpdateWithWhereUniqueWithoutResellerInput = {
+  where: Prisma.OrderWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderUpdateWithoutResellerInput, Prisma.OrderUncheckedUpdateWithoutResellerInput>
+}
+
+export type OrderUpdateManyWithWhereWithoutResellerInput = {
+  where: Prisma.OrderScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyWithoutResellerInput>
+}
+
 export type OrderCreateWithoutCartInput = {
   id?: string
+  orderRef?: string | null
+  isResellerOrder?: boolean
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -818,15 +1541,37 @@ export type OrderCreateWithoutCartInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.UserCreateNestedOneWithoutOrdersInput
+  reseller?: Prisma.UserCreateNestedOneWithoutResellerOrdersInput
   orderItems?: Prisma.OrderItemCreateNestedManyWithoutOrderInput
 }
 
 export type OrderUncheckedCreateWithoutCartInput = {
   id?: string
+  orderRef?: string | null
   customerId: string
+  isResellerOrder?: boolean
+  resellerId?: string | null
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -837,6 +1582,14 @@ export type OrderUncheckedCreateWithoutCartInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -870,6 +1623,18 @@ export type OrderUpdateManyWithWhereWithoutCartInput = {
 
 export type OrderCreateWithoutOrderItemsInput = {
   id?: string
+  orderRef?: string | null
+  isResellerOrder?: boolean
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -880,16 +1645,38 @@ export type OrderCreateWithoutOrderItemsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  cart: Prisma.CartCreateNestedOneWithoutOrdersInput
+  cart?: Prisma.CartCreateNestedOneWithoutOrdersInput
   customer: Prisma.UserCreateNestedOneWithoutOrdersInput
+  reseller?: Prisma.UserCreateNestedOneWithoutResellerOrdersInput
 }
 
 export type OrderUncheckedCreateWithoutOrderItemsInput = {
   id?: string
-  cartId: string
+  orderRef?: string | null
+  cartId?: string | null
   customerId: string
+  isResellerOrder?: boolean
+  resellerId?: string | null
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -900,6 +1687,14 @@ export type OrderUncheckedCreateWithoutOrderItemsInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -922,6 +1717,18 @@ export type OrderUpdateToOneWithWhereWithoutOrderItemsInput = {
 
 export type OrderUpdateWithoutOrderItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -932,16 +1739,38 @@ export type OrderUpdateWithoutOrderItemsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  cart?: Prisma.CartUpdateOneRequiredWithoutOrdersNestedInput
+  cart?: Prisma.CartUpdateOneWithoutOrdersNestedInput
   customer?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
+  reseller?: Prisma.UserUpdateOneWithoutResellerOrdersNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutOrderItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  cartId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cartId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  resellerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -952,13 +1781,34 @@ export type OrderUncheckedUpdateWithoutOrderItemsInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type OrderCreateManyCustomerInput = {
   id?: string
-  cartId: string
+  orderRef?: string | null
+  cartId?: string | null
+  isResellerOrder?: boolean
+  resellerId?: string | null
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -969,12 +1819,70 @@ export type OrderCreateManyCustomerInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderCreateManyResellerInput = {
+  id?: string
+  orderRef?: string | null
+  cartId?: string | null
+  customerId: string
+  isResellerOrder?: boolean
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentStatus?: $Enums.PaymentStatus
+  paymentMethod: $Enums.PaymentMethod
+  processingStatus?: $Enums.OrderProcessingStatus
+  orderProcessedBy?: string | null
+  subtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  courierCharge?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingAddress?: string | null
+  notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type OrderUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -985,15 +1893,37 @@ export type OrderUpdateWithoutCustomerInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  cart?: Prisma.CartUpdateOneRequiredWithoutOrdersNestedInput
+  cart?: Prisma.CartUpdateOneWithoutOrdersNestedInput
+  reseller?: Prisma.UserUpdateOneWithoutResellerOrdersNestedInput
   orderItems?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  cartId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cartId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  resellerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -1004,6 +1934,14 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -1011,7 +1949,20 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
 
 export type OrderUncheckedUpdateManyWithoutCustomerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  cartId?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cartId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  resellerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -1022,13 +1973,150 @@ export type OrderUncheckedUpdateManyWithoutCustomerInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderUpdateWithoutResellerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+  processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
+  orderProcessedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  courierCharge?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cart?: Prisma.CartUpdateOneWithoutOrdersNestedInput
+  customer?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
+  orderItems?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateWithoutResellerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cartId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+  processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
+  orderProcessedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  courierCharge?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
+}
+
+export type OrderUncheckedUpdateManyWithoutResellerInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cartId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
+  processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
+  orderProcessedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtotal?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  courierCharge?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  discount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type OrderCreateManyCartInput = {
   id?: string
+  orderRef?: string | null
   customerId: string
+  isResellerOrder?: boolean
+  resellerId?: string | null
+  customerName?: string | null
+  customerPhone?: string | null
+  customerSecondaryPhone?: string | null
+  customerDistrict?: string | null
+  customerThana?: string | null
+  resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: $Enums.PaymentStatus
   paymentMethod: $Enums.PaymentMethod
   processingStatus?: $Enums.OrderProcessingStatus
@@ -1039,12 +2127,32 @@ export type OrderCreateManyCartInput = {
   total?: runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: string | null
   notes?: string | null
+  courierProvider?: string | null
+  courierConsignmentId?: string | null
+  courierTrackingCode?: string | null
+  courierStatus?: string | null
+  courierSubmittedAt?: Date | string | null
+  courierLastSyncedAt?: Date | string | null
+  courierDeliveryType?: number
+  courierNotes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type OrderUpdateWithoutCartInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -1055,15 +2163,37 @@ export type OrderUpdateWithoutCartInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
+  reseller?: Prisma.UserUpdateOneWithoutResellerOrdersNestedInput
   orderItems?: Prisma.OrderItemUpdateManyWithoutOrderNestedInput
 }
 
 export type OrderUncheckedUpdateWithoutCartInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  resellerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -1074,6 +2204,14 @@ export type OrderUncheckedUpdateWithoutCartInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -1081,7 +2219,20 @@ export type OrderUncheckedUpdateWithoutCartInput = {
 
 export type OrderUncheckedUpdateManyWithoutCartInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerId?: Prisma.StringFieldUpdateOperationsInput | string
+  isResellerOrder?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  resellerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerSellPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  resellerProfit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAdvanceCourierPaid?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  advanceCourierAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   paymentStatus?: Prisma.EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFieldUpdateOperationsInput | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFieldUpdateOperationsInput | $Enums.OrderProcessingStatus
@@ -1092,6 +2243,14 @@ export type OrderUncheckedUpdateManyWithoutCartInput = {
   total?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   shippingAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierProvider?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierConsignmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierSubmittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
+  courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1129,8 +2288,21 @@ export type OrderCountOutputTypeCountOrderItemsArgs<ExtArgs extends runtime.Type
 
 export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  orderRef?: boolean
   cartId?: boolean
   customerId?: boolean
+  isResellerOrder?: boolean
+  resellerId?: boolean
+  customerName?: boolean
+  customerPhone?: boolean
+  customerSecondaryPhone?: boolean
+  customerDistrict?: boolean
+  customerThana?: boolean
+  resellerSubtotal?: boolean
+  resellerSellPrice?: boolean
+  resellerProfit?: boolean
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: boolean
   paymentStatus?: boolean
   paymentMethod?: boolean
   processingStatus?: boolean
@@ -1141,18 +2313,40 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   total?: boolean
   shippingAddress?: boolean
   notes?: boolean
+  courierProvider?: boolean
+  courierConsignmentId?: boolean
+  courierTrackingCode?: boolean
+  courierStatus?: boolean
+  courierSubmittedAt?: boolean
+  courierLastSyncedAt?: boolean
+  courierDeliveryType?: boolean
+  courierNotes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  cart?: boolean | Prisma.CartDefaultArgs<ExtArgs>
+  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
   customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
   orderItems?: boolean | Prisma.Order$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  orderRef?: boolean
   cartId?: boolean
   customerId?: boolean
+  isResellerOrder?: boolean
+  resellerId?: boolean
+  customerName?: boolean
+  customerPhone?: boolean
+  customerSecondaryPhone?: boolean
+  customerDistrict?: boolean
+  customerThana?: boolean
+  resellerSubtotal?: boolean
+  resellerSellPrice?: boolean
+  resellerProfit?: boolean
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: boolean
   paymentStatus?: boolean
   paymentMethod?: boolean
   processingStatus?: boolean
@@ -1163,16 +2357,38 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   total?: boolean
   shippingAddress?: boolean
   notes?: boolean
+  courierProvider?: boolean
+  courierConsignmentId?: boolean
+  courierTrackingCode?: boolean
+  courierStatus?: boolean
+  courierSubmittedAt?: boolean
+  courierLastSyncedAt?: boolean
+  courierDeliveryType?: boolean
+  courierNotes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  cart?: boolean | Prisma.CartDefaultArgs<ExtArgs>
+  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
   customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  orderRef?: boolean
   cartId?: boolean
   customerId?: boolean
+  isResellerOrder?: boolean
+  resellerId?: boolean
+  customerName?: boolean
+  customerPhone?: boolean
+  customerSecondaryPhone?: boolean
+  customerDistrict?: boolean
+  customerThana?: boolean
+  resellerSubtotal?: boolean
+  resellerSellPrice?: boolean
+  resellerProfit?: boolean
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: boolean
   paymentStatus?: boolean
   paymentMethod?: boolean
   processingStatus?: boolean
@@ -1183,16 +2399,38 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   total?: boolean
   shippingAddress?: boolean
   notes?: boolean
+  courierProvider?: boolean
+  courierConsignmentId?: boolean
+  courierTrackingCode?: boolean
+  courierStatus?: boolean
+  courierSubmittedAt?: boolean
+  courierLastSyncedAt?: boolean
+  courierDeliveryType?: boolean
+  courierNotes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  cart?: boolean | Prisma.CartDefaultArgs<ExtArgs>
+  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
   customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
 export type OrderSelectScalar = {
   id?: boolean
+  orderRef?: boolean
   cartId?: boolean
   customerId?: boolean
+  isResellerOrder?: boolean
+  resellerId?: boolean
+  customerName?: boolean
+  customerPhone?: boolean
+  customerSecondaryPhone?: boolean
+  customerDistrict?: boolean
+  customerThana?: boolean
+  resellerSubtotal?: boolean
+  resellerSellPrice?: boolean
+  resellerProfit?: boolean
+  isAdvanceCourierPaid?: boolean
+  advanceCourierAmount?: boolean
   paymentStatus?: boolean
   paymentMethod?: boolean
   processingStatus?: boolean
@@ -1203,37 +2441,62 @@ export type OrderSelectScalar = {
   total?: boolean
   shippingAddress?: boolean
   notes?: boolean
+  courierProvider?: boolean
+  courierConsignmentId?: boolean
+  courierTrackingCode?: boolean
+  courierStatus?: boolean
+  courierSubmittedAt?: boolean
+  courierLastSyncedAt?: boolean
+  courierDeliveryType?: boolean
+  courierNotes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "cartId" | "customerId" | "paymentStatus" | "paymentMethod" | "processingStatus" | "orderProcessedBy" | "subtotal" | "courierCharge" | "discount" | "total" | "shippingAddress" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderRef" | "cartId" | "customerId" | "isResellerOrder" | "resellerId" | "customerName" | "customerPhone" | "customerSecondaryPhone" | "customerDistrict" | "customerThana" | "resellerSubtotal" | "resellerSellPrice" | "resellerProfit" | "isAdvanceCourierPaid" | "advanceCourierAmount" | "paymentStatus" | "paymentMethod" | "processingStatus" | "orderProcessedBy" | "subtotal" | "courierCharge" | "discount" | "total" | "shippingAddress" | "notes" | "courierProvider" | "courierConsignmentId" | "courierTrackingCode" | "courierStatus" | "courierSubmittedAt" | "courierLastSyncedAt" | "courierDeliveryType" | "courierNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  cart?: boolean | Prisma.CartDefaultArgs<ExtArgs>
+  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
   customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
   orderItems?: boolean | Prisma.Order$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  cart?: boolean | Prisma.CartDefaultArgs<ExtArgs>
+  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
   customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
 }
 export type OrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  cart?: boolean | Prisma.CartDefaultArgs<ExtArgs>
+  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
   customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
 }
 
 export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Order"
   objects: {
-    cart: Prisma.$CartPayload<ExtArgs>
+    cart: Prisma.$CartPayload<ExtArgs> | null
     customer: Prisma.$UserPayload<ExtArgs>
+    reseller: Prisma.$UserPayload<ExtArgs> | null
     orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    cartId: string
+    orderRef: string | null
+    cartId: string | null
     customerId: string
+    isResellerOrder: boolean
+    resellerId: string | null
+    customerName: string | null
+    customerPhone: string | null
+    customerSecondaryPhone: string | null
+    customerDistrict: string | null
+    customerThana: string | null
+    resellerSubtotal: runtime.Decimal | null
+    resellerSellPrice: runtime.Decimal | null
+    resellerProfit: runtime.Decimal | null
+    isAdvanceCourierPaid: boolean
+    advanceCourierAmount: runtime.Decimal
     paymentStatus: $Enums.PaymentStatus
     paymentMethod: $Enums.PaymentMethod
     processingStatus: $Enums.OrderProcessingStatus
@@ -1244,6 +2507,14 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     total: runtime.Decimal
     shippingAddress: string | null
     notes: string | null
+    courierProvider: string | null
+    courierConsignmentId: string | null
+    courierTrackingCode: string | null
+    courierStatus: string | null
+    courierSubmittedAt: Date | null
+    courierLastSyncedAt: Date | null
+    courierDeliveryType: number
+    courierNotes: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["order"]>
@@ -1640,8 +2911,9 @@ readonly fields: OrderFieldRefs;
  */
 export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  cart<T extends Prisma.CartDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CartDefaultArgs<ExtArgs>>): Prisma.Prisma__CartClient<runtime.Types.Result.GetResult<Prisma.$CartPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  cart<T extends Prisma.Order$cartArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$cartArgs<ExtArgs>>): Prisma.Prisma__CartClient<runtime.Types.Result.GetResult<Prisma.$CartPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   customer<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reseller<T extends Prisma.Order$resellerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$resellerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   orderItems<T extends Prisma.Order$orderItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Order$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1673,8 +2945,21 @@ export interface Prisma__OrderClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface OrderFieldRefs {
   readonly id: Prisma.FieldRef<"Order", 'String'>
+  readonly orderRef: Prisma.FieldRef<"Order", 'String'>
   readonly cartId: Prisma.FieldRef<"Order", 'String'>
   readonly customerId: Prisma.FieldRef<"Order", 'String'>
+  readonly isResellerOrder: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly resellerId: Prisma.FieldRef<"Order", 'String'>
+  readonly customerName: Prisma.FieldRef<"Order", 'String'>
+  readonly customerPhone: Prisma.FieldRef<"Order", 'String'>
+  readonly customerSecondaryPhone: Prisma.FieldRef<"Order", 'String'>
+  readonly customerDistrict: Prisma.FieldRef<"Order", 'String'>
+  readonly customerThana: Prisma.FieldRef<"Order", 'String'>
+  readonly resellerSubtotal: Prisma.FieldRef<"Order", 'Decimal'>
+  readonly resellerSellPrice: Prisma.FieldRef<"Order", 'Decimal'>
+  readonly resellerProfit: Prisma.FieldRef<"Order", 'Decimal'>
+  readonly isAdvanceCourierPaid: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly advanceCourierAmount: Prisma.FieldRef<"Order", 'Decimal'>
   readonly paymentStatus: Prisma.FieldRef<"Order", 'PaymentStatus'>
   readonly paymentMethod: Prisma.FieldRef<"Order", 'PaymentMethod'>
   readonly processingStatus: Prisma.FieldRef<"Order", 'OrderProcessingStatus'>
@@ -1685,6 +2970,14 @@ export interface OrderFieldRefs {
   readonly total: Prisma.FieldRef<"Order", 'Decimal'>
   readonly shippingAddress: Prisma.FieldRef<"Order", 'String'>
   readonly notes: Prisma.FieldRef<"Order", 'String'>
+  readonly courierProvider: Prisma.FieldRef<"Order", 'String'>
+  readonly courierConsignmentId: Prisma.FieldRef<"Order", 'String'>
+  readonly courierTrackingCode: Prisma.FieldRef<"Order", 'String'>
+  readonly courierStatus: Prisma.FieldRef<"Order", 'String'>
+  readonly courierSubmittedAt: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly courierLastSyncedAt: Prisma.FieldRef<"Order", 'DateTime'>
+  readonly courierDeliveryType: Prisma.FieldRef<"Order", 'Int'>
+  readonly courierNotes: Prisma.FieldRef<"Order", 'String'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>
 }
@@ -2085,6 +3378,44 @@ export type OrderDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Orders to delete.
    */
   limit?: number
+}
+
+/**
+ * Order.cart
+ */
+export type Order$cartArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Cart
+   */
+  select?: Prisma.CartSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Cart
+   */
+  omit?: Prisma.CartOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CartInclude<ExtArgs> | null
+  where?: Prisma.CartWhereInput
+}
+
+/**
+ * Order.reseller
+ */
+export type Order$resellerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

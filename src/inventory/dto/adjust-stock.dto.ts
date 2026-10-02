@@ -45,8 +45,7 @@ export class AdjustStockDto {
   notes?: string;
 
   /**
-   * Required when stockType = STOCK_IN and purpose = PURCHASE.
-   * Used for weighted moving average cost calculation.
+   * Optional incoming cost per unit (if provided, product purchasePrice remains default valuation).
    */
   @IsNumber({ maxDecimalPlaces: 2 })
   @Min(0)
