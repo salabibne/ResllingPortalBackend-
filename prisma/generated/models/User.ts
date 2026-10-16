@@ -307,6 +307,7 @@ export type UserWhereInput = {
   resellerOrders?: Prisma.OrderListRelationFilter
   withdrawals?: Prisma.WithdrawalListRelationFilter
   processedWithdrawals?: Prisma.WithdrawalListRelationFilter
+  supportTickets?: Prisma.SupportTicketListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -335,6 +336,7 @@ export type UserOrderByWithRelationInput = {
   resellerOrders?: Prisma.OrderOrderByRelationAggregateInput
   withdrawals?: Prisma.WithdrawalOrderByRelationAggregateInput
   processedWithdrawals?: Prisma.WithdrawalOrderByRelationAggregateInput
+  supportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -366,6 +368,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   resellerOrders?: Prisma.OrderListRelationFilter
   withdrawals?: Prisma.WithdrawalListRelationFilter
   processedWithdrawals?: Prisma.WithdrawalListRelationFilter
+  supportTickets?: Prisma.SupportTicketListRelationFilter
 }, "id" | "email" | "phone" | "pageName">
 
 export type UserOrderByWithAggregationInput = {
@@ -446,6 +449,7 @@ export type UserCreateInput = {
   resellerOrders?: Prisma.OrderCreateNestedManyWithoutResellerInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -474,6 +478,7 @@ export type UserUncheckedCreateInput = {
   resellerOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutResellerInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -502,6 +507,7 @@ export type UserUpdateInput = {
   resellerOrders?: Prisma.OrderUpdateManyWithoutResellerNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -530,6 +536,7 @@ export type UserUncheckedUpdateInput = {
   resellerOrders?: Prisma.OrderUncheckedUpdateManyWithoutResellerNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -778,6 +785,20 @@ export type UserUpdateOneWithoutProcessedWithdrawalsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProcessedWithdrawalsInput, Prisma.UserUpdateWithoutProcessedWithdrawalsInput>, Prisma.UserUncheckedUpdateWithoutProcessedWithdrawalsInput>
 }
 
+export type UserCreateNestedOneWithoutSupportTicketsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketsInput, Prisma.UserUncheckedCreateWithoutSupportTicketsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupportTicketsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSupportTicketsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketsInput, Prisma.UserUncheckedCreateWithoutSupportTicketsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSupportTicketsInput
+  upsert?: Prisma.UserUpsertWithoutSupportTicketsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSupportTicketsInput, Prisma.UserUpdateWithoutSupportTicketsInput>, Prisma.UserUncheckedUpdateWithoutSupportTicketsInput>
+}
+
 export type UserCreateWithoutCartsInput = {
   id?: string
   name: string
@@ -803,6 +824,7 @@ export type UserCreateWithoutCartsInput = {
   resellerOrders?: Prisma.OrderCreateNestedManyWithoutResellerInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCartsInput = {
@@ -830,6 +852,7 @@ export type UserUncheckedCreateWithoutCartsInput = {
   resellerOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutResellerInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCartsInput = {
@@ -873,6 +896,7 @@ export type UserUpdateWithoutCartsInput = {
   resellerOrders?: Prisma.OrderUpdateManyWithoutResellerNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCartsInput = {
@@ -900,6 +924,7 @@ export type UserUncheckedUpdateWithoutCartsInput = {
   resellerOrders?: Prisma.OrderUncheckedUpdateManyWithoutResellerNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOrdersInput = {
@@ -927,6 +952,7 @@ export type UserCreateWithoutOrdersInput = {
   resellerOrders?: Prisma.OrderCreateNestedManyWithoutResellerInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOrdersInput = {
@@ -954,6 +980,7 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   resellerOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutResellerInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOrdersInput = {
@@ -986,6 +1013,7 @@ export type UserCreateWithoutResellerOrdersInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResellerOrdersInput = {
@@ -1013,6 +1041,7 @@ export type UserUncheckedCreateWithoutResellerOrdersInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResellerOrdersInput = {
@@ -1056,6 +1085,7 @@ export type UserUpdateWithoutOrdersInput = {
   resellerOrders?: Prisma.OrderUpdateManyWithoutResellerNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOrdersInput = {
@@ -1083,6 +1113,7 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   resellerOrders?: Prisma.OrderUncheckedUpdateManyWithoutResellerNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutResellerOrdersInput = {
@@ -1121,6 +1152,7 @@ export type UserUpdateWithoutResellerOrdersInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResellerOrdersInput = {
@@ -1148,6 +1180,7 @@ export type UserUncheckedUpdateWithoutResellerOrdersInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWithdrawalsInput = {
@@ -1175,6 +1208,7 @@ export type UserCreateWithoutWithdrawalsInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   resellerOrders?: Prisma.OrderCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWithdrawalsInput = {
@@ -1202,6 +1236,7 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   resellerOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutResellerInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutProcessedByUserInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWithdrawalsInput = {
@@ -1234,6 +1269,7 @@ export type UserCreateWithoutProcessedWithdrawalsInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
   resellerOrders?: Prisma.OrderCreateNestedManyWithoutResellerInput
   withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutResellerInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProcessedWithdrawalsInput = {
@@ -1261,6 +1297,7 @@ export type UserUncheckedCreateWithoutProcessedWithdrawalsInput = {
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
   resellerOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutResellerInput
   withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutResellerInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProcessedWithdrawalsInput = {
@@ -1304,6 +1341,7 @@ export type UserUpdateWithoutWithdrawalsInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   resellerOrders?: Prisma.OrderUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWithdrawalsInput = {
@@ -1331,6 +1369,7 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   resellerOrders?: Prisma.OrderUncheckedUpdateManyWithoutResellerNestedInput
   processedWithdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutProcessedByUserNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutProcessedWithdrawalsInput = {
@@ -1369,6 +1408,7 @@ export type UserUpdateWithoutProcessedWithdrawalsInput = {
   orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
   resellerOrders?: Prisma.OrderUpdateManyWithoutResellerNestedInput
   withdrawals?: Prisma.WithdrawalUpdateManyWithoutResellerNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProcessedWithdrawalsInput = {
@@ -1396,6 +1436,135 @@ export type UserUncheckedUpdateWithoutProcessedWithdrawalsInput = {
   orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
   resellerOrders?: Prisma.OrderUncheckedUpdateManyWithoutResellerNestedInput
   withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutResellerNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSupportTicketsInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  secondaryPhone?: string | null
+  passwordHash: string
+  refreshTokenHash?: string | null
+  refreshTokenExpiresAt?: Date | string | null
+  role?: $Enums.UserRole
+  OrganizationId: string
+  imageUrl?: string | null
+  status?: $Enums.CommonStatus
+  pageName?: string | null
+  presentDistrict: string
+  presentThana: string
+  permanentDistrict: string
+  permanentThana: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  carts?: Prisma.CartCreateNestedManyWithoutCustomerInput
+  orders?: Prisma.OrderCreateNestedManyWithoutCustomerInput
+  resellerOrders?: Prisma.OrderCreateNestedManyWithoutResellerInput
+  withdrawals?: Prisma.WithdrawalCreateNestedManyWithoutResellerInput
+  processedWithdrawals?: Prisma.WithdrawalCreateNestedManyWithoutProcessedByUserInput
+}
+
+export type UserUncheckedCreateWithoutSupportTicketsInput = {
+  id?: string
+  name: string
+  email: string
+  phone: string
+  secondaryPhone?: string | null
+  passwordHash: string
+  refreshTokenHash?: string | null
+  refreshTokenExpiresAt?: Date | string | null
+  role?: $Enums.UserRole
+  OrganizationId: string
+  imageUrl?: string | null
+  status?: $Enums.CommonStatus
+  pageName?: string | null
+  presentDistrict: string
+  presentThana: string
+  permanentDistrict: string
+  permanentThana: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  carts?: Prisma.CartUncheckedCreateNestedManyWithoutCustomerInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustomerInput
+  resellerOrders?: Prisma.OrderUncheckedCreateNestedManyWithoutResellerInput
+  withdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutResellerInput
+  processedWithdrawals?: Prisma.WithdrawalUncheckedCreateNestedManyWithoutProcessedByUserInput
+}
+
+export type UserCreateOrConnectWithoutSupportTicketsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketsInput, Prisma.UserUncheckedCreateWithoutSupportTicketsInput>
+}
+
+export type UserUpsertWithoutSupportTicketsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSupportTicketsInput, Prisma.UserUncheckedUpdateWithoutSupportTicketsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSupportTicketsInput, Prisma.UserUncheckedCreateWithoutSupportTicketsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSupportTicketsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSupportTicketsInput, Prisma.UserUncheckedUpdateWithoutSupportTicketsInput>
+}
+
+export type UserUpdateWithoutSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  secondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  OrganizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
+  pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
+  presentThana?: Prisma.StringFieldUpdateOperationsInput | string
+  permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
+  permanentThana?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  carts?: Prisma.CartUpdateManyWithoutCustomerNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutCustomerNestedInput
+  resellerOrders?: Prisma.OrderUpdateManyWithoutResellerNestedInput
+  withdrawals?: Prisma.WithdrawalUpdateManyWithoutResellerNestedInput
+  processedWithdrawals?: Prisma.WithdrawalUpdateManyWithoutProcessedByUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSupportTicketsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  secondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  refreshTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  OrganizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
+  pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
+  presentThana?: Prisma.StringFieldUpdateOperationsInput | string
+  permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
+  permanentThana?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  carts?: Prisma.CartUncheckedUpdateManyWithoutCustomerNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutCustomerNestedInput
+  resellerOrders?: Prisma.OrderUncheckedUpdateManyWithoutResellerNestedInput
+  withdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutResellerNestedInput
+  processedWithdrawals?: Prisma.WithdrawalUncheckedUpdateManyWithoutProcessedByUserNestedInput
 }
 
 
@@ -1409,6 +1578,7 @@ export type UserCountOutputType = {
   resellerOrders: number
   withdrawals: number
   processedWithdrawals: number
+  supportTickets: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1417,6 +1587,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   resellerOrders?: boolean | UserCountOutputTypeCountResellerOrdersArgs
   withdrawals?: boolean | UserCountOutputTypeCountWithdrawalsArgs
   processedWithdrawals?: boolean | UserCountOutputTypeCountProcessedWithdrawalsArgs
+  supportTickets?: boolean | UserCountOutputTypeCountSupportTicketsArgs
 }
 
 /**
@@ -1464,6 +1635,13 @@ export type UserCountOutputTypeCountProcessedWithdrawalsArgs<ExtArgs extends run
   where?: Prisma.WithdrawalWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupportTicketWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1491,6 +1669,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   resellerOrders?: boolean | Prisma.User$resellerOrdersArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   processedWithdrawals?: boolean | Prisma.User$processedWithdrawalsArgs<ExtArgs>
+  supportTickets?: boolean | Prisma.User$supportTicketsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1570,6 +1749,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   resellerOrders?: boolean | Prisma.User$resellerOrdersArgs<ExtArgs>
   withdrawals?: boolean | Prisma.User$withdrawalsArgs<ExtArgs>
   processedWithdrawals?: boolean | Prisma.User$processedWithdrawalsArgs<ExtArgs>
+  supportTickets?: boolean | Prisma.User$supportTicketsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1583,6 +1763,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     resellerOrders: Prisma.$OrderPayload<ExtArgs>[]
     withdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
     processedWithdrawals: Prisma.$WithdrawalPayload<ExtArgs>[]
+    supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2004,6 +2185,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   resellerOrders<T extends Prisma.User$resellerOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$resellerOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   withdrawals<T extends Prisma.User$withdrawalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$withdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   processedWithdrawals<T extends Prisma.User$processedWithdrawalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$processedWithdrawalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  supportTickets<T extends Prisma.User$supportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2563,6 +2745,30 @@ export type User$processedWithdrawalsArgs<ExtArgs extends runtime.Types.Extensio
   take?: number
   skip?: number
   distinct?: Prisma.WithdrawalScalarFieldEnum | Prisma.WithdrawalScalarFieldEnum[]
+}
+
+/**
+ * User.supportTickets
+ */
+export type User$supportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SupportTicket
+   */
+  select?: Prisma.SupportTicketSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SupportTicket
+   */
+  omit?: Prisma.SupportTicketOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SupportTicketInclude<ExtArgs> | null
+  where?: Prisma.SupportTicketWhereInput
+  orderBy?: Prisma.SupportTicketOrderByWithRelationInput | Prisma.SupportTicketOrderByWithRelationInput[]
+  cursor?: Prisma.SupportTicketWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SupportTicketScalarFieldEnum | Prisma.SupportTicketScalarFieldEnum[]
 }
 
 /**

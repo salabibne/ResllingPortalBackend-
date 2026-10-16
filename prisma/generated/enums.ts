@@ -120,3 +120,24 @@ export const NoticeAudience = {
 } as const
 
 export type NoticeAudience = (typeof NoticeAudience)[keyof typeof NoticeAudience]
+
+
+export const SupportTicketReason = {
+  PAYMENT: 'PAYMENT',
+  ORDER: 'ORDER',
+  TECHNICAL: 'TECHNICAL',
+  PRODUCT: 'PRODUCT',
+  OTHER: 'OTHER'
+} as const
+
+export type SupportTicketReason = (typeof SupportTicketReason)[keyof typeof SupportTicketReason]
+
+
+export const SupportTicketStatus = {
+  OPEN: 'OPEN',
+  IN_PROGRESS: 'IN_PROGRESS',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED'
+} as const
+
+export type SupportTicketStatus = (typeof SupportTicketStatus)[keyof typeof SupportTicketStatus]

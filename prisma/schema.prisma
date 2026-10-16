@@ -90,6 +90,21 @@ enum NoticeAudience {
   RESELLER
 }
 
+enum SupportTicketReason {
+  PAYMENT
+  ORDER
+  TECHNICAL
+  PRODUCT
+  OTHER
+}
+
+enum SupportTicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
 model User {
   id                 String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name               String       @db.VarChar(255)
@@ -117,6 +132,7 @@ model User {
   resellerOrders       Order[]      @relation("ResellerOrders")
   withdrawals          Withdrawal[] @relation("ResellerWithdrawals")
   processedWithdrawals Withdrawal[] @relation("ProcessedWithdrawals")
+  supportTickets       SupportTicket[]
 
   @@map("user")
 }
@@ -753,5 +769,22 @@ model NoticeModal {
   @@map("cms_notice_modal")
 }
 
+model SupportTicket {
+  id          String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  ticketId    String                 @unique @map("ticket_id") @db.VarChar(50)
+  userId      String                 @map("user_id") @db.Uuid
+  reason      SupportTicketReason
+  message     String                 @db.Text
+  status      SupportTicketStatus    @default(OPEN)
+  adminNotes  String?                @map("admin_notes") @db.Text
+  createdAt   DateTime               @default(now()) @map("created_at")
+  updatedAt   DateTime               @updatedAt @map("updated_at")
 
+  user        User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([ticketId])
+  @@map("support_ticket")
+}
 

@@ -88,7 +88,8 @@ export const ModelName = {
   LegalDocument: 'LegalDocument',
   CourierSetting: 'CourierSetting',
   Withdrawal: 'Withdrawal',
-  NoticeModal: 'NoticeModal'
+  NoticeModal: 'NoticeModal',
+  SupportTicket: 'SupportTicket'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -692,6 +693,21 @@ export const NoticeModalScalarFieldEnum = {
 } as const
 
 export type NoticeModalScalarFieldEnum = (typeof NoticeModalScalarFieldEnum)[keyof typeof NoticeModalScalarFieldEnum]
+
+
+export const SupportTicketScalarFieldEnum = {
+  id: 'id',
+  ticketId: 'ticketId',
+  userId: 'userId',
+  reason: 'reason',
+  message: 'message',
+  status: 'status',
+  adminNotes: 'adminNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SupportTicketScalarFieldEnum = (typeof SupportTicketScalarFieldEnum)[keyof typeof SupportTicketScalarFieldEnum]
 
 
 export const SortOrder = {

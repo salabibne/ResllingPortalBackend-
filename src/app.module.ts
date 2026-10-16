@@ -12,6 +12,7 @@ import { OrderModule } from './order/order.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
+import { SupportModule } from './support/support.module';
 import { WithdrawalModule } from './withdrawal/withdrawal.module';
 
 @Module({
@@ -30,6 +31,7 @@ import { WithdrawalModule } from './withdrawal/withdrawal.module';
     OrderModule,
     CmsModule,
     UserModule,
+    SupportModule,
     WithdrawalModule,
   ],
   controllers: [AppController],

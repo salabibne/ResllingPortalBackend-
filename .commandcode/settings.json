@@ -11,7 +11,10 @@
       "Shell(node -p JSON.stringify(require('./node_modules/prisma/package.json').engines))",
       "Shell(node -p require('./node_modules/prisma/package.json').version)",
       "Shell(node -v)",
-      "Shell(node dist/src/main.js)"
+      "Shell(node dist/src/main.js)",
+      "Shell(type:*)",
+      "Shell(rmdir:*)",
+      "Shell(npx prisma migrate dev --name add_support_ticket)"
     ],
     "deny": [],
     "defaultMode": "default"

@@ -207,3 +207,8 @@ export type Withdrawal = Prisma.WithdrawalModel
  * 
  */
 export type NoticeModal = Prisma.NoticeModalModel
+/**
+ * Model SupportTicket
+ * 
+ */
+export type SupportTicket = Prisma.SupportTicketModel
