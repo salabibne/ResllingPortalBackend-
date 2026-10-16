@@ -111,3 +111,12 @@ export const PayoutMethod = {
 } as const
 
 export type PayoutMethod = (typeof PayoutMethod)[keyof typeof PayoutMethod]
+
+
+export const NoticeAudience = {
+  ALL: 'ALL',
+  PUBLIC: 'PUBLIC',
+  RESELLER: 'RESELLER'
+} as const
+
+export type NoticeAudience = (typeof NoticeAudience)[keyof typeof NoticeAudience]

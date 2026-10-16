@@ -87,7 +87,8 @@ export const ModelName = {
   ExternalApi: 'ExternalApi',
   LegalDocument: 'LegalDocument',
   CourierSetting: 'CourierSetting',
-  Withdrawal: 'Withdrawal'
+  Withdrawal: 'Withdrawal',
+  NoticeModal: 'NoticeModal'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -673,6 +674,24 @@ export const WithdrawalScalarFieldEnum = {
 } as const
 
 export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
+
+
+export const NoticeModalScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  imageUrl: 'imageUrl',
+  buttonText: 'buttonText',
+  buttonLink: 'buttonLink',
+  targetAudience: 'targetAudience',
+  status: 'status',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NoticeModalScalarFieldEnum = (typeof NoticeModalScalarFieldEnum)[keyof typeof NoticeModalScalarFieldEnum]
 
 
 export const SortOrder = {

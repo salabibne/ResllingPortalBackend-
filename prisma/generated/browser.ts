@@ -202,3 +202,8 @@ export type CourierSetting = Prisma.CourierSettingModel
  * 
  */
 export type Withdrawal = Prisma.WithdrawalModel
+/**
+ * Model NoticeModal
+ * 
+ */
+export type NoticeModal = Prisma.NoticeModalModel

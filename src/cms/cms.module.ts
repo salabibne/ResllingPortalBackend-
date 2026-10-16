@@ -17,6 +17,8 @@ import { ExternalApisController } from './external-apis/external-apis.controller
 import { ExternalApisService } from './external-apis/external-apis.service';
 import { LegalDocumentsController } from './legal-documents/legal-documents.controller';
 import { LegalDocumentsService } from './legal-documents/legal-documents.service';
+import { NoticeModalController } from './notice-modal/notice-modal.controller';
+import { NoticeModalService } from './notice-modal/notice-modal.service';
 
 @Module({
   imports: [
@@ -35,12 +37,14 @@ import { LegalDocumentsService } from './legal-documents/legal-documents.service
     ProductPageConfigsController,
     ExternalApisController,
     LegalDocumentsController,
+    NoticeModalController,
   ],
   providers: [
     CustomPagesService,
     ProductPageConfigsService,
     ExternalApisService,
     LegalDocumentsService,
+    NoticeModalService,
   ],
   exports: [
     SocialMediaModule,
@@ -56,6 +60,7 @@ import { LegalDocumentsService } from './legal-documents/legal-documents.service
     ProductPageConfigsService,
     ExternalApisService,
     LegalDocumentsService,
+    NoticeModalService,
   ],
 })
 export class CmsModule {}

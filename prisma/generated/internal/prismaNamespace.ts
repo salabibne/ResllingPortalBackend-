@@ -420,7 +420,8 @@ export const ModelName = {
   ExternalApi: 'ExternalApi',
   LegalDocument: 'LegalDocument',
   CourierSetting: 'CourierSetting',
-  Withdrawal: 'Withdrawal'
+  Withdrawal: 'Withdrawal',
+  NoticeModal: 'NoticeModal'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -436,7 +437,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "category" | "subcategory" | "childCategory" | "brand" | "product" | "productImage" | "color" | "productColor" | "size" | "productSize" | "ageVariant" | "productAge" | "inventory" | "inventoryTransaction" | "cart" | "cartItem" | "order" | "orderItem" | "cmsSocialMedia" | "cmsContact" | "cmsHero" | "cmsAbout" | "cmsSection" | "cmsFounder" | "cmsFounderBlog" | "cmsFounderVideo" | "cmsTeam" | "customPage" | "pageSection" | "productPageConfig" | "productPageSection" | "announcement" | "externalApi" | "legalDocument" | "courierSetting" | "withdrawal"
+    modelProps: "user" | "category" | "subcategory" | "childCategory" | "brand" | "product" | "productImage" | "color" | "productColor" | "size" | "productSize" | "ageVariant" | "productAge" | "inventory" | "inventoryTransaction" | "cart" | "cartItem" | "order" | "orderItem" | "cmsSocialMedia" | "cmsContact" | "cmsHero" | "cmsAbout" | "cmsSection" | "cmsFounder" | "cmsFounderBlog" | "cmsFounderVideo" | "cmsTeam" | "customPage" | "pageSection" | "productPageConfig" | "productPageSection" | "announcement" | "externalApi" | "legalDocument" | "courierSetting" | "withdrawal" | "noticeModal"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -3178,6 +3179,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    NoticeModal: {
+      payload: Prisma.$NoticeModalPayload<ExtArgs>
+      fields: Prisma.NoticeModalFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NoticeModalFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NoticeModalFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>
+        }
+        findFirst: {
+          args: Prisma.NoticeModalFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NoticeModalFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>
+        }
+        findMany: {
+          args: Prisma.NoticeModalFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>[]
+        }
+        create: {
+          args: Prisma.NoticeModalCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>
+        }
+        createMany: {
+          args: Prisma.NoticeModalCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NoticeModalCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>[]
+        }
+        delete: {
+          args: Prisma.NoticeModalDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>
+        }
+        update: {
+          args: Prisma.NoticeModalUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>
+        }
+        deleteMany: {
+          args: Prisma.NoticeModalDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NoticeModalUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NoticeModalUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>[]
+        }
+        upsert: {
+          args: Prisma.NoticeModalUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>
+        }
+        aggregate: {
+          args: Prisma.NoticeModalAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNoticeModal>
+        }
+        groupBy: {
+          args: Prisma.NoticeModalGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NoticeModalGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NoticeModalCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NoticeModalCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -3786,6 +3861,24 @@ export const WithdrawalScalarFieldEnum = {
 export type WithdrawalScalarFieldEnum = (typeof WithdrawalScalarFieldEnum)[keyof typeof WithdrawalScalarFieldEnum]
 
 
+export const NoticeModalScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  imageUrl: 'imageUrl',
+  buttonText: 'buttonText',
+  buttonLink: 'buttonLink',
+  targetAudience: 'targetAudience',
+  status: 'status',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NoticeModalScalarFieldEnum = (typeof NoticeModalScalarFieldEnum)[keyof typeof NoticeModalScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -4051,6 +4144,20 @@ export type ListEnumWithdrawalStatusFieldRefInput<$PrismaModel> = FieldRefInputT
 
 
 /**
+ * Reference to a field of type 'NoticeAudience'
+ */
+export type EnumNoticeAudienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NoticeAudience'>
+    
+
+
+/**
+ * Reference to a field of type 'NoticeAudience[]'
+ */
+export type ListEnumNoticeAudienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NoticeAudience[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -4210,6 +4317,7 @@ export type GlobalOmitConfig = {
   legalDocument?: Prisma.LegalDocumentOmit
   courierSetting?: Prisma.CourierSettingOmit
   withdrawal?: Prisma.WithdrawalOmit
+  noticeModal?: Prisma.NoticeModalOmit
 }
 
 /* Types for Logging */
