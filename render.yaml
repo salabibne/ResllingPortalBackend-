@@ -1,0 +1,36 @@
+# This project connects to the existing Render PostgreSQL instance
+# (`resellingplatform`) rather than provisioning a managed database here.
+# Its connection string is supplied via the dashboard (`sync: false`) below.
+
+services:
+  - type: web
+    name: aarham-apparel-backend
+    runtime: node
+    plan: free
+    region: singapore
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /health
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm run prisma:migrate:deploy && npm run start:prod
+    envVars:
+      - key: NODE_VERSION
+        value: "22.12.0"
+      - key: DATABASE_URL
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: ACCESS_TOKEN_SECRET
+        generateValue: true
+      - key: REFRESH_TOKEN_SECRET
+        generateValue: true
+      - key: ACCESS_TOKEN_TTL
+        value: 15m
+      - key: REFRESH_TOKEN_TTL
+        value: 7d
+      - key: STEADFAST_API_KEY
+        sync: false
+      - key: STEADFAST_SECRET_KEY
+        sync: false
+      - key: STEADFAST_BASE_URL
+        value: https://portal.packzy.com/api/v1

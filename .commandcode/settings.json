@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Shell(if:*)",
+      "Shell(else:*)",
+      "Shell(npm:*)",
+      "Shell(npx prisma generate)",
+      "Shell(set:*)",
+      "Shell(dir:*)",
+      "Shell(findstr:*)",
+      "Shell(node -p JSON.stringify(require('./node_modules/prisma/package.json').engines))",
+      "Shell(node -p require('./node_modules/prisma/package.json').version)",
+      "Shell(node -v)",
+      "Shell(node dist/src/main.js)"
+    ],
+    "deny": [],
+    "defaultMode": "default"
+  }
+}

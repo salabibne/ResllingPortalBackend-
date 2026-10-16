@@ -146,3 +146,25 @@ npm run build
 npm run start:prod
 ```
 Backend API will be accessible at: `http://localhost:3000`
+
+---
+
+## ☁️ Render Deployment
+
+This repo ships with a [`render.yaml`](./render.yaml) Blueprint that deploys a **Node web service** and connects it to your existing Render **PostgreSQL** instance (`resellingplatform`).
+
+1. Push the repo to GitHub, then in the Render Dashboard choose **New → Blueprint** and select the repository.
+2. On sync, Render prompts for the values marked `sync: false`. Paste them in the dashboard — they are stored as encrypted secrets and are **never** committed to the repo:
+   - `DATABASE_URL` — the **Internal Database URL** of the `resellingplatform` instance (`postgresql://resellingplatform_user:…@dpg-db1ib31srm7s73bqrklg-a/resellingplatform`).
+   - `FRONTEND_URL` — the deployed frontend origin used for CORS.
+   - `STEADFAST_API_KEY` / `STEADFAST_SECRET_KEY` — courier credentials (optional at first boot).
+3. `PORT` is provided by Render; the JWT secrets are generated automatically.
+
+> The internal host (`dpg-…-a`) only resolves from a service inside Render, so the web service region must match the database's region. Supply the URL through `sync` (dashboard) rather than hardcoding it in the Blueprint.
+
+**How it runs**
+- Build: `npm ci --include=dev && npm run build` (installs dev deps, generates Prisma Client, compiles Nest).
+- Start: `npm run prisma:migrate:deploy && npm run start:prod` — migrations run on every deploy, then `node dist/src/main`.
+- Health check: `/health` (verifies database connectivity).
+
+> The compiled entry point is `dist/src/main.js` because the generated Prisma Client lives outside `src/`. Keep the start command in sync if the build layout changes.
