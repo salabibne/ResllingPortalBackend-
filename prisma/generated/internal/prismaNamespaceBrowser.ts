@@ -69,9 +69,11 @@ export const ModelName = {
   Cart: 'Cart',
   CartItem: 'CartItem',
   Order: 'Order',
+  CourierPickup: 'CourierPickup',
   OrderItem: 'OrderItem',
   CmsSocialMedia: 'CmsSocialMedia',
   CmsContact: 'CmsContact',
+  CmsBrand: 'CmsBrand',
   CmsHero: 'CmsHero',
   CmsAbout: 'CmsAbout',
   CmsSection: 'CmsSection',
@@ -370,11 +372,37 @@ export const OrderScalarFieldEnum = {
   courierLastSyncedAt: 'courierLastSyncedAt',
   courierDeliveryType: 'courierDeliveryType',
   courierNotes: 'courierNotes',
+  courierTrackingLink: 'courierTrackingLink',
+  courierCodAmount: 'courierCodAmount',
+  courierBookingState: 'courierBookingState',
+  courierReturnRequestId: 'courierReturnRequestId',
+  courierReturnStatus: 'courierReturnStatus',
+  courierReturnReason: 'courierReturnReason',
+  courierReturnRequestedAt: 'courierReturnRequestedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const CourierPickupScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  addressId: 'addressId',
+  policeStationId: 'policeStationId',
+  address: 'address',
+  contactNumber: 'contactNumber',
+  note: 'note',
+  estimQty: 'estimQty',
+  status: 'status',
+  providerResponse: 'providerResponse',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CourierPickupScalarFieldEnum = (typeof CourierPickupScalarFieldEnum)[keyof typeof CourierPickupScalarFieldEnum]
 
 
 export const OrderItemScalarFieldEnum = {
@@ -419,6 +447,17 @@ export const CmsContactScalarFieldEnum = {
 } as const
 
 export type CmsContactScalarFieldEnum = (typeof CmsContactScalarFieldEnum)[keyof typeof CmsContactScalarFieldEnum]
+
+
+export const CmsBrandScalarFieldEnum = {
+  id: 'id',
+  logoUrl: 'logoUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsBrandScalarFieldEnum = (typeof CmsBrandScalarFieldEnum)[keyof typeof CmsBrandScalarFieldEnum]
 
 
 export const CmsHeroScalarFieldEnum = {

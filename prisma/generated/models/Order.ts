@@ -36,6 +36,8 @@ export type OrderAvgAggregateOutputType = {
   discount: runtime.Decimal | null
   total: runtime.Decimal | null
   courierDeliveryType: number | null
+  courierCodAmount: runtime.Decimal | null
+  courierReturnRequestId: number | null
 }
 
 export type OrderSumAggregateOutputType = {
@@ -48,6 +50,8 @@ export type OrderSumAggregateOutputType = {
   discount: runtime.Decimal | null
   total: runtime.Decimal | null
   courierDeliveryType: number | null
+  courierCodAmount: runtime.Decimal | null
+  courierReturnRequestId: number | null
 }
 
 export type OrderMinAggregateOutputType = {
@@ -85,6 +89,13 @@ export type OrderMinAggregateOutputType = {
   courierLastSyncedAt: Date | null
   courierDeliveryType: number | null
   courierNotes: string | null
+  courierTrackingLink: string | null
+  courierCodAmount: runtime.Decimal | null
+  courierBookingState: string | null
+  courierReturnRequestId: number | null
+  courierReturnStatus: string | null
+  courierReturnReason: string | null
+  courierReturnRequestedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -124,6 +135,13 @@ export type OrderMaxAggregateOutputType = {
   courierLastSyncedAt: Date | null
   courierDeliveryType: number | null
   courierNotes: string | null
+  courierTrackingLink: string | null
+  courierCodAmount: runtime.Decimal | null
+  courierBookingState: string | null
+  courierReturnRequestId: number | null
+  courierReturnStatus: string | null
+  courierReturnReason: string | null
+  courierReturnRequestedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -163,6 +181,13 @@ export type OrderCountAggregateOutputType = {
   courierLastSyncedAt: number
   courierDeliveryType: number
   courierNotes: number
+  courierTrackingLink: number
+  courierCodAmount: number
+  courierBookingState: number
+  courierReturnRequestId: number
+  courierReturnStatus: number
+  courierReturnReason: number
+  courierReturnRequestedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -179,6 +204,8 @@ export type OrderAvgAggregateInputType = {
   discount?: true
   total?: true
   courierDeliveryType?: true
+  courierCodAmount?: true
+  courierReturnRequestId?: true
 }
 
 export type OrderSumAggregateInputType = {
@@ -191,6 +218,8 @@ export type OrderSumAggregateInputType = {
   discount?: true
   total?: true
   courierDeliveryType?: true
+  courierCodAmount?: true
+  courierReturnRequestId?: true
 }
 
 export type OrderMinAggregateInputType = {
@@ -228,6 +257,13 @@ export type OrderMinAggregateInputType = {
   courierLastSyncedAt?: true
   courierDeliveryType?: true
   courierNotes?: true
+  courierTrackingLink?: true
+  courierCodAmount?: true
+  courierBookingState?: true
+  courierReturnRequestId?: true
+  courierReturnStatus?: true
+  courierReturnReason?: true
+  courierReturnRequestedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -267,6 +303,13 @@ export type OrderMaxAggregateInputType = {
   courierLastSyncedAt?: true
   courierDeliveryType?: true
   courierNotes?: true
+  courierTrackingLink?: true
+  courierCodAmount?: true
+  courierBookingState?: true
+  courierReturnRequestId?: true
+  courierReturnStatus?: true
+  courierReturnReason?: true
+  courierReturnRequestedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -306,6 +349,13 @@ export type OrderCountAggregateInputType = {
   courierLastSyncedAt?: true
   courierDeliveryType?: true
   courierNotes?: true
+  courierTrackingLink?: true
+  courierCodAmount?: true
+  courierBookingState?: true
+  courierReturnRequestId?: true
+  courierReturnStatus?: true
+  courierReturnReason?: true
+  courierReturnRequestedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -432,6 +482,13 @@ export type OrderGroupByOutputType = {
   courierLastSyncedAt: Date | null
   courierDeliveryType: number
   courierNotes: string | null
+  courierTrackingLink: string | null
+  courierCodAmount: runtime.Decimal | null
+  courierBookingState: string | null
+  courierReturnRequestId: number | null
+  courierReturnStatus: string | null
+  courierReturnReason: string | null
+  courierReturnRequestedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: OrderCountAggregateOutputType | null
@@ -494,6 +551,13 @@ export type OrderWhereInput = {
   courierLastSyncedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   courierDeliveryType?: Prisma.IntFilter<"Order"> | number
   courierNotes?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierTrackingLink?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierCodAmount?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierReturnRequestId?: Prisma.IntNullableFilter<"Order"> | number | null
+  courierReturnStatus?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierReturnReason?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierReturnRequestedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
@@ -537,6 +601,13 @@ export type OrderOrderByWithRelationInput = {
   courierLastSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   courierDeliveryType?: Prisma.SortOrder
   courierNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierTrackingLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierCodAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierBookingState?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierReturnRequestId?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierReturnStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierReturnReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierReturnRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   cart?: Prisma.CartOrderByWithRelationInput
@@ -548,6 +619,7 @@ export type OrderOrderByWithRelationInput = {
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   orderRef?: string
+  courierProvider_courierConsignmentId?: Prisma.OrderCourierProviderCourierConsignmentIdCompoundUniqueInput
   AND?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   OR?: Prisma.OrderWhereInput[]
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
@@ -583,13 +655,20 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   courierLastSyncedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   courierDeliveryType?: Prisma.IntFilter<"Order"> | number
   courierNotes?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierTrackingLink?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierCodAmount?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierReturnRequestId?: Prisma.IntNullableFilter<"Order"> | number | null
+  courierReturnStatus?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierReturnReason?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierReturnRequestedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
   customer?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   reseller?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   orderItems?: Prisma.OrderItemListRelationFilter
-}, "id" | "orderRef">
+}, "id" | "orderRef" | "courierProvider_courierConsignmentId">
 
 export type OrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -626,6 +705,13 @@ export type OrderOrderByWithAggregationInput = {
   courierLastSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   courierDeliveryType?: Prisma.SortOrder
   courierNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierTrackingLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierCodAmount?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierBookingState?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierReturnRequestId?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierReturnStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierReturnReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  courierReturnRequestedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.OrderCountOrderByAggregateInput
@@ -673,6 +759,13 @@ export type OrderScalarWhereWithAggregatesInput = {
   courierLastSyncedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   courierDeliveryType?: Prisma.IntWithAggregatesFilter<"Order"> | number
   courierNotes?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierTrackingLink?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierCodAmount?: Prisma.DecimalNullableWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierReturnRequestId?: Prisma.IntNullableWithAggregatesFilter<"Order"> | number | null
+  courierReturnStatus?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierReturnReason?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  courierReturnRequestedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
 }
@@ -709,6 +802,13 @@ export type OrderCreateInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cart?: Prisma.CartCreateNestedOneWithoutOrdersInput
@@ -752,6 +852,13 @@ export type OrderUncheckedCreateInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -789,6 +896,13 @@ export type OrderUpdateInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CartUpdateOneWithoutOrdersNestedInput
@@ -832,6 +946,13 @@ export type OrderUncheckedUpdateInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -872,6 +993,13 @@ export type OrderCreateManyInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -908,6 +1036,13 @@ export type OrderUpdateManyMutationInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -947,6 +1082,13 @@ export type OrderUncheckedUpdateManyInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -959,6 +1101,11 @@ export type OrderListRelationFilter = {
 
 export type OrderOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type OrderCourierProviderCourierConsignmentIdCompoundUniqueInput = {
+  courierProvider: string
+  courierConsignmentId: string
 }
 
 export type OrderCountOrderByAggregateInput = {
@@ -996,6 +1143,13 @@ export type OrderCountOrderByAggregateInput = {
   courierLastSyncedAt?: Prisma.SortOrder
   courierDeliveryType?: Prisma.SortOrder
   courierNotes?: Prisma.SortOrder
+  courierTrackingLink?: Prisma.SortOrder
+  courierCodAmount?: Prisma.SortOrder
+  courierBookingState?: Prisma.SortOrder
+  courierReturnRequestId?: Prisma.SortOrder
+  courierReturnStatus?: Prisma.SortOrder
+  courierReturnReason?: Prisma.SortOrder
+  courierReturnRequestedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1010,6 +1164,8 @@ export type OrderAvgOrderByAggregateInput = {
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
   courierDeliveryType?: Prisma.SortOrder
+  courierCodAmount?: Prisma.SortOrder
+  courierReturnRequestId?: Prisma.SortOrder
 }
 
 export type OrderMaxOrderByAggregateInput = {
@@ -1047,6 +1203,13 @@ export type OrderMaxOrderByAggregateInput = {
   courierLastSyncedAt?: Prisma.SortOrder
   courierDeliveryType?: Prisma.SortOrder
   courierNotes?: Prisma.SortOrder
+  courierTrackingLink?: Prisma.SortOrder
+  courierCodAmount?: Prisma.SortOrder
+  courierBookingState?: Prisma.SortOrder
+  courierReturnRequestId?: Prisma.SortOrder
+  courierReturnStatus?: Prisma.SortOrder
+  courierReturnReason?: Prisma.SortOrder
+  courierReturnRequestedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1086,6 +1249,13 @@ export type OrderMinOrderByAggregateInput = {
   courierLastSyncedAt?: Prisma.SortOrder
   courierDeliveryType?: Prisma.SortOrder
   courierNotes?: Prisma.SortOrder
+  courierTrackingLink?: Prisma.SortOrder
+  courierCodAmount?: Prisma.SortOrder
+  courierBookingState?: Prisma.SortOrder
+  courierReturnRequestId?: Prisma.SortOrder
+  courierReturnStatus?: Prisma.SortOrder
+  courierReturnReason?: Prisma.SortOrder
+  courierReturnRequestedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -1100,6 +1270,8 @@ export type OrderSumOrderByAggregateInput = {
   discount?: Prisma.SortOrder
   total?: Prisma.SortOrder
   courierDeliveryType?: Prisma.SortOrder
+  courierCodAmount?: Prisma.SortOrder
+  courierReturnRequestId?: Prisma.SortOrder
 }
 
 export type OrderScalarRelationFilter = {
@@ -1253,6 +1425,14 @@ export type EnumOrderProcessingStatusFieldUpdateOperationsInput = {
   set?: $Enums.OrderProcessingStatus
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type OrderCreateNestedOneWithoutOrderItemsInput = {
   create?: Prisma.XOR<Prisma.OrderCreateWithoutOrderItemsInput, Prisma.OrderUncheckedCreateWithoutOrderItemsInput>
   connectOrCreate?: Prisma.OrderCreateOrConnectWithoutOrderItemsInput
@@ -1299,6 +1479,13 @@ export type OrderCreateWithoutCustomerInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cart?: Prisma.CartCreateNestedOneWithoutOrdersInput
@@ -1340,6 +1527,13 @@ export type OrderUncheckedCreateWithoutCustomerInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -1387,6 +1581,13 @@ export type OrderCreateWithoutResellerInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cart?: Prisma.CartCreateNestedOneWithoutOrdersInput
@@ -1428,6 +1629,13 @@ export type OrderUncheckedCreateWithoutResellerInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -1497,6 +1705,13 @@ export type OrderScalarWhereInput = {
   courierLastSyncedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   courierDeliveryType?: Prisma.IntFilter<"Order"> | number
   courierNotes?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierTrackingLink?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierCodAmount?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierReturnRequestId?: Prisma.IntNullableFilter<"Order"> | number | null
+  courierReturnStatus?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierReturnReason?: Prisma.StringNullableFilter<"Order"> | string | null
+  courierReturnRequestedAt?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
 }
@@ -1549,6 +1764,13 @@ export type OrderCreateWithoutCartInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   customer: Prisma.UserCreateNestedOneWithoutOrdersInput
@@ -1590,6 +1812,13 @@ export type OrderUncheckedCreateWithoutCartInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   orderItems?: Prisma.OrderItemUncheckedCreateNestedManyWithoutOrderInput
@@ -1653,6 +1882,13 @@ export type OrderCreateWithoutOrderItemsInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cart?: Prisma.CartCreateNestedOneWithoutOrdersInput
@@ -1695,6 +1931,13 @@ export type OrderUncheckedCreateWithoutOrderItemsInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1747,6 +1990,13 @@ export type OrderUpdateWithoutOrderItemsInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CartUpdateOneWithoutOrdersNestedInput
@@ -1789,6 +2039,13 @@ export type OrderUncheckedUpdateWithoutOrderItemsInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1827,6 +2084,13 @@ export type OrderCreateManyCustomerInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1865,6 +2129,13 @@ export type OrderCreateManyResellerInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1901,6 +2172,13 @@ export type OrderUpdateWithoutCustomerInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CartUpdateOneWithoutOrdersNestedInput
@@ -1942,6 +2220,13 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -1981,6 +2266,13 @@ export type OrderUncheckedUpdateManyWithoutCustomerInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2017,6 +2309,13 @@ export type OrderUpdateWithoutResellerInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cart?: Prisma.CartUpdateOneWithoutOrdersNestedInput
@@ -2058,6 +2357,13 @@ export type OrderUncheckedUpdateWithoutResellerInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -2097,6 +2403,13 @@ export type OrderUncheckedUpdateManyWithoutResellerInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2135,6 +2448,13 @@ export type OrderCreateManyCartInput = {
   courierLastSyncedAt?: Date | string | null
   courierDeliveryType?: number
   courierNotes?: string | null
+  courierTrackingLink?: string | null
+  courierCodAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: string | null
+  courierReturnRequestId?: number | null
+  courierReturnStatus?: string | null
+  courierReturnReason?: string | null
+  courierReturnRequestedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -2171,6 +2491,13 @@ export type OrderUpdateWithoutCartInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   customer?: Prisma.UserUpdateOneRequiredWithoutOrdersNestedInput
@@ -2212,6 +2539,13 @@ export type OrderUncheckedUpdateWithoutCartInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderItems?: Prisma.OrderItemUncheckedUpdateManyWithoutOrderNestedInput
@@ -2251,6 +2585,13 @@ export type OrderUncheckedUpdateManyWithoutCartInput = {
   courierLastSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   courierDeliveryType?: Prisma.IntFieldUpdateOperationsInput | number
   courierNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierTrackingLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierCodAmount?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  courierBookingState?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  courierReturnStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  courierReturnRequestedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -2321,6 +2662,13 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   courierLastSyncedAt?: boolean
   courierDeliveryType?: boolean
   courierNotes?: boolean
+  courierTrackingLink?: boolean
+  courierCodAmount?: boolean
+  courierBookingState?: boolean
+  courierReturnRequestId?: boolean
+  courierReturnStatus?: boolean
+  courierReturnReason?: boolean
+  courierReturnRequestedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
@@ -2365,6 +2713,13 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   courierLastSyncedAt?: boolean
   courierDeliveryType?: boolean
   courierNotes?: boolean
+  courierTrackingLink?: boolean
+  courierCodAmount?: boolean
+  courierBookingState?: boolean
+  courierReturnRequestId?: boolean
+  courierReturnStatus?: boolean
+  courierReturnReason?: boolean
+  courierReturnRequestedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
@@ -2407,6 +2762,13 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   courierLastSyncedAt?: boolean
   courierDeliveryType?: boolean
   courierNotes?: boolean
+  courierTrackingLink?: boolean
+  courierCodAmount?: boolean
+  courierBookingState?: boolean
+  courierReturnRequestId?: boolean
+  courierReturnStatus?: boolean
+  courierReturnReason?: boolean
+  courierReturnRequestedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
@@ -2449,11 +2811,18 @@ export type OrderSelectScalar = {
   courierLastSyncedAt?: boolean
   courierDeliveryType?: boolean
   courierNotes?: boolean
+  courierTrackingLink?: boolean
+  courierCodAmount?: boolean
+  courierBookingState?: boolean
+  courierReturnRequestId?: boolean
+  courierReturnStatus?: boolean
+  courierReturnReason?: boolean
+  courierReturnRequestedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderRef" | "cartId" | "customerId" | "isResellerOrder" | "resellerId" | "customerName" | "customerPhone" | "customerSecondaryPhone" | "customerDistrict" | "customerThana" | "resellerSubtotal" | "resellerSellPrice" | "resellerProfit" | "isAdvanceCourierPaid" | "advanceCourierAmount" | "paymentStatus" | "paymentMethod" | "processingStatus" | "orderProcessedBy" | "subtotal" | "courierCharge" | "discount" | "total" | "shippingAddress" | "notes" | "courierProvider" | "courierConsignmentId" | "courierTrackingCode" | "courierStatus" | "courierSubmittedAt" | "courierLastSyncedAt" | "courierDeliveryType" | "courierNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderRef" | "cartId" | "customerId" | "isResellerOrder" | "resellerId" | "customerName" | "customerPhone" | "customerSecondaryPhone" | "customerDistrict" | "customerThana" | "resellerSubtotal" | "resellerSellPrice" | "resellerProfit" | "isAdvanceCourierPaid" | "advanceCourierAmount" | "paymentStatus" | "paymentMethod" | "processingStatus" | "orderProcessedBy" | "subtotal" | "courierCharge" | "discount" | "total" | "shippingAddress" | "notes" | "courierProvider" | "courierConsignmentId" | "courierTrackingCode" | "courierStatus" | "courierSubmittedAt" | "courierLastSyncedAt" | "courierDeliveryType" | "courierNotes" | "courierTrackingLink" | "courierCodAmount" | "courierBookingState" | "courierReturnRequestId" | "courierReturnStatus" | "courierReturnReason" | "courierReturnRequestedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
   customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -2515,6 +2884,13 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     courierLastSyncedAt: Date | null
     courierDeliveryType: number
     courierNotes: string | null
+    courierTrackingLink: string | null
+    courierCodAmount: runtime.Decimal | null
+    courierBookingState: string | null
+    courierReturnRequestId: number | null
+    courierReturnStatus: string | null
+    courierReturnReason: string | null
+    courierReturnRequestedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["order"]>
@@ -2978,6 +3354,13 @@ export interface OrderFieldRefs {
   readonly courierLastSyncedAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly courierDeliveryType: Prisma.FieldRef<"Order", 'Int'>
   readonly courierNotes: Prisma.FieldRef<"Order", 'String'>
+  readonly courierTrackingLink: Prisma.FieldRef<"Order", 'String'>
+  readonly courierCodAmount: Prisma.FieldRef<"Order", 'Decimal'>
+  readonly courierBookingState: Prisma.FieldRef<"Order", 'String'>
+  readonly courierReturnRequestId: Prisma.FieldRef<"Order", 'Int'>
+  readonly courierReturnStatus: Prisma.FieldRef<"Order", 'String'>
+  readonly courierReturnReason: Prisma.FieldRef<"Order", 'String'>
+  readonly courierReturnRequestedAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>
 }

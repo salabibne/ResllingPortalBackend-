@@ -402,9 +402,11 @@ export const ModelName = {
   Cart: 'Cart',
   CartItem: 'CartItem',
   Order: 'Order',
+  CourierPickup: 'CourierPickup',
   OrderItem: 'OrderItem',
   CmsSocialMedia: 'CmsSocialMedia',
   CmsContact: 'CmsContact',
+  CmsBrand: 'CmsBrand',
   CmsHero: 'CmsHero',
   CmsAbout: 'CmsAbout',
   CmsSection: 'CmsSection',
@@ -438,7 +440,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "category" | "subcategory" | "childCategory" | "brand" | "product" | "productImage" | "color" | "productColor" | "size" | "productSize" | "ageVariant" | "productAge" | "inventory" | "inventoryTransaction" | "cart" | "cartItem" | "order" | "orderItem" | "cmsSocialMedia" | "cmsContact" | "cmsHero" | "cmsAbout" | "cmsSection" | "cmsFounder" | "cmsFounderBlog" | "cmsFounderVideo" | "cmsTeam" | "customPage" | "pageSection" | "productPageConfig" | "productPageSection" | "announcement" | "externalApi" | "legalDocument" | "courierSetting" | "withdrawal" | "noticeModal" | "supportTicket"
+    modelProps: "user" | "category" | "subcategory" | "childCategory" | "brand" | "product" | "productImage" | "color" | "productColor" | "size" | "productSize" | "ageVariant" | "productAge" | "inventory" | "inventoryTransaction" | "cart" | "cartItem" | "order" | "courierPickup" | "orderItem" | "cmsSocialMedia" | "cmsContact" | "cmsBrand" | "cmsHero" | "cmsAbout" | "cmsSection" | "cmsFounder" | "cmsFounderBlog" | "cmsFounderVideo" | "cmsTeam" | "customPage" | "pageSection" | "productPageConfig" | "productPageSection" | "announcement" | "externalApi" | "legalDocument" | "courierSetting" | "withdrawal" | "noticeModal" | "supportTicket"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1774,6 +1776,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CourierPickup: {
+      payload: Prisma.$CourierPickupPayload<ExtArgs>
+      fields: Prisma.CourierPickupFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CourierPickupFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CourierPickupFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>
+        }
+        findFirst: {
+          args: Prisma.CourierPickupFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CourierPickupFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>
+        }
+        findMany: {
+          args: Prisma.CourierPickupFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>[]
+        }
+        create: {
+          args: Prisma.CourierPickupCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>
+        }
+        createMany: {
+          args: Prisma.CourierPickupCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CourierPickupCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>[]
+        }
+        delete: {
+          args: Prisma.CourierPickupDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>
+        }
+        update: {
+          args: Prisma.CourierPickupUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>
+        }
+        deleteMany: {
+          args: Prisma.CourierPickupDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CourierPickupUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CourierPickupUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>[]
+        }
+        upsert: {
+          args: Prisma.CourierPickupUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>
+        }
+        aggregate: {
+          args: Prisma.CourierPickupAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCourierPickup>
+        }
+        groupBy: {
+          args: Prisma.CourierPickupGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourierPickupGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CourierPickupCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CourierPickupCountAggregateOutputType> | number
+        }
+      }
+    }
     OrderItem: {
       payload: Prisma.$OrderItemPayload<ExtArgs>
       fields: Prisma.OrderItemFieldRefs
@@ -1993,6 +2069,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CmsContactCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CmsContactCountAggregateOutputType> | number
+        }
+      }
+    }
+    CmsBrand: {
+      payload: Prisma.$CmsBrandPayload<ExtArgs>
+      fields: Prisma.CmsBrandFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CmsBrandFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CmsBrandFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>
+        }
+        findFirst: {
+          args: Prisma.CmsBrandFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CmsBrandFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>
+        }
+        findMany: {
+          args: Prisma.CmsBrandFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>[]
+        }
+        create: {
+          args: Prisma.CmsBrandCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>
+        }
+        createMany: {
+          args: Prisma.CmsBrandCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CmsBrandCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>[]
+        }
+        delete: {
+          args: Prisma.CmsBrandDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>
+        }
+        update: {
+          args: Prisma.CmsBrandUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>
+        }
+        deleteMany: {
+          args: Prisma.CmsBrandDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CmsBrandUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CmsBrandUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>[]
+        }
+        upsert: {
+          args: Prisma.CmsBrandUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>
+        }
+        aggregate: {
+          args: Prisma.CmsBrandAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCmsBrand>
+        }
+        groupBy: {
+          args: Prisma.CmsBrandGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CmsBrandGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CmsBrandCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CmsBrandCountAggregateOutputType> | number
         }
       }
     }
@@ -3629,11 +3779,37 @@ export const OrderScalarFieldEnum = {
   courierLastSyncedAt: 'courierLastSyncedAt',
   courierDeliveryType: 'courierDeliveryType',
   courierNotes: 'courierNotes',
+  courierTrackingLink: 'courierTrackingLink',
+  courierCodAmount: 'courierCodAmount',
+  courierBookingState: 'courierBookingState',
+  courierReturnRequestId: 'courierReturnRequestId',
+  courierReturnStatus: 'courierReturnStatus',
+  courierReturnReason: 'courierReturnReason',
+  courierReturnRequestedAt: 'courierReturnRequestedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const CourierPickupScalarFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  addressId: 'addressId',
+  policeStationId: 'policeStationId',
+  address: 'address',
+  contactNumber: 'contactNumber',
+  note: 'note',
+  estimQty: 'estimQty',
+  status: 'status',
+  providerResponse: 'providerResponse',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CourierPickupScalarFieldEnum = (typeof CourierPickupScalarFieldEnum)[keyof typeof CourierPickupScalarFieldEnum]
 
 
 export const OrderItemScalarFieldEnum = {
@@ -3678,6 +3854,17 @@ export const CmsContactScalarFieldEnum = {
 } as const
 
 export type CmsContactScalarFieldEnum = (typeof CmsContactScalarFieldEnum)[keyof typeof CmsContactScalarFieldEnum]
+
+
+export const CmsBrandScalarFieldEnum = {
+  id: 'id',
+  logoUrl: 'logoUrl',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CmsBrandScalarFieldEnum = (typeof CmsBrandScalarFieldEnum)[keyof typeof CmsBrandScalarFieldEnum]
 
 
 export const CmsHeroScalarFieldEnum = {
@@ -4178,20 +4365,6 @@ export type ListEnumOrderProcessingStatusFieldRefInput<$PrismaModel> = FieldRefI
 
 
 /**
- * Reference to a field of type 'PageStatus'
- */
-export type EnumPageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PageStatus'>
-    
-
-
-/**
- * Reference to a field of type 'PageStatus[]'
- */
-export type ListEnumPageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PageStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'Json'
  */
 export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -4202,6 +4375,20 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'PageStatus'
+ */
+export type EnumPageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PageStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'PageStatus[]'
+ */
+export type ListEnumPageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PageStatus[]'>
     
 
 
@@ -4416,9 +4603,11 @@ export type GlobalOmitConfig = {
   cart?: Prisma.CartOmit
   cartItem?: Prisma.CartItemOmit
   order?: Prisma.OrderOmit
+  courierPickup?: Prisma.CourierPickupOmit
   orderItem?: Prisma.OrderItemOmit
   cmsSocialMedia?: Prisma.CmsSocialMediaOmit
   cmsContact?: Prisma.CmsContactOmit
+  cmsBrand?: Prisma.CmsBrandOmit
   cmsHero?: Prisma.CmsHeroOmit
   cmsAbout?: Prisma.CmsAboutOmit
   cmsSection?: Prisma.CmsSectionOmit

@@ -34,3 +34,5 @@ services:
         sync: false
       - key: STEADFAST_BASE_URL
         value: https://portal.packzy.com/api/v1
+      - key: STEADFAST_HTTP_TIMEOUT_MS
+        value: 10000

@@ -1,14 +1,166 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, OnModuleInit } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateCustomPageDto } from './dto/create-custom-page.dto';
 import { UpdateCustomPageDto } from './dto/update-custom-page.dto';
 
 @Injectable()
-export class CustomPagesService {
+export class CustomPagesService implements OnModuleInit {
   constructor(private readonly prisma: PrismaService) {}
 
+  async onModuleInit() {
+    try {
+      await this.ensureReferencePages();
+    } catch (err: any) {
+      console.error(
+        `Failed to migrate Base CMS content into custom pages: ${err?.message || err}`,
+      );
+    }
+  }
+
+  private escapeHtml(value?: string | null): string {
+    return String(value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  /**
+   * One-time, idempotent move of the Base CMS blocks (Feature Cards, Our Team,
+   * Founder profile/blogs/videos) into Custom Pages Builder pages. Runs on boot
+   * and skips any slug that already exists, so it never overwrites edits.
+   */
+  private async ensureReferencePages() {
+    const wanted = ['features', 'team', 'founder'];
+    const existing = await this.prisma.customPage.findMany({
+      where: { slug: { in: wanted } },
+      select: { slug: true },
+    });
+    const present = new Set(existing.map((page) => page.slug));
+
+    if (!present.has('features')) await this.createFeaturesPage();
+    if (!present.has('team')) await this.createTeamPage();
+    if (!present.has('founder')) await this.createFounderPage();
+  }
+
+  private async createFeaturesPage() {
+    const rows = await this.prisma.cmsSection.findMany({
+      orderBy: { createdAt: 'asc' },
+    });
+    const heading = rows[0];
+
+    await this.prisma.customPage.create({
+      data: {
+        title: 'Feature Cards',
+        slug: 'features',
+        content: heading
+          ? `<h2>${this.escapeHtml(heading.title)}</h2><p>${this.escapeHtml(heading.description)}</p>`
+          : '',
+        metaTitle: heading?.title || 'Why Choose Aarham Apparel',
+        metaDescription: heading?.description || 'Feature cards for Aarham Apparel',
+        status: 'PUBLISHED',
+        sections: {
+          create: rows.map((row, index) => ({
+            title: row.cardTitle,
+            subtitle: 'Feature',
+            description: row.cardDescription,
+            imageUrl: row.imageUrl || '',
+            buttonText: row.cardButton || '',
+            buttonLink: row.cardLink || '#',
+            sortOrder: index + 1,
+            content: { type: 'feature_card', isActive: true, cardIcon: row.cardIcon || '' },
+          })),
+        },
+      },
+    });
+  }
+
+  private async createTeamPage() {
+    const rows = await this.prisma.cmsTeam.findMany({
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
+    });
+
+    await this.prisma.customPage.create({
+      data: {
+        title: 'Our Team',
+        slug: 'team',
+        content: '',
+        metaTitle: 'Our Team - Aarham Apparel',
+        metaDescription: 'The creative minds behind Aarham Apparel.',
+        status: 'PUBLISHED',
+        sections: {
+          create: rows.map((row, index) => ({
+            title: row.name,
+            subtitle: row.designation || '',
+            description: row.message || '',
+            imageUrl: row.imageUrl || '',
+            sortOrder: index + 1,
+            content: { type: 'team_member', isActive: true },
+          })),
+        },
+      },
+    });
+  }
+
+  private async createFounderPage() {
+    const profile = await this.prisma.cmsFounder.findFirst({
+      orderBy: { createdAt: 'asc' },
+    });
+    const blogs = await this.prisma.cmsFounderBlog.findMany({
+      orderBy: { createdAt: 'asc' },
+    });
+    const videos = await this.prisma.cmsFounderVideo.findMany({
+      orderBy: { createdAt: 'asc' },
+    });
+
+    const sections: any[] = [];
+    if (profile) {
+      sections.push({
+        title: profile.title,
+        subtitle: 'Founder',
+        description: profile.description || '',
+        imageUrl: profile.imageUrl || '',
+        sortOrder: sections.length + 1,
+        content: { type: 'founder_profile', isActive: true },
+      });
+    }
+    blogs.forEach((row) =>
+      sections.push({
+        title: row.title,
+        subtitle: 'Blog',
+        description: row.description || '',
+        imageUrl: row.imageUrl || '',
+        sortOrder: sections.length + 1,
+        content: { type: 'founder_blog', isActive: true },
+      }),
+    );
+    videos.forEach((row) =>
+      sections.push({
+        title: row.title,
+        subtitle: 'Video',
+        description: row.description || '',
+        imageUrl: '',
+        sortOrder: sections.length + 1,
+        content: { type: 'founder_video', isActive: true, videoLink: row.videoLink || '' },
+      }),
+    );
+
+    await this.prisma.customPage.create({
+      data: {
+        title: 'Founder',
+        slug: 'founder',
+        content: '',
+        metaTitle: 'Founder - Aarham Apparel',
+        metaDescription: 'Founder profile, blogs and videos.',
+        status: 'PUBLISHED',
+        sections: { create: sections },
+      },
+    });
+  }
+
   async findAll(query?: { search?: string; status?: string }) {
-    const where: any = {};
+    // The site home page is managed exclusively by the Homepage Customizer
+    // (GET /custom-pages/slug/home), never by the Custom Pages Builder.
+    const where: any = { slug: { not: 'home' } };
     if (query?.status) {
       where.status = query.status;
     }
@@ -89,6 +241,8 @@ export class CustomPagesService {
   }
 
   private getDefaultHomeSectionsData() {
+    // Features / Team / Founder are not home content any more — they live in
+    // the Custom Pages Builder at /pages/features, /pages/team and /pages/founder.
     return [
       {
         title: 'Hero Banner',
@@ -107,32 +261,11 @@ export class CustomPagesService {
         content: { type: 'products', isActive: true, limit: 8 },
       },
       {
-        title: 'Why Choose Aarham Apparel',
-        subtitle: 'Features',
-        description: 'Premium Fabric, Fast Delivery & Seamless Reselling',
-        sortOrder: 3,
-        content: { type: 'features', isActive: true },
-      },
-      {
         title: 'Our Story & Craftsmanship',
         subtitle: 'About',
         description: 'Crafting quality fashion with passion and care',
-        sortOrder: 4,
+        sortOrder: 3,
         content: { type: 'about', isActive: true },
-      },
-      {
-        title: 'Meet Our Creative Team',
-        subtitle: 'Team',
-        description: 'The creative minds behind the designs',
-        sortOrder: 5,
-        content: { type: 'team', isActive: true },
-      },
-      {
-        title: 'Vision of the Founder',
-        subtitle: 'Founder',
-        description: 'A message of quality, authenticity, and growth',
-        sortOrder: 6,
-        content: { type: 'founder', isActive: true },
       },
     ];
   }

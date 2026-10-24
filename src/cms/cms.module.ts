@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AboutModule } from './about/about.module';
+import { BrandModule } from './brand/brand.module';
 import { ContactModule } from './contact/contact.module';
 import { FounderBlogModule } from './founder-blog/founder-blog.module';
 import { FounderVideoModule } from './founder-video/founder-video.module';
@@ -24,6 +25,7 @@ import { NoticeModalService } from './notice-modal/notice-modal.service';
   imports: [
     SocialMediaModule,
     ContactModule,
+    BrandModule,
     HeroModule,
     AboutModule,
     SectionModule,
@@ -49,6 +51,7 @@ import { NoticeModalService } from './notice-modal/notice-modal.service';
   exports: [
     SocialMediaModule,
     ContactModule,
+    BrandModule,
     HeroModule,
     AboutModule,
     SectionModule,

@@ -1,10 +1,15 @@
 import {
+  BadGatewayException,
   BadRequestException,
+  ConflictException,
+  ForbiddenException,
+  GatewayTimeoutException,
   Injectable,
   NotFoundException,
-  ForbiddenException,
   OnModuleInit,
+  UnauthorizedException,
 } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import {
   InventoryTxPurpose,
   InventoryTxType,
@@ -18,6 +23,8 @@ import { CreateResellerOrderDto } from './dto/create-reseller-order.dto';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 import { UpdateCourierSettingDto } from './dto/update-courier-setting.dto';
 import { SendToCourierDto, BulkSendCourierDto } from './dto/send-to-courier.dto';
+import { CreateCourierPickupDto } from './dto/create-courier-pickup.dto';
+import { CreateCourierReturnDto } from './dto/create-courier-return.dto';
 import { SteadfastService } from './steadfast.service';
 
 @Injectable()
@@ -26,6 +33,9 @@ export class OrderService implements OnModuleInit {
     private readonly prisma: PrismaService,
     private readonly steadfastService: SteadfastService,
   ) {}
+
+  /** Guards the scheduled courier sync against overlapping runs. */
+  private courierSyncRunning = false;
 
   async onModuleInit() {
     await this.backfillOrderRefs();
@@ -555,6 +565,9 @@ export class OrderService implements OnModuleInit {
     startDate?: string,
     endDate?: string,
     customerPhone?: string,
+    courierStatus?: string,
+    consignmentId?: string,
+    shipmentState?: string,
   ) {
     const skip = (page - 1) * limit;
     const isStaff = [
@@ -586,6 +599,52 @@ export class OrderService implements OnModuleInit {
     }
     if (paymentStatus && paymentStatus !== 'ALL') {
       where.paymentStatus = paymentStatus;
+    }
+
+    // Courier filters
+    if (courierStatus && courierStatus !== 'ALL') {
+      if (courierStatus === 'NOT_SENT') {
+        where.courierConsignmentId = null;
+        where.courierTrackingCode = null;
+      } else if (courierStatus === 'RETURNED') {
+        where.courierStatus = { contains: 'return', mode: 'insensitive' };
+      } else if (courierStatus === 'IN_TRANSIT') {
+        where.courierStatus = {
+          in: [
+            'pending',
+            'in_review',
+            'in_transit',
+            'delivered_approval_pending',
+            'partial_delivered_approval_pending',
+          ],
+        };
+      } else {
+        where.courierStatus = courierStatus.toLowerCase();
+      }
+    }
+
+    if (consignmentId && consignmentId.trim() !== '') {
+      where.courierConsignmentId = {
+        contains: consignmentId.trim(),
+        mode: 'insensitive',
+      };
+    }
+
+    if (shipmentState) {
+      switch (shipmentState) {
+        case 'NOT_BOOKED':
+          where.courierConsignmentId = null;
+          where.courierTrackingCode = null;
+          break;
+        case 'BOOKED':
+          where.courierConsignmentId = { not: null };
+          break;
+        case 'BOOKING':
+        case 'FAILED':
+        case 'UNCERTAIN':
+          where.courierBookingState = shipmentState;
+          break;
+      }
     }
 
     // Date Range / Single Date Filter
@@ -623,13 +682,22 @@ export class OrderService implements OnModuleInit {
 
     if (search && search.trim() !== '') {
       const searchClean = search.trim();
-      const searchCondition = [
+      const isUuidSearch =
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+          searchClean,
+        );
+      const searchCondition: any[] = [
         { orderRef: { contains: searchClean, mode: 'insensitive' } },
-        { id: { contains: searchClean, mode: 'insensitive' } },
         { customerName: { contains: searchClean, mode: 'insensitive' } },
         { customerPhone: { contains: searchClean, mode: 'insensitive' } },
         { shippingAddress: { contains: searchClean, mode: 'insensitive' } },
+        { courierConsignmentId: { contains: searchClean, mode: 'insensitive' } },
+        { courierTrackingCode: { contains: searchClean, mode: 'insensitive' } },
       ];
+      // UUID columns do not support LIKE/contains in Postgres
+      if (isUuidSearch) {
+        searchCondition.push({ id: searchClean });
+      }
       if (where.OR) {
         where.AND = [
           ...(where.AND || []),
@@ -751,6 +819,9 @@ export class OrderService implements OnModuleInit {
     startDate?: string,
     endDate?: string,
     customerPhone?: string,
+    courierStatus?: string,
+    consignmentId?: string,
+    shipmentState?: string,
   ) {
     const res = await this.getOrders(
       user,
@@ -763,6 +834,9 @@ export class OrderService implements OnModuleInit {
       startDate,
       endDate,
       customerPhone,
+      courierStatus,
+      consignmentId,
+      shipmentState,
     );
     return res.data;
   }
@@ -1054,6 +1128,31 @@ export class OrderService implements OnModuleInit {
       throw new NotFoundException('Order not found');
     }
 
+    if (order.courierConsignmentId || order.courierTrackingCode) {
+      throw new ConflictException(
+        `Order is already booked with Steadfast (consignment ${order.courierConsignmentId || 'N/A'}, tracking ${order.courierTrackingCode || 'N/A'}). Refresh its status instead of booking again.`,
+      );
+    }
+
+    const claimed = await this.prisma.order.updateMany({
+      where: {
+        id: order.id,
+        courierConsignmentId: null,
+        courierTrackingCode: null,
+        OR: [{ courierBookingState: null }, { courierBookingState: 'FAILED' }],
+      },
+      data: {
+        courierBookingState: 'BOOKING',
+        orderProcessedBy: staffUser.id,
+      },
+    });
+
+    if (claimed.count === 0) {
+      throw new ConflictException(
+        'A courier booking is already in progress or the order has already been booked.',
+      );
+    }
+
     const recipientName =
       order.customerName || order.customer?.name || 'Customer';
     const recipientPhone =
@@ -1081,58 +1180,100 @@ export class OrderService implements OnModuleInit {
       .join(', ');
     const totalLot = order.orderItems?.reduce((acc, i) => acc + i.quantity, 0) || 1;
 
-    const response = await this.steadfastService.createOrder({
-      invoice,
-      recipient_name: recipientName,
-      recipient_phone: recipientPhone,
-      alternative_phone: altPhone,
-      recipient_email: recipientEmail,
-      recipient_address: recipientAddress,
-      cod_amount: codAmount,
-      note: dto.note || order.notes || undefined,
-      item_description: itemDesc,
-      total_lot: totalLot,
-      delivery_type: dto.deliveryType !== undefined ? dto.deliveryType : 0,
-    });
+    try {
+      const response = await this.steadfastService.createOrder({
+        invoice,
+        recipient_name: recipientName,
+        recipient_phone: recipientPhone,
+        alternative_phone: altPhone,
+        recipient_email: recipientEmail,
+        recipient_address: recipientAddress,
+        cod_amount: codAmount,
+        note: dto.note || order.notes || undefined,
+        item_description: itemDesc,
+        total_lot: totalLot,
+        delivery_type: dto.deliveryType !== undefined ? dto.deliveryType : 0,
+      });
 
-    const consignment = response.consignment;
+      const consignment = response.consignment;
 
-    const updated = await this.prisma.order.update({
-      where: { id: order.id },
-      data: {
-        courierProvider: 'STEADFAST',
-        courierConsignmentId: consignment?.consignment_id
-          ? String(consignment.consignment_id)
-          : null,
-        courierTrackingCode: consignment?.tracking_code || null,
-        courierStatus: consignment?.status || 'in_review',
-        courierSubmittedAt: new Date(),
-        courierLastSyncedAt: new Date(),
-        courierDeliveryType: dto.deliveryType !== undefined ? dto.deliveryType : 0,
-        courierNotes: dto.note || null,
-        processingStatus:
-          order.processingStatus === OrderProcessingStatus.PENDING ||
-          order.processingStatus === OrderProcessingStatus.CONFIRMED
-            ? OrderProcessingStatus.SHIPPED
-            : order.processingStatus,
-        orderProcessedBy: staffUser.id,
-      },
-      include: {
-        customer: { select: { id: true, name: true, email: true, phone: true } },
-        reseller: { select: { id: true, name: true, email: true, phone: true } },
-        orderItems: {
-          include: {
-            product: { select: { id: true, name: true } },
+      if (!consignment?.consignment_id || !consignment?.tracking_code) {
+        throw new BadGatewayException(
+          'Steadfast did not return a consignment ID and tracking code for this booking.',
+        );
+      }
+
+      const updated = await this.prisma.order.update({
+        where: { id: order.id },
+        data: {
+          courierProvider: 'STEADFAST',
+          courierConsignmentId: String(consignment.consignment_id),
+          courierTrackingCode: consignment.tracking_code,
+          courierTrackingLink: consignment.tracking_link || null,
+          courierCodAmount: codAmount,
+          courierStatus: consignment.status || 'in_review',
+          courierSubmittedAt: new Date(),
+          courierLastSyncedAt: new Date(),
+          courierDeliveryType: dto.deliveryType !== undefined ? dto.deliveryType : 0,
+          courierNotes: dto.note || null,
+          courierBookingState: 'BOOKED',
+          processingStatus:
+            order.processingStatus === OrderProcessingStatus.PENDING ||
+            order.processingStatus === OrderProcessingStatus.CONFIRMED
+              ? OrderProcessingStatus.SHIPPED
+              : order.processingStatus,
+          orderProcessedBy: staffUser.id,
+        },
+        include: {
+          customer: { select: { id: true, name: true, email: true, phone: true } },
+          reseller: { select: { id: true, name: true, email: true, phone: true } },
+          orderItems: {
+            include: {
+              product: { select: { id: true, name: true } },
+            },
           },
         },
-      },
-    });
+      });
 
-    return {
-      message: 'Order placed to Steadfast Courier successfully',
-      order: updated,
-      consignment,
-    };
+      return {
+        message: 'Order placed to Steadfast Courier successfully',
+        order: updated,
+        consignment,
+      };
+    } catch (err: any) {
+      const message = err?.message || 'Steadfast booking failed';
+      const isAmbiguous =
+        err instanceof GatewayTimeoutException ||
+        err instanceof BadGatewayException ||
+        this.isDuplicateInvoiceError(message);
+
+      await this.setBookingState(order.id, isAmbiguous ? 'UNCERTAIN' : 'FAILED');
+
+      if (isAmbiguous) {
+        throw new ConflictException(
+          `Booking for invoice ${invoice} may have been created, but the Steadfast response was inconclusive. Reconcile the invoice with Steadfast before retrying.`,
+        );
+      }
+
+      throw err;
+    }
+  }
+
+  private isDuplicateInvoiceError(message: string): boolean {
+    return /invoice/i.test(message) && /(already|exist|duplicate|used)/i.test(message);
+  }
+
+  private async setBookingState(orderId: string, state: 'FAILED' | 'UNCERTAIN') {
+    try {
+      await this.prisma.order.update({
+        where: { id: orderId },
+        data: { courierBookingState: state },
+      });
+    } catch (err: any) {
+      console.error(
+        `Failed to persist courier booking state ${state} for order ${orderId}: ${err?.message}`,
+      );
+    }
   }
 
   /**
@@ -1143,7 +1284,7 @@ export class OrderService implements OnModuleInit {
       throw new BadRequestException('No order IDs provided');
     }
 
-    const orders = await this.prisma.order.findMany({
+    const allOrders = await this.prisma.order.findMany({
       where: {
         id: { in: dto.orderIds },
       },
@@ -1155,8 +1296,50 @@ export class OrderService implements OnModuleInit {
       },
     });
 
-    if (orders.length === 0) {
+    if (allOrders.length === 0) {
       throw new NotFoundException('No matching orders found');
+    }
+
+    const unbooked = allOrders.filter(
+      (o) => !o.courierConsignmentId && !o.courierTrackingCode,
+    );
+    const skipped = allOrders.filter(
+      (o) => o.courierConsignmentId || o.courierTrackingCode,
+    );
+
+    // Atomically claim each unbooked order so concurrent bulk requests cannot double-book.
+    const orders: typeof allOrders = [];
+    for (const order of unbooked) {
+      const claimed = await this.prisma.order.updateMany({
+        where: {
+          id: order.id,
+          courierConsignmentId: null,
+          courierTrackingCode: null,
+          OR: [{ courierBookingState: null }, { courierBookingState: 'FAILED' }],
+        },
+        data: {
+          courierBookingState: 'BOOKING',
+          orderProcessedBy: staffUser.id,
+        },
+      });
+      if (claimed.count > 0) {
+        orders.push(order);
+      } else {
+        skipped.push(order);
+      }
+    }
+
+    if (orders.length === 0) {
+      return {
+        message: `Bulk courier processing finished. Succeeded: 0, Failed: ${skipped.length}`,
+        succeededCount: 0,
+        failedCount: skipped.length,
+        updatedOrders: [],
+        failedOrders: skipped.map((o) => ({
+          invoice: o.orderRef || o.id,
+          error: 'Already booked',
+        })),
+      };
     }
 
     const payloadItems = orders.map((order) => {
@@ -1188,10 +1371,24 @@ export class OrderService implements OnModuleInit {
       };
     });
 
-    const results = await this.steadfastService.createBulkOrders(payloadItems);
+    let results: any[];
+    try {
+      results = await this.steadfastService.createBulkOrders(payloadItems);
+    } catch (err: any) {
+      const ambiguous =
+        err instanceof GatewayTimeoutException || err instanceof BadGatewayException;
+      for (const order of orders) {
+        await this.setBookingState(order.id, ambiguous ? 'UNCERTAIN' : 'FAILED');
+      }
+      throw err;
+    }
 
     const updatedOrders: any[] = [];
-    const failedOrders: any[] = [];
+    const failedOrders: any[] = skipped.map((o) => ({
+      invoice: o.orderRef || o.id,
+      error: 'Already booked',
+    }));
+    const handledIds = new Set<string>();
 
     for (const resItem of results) {
       const order = orders.find(
@@ -1207,6 +1404,9 @@ export class OrderService implements OnModuleInit {
               ? String(resItem.consignment_id)
               : null,
             courierTrackingCode: resItem.tracking_code || null,
+            courierTrackingLink: (resItem as any).tracking_link || null,
+            courierCodAmount: this.calculateCodAmount(order),
+            courierBookingState: 'BOOKED',
             courierStatus: resItem.status || 'in_review',
             courierSubmittedAt: new Date(),
             courierLastSyncedAt: new Date(),
@@ -1219,12 +1419,24 @@ export class OrderService implements OnModuleInit {
             orderProcessedBy: staffUser.id,
           },
         });
+        handledIds.add(order.id);
         updatedOrders.push(updated);
       } else {
+        if (order) {
+          handledIds.add(order.id);
+          await this.setBookingState(order.id, 'FAILED');
+        }
         failedOrders.push({
           invoice: resItem.invoice,
           error: resItem.status === 'error' ? 'Steadfast rejected order data' : 'Unknown',
         });
+      }
+    }
+
+    // Any claimed order without a matching provider result needs reconciliation.
+    for (const order of orders) {
+      if (!handledIds.has(order.id)) {
+        await this.setBookingState(order.id, 'UNCERTAIN');
       }
     }
 
@@ -1252,23 +1464,37 @@ export class OrderService implements OnModuleInit {
       throw new NotFoundException('Order not found');
     }
 
-    let statusResult: { status: number; delivery_status: string } | null = null;
-
-    if (order.courierTrackingCode) {
-      statusResult = await this.steadfastService.getStatusByTrackingCode(
-        order.courierTrackingCode,
+    const attempts = this.buildCourierIdentifierAttempts(order);
+    if (attempts.length === 0) {
+      throw new BadRequestException(
+        'Order has no booked shipment. Place it with Steadfast before refreshing courier status.',
       );
-    } else if (order.courierConsignmentId) {
-      statusResult = await this.steadfastService.getStatusByConsignmentId(
-        order.courierConsignmentId,
-      );
-    } else if (order.orderRef) {
-      statusResult = await this.steadfastService.getStatusByInvoice(order.orderRef);
-    } else {
-      throw new BadRequestException('Order has no tracking code or consignment ID to sync');
     }
 
-    if (!statusResult || !statusResult.delivery_status) {
+    let statusResult: { status: number; delivery_status: string } | null = null;
+    let lastSyncError: any;
+    for (const attempt of attempts) {
+      try {
+        const result = await this.fetchCourierStatusByIdentifier(
+          attempt.type,
+          attempt.value,
+        );
+        if (result?.delivery_status) {
+          statusResult = result;
+          break;
+        }
+      } catch (err: any) {
+        lastSyncError = err;
+        // Same keys give the same answer for every identifier — stop burning 401s.
+        if (err instanceof UnauthorizedException) break;
+      }
+    }
+
+    if (!statusResult) {
+      if (lastSyncError instanceof UnauthorizedException) {
+        await this.throwForCourier401();
+      }
+      if (lastSyncError) throw lastSyncError;
       return {
         message: 'No status information returned from Steadfast',
         order,
@@ -1277,34 +1503,10 @@ export class OrderService implements OnModuleInit {
 
     const deliveryStatus = statusResult.delivery_status.toLowerCase();
 
-    // Map delivery status to internal OrderProcessingStatus
-    let targetProcessingStatus: OrderProcessingStatus | undefined;
-    let targetPaymentStatus: PaymentStatus | undefined;
+    const { targetProcessingStatus, targetPaymentStatus } =
+      this.mapCourierDeliveryStatus(deliveryStatus, order);
 
-    if (deliveryStatus === 'delivered') {
-      targetProcessingStatus = OrderProcessingStatus.DELIVERED;
-      if (order.paymentStatus !== PaymentStatus.PAID) {
-        targetPaymentStatus = PaymentStatus.PAID;
-      }
-    } else if (deliveryStatus === 'partial_delivered') {
-      targetProcessingStatus = OrderProcessingStatus.DELIVERED;
-      targetPaymentStatus = PaymentStatus.PARTIAL;
-    } else if (deliveryStatus === 'cancelled') {
-      targetProcessingStatus = OrderProcessingStatus.CANCELLED;
-    } else if (
-      deliveryStatus === 'pending' ||
-      deliveryStatus === 'in_review' ||
-      deliveryStatus === 'delivered_approval_pending'
-    ) {
-      if (
-        order.processingStatus === OrderProcessingStatus.PENDING ||
-        order.processingStatus === OrderProcessingStatus.CONFIRMED
-      ) {
-        targetProcessingStatus = OrderProcessingStatus.SHIPPED;
-      }
-    }
-
-    // If order is cancelled and need restocking, use updateOrderStatus flow
+    // If order is cancelled and needs restocking, execute inventory restock flow
     if (
       targetProcessingStatus === OrderProcessingStatus.CANCELLED &&
       order.processingStatus !== OrderProcessingStatus.CANCELLED
@@ -1352,10 +1554,673 @@ export class OrderService implements OnModuleInit {
   }
 
   /**
+   * Handle incoming Steadfast Courier Webhook
+   * Automatically updates internal order state, status, payment, and inventory restock on cancelled
+   */
+  async handleSteadfastWebhook(payload: any, authHeader?: string) {
+    // 1. Verify bearer token if configured in .env
+    const expectedToken = process.env.STEADFAST_WEBHOOK_TOKEN;
+    if (expectedToken) {
+      const incomingToken = authHeader?.replace(/^Bearer\s+/i, '').trim();
+      if (!incomingToken || incomingToken !== expectedToken) {
+        throw new ForbiddenException('Invalid Steadfast Webhook token');
+      }
+    }
+
+    const invoice = payload.invoice || payload.invoice_no || payload.order_ref;
+    const consignmentId = payload.consignment_id ? String(payload.consignment_id) : undefined;
+    const trackingCode = payload.tracking_code ? String(payload.tracking_code) : undefined;
+    const deliveryStatus = (payload.delivery_status || payload.status || '').toLowerCase().trim();
+
+    if (!deliveryStatus) {
+      throw new BadRequestException('delivery_status is required in webhook payload');
+    }
+
+    // 2. Locate order by invoice, consignment ID, or tracking code
+    const order = await this.prisma.order.findFirst({
+      where: {
+        OR: [
+          ...(invoice ? [{ orderRef: String(invoice) }, { id: String(invoice) }] : []),
+          ...(trackingCode ? [{ courierTrackingCode: String(trackingCode) }] : []),
+          ...(consignmentId ? [{ courierConsignmentId: String(consignmentId) }] : []),
+        ],
+      },
+      include: {
+        orderItems: true,
+      },
+    });
+
+    if (!order) {
+      return {
+        status: 'ignored',
+        message: `Order not found for invoice: ${invoice || 'N/A'}, tracking: ${trackingCode || 'N/A'}, consignment: ${consignmentId || 'N/A'}`,
+      };
+    }
+
+    // 3. Map status to OrderProcessingStatus and PaymentStatus
+    const { targetProcessingStatus, targetPaymentStatus } =
+      this.mapCourierDeliveryStatus(deliveryStatus, order);
+
+    // 4. If cancelled, execute restocking logic
+    if (
+      targetProcessingStatus === OrderProcessingStatus.CANCELLED &&
+      order.processingStatus !== OrderProcessingStatus.CANCELLED
+    ) {
+      await this.updateOrderStatus(
+        order.id,
+        {
+          processingStatus: OrderProcessingStatus.CANCELLED,
+          paymentStatus: PaymentStatus.CANCELLED,
+        },
+        { id: order.orderProcessedBy || order.customerId },
+      );
+    } else if (targetProcessingStatus || targetPaymentStatus) {
+      await this.prisma.order.update({
+        where: { id: order.id },
+        data: {
+          ...(targetProcessingStatus && { processingStatus: targetProcessingStatus }),
+          ...(targetPaymentStatus && { paymentStatus: targetPaymentStatus }),
+        },
+      });
+    }
+
+    // 5. Update courier status and tracking fields
+    await this.prisma.order.update({
+      where: { id: order.id },
+      data: {
+        courierStatus: deliveryStatus,
+        courierLastSyncedAt: new Date(),
+        ...(consignmentId && !order.courierConsignmentId && { courierConsignmentId: consignmentId }),
+        ...(trackingCode && !order.courierTrackingCode && { courierTrackingCode: trackingCode }),
+      },
+    });
+
+    return {
+      status: 'success',
+      message: `Order #${order.orderRef || order.id} updated to ${deliveryStatus}`,
+      orderId: order.id,
+      deliveryStatus,
+    };
+  }
+
+  /**
+   * Bulk sync all active courier orders that are currently in-flight
+   */
+  async syncAllActiveCourierOrders(staffUser: any) {
+    const activeOrders = await this.prisma.order.findMany({
+      where: {
+        OR: [
+          { courierTrackingCode: { not: null } },
+          { courierConsignmentId: { not: null } },
+        ],
+        courierStatus: {
+          notIn: [
+            'delivered',
+            'cancelled',
+            'cancelled_return_received',
+            'partial_delivered_return_received',
+          ],
+        },
+      },
+      take: 100,
+      orderBy: { createdAt: 'desc' },
+      select: { id: true, orderRef: true },
+    });
+
+    if (activeOrders.length === 0) {
+      return {
+        message: 'No active courier orders require syncing right now.',
+        totalChecked: 0,
+        syncedCount: 0,
+        failedCount: 0,
+      };
+    }
+
+    let syncedCount = 0;
+    let failedCount = 0;
+
+    for (const ord of activeOrders) {
+      try {
+        await this.syncCourierStatus(ord.id, staffUser);
+        syncedCount++;
+      } catch (err: any) {
+        failedCount++;
+        // Unauthorized here means the keys are being rejected globally (the
+        // per-parcel case surfaces as Forbidden) — stop before the remaining
+        // orders pile 401s onto Steadfast's lockout counter.
+        if (err instanceof UnauthorizedException) {
+          console.error(
+            `Aborting courier sync cycle after ${failedCount}/${activeOrders.length} orders: ${err.message}`,
+          );
+          break;
+        }
+      }
+    }
+
+    return {
+      message: `Synced ${syncedCount} active courier orders (${failedCount} failed).`,
+      totalChecked: activeOrders.length,
+      syncedCount,
+      failedCount,
+    };
+  }
+
+  /**
+   * Get detailed parcel tracking milestones for an order using Steadfast /trackings_by_invoice
+   */
+  async getOrderTrackingHistory(orderId: string, user: any) {
+    const order = await this.getOrderById(orderId, user);
+    const invoice = order.orderRef || order.id;
+
+    const steadfastTracking = await this.steadfastService.getTrackingsByInvoice(invoice);
+    return {
+      orderId: order.id,
+      orderRef: order.orderRef,
+      courierStatus: order.courierStatus,
+      courierTrackingCode: order.courierTrackingCode,
+      courierConsignmentId: order.courierConsignmentId,
+      courierSubmittedAt: order.courierSubmittedAt,
+      courierLastSyncedAt: order.courierLastSyncedAt,
+      trackingEvents: steadfastTracking?.tracking || [],
+    };
+  }
+
+  /**
+   * Check customer delivery reputation / fraud stats from Steadfast Courier
+   */
+  async checkCustomerFraudScore(phone: string) {
+    return this.steadfastService.checkFraudScore(phone);
+  }
+
+  private isStaffUser(user: any): boolean {
+    return [
+      UserRole.SUPER_ADMIN,
+      UserRole.ADMIN,
+      UserRole.MANAGER,
+      UserRole.SALES_EXECUTIVE,
+    ].includes(user?.role);
+  }
+
+  /**
+   * Single source of truth: Steadfast delivery_status -> internal order statuses.
+   * Used by both the manual/bulk sync and the Steadfast webhook so the two paths
+   * can never drift apart.
+   */
+  private mapCourierDeliveryStatus(
+    deliveryStatus: string,
+    order: { processingStatus: OrderProcessingStatus; paymentStatus: PaymentStatus },
+  ): {
+    targetProcessingStatus?: OrderProcessingStatus;
+    targetPaymentStatus?: PaymentStatus;
+  } {
+    const status = (deliveryStatus || '').toLowerCase();
+
+    if (status === 'delivered') {
+      return {
+        targetProcessingStatus: OrderProcessingStatus.DELIVERED,
+        ...(order.paymentStatus !== PaymentStatus.PAID
+          ? { targetPaymentStatus: PaymentStatus.PAID }
+          : {}),
+      };
+    }
+
+    if (status === 'partial_delivered' || status === 'partial_delivered_return_received') {
+      return {
+        targetProcessingStatus: OrderProcessingStatus.DELIVERED,
+        targetPaymentStatus: PaymentStatus.PARTIAL,
+      };
+    }
+
+    // cancelled_* covers the whole return lifecycle: restock runs once, guarded
+    // by order.processingStatus !== CANCELLED in both call sites.
+    if (
+      status === 'cancelled' ||
+      status === 'cancelled_return_received' ||
+      status === 'cancelled_return_proccessing' ||
+      status === 'cancelled_return_rider_assigned'
+    ) {
+      return {
+        targetProcessingStatus: OrderProcessingStatus.CANCELLED,
+        targetPaymentStatus: PaymentStatus.CANCELLED,
+      };
+    }
+
+    if (
+      [
+        'pending',
+        'in_review',
+        'in_transit',
+        'delivered_approval_pending',
+        'partial_delivered_approval_pending',
+        'partial_delivered_return_proccessing',
+        'partial_delivered_return_rider_assigned',
+      ].includes(status) &&
+      (order.processingStatus === OrderProcessingStatus.PENDING ||
+        order.processingStatus === OrderProcessingStatus.CONFIRMED)
+    ) {
+      return { targetProcessingStatus: OrderProcessingStatus.SHIPPED };
+    }
+
+    // hold / exceptional / unknown / *_approval_pending cancel reviews:
+    // courierStatus is still persisted, processingStatus deliberately unchanged.
+    return {};
+  }
+
+  /**
+   * Steadfast has no guaranteed webhook delivery, so poll in-flight consignments.
+   * Its status responses are cached for 60s server-side and rate limits are
+   * 1000 req/min, so a 10-minute cadence for at most 100 orders is safe.
+   */
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  async syncCourierStatusOnSchedule() {
+    if (this.courierSyncRunning) return;
+    this.courierSyncRunning = true;
+    try {
+      // Cheap probe: skips the whole cycle when the base URL is unreachable or the
+      // keys are rejected, instead of hammering Steadfast with 100 failing lookups.
+      const auth = await this.steadfastService.getCredentialStatus();
+      if (!auth.pingOk || !auth.balanceOk) {
+        console.warn(
+          `Skipping scheduled courier sync: ${!auth.pingOk ? `Steadfast unreachable (${auth.pingError || 'unknown error'})` : `keys rejected (${auth.balanceError || 'invalid API keys'})`}`,
+        );
+        return;
+      }
+      await this.syncAllActiveCourierOrders(null);
+    } catch (err) {
+      console.error('Scheduled courier status sync failed:', err);
+    } finally {
+      this.courierSyncRunning = false;
+    }
+  }
+
+  /**
+   * Courier.md: a 401 means either wrong/revoked keys or a parcel that belongs to
+   * another profile. /get_balance answers 401 only when the keys themselves are bad,
+   * so one cheap probe tells the two apart instead of retrying the same 401.
+   */
+  private async throwForCourier401(): Promise<never> {
+    const keysValid = await this.steadfastService.areKeysValid();
+    if (!keysValid) {
+      throw new UnauthorizedException(
+        'Steadfast rejected the configured API keys (401). Update STEADFAST_API_KEY / STEADFAST_SECRET_KEY in Backend/.env, then re-check GET /orders/courier/auth-status.',
+      );
+    }
+
+    throw new ForbiddenException(
+      "This consignment ID, tracking code, or invoice belongs to a different Steadfast profile (Courier.md: 401 = 'not yours'). Book the parcel with this account's API keys, or correct the consignment ID.",
+    );
+  }
+
+  private async fetchCourierStatusByIdentifier(
+    type: 'cid' | 'tracking' | 'invoice',
+    value: string,
+  ): Promise<{ status: number; delivery_status: string }> {
+    if (type === 'cid') {
+      return this.steadfastService.getStatusByConsignmentId(value);
+    }
+    if (type === 'tracking') {
+      return this.steadfastService.getStatusByTrackingCode(value);
+    }
+    return this.steadfastService.getStatusByInvoice(value);
+  }
+
+  private buildCourierIdentifierAttempts(
+    order: any | null,
+    enteredIdentifier?: string,
+  ): Array<{ type: 'cid' | 'tracking' | 'invoice'; value: string }> {
+    const attempts: Array<{
+      type: 'cid' | 'tracking' | 'invoice';
+      value: string;
+    }> = [];
+
+    const push = (
+      type: 'cid' | 'tracking' | 'invoice',
+      value?: string | null,
+    ) => {
+      if (!value) return;
+      const normalized = String(value).trim();
+      if (!normalized) return;
+      if (
+        !attempts.some(
+          (attempt) =>
+            attempt.type === type && attempt.value === normalized,
+        )
+      ) {
+        attempts.push({ type, value: normalized });
+      }
+    };
+
+    if (enteredIdentifier) {
+      const normalized = enteredIdentifier.trim();
+      if (order?.courierConsignmentId === normalized) {
+        push('cid', normalized);
+      } else if (order?.courierTrackingCode === normalized) {
+        push('tracking', normalized);
+      } else if (order?.orderRef === normalized) {
+        push('invoice', normalized);
+      } else {
+        push('cid', normalized);
+        push('tracking', normalized);
+        push('invoice', normalized);
+      }
+    }
+
+    push('cid', order?.courierConsignmentId);
+    push('tracking', order?.courierTrackingCode);
+    push('invoice', order?.orderRef);
+
+    return attempts;
+  }
+
+  async getCourierAuthStatus() {
+    return this.steadfastService.getCredentialStatus();
+  }
+
+  async trackCourierParcel(identifier: string, user: any) {
+    const normalizedIdentifier = (identifier || '').trim();
+    if (!normalizedIdentifier) {
+      throw new BadRequestException(
+        'A consignment ID, tracking code, or invoice is required',
+      );
+    }
+
+    const isStaff = this.isStaffUser(user);
+    const isUuid =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        normalizedIdentifier,
+      );
+
+    const matchWhere: any = {
+      OR: [
+        { courierConsignmentId: normalizedIdentifier },
+        { courierTrackingCode: normalizedIdentifier },
+        { orderRef: normalizedIdentifier },
+        ...(isUuid ? [{ id: normalizedIdentifier }] : []),
+      ],
+    };
+
+    const order = await this.prisma.order.findFirst({
+      where: isStaff
+        ? matchWhere
+        : {
+            AND: [
+              matchWhere,
+              {
+                OR: [
+                  { resellerId: user?.id },
+                  { customerId: user?.id },
+                ],
+              },
+            ],
+          },
+      include: {
+        customer: { select: { id: true, name: true, phone: true } },
+        reseller: { select: { id: true, name: true } },
+      },
+    });
+
+    if (!order && !isStaff) {
+      throw new ForbiddenException(
+        'You can only track consignments that belong to your own orders',
+      );
+    }
+
+    const attempts = this.buildCourierIdentifierAttempts(
+      order,
+      normalizedIdentifier,
+    );
+    if (attempts.length === 0) {
+      throw new BadRequestException(
+        'No trackable consignment ID, tracking code, or invoice was provided',
+      );
+    }
+
+    let deliveryStatus: string | null = null;
+    let matchedBy: 'cid' | 'tracking' | 'invoice' | null = null;
+    let matchedIdentifier = normalizedIdentifier;
+    let lastError: any;
+
+    for (const attempt of attempts) {
+      try {
+        const result = await this.fetchCourierStatusByIdentifier(
+          attempt.type,
+          attempt.value,
+        );
+        if (result?.delivery_status) {
+          deliveryStatus = result.delivery_status.toLowerCase();
+          matchedBy = attempt.type;
+          matchedIdentifier = attempt.value;
+          break;
+        }
+      } catch (err: any) {
+        lastError = err;
+        // Same keys give the same answer for every identifier — stop burning 401s.
+        if (err instanceof UnauthorizedException) break;
+      }
+    }
+
+    if (!deliveryStatus || !matchedBy) {
+      if (lastError instanceof UnauthorizedException) {
+        await this.throwForCourier401();
+      }
+      if (lastError) throw lastError;
+      throw new BadRequestException(
+        'No status information returned from Steadfast',
+      );
+    }
+
+    const invoice =
+      order?.orderRef || (matchedBy === 'invoice' ? matchedIdentifier : null);
+
+    let trackingEvents: any[] = [];
+    if (invoice) {
+      try {
+        const tracking =
+          await this.steadfastService.getTrackingsByInvoice(invoice);
+        trackingEvents = tracking?.tracking || [];
+      } catch {
+        trackingEvents = [];
+      }
+    }
+
+    return {
+      identifier: normalizedIdentifier,
+      matchedBy,
+      matchedIdentifier,
+      orderId: order?.id,
+      orderRef: order?.orderRef || null,
+      customerName:
+        order?.customerName || order?.customer?.name || null,
+      customerPhone:
+        order?.customerPhone || order?.customer?.phone || null,
+      consignmentId:
+        order?.courierConsignmentId ||
+        (matchedBy === 'cid' ? matchedIdentifier : null),
+      trackingCode:
+        order?.courierTrackingCode ||
+        (matchedBy === 'tracking' ? matchedIdentifier : null),
+      trackingLink: order?.courierTrackingLink || null,
+      deliveryStatus,
+      persistedCourierStatus: order?.courierStatus || null,
+      lastSyncedAt: order?.courierLastSyncedAt || null,
+      returnStatus: order?.courierReturnStatus || null,
+      returnReason: order?.courierReturnReason || null,
+      returnRequestedAt: order?.courierReturnRequestedAt || null,
+      trackingEvents,
+    };
+  }
+
+  /**
    * Get Steadfast Courier Account Balance
    */
   async getCourierBalance() {
     return this.steadfastService.getBalance();
   }
+
+  async createCourierPickup(dto: CreateCourierPickupDto, staffUser: any) {
+    const response = await this.steadfastService.createPickupRequest({
+      ...(dto.addressId ? { address_id: dto.addressId } : {}),
+      ...(dto.policeStationId ? { police_station_id: dto.policeStationId } : {}),
+      address: dto.address.trim(),
+      contact_number: dto.contactNumber.trim(),
+      ...(dto.note ? { note: dto.note.trim() } : {}),
+      ...(dto.estimQty ? { estim_qty: dto.estimQty } : {}),
+    });
+
+    const pickup = await this.prisma.courierPickup.create({
+      data: {
+        provider: 'STEADFAST',
+        addressId: dto.addressId ?? null,
+        policeStationId: dto.policeStationId ?? null,
+        address: dto.address.trim(),
+        contactNumber: dto.contactNumber.trim(),
+        note: dto.note?.trim() || null,
+        estimQty: dto.estimQty ?? null,
+        status: 'requested',
+        providerResponse: response ?? {},
+        createdBy: staffUser?.id ?? null,
+      },
+    });
+
+    return {
+      message: 'Pickup request submitted to Steadfast',
+      pickup,
+      providerResponse: response,
+    };
+  }
+
+  async getCourierPickups(page = 1, limit = 20) {
+    const skip = (page - 1) * limit;
+    const [total, data] = await Promise.all([
+      this.prisma.courierPickup.count(),
+      this.prisma.courierPickup.findMany({
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit) || 1,
+      },
+    };
+  }
+
+  async createCourierReturn(dto: CreateCourierReturnDto, staffUser: any) {
+    const order = await this.prisma.order.findUnique({
+      where: { id: dto.orderId },
+    });
+
+    if (!order) {
+      throw new NotFoundException('Order not found');
+    }
+
+    let identifier: {
+      consignment_id?: string;
+      tracking_code?: string;
+      invoice?: string;
+    };
+    if (order.courierConsignmentId) {
+      identifier = { consignment_id: order.courierConsignmentId };
+    } else if (order.courierTrackingCode) {
+      identifier = { tracking_code: order.courierTrackingCode };
+    } else if (order.orderRef) {
+      identifier = { invoice: order.orderRef };
+    } else {
+      throw new BadRequestException(
+        'Order has no consignment ID, tracking code, or invoice to return',
+      );
+    }
+
+    const response = await this.steadfastService.createReturnRequest({
+      ...identifier,
+      ...(dto.reason ? { reason: dto.reason } : {}),
+    });
+
+    const rawReturn = response?.return_request || response;
+    const rawReturnId = rawReturn?.id ?? response?.data?.id;
+    const returnId = Number(rawReturnId);
+    const returnStatus =
+      typeof rawReturn?.status === 'string'
+        ? rawReturn.status
+        : typeof response?.status === 'string'
+          ? response.status
+          : 'pending';
+
+    const updated = await this.prisma.order.update({
+      where: { id: order.id },
+      data: {
+        ...(Number.isFinite(returnId) ? { courierReturnRequestId: returnId } : {}),
+        courierReturnStatus: returnStatus,
+        courierReturnReason: dto.reason?.trim() || null,
+        courierReturnRequestedAt: new Date(),
+        orderProcessedBy: staffUser?.id ?? order.orderProcessedBy,
+      },
+    });
+
+    return {
+      message: 'Return request created with Steadfast',
+      returnRequest: response,
+      order: updated,
+    };
+  }
+
+  async getCourierReturns(page = 1) {
+    const result = await this.steadfastService.getReturnRequests(page);
+
+    for (const item of result.data) {
+      try {
+        const status = typeof item?.status === 'string' ? item.status : null;
+        if (!status) continue;
+
+        const consignmentId = item?.consignment_id
+          ? String(item.consignment_id)
+          : null;
+        const invoice = item?.invoice || item?.order_ref || null;
+        if (!consignmentId && !invoice) continue;
+
+        const returnId = Number(item?.id);
+        await this.prisma.order.updateMany({
+          where: consignmentId
+            ? { courierConsignmentId: consignmentId }
+            : { orderRef: String(invoice) },
+          data: {
+            courierReturnStatus: status,
+            ...(Number.isFinite(returnId)
+              ? { courierReturnRequestId: returnId }
+              : {}),
+          },
+        });
+      } catch (err: any) {
+        console.error(
+          `Failed to reconcile return request ${item?.id}: ${err?.message}`,
+        );
+      }
+    }
+
+    return result;
+  }
+
+  async getCourierReturn(id: string | number) {
+    return this.steadfastService.getReturnRequest(id);
+  }
+
+  async getCourierPayments(page = 1) {
+    return this.steadfastService.getPayments(page);
+  }
+
+  async getCourierPayment(id: string | number) {
+    return this.steadfastService.getPayment(id);
+  }
+
+  async getPoliceStations() {
+    return this.steadfastService.getPoliceStations();
+  }
 }
+
 

@@ -108,6 +108,11 @@ export type CartItem = Prisma.CartItemModel
  */
 export type Order = Prisma.OrderModel
 /**
+ * Model CourierPickup
+ * 
+ */
+export type CourierPickup = Prisma.CourierPickupModel
+/**
  * Model OrderItem
  * 
  */
@@ -122,6 +127,11 @@ export type CmsSocialMedia = Prisma.CmsSocialMediaModel
  * 
  */
 export type CmsContact = Prisma.CmsContactModel
+/**
+ * Model CmsBrand
+ * 
+ */
+export type CmsBrand = Prisma.CmsBrandModel
 /**
  * Model CmsHero
  * 

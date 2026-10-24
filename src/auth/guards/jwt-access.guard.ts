@@ -5,6 +5,9 @@ import type { Request } from 'express';
 import { AuthService } from '../auth.service';
 import { ACCESS_TOKEN_SECRET } from '../auth.constants';
 
+import { Reflector } from '@nestjs/core';
+import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+
 type AuthenticatedRequest = Request & {
   user?: unknown;
 };
@@ -15,9 +18,19 @@ export class JwtAccessGuard implements CanActivate {
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
     private readonly authService: AuthService,
+    private readonly reflector: Reflector,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+
+    if (isPublic) {
+      return true;
+    }
+
     const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
     const token = this.extractTokenFromHeader(request);
 
