@@ -37,6 +37,10 @@ export type PageSectionSumAggregateOutputType = {
 export type PageSectionMinAggregateOutputType = {
   id: string | null
   customPageId: string | null
+  type: string | null
+  variant: string | null
+  isEnabled: boolean | null
+  status: $Enums.PageStatus | null
   title: string | null
   subtitle: string | null
   description: string | null
@@ -50,6 +54,10 @@ export type PageSectionMinAggregateOutputType = {
 export type PageSectionMaxAggregateOutputType = {
   id: string | null
   customPageId: string | null
+  type: string | null
+  variant: string | null
+  isEnabled: boolean | null
+  status: $Enums.PageStatus | null
   title: string | null
   subtitle: string | null
   description: string | null
@@ -63,6 +71,11 @@ export type PageSectionMaxAggregateOutputType = {
 export type PageSectionCountAggregateOutputType = {
   id: number
   customPageId: number
+  type: number
+  variant: number
+  settings: number
+  isEnabled: number
+  status: number
   title: number
   subtitle: number
   description: number
@@ -88,6 +101,10 @@ export type PageSectionSumAggregateInputType = {
 export type PageSectionMinAggregateInputType = {
   id?: true
   customPageId?: true
+  type?: true
+  variant?: true
+  isEnabled?: true
+  status?: true
   title?: true
   subtitle?: true
   description?: true
@@ -101,6 +118,10 @@ export type PageSectionMinAggregateInputType = {
 export type PageSectionMaxAggregateInputType = {
   id?: true
   customPageId?: true
+  type?: true
+  variant?: true
+  isEnabled?: true
+  status?: true
   title?: true
   subtitle?: true
   description?: true
@@ -114,6 +135,11 @@ export type PageSectionMaxAggregateInputType = {
 export type PageSectionCountAggregateInputType = {
   id?: true
   customPageId?: true
+  type?: true
+  variant?: true
+  settings?: true
+  isEnabled?: true
+  status?: true
   title?: true
   subtitle?: true
   description?: true
@@ -216,6 +242,11 @@ export type PageSectionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type PageSectionGroupByOutputType = {
   id: string
   customPageId: string
+  type: string | null
+  variant: string | null
+  settings: runtime.JsonValue | null
+  isEnabled: boolean
+  status: $Enums.PageStatus
   title: string | null
   subtitle: string | null
   description: string | null
@@ -254,6 +285,11 @@ export type PageSectionWhereInput = {
   NOT?: Prisma.PageSectionWhereInput | Prisma.PageSectionWhereInput[]
   id?: Prisma.UuidFilter<"PageSection"> | string
   customPageId?: Prisma.UuidFilter<"PageSection"> | string
+  type?: Prisma.StringNullableFilter<"PageSection"> | string | null
+  variant?: Prisma.StringNullableFilter<"PageSection"> | string | null
+  settings?: Prisma.JsonNullableFilter<"PageSection">
+  isEnabled?: Prisma.BoolFilter<"PageSection"> | boolean
+  status?: Prisma.EnumPageStatusFilter<"PageSection"> | $Enums.PageStatus
   title?: Prisma.StringNullableFilter<"PageSection"> | string | null
   subtitle?: Prisma.StringNullableFilter<"PageSection"> | string | null
   description?: Prisma.StringNullableFilter<"PageSection"> | string | null
@@ -270,6 +306,11 @@ export type PageSectionWhereInput = {
 export type PageSectionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   customPageId?: Prisma.SortOrder
+  type?: Prisma.SortOrderInput | Prisma.SortOrder
+  variant?: Prisma.SortOrderInput | Prisma.SortOrder
+  settings?: Prisma.SortOrderInput | Prisma.SortOrder
+  isEnabled?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   subtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -289,6 +330,11 @@ export type PageSectionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PageSectionWhereInput[]
   NOT?: Prisma.PageSectionWhereInput | Prisma.PageSectionWhereInput[]
   customPageId?: Prisma.UuidFilter<"PageSection"> | string
+  type?: Prisma.StringNullableFilter<"PageSection"> | string | null
+  variant?: Prisma.StringNullableFilter<"PageSection"> | string | null
+  settings?: Prisma.JsonNullableFilter<"PageSection">
+  isEnabled?: Prisma.BoolFilter<"PageSection"> | boolean
+  status?: Prisma.EnumPageStatusFilter<"PageSection"> | $Enums.PageStatus
   title?: Prisma.StringNullableFilter<"PageSection"> | string | null
   subtitle?: Prisma.StringNullableFilter<"PageSection"> | string | null
   description?: Prisma.StringNullableFilter<"PageSection"> | string | null
@@ -305,6 +351,11 @@ export type PageSectionWhereUniqueInput = Prisma.AtLeast<{
 export type PageSectionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   customPageId?: Prisma.SortOrder
+  type?: Prisma.SortOrderInput | Prisma.SortOrder
+  variant?: Prisma.SortOrderInput | Prisma.SortOrder
+  settings?: Prisma.SortOrderInput | Prisma.SortOrder
+  isEnabled?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   subtitle?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -328,6 +379,11 @@ export type PageSectionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.PageSectionScalarWhereWithAggregatesInput | Prisma.PageSectionScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"PageSection"> | string
   customPageId?: Prisma.UuidWithAggregatesFilter<"PageSection"> | string
+  type?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
+  variant?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
+  settings?: Prisma.JsonNullableWithAggregatesFilter<"PageSection">
+  isEnabled?: Prisma.BoolWithAggregatesFilter<"PageSection"> | boolean
+  status?: Prisma.EnumPageStatusWithAggregatesFilter<"PageSection"> | $Enums.PageStatus
   title?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
   subtitle?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
@@ -342,6 +398,11 @@ export type PageSectionScalarWhereWithAggregatesInput = {
 
 export type PageSectionCreateInput = {
   id?: string
+  type?: string | null
+  variant?: string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: boolean
+  status?: $Enums.PageStatus
   title?: string | null
   subtitle?: string | null
   description?: string | null
@@ -358,6 +419,11 @@ export type PageSectionCreateInput = {
 export type PageSectionUncheckedCreateInput = {
   id?: string
   customPageId: string
+  type?: string | null
+  variant?: string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: boolean
+  status?: $Enums.PageStatus
   title?: string | null
   subtitle?: string | null
   description?: string | null
@@ -372,6 +438,11 @@ export type PageSectionUncheckedCreateInput = {
 
 export type PageSectionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPageStatusFieldUpdateOperationsInput | $Enums.PageStatus
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -388,6 +459,11 @@ export type PageSectionUpdateInput = {
 export type PageSectionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customPageId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPageStatusFieldUpdateOperationsInput | $Enums.PageStatus
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -403,6 +479,11 @@ export type PageSectionUncheckedUpdateInput = {
 export type PageSectionCreateManyInput = {
   id?: string
   customPageId: string
+  type?: string | null
+  variant?: string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: boolean
+  status?: $Enums.PageStatus
   title?: string | null
   subtitle?: string | null
   description?: string | null
@@ -417,6 +498,11 @@ export type PageSectionCreateManyInput = {
 
 export type PageSectionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPageStatusFieldUpdateOperationsInput | $Enums.PageStatus
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -432,6 +518,11 @@ export type PageSectionUpdateManyMutationInput = {
 export type PageSectionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   customPageId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPageStatusFieldUpdateOperationsInput | $Enums.PageStatus
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -465,6 +556,11 @@ export type StringNullableListFilter<$PrismaModel = never> = {
 export type PageSectionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   customPageId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  variant?: Prisma.SortOrder
+  settings?: Prisma.SortOrder
+  isEnabled?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -484,6 +580,10 @@ export type PageSectionAvgOrderByAggregateInput = {
 export type PageSectionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   customPageId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  variant?: Prisma.SortOrder
+  isEnabled?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -497,6 +597,10 @@ export type PageSectionMaxOrderByAggregateInput = {
 export type PageSectionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   customPageId?: Prisma.SortOrder
+  type?: Prisma.SortOrder
+  variant?: Prisma.SortOrder
+  isEnabled?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   title?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -564,6 +668,11 @@ export type PageSectionUpdateimagesInput = {
 
 export type PageSectionCreateWithoutCustomPageInput = {
   id?: string
+  type?: string | null
+  variant?: string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: boolean
+  status?: $Enums.PageStatus
   title?: string | null
   subtitle?: string | null
   description?: string | null
@@ -578,6 +687,11 @@ export type PageSectionCreateWithoutCustomPageInput = {
 
 export type PageSectionUncheckedCreateWithoutCustomPageInput = {
   id?: string
+  type?: string | null
+  variant?: string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: boolean
+  status?: $Enums.PageStatus
   title?: string | null
   subtitle?: string | null
   description?: string | null
@@ -622,6 +736,11 @@ export type PageSectionScalarWhereInput = {
   NOT?: Prisma.PageSectionScalarWhereInput | Prisma.PageSectionScalarWhereInput[]
   id?: Prisma.UuidFilter<"PageSection"> | string
   customPageId?: Prisma.UuidFilter<"PageSection"> | string
+  type?: Prisma.StringNullableFilter<"PageSection"> | string | null
+  variant?: Prisma.StringNullableFilter<"PageSection"> | string | null
+  settings?: Prisma.JsonNullableFilter<"PageSection">
+  isEnabled?: Prisma.BoolFilter<"PageSection"> | boolean
+  status?: Prisma.EnumPageStatusFilter<"PageSection"> | $Enums.PageStatus
   title?: Prisma.StringNullableFilter<"PageSection"> | string | null
   subtitle?: Prisma.StringNullableFilter<"PageSection"> | string | null
   description?: Prisma.StringNullableFilter<"PageSection"> | string | null
@@ -636,6 +755,11 @@ export type PageSectionScalarWhereInput = {
 
 export type PageSectionCreateManyCustomPageInput = {
   id?: string
+  type?: string | null
+  variant?: string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: boolean
+  status?: $Enums.PageStatus
   title?: string | null
   subtitle?: string | null
   description?: string | null
@@ -650,6 +774,11 @@ export type PageSectionCreateManyCustomPageInput = {
 
 export type PageSectionUpdateWithoutCustomPageInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPageStatusFieldUpdateOperationsInput | $Enums.PageStatus
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -664,6 +793,11 @@ export type PageSectionUpdateWithoutCustomPageInput = {
 
 export type PageSectionUncheckedUpdateWithoutCustomPageInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPageStatusFieldUpdateOperationsInput | $Enums.PageStatus
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -678,6 +812,11 @@ export type PageSectionUncheckedUpdateWithoutCustomPageInput = {
 
 export type PageSectionUncheckedUpdateManyWithoutCustomPageInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  variant?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  settings?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumPageStatusFieldUpdateOperationsInput | $Enums.PageStatus
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -695,6 +834,11 @@ export type PageSectionUncheckedUpdateManyWithoutCustomPageInput = {
 export type PageSectionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   customPageId?: boolean
+  type?: boolean
+  variant?: boolean
+  settings?: boolean
+  isEnabled?: boolean
+  status?: boolean
   title?: boolean
   subtitle?: boolean
   description?: boolean
@@ -711,6 +855,11 @@ export type PageSectionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type PageSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   customPageId?: boolean
+  type?: boolean
+  variant?: boolean
+  settings?: boolean
+  isEnabled?: boolean
+  status?: boolean
   title?: boolean
   subtitle?: boolean
   description?: boolean
@@ -727,6 +876,11 @@ export type PageSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
 export type PageSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   customPageId?: boolean
+  type?: boolean
+  variant?: boolean
+  settings?: boolean
+  isEnabled?: boolean
+  status?: boolean
   title?: boolean
   subtitle?: boolean
   description?: boolean
@@ -743,6 +897,11 @@ export type PageSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
 export type PageSectionSelectScalar = {
   id?: boolean
   customPageId?: boolean
+  type?: boolean
+  variant?: boolean
+  settings?: boolean
+  isEnabled?: boolean
+  status?: boolean
   title?: boolean
   subtitle?: boolean
   description?: boolean
@@ -755,7 +914,7 @@ export type PageSectionSelectScalar = {
   sortOrder?: boolean
 }
 
-export type PageSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customPageId" | "title" | "subtitle" | "description" | "imageUrl" | "images" | "imageDescription" | "buttonText" | "buttonLink" | "content" | "sortOrder", ExtArgs["result"]["pageSection"]>
+export type PageSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "customPageId" | "type" | "variant" | "settings" | "isEnabled" | "status" | "title" | "subtitle" | "description" | "imageUrl" | "images" | "imageDescription" | "buttonText" | "buttonLink" | "content" | "sortOrder", ExtArgs["result"]["pageSection"]>
 export type PageSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customPage?: boolean | Prisma.CustomPageDefaultArgs<ExtArgs>
 }
@@ -774,6 +933,11 @@ export type $PageSectionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     customPageId: string
+    type: string | null
+    variant: string | null
+    settings: runtime.JsonValue | null
+    isEnabled: boolean
+    status: $Enums.PageStatus
     title: string | null
     subtitle: string | null
     description: string | null
@@ -1210,6 +1374,11 @@ export interface Prisma__PageSectionClient<T, Null = never, ExtArgs extends runt
 export interface PageSectionFieldRefs {
   readonly id: Prisma.FieldRef<"PageSection", 'String'>
   readonly customPageId: Prisma.FieldRef<"PageSection", 'String'>
+  readonly type: Prisma.FieldRef<"PageSection", 'String'>
+  readonly variant: Prisma.FieldRef<"PageSection", 'String'>
+  readonly settings: Prisma.FieldRef<"PageSection", 'Json'>
+  readonly isEnabled: Prisma.FieldRef<"PageSection", 'Boolean'>
+  readonly status: Prisma.FieldRef<"PageSection", 'PageStatus'>
   readonly title: Prisma.FieldRef<"PageSection", 'String'>
   readonly subtitle: Prisma.FieldRef<"PageSection", 'String'>
   readonly description: Prisma.FieldRef<"PageSection", 'String'>

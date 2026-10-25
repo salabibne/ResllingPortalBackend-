@@ -83,6 +83,7 @@ export const ModelName = {
   CmsTeam: 'CmsTeam',
   CustomPage: 'CustomPage',
   PageSection: 'PageSection',
+  MediaAsset: 'MediaAsset',
   ProductPageConfig: 'ProductPageConfig',
   ProductPageSection: 'ProductPageSection',
   Announcement: 'Announcement',
@@ -587,6 +588,11 @@ export type CustomPageScalarFieldEnum = (typeof CustomPageScalarFieldEnum)[keyof
 export const PageSectionScalarFieldEnum = {
   id: 'id',
   customPageId: 'customPageId',
+  type: 'type',
+  variant: 'variant',
+  settings: 'settings',
+  isEnabled: 'isEnabled',
+  status: 'status',
   title: 'title',
   subtitle: 'subtitle',
   description: 'description',
@@ -600,6 +606,18 @@ export const PageSectionScalarFieldEnum = {
 } as const
 
 export type PageSectionScalarFieldEnum = (typeof PageSectionScalarFieldEnum)[keyof typeof PageSectionScalarFieldEnum]
+
+
+export const MediaAssetScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  filename: 'filename',
+  mimeType: 'mimeType',
+  size: 'size',
+  createdAt: 'createdAt'
+} as const
+
+export type MediaAssetScalarFieldEnum = (typeof MediaAssetScalarFieldEnum)[keyof typeof MediaAssetScalarFieldEnum]
 
 
 export const ProductPageConfigScalarFieldEnum = {

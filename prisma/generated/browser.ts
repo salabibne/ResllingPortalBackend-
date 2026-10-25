@@ -178,6 +178,11 @@ export type CustomPage = Prisma.CustomPageModel
  */
 export type PageSection = Prisma.PageSectionModel
 /**
+ * Model MediaAsset
+ * 
+ */
+export type MediaAsset = Prisma.MediaAssetModel
+/**
  * Model ProductPageConfig
  * 
  */

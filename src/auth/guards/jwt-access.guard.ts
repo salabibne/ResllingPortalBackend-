@@ -1,4 +1,10 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  HttpException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import type { Request } from 'express';
@@ -45,7 +51,12 @@ export class JwtAccessGuard implements CanActivate {
 
       request.user = await this.authService.validateAccessToken(payload);
       return true;
-    } catch {
+    } catch (error) {
+      // Preserve deliberate 403s (e.g. an unapproved reseller) instead of
+      // masking every failure as an invalid token.
+      if (error instanceof HttpException) {
+        throw error;
+      }
       throw new UnauthorizedException('Invalid access token');
     }
   }

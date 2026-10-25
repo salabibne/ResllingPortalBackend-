@@ -416,6 +416,7 @@ export const ModelName = {
   CmsTeam: 'CmsTeam',
   CustomPage: 'CustomPage',
   PageSection: 'PageSection',
+  MediaAsset: 'MediaAsset',
   ProductPageConfig: 'ProductPageConfig',
   ProductPageSection: 'ProductPageSection',
   Announcement: 'Announcement',
@@ -440,7 +441,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "category" | "subcategory" | "childCategory" | "brand" | "product" | "productImage" | "color" | "productColor" | "size" | "productSize" | "ageVariant" | "productAge" | "inventory" | "inventoryTransaction" | "cart" | "cartItem" | "order" | "courierPickup" | "orderItem" | "cmsSocialMedia" | "cmsContact" | "cmsBrand" | "cmsHero" | "cmsAbout" | "cmsSection" | "cmsFounder" | "cmsFounderBlog" | "cmsFounderVideo" | "cmsTeam" | "customPage" | "pageSection" | "productPageConfig" | "productPageSection" | "announcement" | "externalApi" | "legalDocument" | "courierSetting" | "withdrawal" | "noticeModal" | "supportTicket"
+    modelProps: "user" | "category" | "subcategory" | "childCategory" | "brand" | "product" | "productImage" | "color" | "productColor" | "size" | "productSize" | "ageVariant" | "productAge" | "inventory" | "inventoryTransaction" | "cart" | "cartItem" | "order" | "courierPickup" | "orderItem" | "cmsSocialMedia" | "cmsContact" | "cmsBrand" | "cmsHero" | "cmsAbout" | "cmsSection" | "cmsFounder" | "cmsFounderBlog" | "cmsFounderVideo" | "cmsTeam" | "customPage" | "pageSection" | "mediaAsset" | "productPageConfig" | "productPageSection" | "announcement" | "externalApi" | "legalDocument" | "courierSetting" | "withdrawal" | "noticeModal" | "supportTicket"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2812,6 +2813,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    MediaAsset: {
+      payload: Prisma.$MediaAssetPayload<ExtArgs>
+      fields: Prisma.MediaAssetFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MediaAssetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MediaAssetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        findFirst: {
+          args: Prisma.MediaAssetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MediaAssetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        findMany: {
+          args: Prisma.MediaAssetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
+        }
+        create: {
+          args: Prisma.MediaAssetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        createMany: {
+          args: Prisma.MediaAssetCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.MediaAssetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
+        }
+        delete: {
+          args: Prisma.MediaAssetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        update: {
+          args: Prisma.MediaAssetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        deleteMany: {
+          args: Prisma.MediaAssetDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MediaAssetUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.MediaAssetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
+        }
+        upsert: {
+          args: Prisma.MediaAssetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
+        }
+        aggregate: {
+          args: Prisma.MediaAssetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMediaAsset>
+        }
+        groupBy: {
+          args: Prisma.MediaAssetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MediaAssetGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MediaAssetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MediaAssetCountAggregateOutputType> | number
+        }
+      }
+    }
     ProductPageConfig: {
       payload: Prisma.$ProductPageConfigPayload<ExtArgs>
       fields: Prisma.ProductPageConfigFieldRefs
@@ -3994,6 +4069,11 @@ export type CustomPageScalarFieldEnum = (typeof CustomPageScalarFieldEnum)[keyof
 export const PageSectionScalarFieldEnum = {
   id: 'id',
   customPageId: 'customPageId',
+  type: 'type',
+  variant: 'variant',
+  settings: 'settings',
+  isEnabled: 'isEnabled',
+  status: 'status',
   title: 'title',
   subtitle: 'subtitle',
   description: 'description',
@@ -4007,6 +4087,18 @@ export const PageSectionScalarFieldEnum = {
 } as const
 
 export type PageSectionScalarFieldEnum = (typeof PageSectionScalarFieldEnum)[keyof typeof PageSectionScalarFieldEnum]
+
+
+export const MediaAssetScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  filename: 'filename',
+  mimeType: 'mimeType',
+  size: 'size',
+  createdAt: 'createdAt'
+} as const
+
+export type MediaAssetScalarFieldEnum = (typeof MediaAssetScalarFieldEnum)[keyof typeof MediaAssetScalarFieldEnum]
 
 
 export const ProductPageConfigScalarFieldEnum = {
@@ -4617,6 +4709,7 @@ export type GlobalOmitConfig = {
   cmsTeam?: Prisma.CmsTeamOmit
   customPage?: Prisma.CustomPageOmit
   pageSection?: Prisma.PageSectionOmit
+  mediaAsset?: Prisma.MediaAssetOmit
   productPageConfig?: Prisma.ProductPageConfigOmit
   productPageSection?: Prisma.ProductPageSectionOmit
   announcement?: Prisma.AnnouncementOmit

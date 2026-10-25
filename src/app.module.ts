@@ -6,7 +6,9 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { CartModule } from './cart/cart.module';
 import { CmsModule } from './cms/cms.module';
+import { HomepageModule } from './homepage/homepage.module';
 import { InventoryModule } from './inventory/inventory.module';
+import { MediaModule } from './media/media.module';
 import { MetadataModule } from './metadata/metadata.module';
 import { OrderModule } from './order/order.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -30,6 +32,8 @@ import { WithdrawalModule } from './withdrawal/withdrawal.module';
     CartModule,
     OrderModule,
     CmsModule,
+    HomepageModule,
+    MediaModule,
     UserModule,
     SupportModule,
     WithdrawalModule,

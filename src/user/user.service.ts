@@ -86,7 +86,14 @@ export class UserService {
 
     const updatedUser = await this.prismaService.user.update({
       where: { id },
-      data: { status },
+      data: {
+        status,
+        // Revoke the stored refresh token as soon as the account stops being
+        // active, so a suspended reseller cannot extend their session.
+        ...(status !== CommonStatus.ACTIVE
+          ? { refreshTokenHash: null, refreshTokenExpiresAt: null }
+          : {}),
+      },
       select: {
         id: true,
         name: true,

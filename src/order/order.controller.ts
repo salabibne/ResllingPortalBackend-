@@ -51,6 +51,13 @@ export class OrderController {
     return this.orderService.handleSteadfastWebhook(body, req.headers.authorization);
   }
 
+  /** Public tracking lookup used by the storefront floating widget. */
+  @Public()
+  @Get('track/:code')
+  trackOrder(@Param('code') code: string) {
+    return this.orderService.trackPublicOrder(code);
+  }
+
   /**
    * Staff endpoint to sync all in-flight courier orders in one batch
    */

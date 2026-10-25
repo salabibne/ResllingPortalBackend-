@@ -29,6 +29,16 @@ type AuthResponse = TokenPair & {
   user: PublicUser;
 };
 
+type RegisterApprovalResponse = {
+  user: PublicUser;
+  requiresApproval: true;
+};
+
+const RESELLER_PENDING_MESSAGE =
+  'Your reseller account is awaiting approval.';
+const RESELLER_INACTIVE_MESSAGE =
+  'Your reseller account is not active. Please contact support.';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -37,7 +47,9 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async register(dto: RegisterDto): Promise<AuthResponse> {
+  async register(
+    dto: RegisterDto,
+  ): Promise<AuthResponse | RegisterApprovalResponse> {
     await this.ensureUserDoesNotExist(dto.email, dto.phone);
 
     const passwordHash = await bcrypt.hash(dto.password, 12);
@@ -52,7 +64,9 @@ export class AuthService {
         role: dto.role,
         OrganizationId: dto.organizationId,
         imageUrl: dto.imageUrl,
-        status: dto.status ?? CommonStatus.PENDING,
+        // Always decided server-side. Resellers stay PENDING until an admin
+        // approves them; customers keep the existing immediate-login behaviour.
+        status: CommonStatus.PENDING,
         pageName: dto.pageName,
         presentDistrict: dto.presentDistrict,
         presentThana: dto.presentThana,
@@ -60,6 +74,11 @@ export class AuthService {
         permanentThana: dto.permanentThana,
       },
     });
+
+    if (user.role === UserRole.RESELLER) {
+      // No tokens for a reseller that has not been approved yet.
+      return { user: this.sanitizeUser(user), requiresApproval: true };
+    }
 
     return this.issueTokensForUser(user);
   }
@@ -76,15 +95,14 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    if (user.status === CommonStatus.DEACTIVATED) {
-      throw new ForbiddenException('User account is deactivated');
-    }
-
+    // Verify the password before revealing any account-status information.
     const passwordMatches = await bcrypt.compare(dto.password, user.passwordHash);
 
     if (!passwordMatches) {
       throw new UnauthorizedException('Invalid credentials');
     }
+
+    this.assertAccountEligible(user);
 
     return this.issueTokensForUser(user);
   }
@@ -108,6 +126,9 @@ export class AuthService {
       throw new UnauthorizedException('Refresh token is not recognized');
     }
 
+    // A suspended reseller must not be able to extend their session.
+    this.assertAccountEligible(user);
+
     return this.issueTokensForUser(user);
   }
 
@@ -120,10 +141,35 @@ export class AuthService {
       throw new UnauthorizedException('Invalid token');
     }
 
+    // Re-checked on every guarded request so a status change takes effect
+    // immediately, without waiting for the access token to expire.
+    this.assertAccountEligible(user);
+
     return this.sanitizeUser(user);
   }
 
+  /**
+   * Single source of truth for "may this account use the API?".
+   * Resellers must be ACTIVE; every other role keeps the pre-existing rules.
+   */
+  private assertAccountEligible(user: User) {
+    if (user.role === UserRole.RESELLER) {
+      if (user.status === CommonStatus.PENDING) {
+        throw new ForbiddenException(RESELLER_PENDING_MESSAGE);
+      }
+      if (user.status !== CommonStatus.ACTIVE) {
+        throw new ForbiddenException(RESELLER_INACTIVE_MESSAGE);
+      }
+      return;
+    }
+
+    if (user.status === CommonStatus.DEACTIVATED) {
+      throw new ForbiddenException('User account is deactivated');
+    }
+  }
+
   private async issueTokensForUser(user: User): Promise<AuthResponse> {
+    this.assertAccountEligible(user);
     const tokens = await this.generateTokens(user);
     const refreshTokenExpiresAt = new Date(Date.now() + this.getRefreshTokenLifetimeMs());
 

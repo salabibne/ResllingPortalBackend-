@@ -1,11 +1,13 @@
 import {
   Body,
   Controller,
+  ForbiddenException,
   Get,
   Param,
   ParseUUIDPipe,
   Patch,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { CommonStatus, UserRole } from '../../prisma/generated/client';
@@ -43,17 +45,42 @@ export class UserController {
 
   @Patch(':id/status')
   updateStatus(
+    @Req() req: any,
     @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateUserStatusDto,
   ) {
+    this.assertNotSelf(req, id);
+
+    // Approving (ACTIVE) and suspending (DEACTIVATED) is an administrator
+    // action only — never something a user can do for their own account.
     return this.userService.updateStatus(id, dto.status);
   }
 
   @Patch(':id/role')
   updateRole(
+    @Req() req: any,
     @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateUserRoleDto,
   ) {
+    this.assertNotSelf(req, id);
+
+    if (
+      dto.role === UserRole.SUPER_ADMIN &&
+      req.user?.role !== UserRole.SUPER_ADMIN
+    ) {
+      throw new ForbiddenException(
+        'Only a super administrator can grant the super administrator role',
+      );
+    }
+
     return this.userService.updateRole(id, dto.role);
+  }
+
+  private assertNotSelf(req: any, targetId: string) {
+    if (req?.user?.id && req.user.id === targetId) {
+      throw new ForbiddenException(
+        'You cannot change your own role or account status',
+      );
+    }
   }
 }

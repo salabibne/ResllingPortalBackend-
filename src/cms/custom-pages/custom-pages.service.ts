@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException, OnModuleInit } from '@nestjs/common';
+import { PageStatus } from '../../../prisma/generated/client';
 import { PrismaService } from '../../prisma/prisma.service';
 import { CreateCustomPageDto } from './dto/create-custom-page.dto';
 import { UpdateCustomPageDto } from './dto/update-custom-page.dto';
@@ -190,6 +191,7 @@ export class CustomPagesService implements OnModuleInit {
       where: { slug },
       include: {
         sections: {
+          where: { status: PageStatus.PUBLISHED },
           orderBy: { sortOrder: 'asc' },
         },
       },
@@ -203,6 +205,7 @@ export class CustomPagesService implements OnModuleInit {
         where: { slug: 'home' },
         include: {
           sections: {
+            where: { status: PageStatus.PUBLISHED },
             orderBy: { sortOrder: 'asc' },
           },
         },
@@ -246,26 +249,41 @@ export class CustomPagesService implements OnModuleInit {
     return [
       {
         title: 'Hero Banner',
-        subtitle: 'Hero',
+        subtitle: 'New season',
         description: 'Main promotional visual banner and call-to-actions',
+        type: 'hero',
+        variant: 'split-image-right',
+        settings: { alignment: 'left', paddingTop: 16, paddingBottom: 16 },
+        isEnabled: true,
+        status: PageStatus.PUBLISHED,
         sortOrder: 1,
         content: { type: 'hero', isActive: true },
       },
       {
         title: 'New Arrivals & Featured Collection',
-        subtitle: 'Products',
+        subtitle: 'Just in',
         description: 'Explore the latest trending outfits and premium apparel',
         buttonText: 'View All Products',
         buttonLink: '/shop',
+        type: 'products',
+        variant: 'grid',
+        settings: { productSource: 'new', limit: 8, columns: 4 },
+        isEnabled: true,
+        status: PageStatus.PUBLISHED,
         sortOrder: 2,
         content: { type: 'products', isActive: true, limit: 8 },
       },
       {
         title: 'Our Story & Craftsmanship',
-        subtitle: 'About',
+        subtitle: 'About us',
         description: 'Crafting quality fashion with passion and care',
+        type: 'story',
+        variant: 'image-left',
+        settings: { alignment: 'left', imagePosition: 'left', mobileOrder: 'text-first' },
+        isEnabled: true,
+        status: PageStatus.PUBLISHED,
         sortOrder: 3,
-        content: { type: 'about', isActive: true },
+        content: { type: 'story', isActive: true },
       },
     ];
   }
@@ -313,6 +331,7 @@ export class CustomPagesService implements OnModuleInit {
       where: { id },
       include: {
         sections: {
+          where: { status: PageStatus.PUBLISHED },
           orderBy: { sortOrder: 'asc' },
         },
       },

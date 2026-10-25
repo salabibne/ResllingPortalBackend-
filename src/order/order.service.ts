@@ -37,6 +37,44 @@ export class OrderService implements OnModuleInit {
   /** Guards the scheduled courier sync against overlapping runs. */
   private courierSyncRunning = false;
 
+  /**
+   * Public, capability-style tracking lookup. Returns only status data — never
+   * the customer's name, phone, address or order value.
+   */
+  async trackPublicOrder(code: string) {
+    const trimmed = (code || '').trim();
+    if (!trimmed) {
+      throw new BadRequestException('Enter a tracking code');
+    }
+
+    const order = await this.prisma.order.findFirst({
+      where: {
+        OR: [
+          { orderRef: trimmed },
+          { courierTrackingCode: trimmed },
+          { courierConsignmentId: trimmed },
+        ],
+      },
+      select: {
+        orderRef: true,
+        processingStatus: true,
+        paymentStatus: true,
+        courierStatus: true,
+        courierTrackingLink: true,
+        courierSubmittedAt: true,
+        courierLastSyncedAt: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    if (!order) {
+      throw new NotFoundException('No order matches that tracking code');
+    }
+
+    return order;
+  }
+
   async onModuleInit() {
     await this.backfillOrderRefs();
   }

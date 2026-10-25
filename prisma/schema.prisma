@@ -629,6 +629,13 @@ model CustomPage {
 model PageSection {
   id               String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   customPageId     String     @map("custom_page_id") @db.Uuid
+
+  // Homepage builder configuration
+  type             String?    @db.VarChar(50)
+  variant          String?    @db.VarChar(50)
+  settings         Json?
+  isEnabled        Boolean    @default(true) @map("is_enabled")
+  status           PageStatus @default(PUBLISHED)
   
   // Section Header & Text
   title            String?    @db.VarChar(255)
@@ -651,7 +658,19 @@ model PageSection {
   
   customPage       CustomPage @relation(fields: [customPageId], references: [id], onDelete: Cascade)
 
+  @@index([customPageId, status, sortOrder])
   @@map("page_section")
+}
+
+model MediaAsset {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  url       String   @db.Text
+  filename  String   @db.VarChar(255)
+  mimeType  String   @map("mime_type") @db.VarChar(100)
+  size      Int
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("media_asset")
 }
 
 model ProductPageConfig {

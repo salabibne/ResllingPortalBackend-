@@ -1,6 +1,19 @@
-import { CommonStatus, UserRole } from '../../../prisma/generated/client';
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, MinLength } from 'class-validator';
+import { UserRole } from '../../../prisma/generated/client';
+import {
+  IsEmail,
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+  MinLength,
+} from 'class-validator';
 
+/**
+ * Self-service registration. The server accepts only customer and reseller
+ * accounts — staff roles are provisioned by an administrator, and the account
+ * status is always decided server-side (never trusted from the client).
+ */
 export class RegisterDto {
   @IsString()
   @IsNotEmpty()
@@ -21,7 +34,7 @@ export class RegisterDto {
   @MinLength(8)
   password!: string;
 
-  @IsEnum(UserRole)
+  @IsIn([UserRole.USER, UserRole.RESELLER])
   role!: UserRole;
 
   @IsUUID()
@@ -30,10 +43,6 @@ export class RegisterDto {
   @IsOptional()
   @IsString()
   imageUrl?: string;
-
-  @IsOptional()
-  @IsEnum(CommonStatus)
-  status?: CommonStatus;
 
   @IsOptional()
   @IsString()
