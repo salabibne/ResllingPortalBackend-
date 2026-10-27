@@ -178,7 +178,6 @@ export class OrderController {
       limitNum,
       search,
       undefined,
-      undefined,
       false,
       startDate,
       endDate,
@@ -263,18 +262,30 @@ export class OrderController {
     return this.orderService.getResellerStats(req.user);
   }
 
+  /** Order counts per courier status group, scoped to the caller. */
+  @Get('status-summary')
+  getOrderStatusSummary(
+    @Req() req: any,
+    @Query('isResellerOnly') isResellerOnly?: string,
+  ) {
+    return this.orderService.getOrderStatusSummary(
+      req.user,
+      isResellerOnly === 'true',
+    );
+  }
+
   @Get()
   getOrders(
     @Req() req: any,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
     @Query('search') search?: string,
-    @Query('processingStatus') processingStatus?: string,
     @Query('paymentStatus') paymentStatus?: string,
     @Query('isResellerOnly') isResellerOnly?: string,
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
     @Query('customerPhone') customerPhone?: string,
+    @Query('courierStatus') courierStatus?: string,
   ) {
     const pageNum = page ? parseInt(page, 10) : 1;
     const limitNum = limit ? parseInt(limit, 10) : 20;
@@ -284,12 +295,12 @@ export class OrderController {
       pageNum,
       limitNum,
       search,
-      processingStatus,
       paymentStatus,
       resellerOnly,
       startDate,
       endDate,
       customerPhone,
+      courierStatus,
     );
   }
 
@@ -297,23 +308,23 @@ export class OrderController {
   exportOrders(
     @Req() req: any,
     @Query('search') search?: string,
-    @Query('processingStatus') processingStatus?: string,
     @Query('paymentStatus') paymentStatus?: string,
     @Query('isResellerOnly') isResellerOnly?: string,
     @Query('startDate') startDate?: string,
     @Query('endDate') endDate?: string,
     @Query('customerPhone') customerPhone?: string,
+    @Query('courierStatus') courierStatus?: string,
   ) {
     const resellerOnly = isResellerOnly === 'true';
     return this.orderService.exportOrders(
       req.user,
       search,
-      processingStatus,
       paymentStatus,
       resellerOnly,
       startDate,
       endDate,
       customerPhone,
+      courierStatus,
     );
   }
 
@@ -322,14 +333,23 @@ export class OrderController {
     return this.orderService.getOrderById(id, req.user);
   }
 
+  /** Payment status only — the order status comes from the courier. */
   @Patch(':id/status')
   @UseGuards(RolesGuard)
   @Roles(...STAFF_ROLES)
-  updateOrderStatus(
+  updatePaymentStatus(
     @Req() req: any,
     @Param('id') id: string,
     @Body() dto: UpdateOrderStatusDto,
   ) {
-    return this.orderService.updateOrderStatus(id, dto, req.user);
+    return this.orderService.updatePaymentStatus(id, dto, req.user);
+  }
+
+  /** Cancel an order that has not been booked with the courier yet. */
+  @Patch(':id/cancel')
+  @UseGuards(RolesGuard)
+  @Roles(...STAFF_ROLES)
+  cancelOrder(@Req() req: any, @Param('id') id: string) {
+    return this.orderService.cancelOrder(id, req.user);
   }
 }

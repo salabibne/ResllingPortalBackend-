@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { Prisma, PayoutMethod, WithdrawalStatus } from '../../prisma/generated/client';
 import { PrismaService } from '../prisma/prisma.service';
+import { profitBucket } from '../order/courier-status.util';
 import {
   CompleteWithdrawalDto,
   CreateWithdrawalDto,
@@ -62,14 +63,10 @@ export class WithdrawalService {
         }
       }
 
-      const isCancelledOrReturned =
-        ord.processingStatus === 'CANCELLED' || ord.processingStatus === 'RETURNED';
-      const isDeliveredAndPaid =
-        ord.processingStatus === 'DELIVERED' && ord.paymentStatus === 'PAID';
-
-      if (isDeliveredAndPaid) {
+      const bucket = profitBucket(ord);
+      if (bucket === 'EARNED') {
         totalEarnedProfit += orderProfit;
-      } else if (!isCancelledOrReturned) {
+      } else if (bucket === 'PENDING') {
         pendingProfit += orderProfit;
       }
     }

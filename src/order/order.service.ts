@@ -26,6 +26,21 @@ import { SendToCourierDto, BulkSendCourierDto } from './dto/send-to-courier.dto'
 import { CreateCourierPickupDto } from './dto/create-courier-pickup.dto';
 import { CreateCourierReturnDto } from './dto/create-courier-return.dto';
 import { SteadfastService } from './steadfast.service';
+import {
+  COURIER_STATUS_GROUPS,
+  CourierStatusGroup,
+  courierGroupOf,
+  courierGroupWhere,
+  effectiveCourierStatus,
+  isCourierStatusGroup,
+  profitBucket,
+} from './courier-status.util';
+
+/** Internal status change used by the courier sync / webhook restock flow. */
+type InternalStatusUpdate = {
+  processingStatus?: OrderProcessingStatus;
+  paymentStatus?: PaymentStatus;
+};
 
 @Injectable()
 export class OrderService implements OnModuleInit {
@@ -57,7 +72,6 @@ export class OrderService implements OnModuleInit {
       },
       select: {
         orderRef: true,
-        processingStatus: true,
         paymentStatus: true,
         courierStatus: true,
         courierTrackingLink: true,
@@ -72,11 +86,40 @@ export class OrderService implements OnModuleInit {
       throw new NotFoundException('No order matches that tracking code');
     }
 
-    return order;
+    return { ...order, status: effectiveCourierStatus(order) };
   }
 
   async onModuleInit() {
     await this.backfillOrderRefs();
+    await this.backfillCourierStatuses();
+  }
+
+  /**
+   * The courier status is the only status shown to users. Orders that were
+   * closed by hand before that change have no courier status, so carry their
+   * old outcome over instead of letting them fall back to "Order Placed".
+   */
+  private async backfillCourierStatuses() {
+    try {
+      await this.prisma.order.updateMany({
+        where: {
+          courierStatus: null,
+          processingStatus: {
+            in: [OrderProcessingStatus.CANCELLED, OrderProcessingStatus.RETURNED],
+          },
+        },
+        data: { courierStatus: 'cancelled' },
+      });
+      await this.prisma.order.updateMany({
+        where: {
+          courierStatus: null,
+          processingStatus: OrderProcessingStatus.DELIVERED,
+        },
+        data: { courierStatus: 'delivered' },
+      });
+    } catch (err) {
+      console.error('Error backfilling courier statuses:', err);
+    }
   }
 
   /**
@@ -380,19 +423,34 @@ export class OrderService implements OnModuleInit {
     });
 
     let totalOrders = orders.length;
+    let orderPlacedOrders = 0;
     let pendingOrders = 0;
+    let inTransitOrders = 0;
     let deliveredOrders = 0;
+    let cancelledOrders = 0;
     let totalResellerProfit = 0;
     let pendingResellerProfit = 0;
     let totalResellerSales = 0;
     let totalWholesaleCost = 0;
 
     for (const ord of orders) {
-      if (ord.processingStatus === 'PENDING') {
-        pendingOrders++;
-      }
-      if (ord.processingStatus === 'DELIVERED') {
-        deliveredOrders++;
+      switch (courierGroupOf(ord.courierStatus)) {
+        case 'ORDER_PLACED':
+          orderPlacedOrders++;
+          break;
+        case 'PENDING':
+          pendingOrders++;
+          break;
+        case 'IN_TRANSIT':
+          inTransitOrders++;
+          break;
+        case 'DELIVERED':
+        case 'PARTIAL':
+          deliveredOrders++;
+          break;
+        case 'CANCELLED':
+          cancelledOrders++;
+          break;
       }
 
       // Compute reseller profit for this order
@@ -416,14 +474,10 @@ export class OrderService implements OnModuleInit {
         }
       }
 
-      const isCancelledOrReturned =
-        ord.processingStatus === 'CANCELLED' || ord.processingStatus === 'RETURNED';
-      const isDeliveredAndPaid =
-        ord.processingStatus === 'DELIVERED' && ord.paymentStatus === 'PAID';
-
-      if (isDeliveredAndPaid) {
+      const bucket = profitBucket(ord);
+      if (bucket === 'EARNED') {
         totalResellerProfit += orderProfit;
-      } else if (!isCancelledOrReturned) {
+      } else if (bucket === 'PENDING') {
         pendingResellerProfit += orderProfit;
       }
 
@@ -433,8 +487,11 @@ export class OrderService implements OnModuleInit {
 
     return {
       totalOrders,
+      orderPlacedOrders,
       pendingOrders,
+      inTransitOrders,
       deliveredOrders,
+      cancelledOrders,
       totalResellerProfit,
       pendingResellerProfit,
       totalResellerSales,
@@ -597,7 +654,6 @@ export class OrderService implements OnModuleInit {
     page = 1,
     limit = 20,
     search?: string,
-    processingStatus?: string,
     paymentStatus?: string,
     isResellerOnly?: boolean,
     startDate?: string,
@@ -608,54 +664,21 @@ export class OrderService implements OnModuleInit {
     shipmentState?: string,
   ) {
     const skip = (page - 1) * limit;
-    const isStaff = [
-      UserRole.SUPER_ADMIN,
-      UserRole.ADMIN,
-      UserRole.MANAGER,
-      UserRole.SALES_EXECUTIVE,
-    ].includes(user.role);
+    const where: any = this.buildOrderScopeWhere(user, isResellerOnly);
 
-    const isReseller = user.role === UserRole.RESELLER;
-
-    let where: any = {};
-
-    if (isStaff) {
-      if (isResellerOnly) {
-        where.isResellerOrder = true;
-      }
-    } else if (isReseller) {
-      where.OR = [{ resellerId: user.id }, { customerId: user.id }];
-      if (isResellerOnly) {
-        where.isResellerOrder = true;
-      }
-    } else {
-      where.customerId = user.id;
-    }
-
-    if (processingStatus && processingStatus !== 'ALL') {
-      where.processingStatus = processingStatus;
-    }
     if (paymentStatus && paymentStatus !== 'ALL') {
       where.paymentStatus = paymentStatus;
     }
 
-    // Courier filters
+    // Order status filter — the courier status is the only order status.
     if (courierStatus && courierStatus !== 'ALL') {
-      if (courierStatus === 'NOT_SENT') {
+      if (isCourierStatusGroup(courierStatus)) {
+        where.AND = [...(where.AND || []), courierGroupWhere(courierStatus)];
+      } else if (courierStatus === 'NOT_SENT') {
         where.courierConsignmentId = null;
         where.courierTrackingCode = null;
       } else if (courierStatus === 'RETURNED') {
         where.courierStatus = { contains: 'return', mode: 'insensitive' };
-      } else if (courierStatus === 'IN_TRANSIT') {
-        where.courierStatus = {
-          in: [
-            'pending',
-            'in_review',
-            'in_transit',
-            'delivered_approval_pending',
-            'partial_delivered_approval_pending',
-          ],
-        };
       } else {
         where.courierStatus = courierStatus.toLowerCase();
       }
@@ -851,7 +874,6 @@ export class OrderService implements OnModuleInit {
   async exportOrders(
     user: any,
     search?: string,
-    processingStatus?: string,
     paymentStatus?: string,
     isResellerOnly?: boolean,
     startDate?: string,
@@ -866,7 +888,6 @@ export class OrderService implements OnModuleInit {
       1,
       100000,
       search,
-      processingStatus,
       paymentStatus,
       isResellerOnly,
       startDate,
@@ -877,6 +898,50 @@ export class OrderService implements OnModuleInit {
       shipmentState,
     );
     return res.data;
+  }
+
+  /**
+   * Which orders a user may see: staff see all, resellers see their own,
+   * customers see the orders they placed.
+   */
+  private buildOrderScopeWhere(user: any, isResellerOnly?: boolean): any {
+    const where: any = {};
+
+    if (this.isStaffUser(user)) {
+      if (isResellerOnly) {
+        where.isResellerOrder = true;
+      }
+    } else if (user.role === UserRole.RESELLER) {
+      where.OR = [{ resellerId: user.id }, { customerId: user.id }];
+      if (isResellerOnly) {
+        where.isResellerOrder = true;
+      }
+    } else {
+      where.customerId = user.id;
+    }
+
+    return where;
+  }
+
+  /**
+   * Order counts per courier status group, scoped to what the user may see.
+   */
+  async getOrderStatusSummary(user: any, isResellerOnly?: boolean) {
+    const scope = this.buildOrderScopeWhere(user, isResellerOnly);
+    const [total, ...counts] = await Promise.all([
+      this.prisma.order.count({ where: scope }),
+      ...COURIER_STATUS_GROUPS.map((group) =>
+        this.prisma.order.count({
+          where: { AND: [scope, courierGroupWhere(group)] },
+        }),
+      ),
+    ]);
+
+    const summary = { total } as { total: number } & Record<CourierStatusGroup, number>;
+    COURIER_STATUS_GROUPS.forEach((group, i) => {
+      summary[group] = counts[i];
+    });
+    return summary;
   }
 
 
@@ -982,11 +1047,74 @@ export class OrderService implements OnModuleInit {
   }
 
   /**
-   * Update Order status (Admin/Staff only) & adjust Inventory on CANCELLED / RETURNED
+   * Update payment status (Admin/Staff only). The order status itself comes
+   * from the courier and is not editable here.
    */
-  async updateOrderStatus(
+  async updatePaymentStatus(
     orderId: string,
     dto: UpdateOrderStatusDto,
+    staffUser: any,
+  ) {
+    const order = await this.prisma.order.findUnique({ where: { id: orderId } });
+    if (!order) {
+      throw new NotFoundException('Order not found');
+    }
+
+    return this.prisma.order.update({
+      where: { id: orderId },
+      data: {
+        ...(dto.paymentStatus && { paymentStatus: dto.paymentStatus }),
+        orderProcessedBy: staffUser.id,
+      },
+      include: {
+        customer: { select: { id: true, name: true, email: true } },
+        orderItems: true,
+      },
+    });
+  }
+
+  /**
+   * Cancel an order that has not been handed to the courier yet (Admin/Staff only).
+   * Stock is NOT restored automatically — staff restock by hand from Inventory.
+   */
+  async cancelOrder(orderId: string, staffUser: any) {
+    const order = await this.prisma.order.findUnique({ where: { id: orderId } });
+    if (!order) {
+      throw new NotFoundException('Order not found');
+    }
+
+    if (order.courierConsignmentId || order.courierTrackingCode) {
+      throw new ConflictException(
+        'This order is already booked with Steadfast. Cancel it with the courier; its status will update automatically.',
+      );
+    }
+
+    if (courierGroupOf(order.courierStatus) === 'CANCELLED') {
+      throw new BadRequestException('Order is already cancelled');
+    }
+
+    return this.prisma.order.update({
+      where: { id: orderId },
+      data: {
+        courierStatus: 'cancelled',
+        processingStatus: OrderProcessingStatus.CANCELLED,
+        paymentStatus: PaymentStatus.CANCELLED,
+        orderProcessedBy: staffUser.id,
+      },
+      include: {
+        customer: { select: { id: true, name: true, email: true } },
+        orderItems: true,
+      },
+    });
+  }
+
+  /**
+   * Internal status change used by the courier sync / webhook flow; adjusts
+   * Inventory on CANCELLED / RETURNED.
+   */
+  private async updateOrderStatus(
+    orderId: string,
+    dto: InternalStatusUpdate,
     staffUser: any,
   ) {
     const order = await this.prisma.order.findUnique({
@@ -1172,6 +1300,10 @@ export class OrderService implements OnModuleInit {
       );
     }
 
+    if (courierGroupOf(order.courierStatus) === 'CANCELLED') {
+      throw new BadRequestException('Cancelled orders cannot be sent to the courier.');
+    }
+
     const claimed = await this.prisma.order.updateMany({
       where: {
         id: order.id,
@@ -1338,11 +1470,13 @@ export class OrderService implements OnModuleInit {
       throw new NotFoundException('No matching orders found');
     }
 
+    const isCancelled = (o: (typeof allOrders)[number]) =>
+      courierGroupOf(o.courierStatus) === 'CANCELLED';
     const unbooked = allOrders.filter(
-      (o) => !o.courierConsignmentId && !o.courierTrackingCode,
+      (o) => !o.courierConsignmentId && !o.courierTrackingCode && !isCancelled(o),
     );
     const skipped = allOrders.filter(
-      (o) => o.courierConsignmentId || o.courierTrackingCode,
+      (o) => o.courierConsignmentId || o.courierTrackingCode || isCancelled(o),
     );
 
     // Atomically claim each unbooked order so concurrent bulk requests cannot double-book.
