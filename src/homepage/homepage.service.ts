@@ -15,6 +15,7 @@ import {
   resolveVariant,
   sanitizeUrl,
 } from './section-registry';
+import { convertLegacyRows, hasLegacyRows } from './legacy-sections';
 
 const HOME_SLUG = 'home';
 const MAX_PRODUCTS = 200;
@@ -97,6 +98,17 @@ export class HomepageService {
   }
 
   /**
+   * The page a builder call works on: a custom page by id, or the homepage
+   * when no id is given. Every section query below is scoped to this page.
+   */
+  private async resolvePage(pageId?: string) {
+    if (!pageId) return this.ensureHomePage();
+    const page = await this.prisma.customPage.findUnique({ where: { id: pageId } });
+    if (!page) throw new NotFoundException(`Page "${pageId}" not found`);
+    return page;
+  }
+
+  /**
    * Lazily creates the home page row. Uses the unique slug to stay idempotent
    * if another module seeds it at the same time.
    */
@@ -174,10 +186,53 @@ export class HomepageService {
     };
   }
 
+  /**
+   * A published custom page with its published sections. Rows from the old
+   * Custom Pages editor (no `type`) are returned apart as `legacySections` so
+   * the storefront can keep rendering them until the page is re-published
+   * from the builder.
+   */
+  async getPublicPage(slug: string) {
+    if (slug === HOME_SLUG) throw new NotFoundException('Page not found');
+
+    const page = await this.prisma.customPage.findUnique({ where: { slug } });
+    if (!page || page.status !== PageStatus.PUBLISHED) {
+      throw new NotFoundException('Page not found');
+    }
+
+    const rows = await this.prisma.pageSection.findMany({
+      where: { customPageId: page.id, status: PageStatus.PUBLISHED },
+      orderBy: { sortOrder: 'asc' },
+    });
+
+    const sections = rows
+      .filter((row) => row.type && row.isEnabled)
+      .map((row) => this.toDto(row as PageSectionRow));
+    const legacySections = rows.filter((row) => !row.type);
+    const resources = await this.resolveResources(sections);
+
+    return {
+      page: {
+        id: page.id,
+        title: page.title,
+        slug: page.slug,
+        content: page.content,
+        metaTitle: page.metaTitle,
+        metaDescription: page.metaDescription,
+        buttonTitle: page.buttonTitle,
+        buttonLink: page.buttonLink,
+        updatedAt: page.updatedAt,
+      },
+      sections,
+      legacySections,
+      resources,
+    };
+  }
+
   // ─── ADMIN (draft workspace) ──────────────────────────────────────────
 
-  async getAdmin() {
-    const page = await this.ensureHomePage();
+  async getAdmin(pageId?: string) {
+    const page = await this.resolvePage(pageId);
     const drafts = await this.ensureDraftSet(page.id);
 
     const published = await this.prisma.pageSection.findMany({
@@ -196,8 +251,8 @@ export class HomepageService {
     };
   }
 
-  async createSection(dto: CreateSectionDto) {
-    const page = await this.ensureHomePage();
+  async createSection(dto: CreateSectionDto, pageId?: string) {
+    const page = await this.resolvePage(pageId);
     await this.ensureDraftSet(page.id);
 
     const type = normalizeType(dto.type);
@@ -230,12 +285,12 @@ export class HomepageService {
     });
   }
 
-  async updateSection(id: string, dto: UpdateSectionDto) {
-    const page = await this.ensureHomePage();
+  async updateSection(id: string, dto: UpdateSectionDto, pageId?: string) {
+    const page = await this.resolvePage(pageId);
     const existing = await this.prisma.pageSection.findUnique({ where: { id } });
 
     if (!existing || existing.customPageId !== page.id) {
-      throw new NotFoundException(`Homepage section "${id}" not found`);
+      throw new NotFoundException(`Section "${id}" not found`);
     }
 
     if (existing.status !== PageStatus.DRAFT) {
@@ -283,12 +338,12 @@ export class HomepageService {
     return this.prisma.pageSection.update({ where: { id }, data });
   }
 
-  async deleteSection(id: string) {
-    const page = await this.ensureHomePage();
+  async deleteSection(id: string, pageId?: string) {
+    const page = await this.resolvePage(pageId);
     const existing = await this.prisma.pageSection.findUnique({ where: { id } });
 
     if (!existing || existing.customPageId !== page.id) {
-      throw new NotFoundException(`Homepage section "${id}" not found`);
+      throw new NotFoundException(`Section "${id}" not found`);
     }
 
     if (existing.status !== PageStatus.DRAFT) {
@@ -299,12 +354,12 @@ export class HomepageService {
     return { success: true };
   }
 
-  async duplicateSection(id: string) {
-    const page = await this.ensureHomePage();
+  async duplicateSection(id: string, pageId?: string) {
+    const page = await this.resolvePage(pageId);
     const existing = await this.prisma.pageSection.findUnique({ where: { id } });
 
     if (!existing || existing.customPageId !== page.id) {
-      throw new NotFoundException(`Homepage section "${id}" not found`);
+      throw new NotFoundException(`Section "${id}" not found`);
     }
 
     const max = await this.prisma.pageSection.aggregate({
@@ -334,8 +389,8 @@ export class HomepageService {
     });
   }
 
-  async reorderSections(dto: ReorderSectionsDto) {
-    const page = await this.ensureHomePage();
+  async reorderSections(dto: ReorderSectionsDto, pageId?: string) {
+    const page = await this.resolvePage(pageId);
     const ids = dto.sectionOrders.map((item) => item.id);
 
     const owned = await this.prisma.pageSection.findMany({
@@ -359,8 +414,8 @@ export class HomepageService {
     return { success: true };
   }
 
-  async publish() {
-    const page = await this.ensureHomePage();
+  async publish(pageId?: string) {
+    const page = await this.resolvePage(pageId);
 
     const result = await this.prisma.$transaction(async (tx) => {
       const drafts = await tx.pageSection.findMany({
@@ -401,9 +456,12 @@ export class HomepageService {
         where: { customPageId: page.id, status: PageStatus.DRAFT },
       });
 
+      // Publishing from a custom page's builder also puts the page itself live.
       await tx.customPage.update({
         where: { id: page.id },
-        data: { updatedAt: new Date() },
+        data: pageId
+          ? { updatedAt: new Date(), status: PageStatus.PUBLISHED }
+          : { updatedAt: new Date() },
       });
 
       return { published: drafts.length };
@@ -412,8 +470,8 @@ export class HomepageService {
     return { success: true, ...result, publishedAt: new Date().toISOString() };
   }
 
-  async discard() {
-    const page = await this.ensureHomePage();
+  async discard(pageId?: string) {
+    const page = await this.resolvePage(pageId);
     await this.prisma.pageSection.deleteMany({
       where: { customPageId: page.id, status: PageStatus.DRAFT },
     });
@@ -473,8 +531,14 @@ export class HomepageService {
 
     if (!published.length) return [];
 
+    // Pages from the old Custom Pages editor get builder sections in the
+    // draft; the live page keeps its old rows until the draft is published.
+    const source = hasLegacyRows(published)
+      ? convertLegacyRows(published).map((row, index) => ({ ...row, sortOrder: index + 1 }))
+      : published;
+
     await this.prisma.pageSection.createMany({
-      data: published.map((row) => ({
+      data: source.map((row) => ({
         customPageId: pageId,
         status: PageStatus.DRAFT,
         type: row.type,

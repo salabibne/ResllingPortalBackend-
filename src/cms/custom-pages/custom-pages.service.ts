@@ -176,10 +176,12 @@ export class CustomPagesService implements OnModuleInit {
       where,
       include: {
         sections: {
+          where: { status: PageStatus.PUBLISHED },
           orderBy: { sortOrder: 'asc' },
         },
+        // Live sections only; builder drafts are not counted.
         _count: {
-          select: { sections: true },
+          select: { sections: { where: { status: PageStatus.PUBLISHED } } },
         },
       },
       orderBy: { createdAt: 'desc' },
