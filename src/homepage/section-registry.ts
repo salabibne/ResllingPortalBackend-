@@ -6,6 +6,8 @@
  * against this map so arbitrary JSON can never reach the database.
  */
 
+import { sanitizeIcon } from './icon-registry';
+
 export type HomepageSectionType =
   | 'hero'
   | 'categories'
@@ -16,7 +18,11 @@ export type HomepageSectionType =
   | 'testimonials'
   | 'logos'
   | 'faq'
-  | 'banner';
+  | 'banner'
+  | 'stats'
+  | 'steps'
+  | 'checklist'
+  | 'cta';
 
 export type FieldKind =
   | 'string'
@@ -26,11 +32,15 @@ export type FieldKind =
   | 'int'
   | 'bool'
   | 'enum'
+  | 'icon'
   | 'uuidArray'
   | 'trustItems'
   | 'testimonialItems'
   | 'faqItems'
-  | 'promoCards';
+  | 'promoCards'
+  | 'statItems'
+  | 'stepItems'
+  | 'checklistItems';
 
 export interface FieldDefinition {
   kind: FieldKind;
@@ -69,14 +79,20 @@ const ALIGNMENT = ['left', 'center', 'right'] as const;
 const CONTENT_WIDTH = ['narrow', 'normal', 'wide', 'full'] as const;
 const IMAGE_POSITION = ['left', 'right', 'top', 'background'] as const;
 const MOBILE_ORDER = ['text-first', 'image-first'] as const;
+const ANIMATION = ['default', 'none', 'fade-up', 'slide-left', 'slide-right', 'zoom-in', 'zoom-out'] as const;
+const BUTTON_STYLE = ['primary', 'secondary', 'outline', 'ghost'] as const;
 
 const COMMON_FIELDS: Record<string, FieldDefinition> = {
+  animation: { kind: 'enum', values: ANIMATION },
   alignment: { kind: 'enum', values: ALIGNMENT },
   contentWidth: { kind: 'enum', values: CONTENT_WIDTH },
   background: { kind: 'color' },
   textColor: { kind: 'color' },
   paddingTop: { kind: 'int', min: 0, max: 24 },
   paddingBottom: { kind: 'int', min: 0, max: 24 },
+  eyebrowIcon: { kind: 'icon' },
+  buttonIcon: { kind: 'icon' },
+  secondaryButtonIcon: { kind: 'icon' },
 };
 
 export const SECTION_REGISTRY: Record<HomepageSectionType, SectionTypeDefinition> = {
@@ -112,7 +128,7 @@ export const SECTION_REGISTRY: Record<HomepageSectionType, SectionTypeDefinition
       minHeight: { kind: 'int', min: 240, max: 900 },
       secondaryButtonText: { kind: 'string' },
       secondaryButtonLink: { kind: 'url' },
-      secondaryButtonStyle: { kind: 'enum', values: ['primary', 'secondary', 'outline', 'ghost'] },
+      secondaryButtonStyle: { kind: 'enum', values: BUTTON_STYLE },
     },
   },
 
@@ -336,6 +352,119 @@ export const SECTION_REGISTRY: Record<HomepageSectionType, SectionTypeDefinition
       secondaryButtonLink: { kind: 'url' },
     },
   },
+
+  stats: {
+    type: 'stats',
+    label: 'Stats & numbers',
+    category: 'Trust & social proof',
+    description: 'Key figures with an icon each — enter real numbers only.',
+    variants: [
+      { id: 'inline-row', label: 'Inline row', description: 'Icon, number and label in a compact row.' },
+      { id: 'cards', label: 'Stat cards', description: 'A card per figure.' },
+    ],
+    defaults: {
+      title: '',
+      subtitle: '',
+      description: '',
+      settings: { columns: 4, items: [], alignment: 'center', paddingTop: 8, paddingBottom: 8 },
+    },
+    fields: {
+      ...COMMON_FIELDS,
+      columns: { kind: 'int', min: 2, max: 4 },
+      items: { kind: 'statItems' },
+    },
+  },
+
+  steps: {
+    type: 'steps',
+    label: 'How it works',
+    category: 'Informational content',
+    description: 'Numbered steps, each with an icon or emoji.',
+    variants: [
+      { id: 'numbered-cards', label: 'Numbered cards', description: 'A card per step with a number badge.' },
+      { id: 'timeline', label: 'Timeline', description: 'Steps joined by a connecting line.' },
+    ],
+    defaults: {
+      title: 'Start in 4 easy steps',
+      subtitle: 'How it works',
+      description: '',
+      buttonText: '',
+      buttonLink: '/register',
+      settings: {
+        columns: 4,
+        alignment: 'center',
+        items: [
+          { icon: 'emoji:📱', title: 'Sign up', description: 'Create your free account in a minute.' },
+          { icon: 'emoji:🛒', title: 'Pick products', description: 'Choose products to sell from the catalogue.' },
+          { icon: 'emoji:🚚', title: 'We deliver', description: 'We pack and ship each order to your customer.' },
+          { icon: 'emoji:💰', title: 'Get paid', description: 'Your profit lands in your wallet.' },
+        ],
+        paddingTop: 12,
+        paddingBottom: 12,
+      },
+    },
+    fields: {
+      ...COMMON_FIELDS,
+      columns: { kind: 'int', min: 2, max: 4 },
+      items: { kind: 'stepItems' },
+    },
+  },
+
+  checklist: {
+    type: 'checklist',
+    label: 'Checklist',
+    category: 'Informational content',
+    description: 'A list of what customers get, each line marked with the same icon.',
+    variants: [
+      { id: 'two-column', label: 'Two columns', description: 'Checklist in two balanced columns.' },
+      { id: 'with-image', label: 'With image', description: 'Checklist beside an image.' },
+    ],
+    defaults: {
+      title: 'What you get',
+      subtitle: '',
+      description: '',
+      imageUrl: '',
+      settings: { itemIcon: 'BadgeCheck', items: [], paddingTop: 12, paddingBottom: 12 },
+    },
+    fields: {
+      ...COMMON_FIELDS,
+      itemIcon: { kind: 'icon' },
+      items: { kind: 'checklistItems' },
+    },
+  },
+
+  cta: {
+    type: 'cta',
+    label: 'Call-to-action band',
+    category: 'Hero & banners',
+    description: 'Closing invitation with an icon and up to two buttons.',
+    variants: [
+      { id: 'gradient-band', label: 'Gradient band', description: 'Full-width coloured band.' },
+      { id: 'centered-card', label: 'Centered card', description: 'Rounded card in the page flow.' },
+    ],
+    defaults: {
+      title: 'Start today, for free!',
+      subtitle: '',
+      description: '',
+      buttonText: 'Register free',
+      buttonLink: '/register',
+      settings: {
+        icon: 'HeartHandshake',
+        buttonIcon: 'Zap',
+        secondaryButtonIcon: 'MessageCircle',
+        alignment: 'center',
+        paddingTop: 12,
+        paddingBottom: 12,
+      },
+    },
+    fields: {
+      ...COMMON_FIELDS,
+      icon: { kind: 'icon' },
+      secondaryButtonText: { kind: 'string' },
+      secondaryButtonLink: { kind: 'url' },
+      secondaryButtonStyle: { kind: 'enum', values: BUTTON_STYLE },
+    },
+  },
 };
 
 export const SECTION_TYPES = Object.keys(SECTION_REGISTRY) as HomepageSectionType[];
@@ -404,11 +533,46 @@ function sanitizeTrustItems(value: unknown): Record<string, string>[] | undefine
     .slice(0, 12)
     .filter((item): item is Record<string, unknown> => !!item && typeof item === 'object')
     .map((item) => ({
-      icon: sanitizeString(item.icon, 40) ?? 'CheckCircle2',
+      icon: sanitizeIcon(item.icon, 'CheckCircle2') as string,
       title: sanitizeString(item.title, 120) ?? '',
       description: sanitizeString(item.description, 400) ?? '',
     }))
     .filter((item) => item.title);
+}
+
+function sanitizeStatItems(value: unknown): Record<string, string>[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value
+    .slice(0, 8)
+    .filter((item): item is Record<string, unknown> => !!item && typeof item === 'object')
+    .map((item) => ({
+      icon: sanitizeIcon(item.icon, 'TrendingUp') as string,
+      value: sanitizeString(item.value, 40) ?? '',
+      label: sanitizeString(item.label, 120) ?? '',
+    }))
+    .filter((item) => item.value && item.label);
+}
+
+function sanitizeStepItems(value: unknown): Record<string, string>[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value
+    .slice(0, 8)
+    .filter((item): item is Record<string, unknown> => !!item && typeof item === 'object')
+    .map((item) => ({
+      icon: sanitizeIcon(item.icon, 'CircleCheckBig') as string,
+      title: sanitizeString(item.title, 120) ?? '',
+      description: sanitizeString(item.description, 400) ?? '',
+    }))
+    .filter((item) => item.title);
+}
+
+function sanitizeChecklistItems(value: unknown): Record<string, string>[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value
+    .slice(0, 20)
+    .filter((item): item is Record<string, unknown> => !!item && typeof item === 'object')
+    .map((item) => ({ text: sanitizeString(item.text, 200) ?? '' }))
+    .filter((item) => item.text);
 }
 
 function sanitizeTestimonialItems(value: unknown): Record<string, unknown>[] | undefined {
@@ -450,6 +614,7 @@ function sanitizePromoCards(value: unknown): Record<string, unknown>[] | undefin
       buttonText: sanitizeString(item.buttonText, 60),
       buttonLink: sanitizeUrl(item.buttonLink),
       eyebrow: sanitizeString(item.eyebrow, 60),
+      icon: sanitizeIcon(item.icon),
     }))
     .filter((item) => item.title);
 }
@@ -511,6 +676,11 @@ export function sanitizeSettings(
         }
         break;
       }
+      case 'icon': {
+        const v = sanitizeIcon(value);
+        if (v !== undefined) out[key] = v;
+        break;
+      }
       case 'uuidArray': {
         const v = sanitizeUuidArray(value);
         if (v !== undefined) out[key] = v;
@@ -533,6 +703,21 @@ export function sanitizeSettings(
       }
       case 'promoCards': {
         const v = sanitizePromoCards(value);
+        if (v !== undefined) out[key] = v;
+        break;
+      }
+      case 'statItems': {
+        const v = sanitizeStatItems(value);
+        if (v !== undefined) out[key] = v;
+        break;
+      }
+      case 'stepItems': {
+        const v = sanitizeStepItems(value);
+        if (v !== undefined) out[key] = v;
+        break;
+      }
+      case 'checklistItems': {
+        const v = sanitizeChecklistItems(value);
         if (v !== undefined) out[key] = v;
         break;
       }
