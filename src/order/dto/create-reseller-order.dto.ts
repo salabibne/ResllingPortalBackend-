@@ -1,15 +1,17 @@
 import {
   IsArray,
   IsBoolean,
+  IsEmail,
   IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
+  MaxLength,
   Min,
   ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { PaymentMethod } from '../../../prisma/generated/client';
 
 export class ResellerOrderItemDto {
@@ -52,6 +54,15 @@ export class CreateResellerOrderDto {
   @IsString()
   @IsOptional()
   customerSecondaryPhone?: string;
+
+  // Optional: a blank value is treated as not provided.
+  @Transform(({ value }) =>
+    typeof value === 'string' ? value.trim() || undefined : value,
+  )
+  @IsOptional()
+  @IsEmail({}, { message: 'Customer email must be a valid email address' })
+  @MaxLength(255)
+  customerEmail?: string;
 
   @IsString()
   @IsNotEmpty()

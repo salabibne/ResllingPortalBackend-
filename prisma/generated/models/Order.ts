@@ -64,6 +64,7 @@ export type OrderMinAggregateOutputType = {
   customerName: string | null
   customerPhone: string | null
   customerSecondaryPhone: string | null
+  customerEmail: string | null
   customerDistrict: string | null
   customerThana: string | null
   resellerSubtotal: runtime.Decimal | null
@@ -110,6 +111,7 @@ export type OrderMaxAggregateOutputType = {
   customerName: string | null
   customerPhone: string | null
   customerSecondaryPhone: string | null
+  customerEmail: string | null
   customerDistrict: string | null
   customerThana: string | null
   resellerSubtotal: runtime.Decimal | null
@@ -156,6 +158,7 @@ export type OrderCountAggregateOutputType = {
   customerName: number
   customerPhone: number
   customerSecondaryPhone: number
+  customerEmail: number
   customerDistrict: number
   customerThana: number
   resellerSubtotal: number
@@ -232,6 +235,7 @@ export type OrderMinAggregateInputType = {
   customerName?: true
   customerPhone?: true
   customerSecondaryPhone?: true
+  customerEmail?: true
   customerDistrict?: true
   customerThana?: true
   resellerSubtotal?: true
@@ -278,6 +282,7 @@ export type OrderMaxAggregateInputType = {
   customerName?: true
   customerPhone?: true
   customerSecondaryPhone?: true
+  customerEmail?: true
   customerDistrict?: true
   customerThana?: true
   resellerSubtotal?: true
@@ -324,6 +329,7 @@ export type OrderCountAggregateInputType = {
   customerName?: true
   customerPhone?: true
   customerSecondaryPhone?: true
+  customerEmail?: true
   customerDistrict?: true
   customerThana?: true
   resellerSubtotal?: true
@@ -457,6 +463,7 @@ export type OrderGroupByOutputType = {
   customerName: string | null
   customerPhone: string | null
   customerSecondaryPhone: string | null
+  customerEmail: string | null
   customerDistrict: string | null
   customerThana: string | null
   resellerSubtotal: runtime.Decimal | null
@@ -526,6 +533,7 @@ export type OrderWhereInput = {
   customerName?: Prisma.StringNullableFilter<"Order"> | string | null
   customerPhone?: Prisma.StringNullableFilter<"Order"> | string | null
   customerSecondaryPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerEmail?: Prisma.StringNullableFilter<"Order"> | string | null
   customerDistrict?: Prisma.StringNullableFilter<"Order"> | string | null
   customerThana?: Prisma.StringNullableFilter<"Order"> | string | null
   resellerSubtotal?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -576,6 +584,7 @@ export type OrderOrderByWithRelationInput = {
   customerName?: Prisma.SortOrderInput | Prisma.SortOrder
   customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   customerSecondaryPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   customerDistrict?: Prisma.SortOrderInput | Prisma.SortOrder
   customerThana?: Prisma.SortOrderInput | Prisma.SortOrder
   resellerSubtotal?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -630,6 +639,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   customerName?: Prisma.StringNullableFilter<"Order"> | string | null
   customerPhone?: Prisma.StringNullableFilter<"Order"> | string | null
   customerSecondaryPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerEmail?: Prisma.StringNullableFilter<"Order"> | string | null
   customerDistrict?: Prisma.StringNullableFilter<"Order"> | string | null
   customerThana?: Prisma.StringNullableFilter<"Order"> | string | null
   resellerSubtotal?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -680,6 +690,7 @@ export type OrderOrderByWithAggregationInput = {
   customerName?: Prisma.SortOrderInput | Prisma.SortOrder
   customerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   customerSecondaryPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  customerEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   customerDistrict?: Prisma.SortOrderInput | Prisma.SortOrder
   customerThana?: Prisma.SortOrderInput | Prisma.SortOrder
   resellerSubtotal?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -734,6 +745,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   customerName?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   customerPhone?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   customerSecondaryPhone?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  customerEmail?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   customerDistrict?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   customerThana?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   resellerSubtotal?: Prisma.DecimalNullableWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -777,6 +789,7 @@ export type OrderCreateInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -827,6 +840,7 @@ export type OrderUncheckedCreateInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -871,6 +885,7 @@ export type OrderUpdateInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -921,6 +936,7 @@ export type OrderUncheckedUpdateInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -968,6 +984,7 @@ export type OrderCreateManyInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1011,6 +1028,7 @@ export type OrderUpdateManyMutationInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1057,6 +1075,7 @@ export type OrderUncheckedUpdateManyInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1118,6 +1137,7 @@ export type OrderCountOrderByAggregateInput = {
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
   customerSecondaryPhone?: Prisma.SortOrder
+  customerEmail?: Prisma.SortOrder
   customerDistrict?: Prisma.SortOrder
   customerThana?: Prisma.SortOrder
   resellerSubtotal?: Prisma.SortOrder
@@ -1178,6 +1198,7 @@ export type OrderMaxOrderByAggregateInput = {
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
   customerSecondaryPhone?: Prisma.SortOrder
+  customerEmail?: Prisma.SortOrder
   customerDistrict?: Prisma.SortOrder
   customerThana?: Prisma.SortOrder
   resellerSubtotal?: Prisma.SortOrder
@@ -1224,6 +1245,7 @@ export type OrderMinOrderByAggregateInput = {
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
   customerSecondaryPhone?: Prisma.SortOrder
+  customerEmail?: Prisma.SortOrder
   customerDistrict?: Prisma.SortOrder
   customerThana?: Prisma.SortOrder
   resellerSubtotal?: Prisma.SortOrder
@@ -1454,6 +1476,7 @@ export type OrderCreateWithoutCustomerInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1502,6 +1525,7 @@ export type OrderUncheckedCreateWithoutCustomerInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1556,6 +1580,7 @@ export type OrderCreateWithoutResellerInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1604,6 +1629,7 @@ export type OrderUncheckedCreateWithoutResellerInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1680,6 +1706,7 @@ export type OrderScalarWhereInput = {
   customerName?: Prisma.StringNullableFilter<"Order"> | string | null
   customerPhone?: Prisma.StringNullableFilter<"Order"> | string | null
   customerSecondaryPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerEmail?: Prisma.StringNullableFilter<"Order"> | string | null
   customerDistrict?: Prisma.StringNullableFilter<"Order"> | string | null
   customerThana?: Prisma.StringNullableFilter<"Order"> | string | null
   resellerSubtotal?: Prisma.DecimalNullableFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1739,6 +1766,7 @@ export type OrderCreateWithoutCartInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1787,6 +1815,7 @@ export type OrderUncheckedCreateWithoutCartInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1857,6 +1886,7 @@ export type OrderCreateWithoutOrderItemsInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1906,6 +1936,7 @@ export type OrderUncheckedCreateWithoutOrderItemsInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -1965,6 +1996,7 @@ export type OrderUpdateWithoutOrderItemsInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2014,6 +2046,7 @@ export type OrderUncheckedUpdateWithoutOrderItemsInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2059,6 +2092,7 @@ export type OrderCreateManyCustomerInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2104,6 +2138,7 @@ export type OrderCreateManyResellerInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2147,6 +2182,7 @@ export type OrderUpdateWithoutCustomerInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2195,6 +2231,7 @@ export type OrderUncheckedUpdateWithoutCustomerInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2241,6 +2278,7 @@ export type OrderUncheckedUpdateManyWithoutCustomerInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2284,6 +2322,7 @@ export type OrderUpdateWithoutResellerInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2332,6 +2371,7 @@ export type OrderUncheckedUpdateWithoutResellerInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2378,6 +2418,7 @@ export type OrderUncheckedUpdateManyWithoutResellerInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2423,6 +2464,7 @@ export type OrderCreateManyCartInput = {
   customerName?: string | null
   customerPhone?: string | null
   customerSecondaryPhone?: string | null
+  customerEmail?: string | null
   customerDistrict?: string | null
   customerThana?: string | null
   resellerSubtotal?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2466,6 +2508,7 @@ export type OrderUpdateWithoutCartInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2514,6 +2557,7 @@ export type OrderUncheckedUpdateWithoutCartInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2560,6 +2604,7 @@ export type OrderUncheckedUpdateManyWithoutCartInput = {
   customerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerSecondaryPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  customerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerDistrict?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customerThana?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resellerSubtotal?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
@@ -2637,6 +2682,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   customerName?: boolean
   customerPhone?: boolean
   customerSecondaryPhone?: boolean
+  customerEmail?: boolean
   customerDistrict?: boolean
   customerThana?: boolean
   resellerSubtotal?: boolean
@@ -2688,6 +2734,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   customerName?: boolean
   customerPhone?: boolean
   customerSecondaryPhone?: boolean
+  customerEmail?: boolean
   customerDistrict?: boolean
   customerThana?: boolean
   resellerSubtotal?: boolean
@@ -2737,6 +2784,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   customerName?: boolean
   customerPhone?: boolean
   customerSecondaryPhone?: boolean
+  customerEmail?: boolean
   customerDistrict?: boolean
   customerThana?: boolean
   resellerSubtotal?: boolean
@@ -2786,6 +2834,7 @@ export type OrderSelectScalar = {
   customerName?: boolean
   customerPhone?: boolean
   customerSecondaryPhone?: boolean
+  customerEmail?: boolean
   customerDistrict?: boolean
   customerThana?: boolean
   resellerSubtotal?: boolean
@@ -2822,7 +2871,7 @@ export type OrderSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderRef" | "cartId" | "customerId" | "isResellerOrder" | "resellerId" | "customerName" | "customerPhone" | "customerSecondaryPhone" | "customerDistrict" | "customerThana" | "resellerSubtotal" | "resellerSellPrice" | "resellerProfit" | "isAdvanceCourierPaid" | "advanceCourierAmount" | "paymentStatus" | "paymentMethod" | "processingStatus" | "orderProcessedBy" | "subtotal" | "courierCharge" | "discount" | "total" | "shippingAddress" | "notes" | "courierProvider" | "courierConsignmentId" | "courierTrackingCode" | "courierStatus" | "courierSubmittedAt" | "courierLastSyncedAt" | "courierDeliveryType" | "courierNotes" | "courierTrackingLink" | "courierCodAmount" | "courierBookingState" | "courierReturnRequestId" | "courierReturnStatus" | "courierReturnReason" | "courierReturnRequestedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderRef" | "cartId" | "customerId" | "isResellerOrder" | "resellerId" | "customerName" | "customerPhone" | "customerSecondaryPhone" | "customerEmail" | "customerDistrict" | "customerThana" | "resellerSubtotal" | "resellerSellPrice" | "resellerProfit" | "isAdvanceCourierPaid" | "advanceCourierAmount" | "paymentStatus" | "paymentMethod" | "processingStatus" | "orderProcessedBy" | "subtotal" | "courierCharge" | "discount" | "total" | "shippingAddress" | "notes" | "courierProvider" | "courierConsignmentId" | "courierTrackingCode" | "courierStatus" | "courierSubmittedAt" | "courierLastSyncedAt" | "courierDeliveryType" | "courierNotes" | "courierTrackingLink" | "courierCodAmount" | "courierBookingState" | "courierReturnRequestId" | "courierReturnStatus" | "courierReturnReason" | "courierReturnRequestedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
   customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -2859,6 +2908,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     customerName: string | null
     customerPhone: string | null
     customerSecondaryPhone: string | null
+    customerEmail: string | null
     customerDistrict: string | null
     customerThana: string | null
     resellerSubtotal: runtime.Decimal | null
@@ -3329,6 +3379,7 @@ export interface OrderFieldRefs {
   readonly customerName: Prisma.FieldRef<"Order", 'String'>
   readonly customerPhone: Prisma.FieldRef<"Order", 'String'>
   readonly customerSecondaryPhone: Prisma.FieldRef<"Order", 'String'>
+  readonly customerEmail: Prisma.FieldRef<"Order", 'String'>
   readonly customerDistrict: Prisma.FieldRef<"Order", 'String'>
   readonly customerThana: Prisma.FieldRef<"Order", 'String'>
   readonly resellerSubtotal: Prisma.FieldRef<"Order", 'Decimal'>

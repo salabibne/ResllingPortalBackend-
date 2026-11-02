@@ -348,6 +348,7 @@ export const OrderScalarFieldEnum = {
   customerName: 'customerName',
   customerPhone: 'customerPhone',
   customerSecondaryPhone: 'customerSecondaryPhone',
+  customerEmail: 'customerEmail',
   customerDistrict: 'customerDistrict',
   customerThana: 'customerThana',
   resellerSubtotal: 'resellerSubtotal',

@@ -386,6 +386,7 @@ model Order {
   customerName           String?               @map("customer_name") @db.VarChar(255)
   customerPhone          String?               @map("customer_phone") @db.VarChar(20)
   customerSecondaryPhone String?               @map("customer_secondary_phone") @db.VarChar(20)
+  customerEmail          String?               @map("customer_email") @db.VarChar(255)
   customerDistrict       String?               @map("customer_district") @db.VarChar(100)
   customerThana          String?               @map("customer_thana") @db.VarChar(100)
   resellerSubtotal       Decimal?              @map("reseller_subtotal") @db.Decimal(12, 2)

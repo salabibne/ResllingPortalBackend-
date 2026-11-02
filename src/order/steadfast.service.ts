@@ -876,6 +876,7 @@ export class SteadfastService {
       ...(item.alternative_phone && {
         alternative_phone: this.cleanPhoneNumber(item.alternative_phone),
       }),
+      ...(item.recipient_email && { recipient_email: item.recipient_email.trim() }),
       delivery_type: item.delivery_type !== undefined ? Number(item.delivery_type) : 0,
     }));
 

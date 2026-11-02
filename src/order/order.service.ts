@@ -319,6 +319,7 @@ export class OrderService implements OnModuleInit {
           customerName: dto.customerName,
           customerPhone: dto.customerPhone,
           customerSecondaryPhone: dto.customerSecondaryPhone || null,
+          customerEmail: dto.customerEmail || null,
           customerDistrict: dto.customerDistrict,
           customerThana: dto.customerThana,
           shippingAddress: fullShippingAddress,
@@ -1243,6 +1244,18 @@ export class OrderService implements OnModuleInit {
   }
 
   /**
+   * Email sent to the courier as recipient_email, or undefined so the field is
+   * left out. Reseller orders only use the email typed for the end customer:
+   * their `customer` relation is the reseller, not the recipient.
+   */
+  private courierRecipientEmail(order: any): string | undefined {
+    const typed = (order.customerEmail || '').trim();
+    if (typed) return typed;
+    if (order.isResellerOrder) return undefined;
+    return (order.customer?.email || '').trim() || undefined;
+  }
+
+  /**
    * Helper to calculate expected COD amount for an order
    */
   private calculateCodAmount(order: any, customCod?: number): number {
@@ -1329,7 +1342,7 @@ export class OrderService implements OnModuleInit {
       order.customerPhone || order.customer?.phone || '';
     const altPhone =
       order.customerSecondaryPhone || order.customer?.secondaryPhone || undefined;
-    const recipientEmail = order.customer?.email || undefined;
+    const recipientEmail = this.courierRecipientEmail(order);
 
     const addressParts = [
       order.shippingAddress,
@@ -1536,6 +1549,7 @@ export class OrderService implements OnModuleInit {
         recipient_name: recipientName,
         recipient_phone: recipientPhone,
         alternative_phone: altPhone,
+        recipient_email: this.courierRecipientEmail(order),
         recipient_address: recipientAddress,
         cod_amount: codAmount,
         note: order.notes || undefined,
