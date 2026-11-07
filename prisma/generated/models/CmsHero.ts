@@ -219,7 +219,7 @@ export type CmsHeroWhereInput = {
   AND?: Prisma.CmsHeroWhereInput | Prisma.CmsHeroWhereInput[]
   OR?: Prisma.CmsHeroWhereInput[]
   NOT?: Prisma.CmsHeroWhereInput | Prisma.CmsHeroWhereInput[]
-  id?: Prisma.UuidFilter<"CmsHero"> | string
+  id?: Prisma.StringFilter<"CmsHero"> | string
   heroTitle?: Prisma.StringFilter<"CmsHero"> | string
   heroSubtitle?: Prisma.StringFilter<"CmsHero"> | string
   buttonText1?: Prisma.StringFilter<"CmsHero"> | string
@@ -244,6 +244,7 @@ export type CmsHeroOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsHeroOrderByRelevanceInput
 }
 
 export type CmsHeroWhereUniqueInput = Prisma.AtLeast<{
@@ -284,7 +285,7 @@ export type CmsHeroScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsHeroScalarWhereWithAggregatesInput | Prisma.CmsHeroScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsHeroScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsHeroScalarWhereWithAggregatesInput | Prisma.CmsHeroScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsHero"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsHero"> | string
   heroTitle?: Prisma.StringWithAggregatesFilter<"CmsHero"> | string
   heroSubtitle?: Prisma.StringWithAggregatesFilter<"CmsHero"> | string
   buttonText1?: Prisma.StringWithAggregatesFilter<"CmsHero"> | string
@@ -395,6 +396,12 @@ export type CmsHeroUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsHeroOrderByRelevanceInput = {
+  fields: Prisma.CmsHeroOrderByRelevanceFieldEnum | Prisma.CmsHeroOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsHeroCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   heroTitle?: Prisma.SortOrder
@@ -453,33 +460,7 @@ export type CmsHeroSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsHero"]>
 
-export type CmsHeroSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  heroTitle?: boolean
-  heroSubtitle?: boolean
-  buttonText1?: boolean
-  buttonLink1?: boolean
-  buttonText2?: boolean
-  buttonLink2?: boolean
-  imageUrl?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsHero"]>
 
-export type CmsHeroSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  heroTitle?: boolean
-  heroSubtitle?: boolean
-  buttonText1?: boolean
-  buttonLink1?: boolean
-  buttonText2?: boolean
-  buttonLink2?: boolean
-  imageUrl?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsHero"]>
 
 export type CmsHeroSelectScalar = {
   id?: boolean
@@ -630,30 +611,6 @@ export interface CmsHeroDelegate<ExtArgs extends runtime.Types.Extensions.Intern
   createMany<T extends CmsHeroCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsHeroCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsHeroes and returns the data saved in the database.
-   * @param {CmsHeroCreateManyAndReturnArgs} args - Arguments to create many CmsHeroes.
-   * @example
-   * // Create many CmsHeroes
-   * const cmsHero = await prisma.cmsHero.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsHeroes and only return the `id`
-   * const cmsHeroWithIdOnly = await prisma.cmsHero.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsHeroCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsHeroCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsHeroPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsHero.
    * @param {CmsHeroDeleteArgs} args - Arguments to delete one CmsHero.
    * @example
@@ -716,36 +673,6 @@ export interface CmsHeroDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * 
    */
   updateMany<T extends CmsHeroUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsHeroUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsHeroes and returns the data updated in the database.
-   * @param {CmsHeroUpdateManyAndReturnArgs} args - Arguments to update many CmsHeroes.
-   * @example
-   * // Update many CmsHeroes
-   * const cmsHero = await prisma.cmsHero.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsHeroes and only return the `id`
-   * const cmsHeroWithIdOnly = await prisma.cmsHero.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsHeroUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsHeroUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsHeroPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsHero.
@@ -1160,25 +1087,6 @@ export type CmsHeroCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * CmsHero createManyAndReturn
- */
-export type CmsHeroCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsHero
-   */
-  select?: Prisma.CmsHeroSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsHero
-   */
-  omit?: Prisma.CmsHeroOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsHeroes.
-   */
-  data: Prisma.CmsHeroCreateManyInput | Prisma.CmsHeroCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsHero update
  */
 export type CmsHeroUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1204,32 +1112,6 @@ export type CmsHeroUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
  * CmsHero updateMany
  */
 export type CmsHeroUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsHeroes.
-   */
-  data: Prisma.XOR<Prisma.CmsHeroUpdateManyMutationInput, Prisma.CmsHeroUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsHeroes to update
-   */
-  where?: Prisma.CmsHeroWhereInput
-  /**
-   * Limit how many CmsHeroes to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsHero updateManyAndReturn
- */
-export type CmsHeroUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsHero
-   */
-  select?: Prisma.CmsHeroSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsHero
-   */
-  omit?: Prisma.CmsHeroOmit<ExtArgs> | null
   /**
    * The data used to update CmsHeroes.
    */

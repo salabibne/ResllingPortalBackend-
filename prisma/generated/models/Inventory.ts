@@ -261,9 +261,9 @@ export type InventoryWhereInput = {
   AND?: Prisma.InventoryWhereInput | Prisma.InventoryWhereInput[]
   OR?: Prisma.InventoryWhereInput[]
   NOT?: Prisma.InventoryWhereInput | Prisma.InventoryWhereInput[]
-  id?: Prisma.UuidFilter<"Inventory"> | string
-  productId?: Prisma.UuidFilter<"Inventory"> | string
-  productSizeId?: Prisma.UuidNullableFilter<"Inventory"> | string | null
+  id?: Prisma.StringFilter<"Inventory"> | string
+  productId?: Prisma.StringFilter<"Inventory"> | string
+  productSizeId?: Prisma.StringNullableFilter<"Inventory"> | string | null
   currentStock?: Prisma.IntFilter<"Inventory"> | number
   costPerUnit?: Prisma.DecimalFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierName?: Prisma.StringFilter<"Inventory"> | string
@@ -292,6 +292,7 @@ export type InventoryOrderByWithRelationInput = {
   product?: Prisma.ProductOrderByWithRelationInput
   productSize?: Prisma.ProductSizeOrderByWithRelationInput
   transactions?: Prisma.InventoryTransactionOrderByRelationAggregateInput
+  _relevance?: Prisma.InventoryOrderByRelevanceInput
 }
 
 export type InventoryWhereUniqueInput = Prisma.AtLeast<{
@@ -300,8 +301,8 @@ export type InventoryWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.InventoryWhereInput | Prisma.InventoryWhereInput[]
   OR?: Prisma.InventoryWhereInput[]
   NOT?: Prisma.InventoryWhereInput | Prisma.InventoryWhereInput[]
-  productId?: Prisma.UuidFilter<"Inventory"> | string
-  productSizeId?: Prisma.UuidNullableFilter<"Inventory"> | string | null
+  productId?: Prisma.StringFilter<"Inventory"> | string
+  productSizeId?: Prisma.StringNullableFilter<"Inventory"> | string | null
   currentStock?: Prisma.IntFilter<"Inventory"> | number
   costPerUnit?: Prisma.DecimalFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierName?: Prisma.StringFilter<"Inventory"> | string
@@ -338,9 +339,9 @@ export type InventoryScalarWhereWithAggregatesInput = {
   AND?: Prisma.InventoryScalarWhereWithAggregatesInput | Prisma.InventoryScalarWhereWithAggregatesInput[]
   OR?: Prisma.InventoryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.InventoryScalarWhereWithAggregatesInput | Prisma.InventoryScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Inventory"> | string
-  productId?: Prisma.UuidWithAggregatesFilter<"Inventory"> | string
-  productSizeId?: Prisma.UuidNullableWithAggregatesFilter<"Inventory"> | string | null
+  id?: Prisma.StringWithAggregatesFilter<"Inventory"> | string
+  productId?: Prisma.StringWithAggregatesFilter<"Inventory"> | string
+  productSizeId?: Prisma.StringNullableWithAggregatesFilter<"Inventory"> | string | null
   currentStock?: Prisma.IntWithAggregatesFilter<"Inventory"> | number
   costPerUnit?: Prisma.DecimalWithAggregatesFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierName?: Prisma.StringWithAggregatesFilter<"Inventory"> | string
@@ -459,6 +460,12 @@ export type InventoryListRelationFilter = {
 
 export type InventoryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type InventoryOrderByRelevanceInput = {
+  fields: Prisma.InventoryOrderByRelevanceFieldEnum | Prisma.InventoryOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type InventoryProductIdProductSizeIdCompoundUniqueInput = {
@@ -689,9 +696,9 @@ export type InventoryScalarWhereInput = {
   AND?: Prisma.InventoryScalarWhereInput | Prisma.InventoryScalarWhereInput[]
   OR?: Prisma.InventoryScalarWhereInput[]
   NOT?: Prisma.InventoryScalarWhereInput | Prisma.InventoryScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Inventory"> | string
-  productId?: Prisma.UuidFilter<"Inventory"> | string
-  productSizeId?: Prisma.UuidNullableFilter<"Inventory"> | string | null
+  id?: Prisma.StringFilter<"Inventory"> | string
+  productId?: Prisma.StringFilter<"Inventory"> | string
+  productSizeId?: Prisma.StringNullableFilter<"Inventory"> | string | null
   currentStock?: Prisma.IntFilter<"Inventory"> | number
   costPerUnit?: Prisma.DecimalFilter<"Inventory"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplierName?: Prisma.StringFilter<"Inventory"> | string
@@ -985,37 +992,7 @@ export type InventorySelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   _count?: boolean | Prisma.InventoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inventory"]>
 
-export type InventorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  productId?: boolean
-  productSizeId?: boolean
-  currentStock?: boolean
-  costPerUnit?: boolean
-  supplierName?: boolean
-  supplierMobile?: boolean
-  stockLimitAlert?: boolean
-  notes?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  productSize?: boolean | Prisma.Inventory$productSizeArgs<ExtArgs>
-}, ExtArgs["result"]["inventory"]>
 
-export type InventorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  productId?: boolean
-  productSizeId?: boolean
-  currentStock?: boolean
-  costPerUnit?: boolean
-  supplierName?: boolean
-  supplierMobile?: boolean
-  stockLimitAlert?: boolean
-  notes?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  productSize?: boolean | Prisma.Inventory$productSizeArgs<ExtArgs>
-}, ExtArgs["result"]["inventory"]>
 
 export type InventorySelectScalar = {
   id?: boolean
@@ -1037,14 +1014,6 @@ export type InventoryInclude<ExtArgs extends runtime.Types.Extensions.InternalAr
   productSize?: boolean | Prisma.Inventory$productSizeArgs<ExtArgs>
   transactions?: boolean | Prisma.Inventory$transactionsArgs<ExtArgs>
   _count?: boolean | Prisma.InventoryCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type InventoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  productSize?: boolean | Prisma.Inventory$productSizeArgs<ExtArgs>
-}
-export type InventoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  productSize?: boolean | Prisma.Inventory$productSizeArgs<ExtArgs>
 }
 
 export type $InventoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1184,30 +1153,6 @@ export interface InventoryDelegate<ExtArgs extends runtime.Types.Extensions.Inte
   createMany<T extends InventoryCreateManyArgs>(args?: Prisma.SelectSubset<T, InventoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many Inventories and returns the data saved in the database.
-   * @param {InventoryCreateManyAndReturnArgs} args - Arguments to create many Inventories.
-   * @example
-   * // Create many Inventories
-   * const inventory = await prisma.inventory.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many Inventories and only return the `id`
-   * const inventoryWithIdOnly = await prisma.inventory.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends InventoryCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, InventoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a Inventory.
    * @param {InventoryDeleteArgs} args - Arguments to delete one Inventory.
    * @example
@@ -1270,36 +1215,6 @@ export interface InventoryDelegate<ExtArgs extends runtime.Types.Extensions.Inte
    * 
    */
   updateMany<T extends InventoryUpdateManyArgs>(args: Prisma.SelectSubset<T, InventoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more Inventories and returns the data updated in the database.
-   * @param {InventoryUpdateManyAndReturnArgs} args - Arguments to update many Inventories.
-   * @example
-   * // Update many Inventories
-   * const inventory = await prisma.inventory.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more Inventories and only return the `id`
-   * const inventoryWithIdOnly = await prisma.inventory.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends InventoryUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, InventoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Inventory.
@@ -1741,29 +1656,6 @@ export type InventoryCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * Inventory createManyAndReturn
- */
-export type InventoryCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Inventory
-   */
-  select?: Prisma.InventorySelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the Inventory
-   */
-  omit?: Prisma.InventoryOmit<ExtArgs> | null
-  /**
-   * The data used to create many Inventories.
-   */
-  data: Prisma.InventoryCreateManyInput | Prisma.InventoryCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.InventoryIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * Inventory update
  */
 export type InventoryUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1805,36 +1697,6 @@ export type InventoryUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * Limit how many Inventories to update.
    */
   limit?: number
-}
-
-/**
- * Inventory updateManyAndReturn
- */
-export type InventoryUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Inventory
-   */
-  select?: Prisma.InventorySelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the Inventory
-   */
-  omit?: Prisma.InventoryOmit<ExtArgs> | null
-  /**
-   * The data used to update Inventories.
-   */
-  data: Prisma.XOR<Prisma.InventoryUpdateManyMutationInput, Prisma.InventoryUncheckedUpdateManyInput>
-  /**
-   * Filter which Inventories to update
-   */
-  where?: Prisma.InventoryWhereInput
-  /**
-   * Limit how many Inventories to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.InventoryIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

@@ -226,7 +226,7 @@ export type CmsSectionWhereInput = {
   AND?: Prisma.CmsSectionWhereInput | Prisma.CmsSectionWhereInput[]
   OR?: Prisma.CmsSectionWhereInput[]
   NOT?: Prisma.CmsSectionWhereInput | Prisma.CmsSectionWhereInput[]
-  id?: Prisma.UuidFilter<"CmsSection"> | string
+  id?: Prisma.StringFilter<"CmsSection"> | string
   title?: Prisma.StringFilter<"CmsSection"> | string
   description?: Prisma.StringFilter<"CmsSection"> | string
   imageUrl?: Prisma.StringNullableFilter<"CmsSection"> | string | null
@@ -253,6 +253,7 @@ export type CmsSectionOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsSectionOrderByRelevanceInput
 }
 
 export type CmsSectionWhereUniqueInput = Prisma.AtLeast<{
@@ -295,7 +296,7 @@ export type CmsSectionScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsSectionScalarWhereWithAggregatesInput | Prisma.CmsSectionScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsSectionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsSectionScalarWhereWithAggregatesInput | Prisma.CmsSectionScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsSection"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsSection"> | string
   title?: Prisma.StringWithAggregatesFilter<"CmsSection"> | string
   description?: Prisma.StringWithAggregatesFilter<"CmsSection"> | string
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"CmsSection"> | string | null
@@ -414,6 +415,12 @@ export type CmsSectionUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsSectionOrderByRelevanceInput = {
+  fields: Prisma.CmsSectionOrderByRelevanceFieldEnum | Prisma.CmsSectionOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsSectionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -476,35 +483,7 @@ export type CmsSectionSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsSection"]>
 
-export type CmsSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  description?: boolean
-  imageUrl?: boolean
-  cardTitle?: boolean
-  cardIcon?: boolean
-  cardDescription?: boolean
-  cardButton?: boolean
-  cardLink?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsSection"]>
 
-export type CmsSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  description?: boolean
-  imageUrl?: boolean
-  cardTitle?: boolean
-  cardIcon?: boolean
-  cardDescription?: boolean
-  cardButton?: boolean
-  cardLink?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsSection"]>
 
 export type CmsSectionSelectScalar = {
   id?: boolean
@@ -657,30 +636,6 @@ export interface CmsSectionDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends CmsSectionCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsSectionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsSections and returns the data saved in the database.
-   * @param {CmsSectionCreateManyAndReturnArgs} args - Arguments to create many CmsSections.
-   * @example
-   * // Create many CmsSections
-   * const cmsSection = await prisma.cmsSection.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsSections and only return the `id`
-   * const cmsSectionWithIdOnly = await prisma.cmsSection.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsSectionCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsSectionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsSectionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsSection.
    * @param {CmsSectionDeleteArgs} args - Arguments to delete one CmsSection.
    * @example
@@ -743,36 +698,6 @@ export interface CmsSectionDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends CmsSectionUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsSectionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsSections and returns the data updated in the database.
-   * @param {CmsSectionUpdateManyAndReturnArgs} args - Arguments to update many CmsSections.
-   * @example
-   * // Update many CmsSections
-   * const cmsSection = await prisma.cmsSection.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsSections and only return the `id`
-   * const cmsSectionWithIdOnly = await prisma.cmsSection.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsSectionUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsSectionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsSectionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsSection.
@@ -1188,25 +1113,6 @@ export type CmsSectionCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * CmsSection createManyAndReturn
- */
-export type CmsSectionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsSection
-   */
-  select?: Prisma.CmsSectionSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsSection
-   */
-  omit?: Prisma.CmsSectionOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsSections.
-   */
-  data: Prisma.CmsSectionCreateManyInput | Prisma.CmsSectionCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsSection update
  */
 export type CmsSectionUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1232,32 +1138,6 @@ export type CmsSectionUpdateArgs<ExtArgs extends runtime.Types.Extensions.Intern
  * CmsSection updateMany
  */
 export type CmsSectionUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsSections.
-   */
-  data: Prisma.XOR<Prisma.CmsSectionUpdateManyMutationInput, Prisma.CmsSectionUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsSections to update
-   */
-  where?: Prisma.CmsSectionWhereInput
-  /**
-   * Limit how many CmsSections to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsSection updateManyAndReturn
- */
-export type CmsSectionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsSection
-   */
-  select?: Prisma.CmsSectionSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsSection
-   */
-  omit?: Prisma.CmsSectionOmit<ExtArgs> | null
   /**
    * The data used to update CmsSections.
    */

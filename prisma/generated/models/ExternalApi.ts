@@ -198,7 +198,7 @@ export type ExternalApiWhereInput = {
   AND?: Prisma.ExternalApiWhereInput | Prisma.ExternalApiWhereInput[]
   OR?: Prisma.ExternalApiWhereInput[]
   NOT?: Prisma.ExternalApiWhereInput | Prisma.ExternalApiWhereInput[]
-  id?: Prisma.UuidFilter<"ExternalApi"> | string
+  id?: Prisma.StringFilter<"ExternalApi"> | string
   apiName?: Prisma.StringFilter<"ExternalApi"> | string
   apiUrl?: Prisma.StringFilter<"ExternalApi"> | string
   credentials?: Prisma.StringFilter<"ExternalApi"> | string
@@ -217,6 +217,7 @@ export type ExternalApiOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.ExternalApiOrderByRelevanceInput
 }
 
 export type ExternalApiWhereUniqueInput = Prisma.AtLeast<{
@@ -251,7 +252,7 @@ export type ExternalApiScalarWhereWithAggregatesInput = {
   AND?: Prisma.ExternalApiScalarWhereWithAggregatesInput | Prisma.ExternalApiScalarWhereWithAggregatesInput[]
   OR?: Prisma.ExternalApiScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ExternalApiScalarWhereWithAggregatesInput | Prisma.ExternalApiScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"ExternalApi"> | string
+  id?: Prisma.StringWithAggregatesFilter<"ExternalApi"> | string
   apiName?: Prisma.StringWithAggregatesFilter<"ExternalApi"> | string
   apiUrl?: Prisma.StringWithAggregatesFilter<"ExternalApi"> | string
   credentials?: Prisma.StringWithAggregatesFilter<"ExternalApi"> | string
@@ -338,6 +339,12 @@ export type ExternalApiUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ExternalApiOrderByRelevanceInput = {
+  fields: Prisma.ExternalApiOrderByRelevanceFieldEnum | Prisma.ExternalApiOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type ExternalApiCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   apiName?: Prisma.SortOrder
@@ -384,27 +391,7 @@ export type ExternalApiSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
 }, ExtArgs["result"]["externalApi"]>
 
-export type ExternalApiSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  apiName?: boolean
-  apiUrl?: boolean
-  credentials?: boolean
-  description?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["externalApi"]>
 
-export type ExternalApiSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  apiName?: boolean
-  apiUrl?: boolean
-  credentials?: boolean
-  description?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["externalApi"]>
 
 export type ExternalApiSelectScalar = {
   id?: boolean
@@ -549,30 +536,6 @@ export interface ExternalApiDelegate<ExtArgs extends runtime.Types.Extensions.In
   createMany<T extends ExternalApiCreateManyArgs>(args?: Prisma.SelectSubset<T, ExternalApiCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many ExternalApis and returns the data saved in the database.
-   * @param {ExternalApiCreateManyAndReturnArgs} args - Arguments to create many ExternalApis.
-   * @example
-   * // Create many ExternalApis
-   * const externalApi = await prisma.externalApi.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many ExternalApis and only return the `id`
-   * const externalApiWithIdOnly = await prisma.externalApi.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends ExternalApiCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ExternalApiCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExternalApiPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a ExternalApi.
    * @param {ExternalApiDeleteArgs} args - Arguments to delete one ExternalApi.
    * @example
@@ -635,36 +598,6 @@ export interface ExternalApiDelegate<ExtArgs extends runtime.Types.Extensions.In
    * 
    */
   updateMany<T extends ExternalApiUpdateManyArgs>(args: Prisma.SelectSubset<T, ExternalApiUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more ExternalApis and returns the data updated in the database.
-   * @param {ExternalApiUpdateManyAndReturnArgs} args - Arguments to update many ExternalApis.
-   * @example
-   * // Update many ExternalApis
-   * const externalApi = await prisma.externalApi.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more ExternalApis and only return the `id`
-   * const externalApiWithIdOnly = await prisma.externalApi.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends ExternalApiUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ExternalApiUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExternalApiPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one ExternalApi.
@@ -1076,25 +1009,6 @@ export type ExternalApiCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * ExternalApi createManyAndReturn
- */
-export type ExternalApiCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ExternalApi
-   */
-  select?: Prisma.ExternalApiSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ExternalApi
-   */
-  omit?: Prisma.ExternalApiOmit<ExtArgs> | null
-  /**
-   * The data used to create many ExternalApis.
-   */
-  data: Prisma.ExternalApiCreateManyInput | Prisma.ExternalApiCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * ExternalApi update
  */
 export type ExternalApiUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1120,32 +1034,6 @@ export type ExternalApiUpdateArgs<ExtArgs extends runtime.Types.Extensions.Inter
  * ExternalApi updateMany
  */
 export type ExternalApiUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update ExternalApis.
-   */
-  data: Prisma.XOR<Prisma.ExternalApiUpdateManyMutationInput, Prisma.ExternalApiUncheckedUpdateManyInput>
-  /**
-   * Filter which ExternalApis to update
-   */
-  where?: Prisma.ExternalApiWhereInput
-  /**
-   * Limit how many ExternalApis to update.
-   */
-  limit?: number
-}
-
-/**
- * ExternalApi updateManyAndReturn
- */
-export type ExternalApiUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ExternalApi
-   */
-  select?: Prisma.ExternalApiSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ExternalApi
-   */
-  omit?: Prisma.ExternalApiOmit<ExtArgs> | null
   /**
    * The data used to update ExternalApis.
    */

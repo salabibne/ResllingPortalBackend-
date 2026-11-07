@@ -222,11 +222,11 @@ export type ProductPageSectionGroupByOutputType = {
   subtitle: string | null
   description: string | null
   imageUrl: string | null
-  images: string[]
+  images: runtime.JsonValue
   imageDescription: string | null
   buttonText: string | null
   buttonLink: string | null
-  productIds: string[]
+  productIds: runtime.JsonValue
   content: runtime.JsonValue | null
   sortOrder: number
   _count: ProductPageSectionCountAggregateOutputType | null
@@ -255,17 +255,17 @@ export type ProductPageSectionWhereInput = {
   AND?: Prisma.ProductPageSectionWhereInput | Prisma.ProductPageSectionWhereInput[]
   OR?: Prisma.ProductPageSectionWhereInput[]
   NOT?: Prisma.ProductPageSectionWhereInput | Prisma.ProductPageSectionWhereInput[]
-  id?: Prisma.UuidFilter<"ProductPageSection"> | string
-  productPageConfigId?: Prisma.UuidFilter<"ProductPageSection"> | string
+  id?: Prisma.StringFilter<"ProductPageSection"> | string
+  productPageConfigId?: Prisma.StringFilter<"ProductPageSection"> | string
   title?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   subtitle?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   description?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
-  images?: Prisma.StringNullableListFilter<"ProductPageSection">
+  images?: Prisma.JsonFilter<"ProductPageSection">
   imageDescription?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   buttonText?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   buttonLink?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
-  productIds?: Prisma.StringNullableListFilter<"ProductPageSection">
+  productIds?: Prisma.JsonFilter<"ProductPageSection">
   content?: Prisma.JsonNullableFilter<"ProductPageSection">
   sortOrder?: Prisma.IntFilter<"ProductPageSection"> | number
   productPageConfig?: Prisma.XOR<Prisma.ProductPageConfigScalarRelationFilter, Prisma.ProductPageConfigWhereInput>
@@ -286,6 +286,7 @@ export type ProductPageSectionOrderByWithRelationInput = {
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   productPageConfig?: Prisma.ProductPageConfigOrderByWithRelationInput
+  _relevance?: Prisma.ProductPageSectionOrderByRelevanceInput
 }
 
 export type ProductPageSectionWhereUniqueInput = Prisma.AtLeast<{
@@ -293,16 +294,16 @@ export type ProductPageSectionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ProductPageSectionWhereInput | Prisma.ProductPageSectionWhereInput[]
   OR?: Prisma.ProductPageSectionWhereInput[]
   NOT?: Prisma.ProductPageSectionWhereInput | Prisma.ProductPageSectionWhereInput[]
-  productPageConfigId?: Prisma.UuidFilter<"ProductPageSection"> | string
+  productPageConfigId?: Prisma.StringFilter<"ProductPageSection"> | string
   title?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   subtitle?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   description?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
-  images?: Prisma.StringNullableListFilter<"ProductPageSection">
+  images?: Prisma.JsonFilter<"ProductPageSection">
   imageDescription?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   buttonText?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   buttonLink?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
-  productIds?: Prisma.StringNullableListFilter<"ProductPageSection">
+  productIds?: Prisma.JsonFilter<"ProductPageSection">
   content?: Prisma.JsonNullableFilter<"ProductPageSection">
   sortOrder?: Prisma.IntFilter<"ProductPageSection"> | number
   productPageConfig?: Prisma.XOR<Prisma.ProductPageConfigScalarRelationFilter, Prisma.ProductPageConfigWhereInput>
@@ -333,17 +334,17 @@ export type ProductPageSectionScalarWhereWithAggregatesInput = {
   AND?: Prisma.ProductPageSectionScalarWhereWithAggregatesInput | Prisma.ProductPageSectionScalarWhereWithAggregatesInput[]
   OR?: Prisma.ProductPageSectionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProductPageSectionScalarWhereWithAggregatesInput | Prisma.ProductPageSectionScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"ProductPageSection"> | string
-  productPageConfigId?: Prisma.UuidWithAggregatesFilter<"ProductPageSection"> | string
+  id?: Prisma.StringWithAggregatesFilter<"ProductPageSection"> | string
+  productPageConfigId?: Prisma.StringWithAggregatesFilter<"ProductPageSection"> | string
   title?: Prisma.StringNullableWithAggregatesFilter<"ProductPageSection"> | string | null
   subtitle?: Prisma.StringNullableWithAggregatesFilter<"ProductPageSection"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"ProductPageSection"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"ProductPageSection"> | string | null
-  images?: Prisma.StringNullableListFilter<"ProductPageSection">
+  images?: Prisma.JsonWithAggregatesFilter<"ProductPageSection">
   imageDescription?: Prisma.StringNullableWithAggregatesFilter<"ProductPageSection"> | string | null
   buttonText?: Prisma.StringNullableWithAggregatesFilter<"ProductPageSection"> | string | null
   buttonLink?: Prisma.StringNullableWithAggregatesFilter<"ProductPageSection"> | string | null
-  productIds?: Prisma.StringNullableListFilter<"ProductPageSection">
+  productIds?: Prisma.JsonWithAggregatesFilter<"ProductPageSection">
   content?: Prisma.JsonNullableWithAggregatesFilter<"ProductPageSection">
   sortOrder?: Prisma.IntWithAggregatesFilter<"ProductPageSection"> | number
 }
@@ -354,11 +355,11 @@ export type ProductPageSectionCreateInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.ProductPageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
-  productIds?: Prisma.ProductPageSectionCreateproductIdsInput | string[]
+  productIds: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: number
   productPageConfig: Prisma.ProductPageConfigCreateNestedOneWithoutSectionsInput
@@ -371,11 +372,11 @@ export type ProductPageSectionUncheckedCreateInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.ProductPageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
-  productIds?: Prisma.ProductPageSectionCreateproductIdsInput | string[]
+  productIds: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: number
 }
@@ -386,11 +387,11 @@ export type ProductPageSectionUpdateInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.ProductPageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productIds?: Prisma.ProductPageSectionUpdateproductIdsInput | string[]
+  productIds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   productPageConfig?: Prisma.ProductPageConfigUpdateOneRequiredWithoutSectionsNestedInput
@@ -403,11 +404,11 @@ export type ProductPageSectionUncheckedUpdateInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.ProductPageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productIds?: Prisma.ProductPageSectionUpdateproductIdsInput | string[]
+  productIds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -419,11 +420,11 @@ export type ProductPageSectionCreateManyInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.ProductPageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
-  productIds?: Prisma.ProductPageSectionCreateproductIdsInput | string[]
+  productIds: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: number
 }
@@ -434,11 +435,11 @@ export type ProductPageSectionUpdateManyMutationInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.ProductPageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productIds?: Prisma.ProductPageSectionUpdateproductIdsInput | string[]
+  productIds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -450,11 +451,11 @@ export type ProductPageSectionUncheckedUpdateManyInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.ProductPageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productIds?: Prisma.ProductPageSectionUpdateproductIdsInput | string[]
+  productIds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -467,6 +468,12 @@ export type ProductPageSectionListRelationFilter = {
 
 export type ProductPageSectionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ProductPageSectionOrderByRelevanceInput = {
+  fields: Prisma.ProductPageSectionOrderByRelevanceFieldEnum | Prisma.ProductPageSectionOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type ProductPageSectionCountOrderByAggregateInput = {
@@ -561,35 +568,17 @@ export type ProductPageSectionUncheckedUpdateManyWithoutProductPageConfigNestedI
   deleteMany?: Prisma.ProductPageSectionScalarWhereInput | Prisma.ProductPageSectionScalarWhereInput[]
 }
 
-export type ProductPageSectionCreateimagesInput = {
-  set: string[]
-}
-
-export type ProductPageSectionCreateproductIdsInput = {
-  set: string[]
-}
-
-export type ProductPageSectionUpdateimagesInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
-export type ProductPageSectionUpdateproductIdsInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
 export type ProductPageSectionCreateWithoutProductPageConfigInput = {
   id?: string
   title?: string | null
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.ProductPageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
-  productIds?: Prisma.ProductPageSectionCreateproductIdsInput | string[]
+  productIds: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: number
 }
@@ -600,11 +589,11 @@ export type ProductPageSectionUncheckedCreateWithoutProductPageConfigInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.ProductPageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
-  productIds?: Prisma.ProductPageSectionCreateproductIdsInput | string[]
+  productIds: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: number
 }
@@ -639,17 +628,17 @@ export type ProductPageSectionScalarWhereInput = {
   AND?: Prisma.ProductPageSectionScalarWhereInput | Prisma.ProductPageSectionScalarWhereInput[]
   OR?: Prisma.ProductPageSectionScalarWhereInput[]
   NOT?: Prisma.ProductPageSectionScalarWhereInput | Prisma.ProductPageSectionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"ProductPageSection"> | string
-  productPageConfigId?: Prisma.UuidFilter<"ProductPageSection"> | string
+  id?: Prisma.StringFilter<"ProductPageSection"> | string
+  productPageConfigId?: Prisma.StringFilter<"ProductPageSection"> | string
   title?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   subtitle?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   description?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
-  images?: Prisma.StringNullableListFilter<"ProductPageSection">
+  images?: Prisma.JsonFilter<"ProductPageSection">
   imageDescription?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   buttonText?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
   buttonLink?: Prisma.StringNullableFilter<"ProductPageSection"> | string | null
-  productIds?: Prisma.StringNullableListFilter<"ProductPageSection">
+  productIds?: Prisma.JsonFilter<"ProductPageSection">
   content?: Prisma.JsonNullableFilter<"ProductPageSection">
   sortOrder?: Prisma.IntFilter<"ProductPageSection"> | number
 }
@@ -660,11 +649,11 @@ export type ProductPageSectionCreateManyProductPageConfigInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.ProductPageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
-  productIds?: Prisma.ProductPageSectionCreateproductIdsInput | string[]
+  productIds: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: number
 }
@@ -675,11 +664,11 @@ export type ProductPageSectionUpdateWithoutProductPageConfigInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.ProductPageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productIds?: Prisma.ProductPageSectionUpdateproductIdsInput | string[]
+  productIds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -690,11 +679,11 @@ export type ProductPageSectionUncheckedUpdateWithoutProductPageConfigInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.ProductPageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productIds?: Prisma.ProductPageSectionUpdateproductIdsInput | string[]
+  productIds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -705,11 +694,11 @@ export type ProductPageSectionUncheckedUpdateManyWithoutProductPageConfigInput =
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.ProductPageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  productIds?: Prisma.ProductPageSectionUpdateproductIdsInput | string[]
+  productIds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   content?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
 }
@@ -733,39 +722,7 @@ export type ProductPageSectionSelect<ExtArgs extends runtime.Types.Extensions.In
   productPageConfig?: boolean | Prisma.ProductPageConfigDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productPageSection"]>
 
-export type ProductPageSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  productPageConfigId?: boolean
-  title?: boolean
-  subtitle?: boolean
-  description?: boolean
-  imageUrl?: boolean
-  images?: boolean
-  imageDescription?: boolean
-  buttonText?: boolean
-  buttonLink?: boolean
-  productIds?: boolean
-  content?: boolean
-  sortOrder?: boolean
-  productPageConfig?: boolean | Prisma.ProductPageConfigDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["productPageSection"]>
 
-export type ProductPageSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  productPageConfigId?: boolean
-  title?: boolean
-  subtitle?: boolean
-  description?: boolean
-  imageUrl?: boolean
-  images?: boolean
-  imageDescription?: boolean
-  buttonText?: boolean
-  buttonLink?: boolean
-  productIds?: boolean
-  content?: boolean
-  sortOrder?: boolean
-  productPageConfig?: boolean | Prisma.ProductPageConfigDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["productPageSection"]>
 
 export type ProductPageSectionSelectScalar = {
   id?: boolean
@@ -787,12 +744,6 @@ export type ProductPageSectionOmit<ExtArgs extends runtime.Types.Extensions.Inte
 export type ProductPageSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   productPageConfig?: boolean | Prisma.ProductPageConfigDefaultArgs<ExtArgs>
 }
-export type ProductPageSectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  productPageConfig?: boolean | Prisma.ProductPageConfigDefaultArgs<ExtArgs>
-}
-export type ProductPageSectionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  productPageConfig?: boolean | Prisma.ProductPageConfigDefaultArgs<ExtArgs>
-}
 
 export type $ProductPageSectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductPageSection"
@@ -806,11 +757,11 @@ export type $ProductPageSectionPayload<ExtArgs extends runtime.Types.Extensions.
     subtitle: string | null
     description: string | null
     imageUrl: string | null
-    images: string[]
+    images: runtime.JsonValue
     imageDescription: string | null
     buttonText: string | null
     buttonLink: string | null
-    productIds: string[]
+    productIds: runtime.JsonValue
     content: runtime.JsonValue | null
     sortOrder: number
   }, ExtArgs["result"]["productPageSection"]>
@@ -931,30 +882,6 @@ export interface ProductPageSectionDelegate<ExtArgs extends runtime.Types.Extens
   createMany<T extends ProductPageSectionCreateManyArgs>(args?: Prisma.SelectSubset<T, ProductPageSectionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many ProductPageSections and returns the data saved in the database.
-   * @param {ProductPageSectionCreateManyAndReturnArgs} args - Arguments to create many ProductPageSections.
-   * @example
-   * // Create many ProductPageSections
-   * const productPageSection = await prisma.productPageSection.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many ProductPageSections and only return the `id`
-   * const productPageSectionWithIdOnly = await prisma.productPageSection.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends ProductPageSectionCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ProductPageSectionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPageSectionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a ProductPageSection.
    * @param {ProductPageSectionDeleteArgs} args - Arguments to delete one ProductPageSection.
    * @example
@@ -1017,36 +944,6 @@ export interface ProductPageSectionDelegate<ExtArgs extends runtime.Types.Extens
    * 
    */
   updateMany<T extends ProductPageSectionUpdateManyArgs>(args: Prisma.SelectSubset<T, ProductPageSectionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more ProductPageSections and returns the data updated in the database.
-   * @param {ProductPageSectionUpdateManyAndReturnArgs} args - Arguments to update many ProductPageSections.
-   * @example
-   * // Update many ProductPageSections
-   * const productPageSection = await prisma.productPageSection.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more ProductPageSections and only return the `id`
-   * const productPageSectionWithIdOnly = await prisma.productPageSection.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends ProductPageSectionUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ProductPageSectionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPageSectionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one ProductPageSection.
@@ -1243,11 +1140,11 @@ export interface ProductPageSectionFieldRefs {
   readonly subtitle: Prisma.FieldRef<"ProductPageSection", 'String'>
   readonly description: Prisma.FieldRef<"ProductPageSection", 'String'>
   readonly imageUrl: Prisma.FieldRef<"ProductPageSection", 'String'>
-  readonly images: Prisma.FieldRef<"ProductPageSection", 'String[]'>
+  readonly images: Prisma.FieldRef<"ProductPageSection", 'Json'>
   readonly imageDescription: Prisma.FieldRef<"ProductPageSection", 'String'>
   readonly buttonText: Prisma.FieldRef<"ProductPageSection", 'String'>
   readonly buttonLink: Prisma.FieldRef<"ProductPageSection", 'String'>
-  readonly productIds: Prisma.FieldRef<"ProductPageSection", 'String[]'>
+  readonly productIds: Prisma.FieldRef<"ProductPageSection", 'Json'>
   readonly content: Prisma.FieldRef<"ProductPageSection", 'Json'>
   readonly sortOrder: Prisma.FieldRef<"ProductPageSection", 'Int'>
 }
@@ -1488,29 +1385,6 @@ export type ProductPageSectionCreateManyArgs<ExtArgs extends runtime.Types.Exten
 }
 
 /**
- * ProductPageSection createManyAndReturn
- */
-export type ProductPageSectionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductPageSection
-   */
-  select?: Prisma.ProductPageSectionSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductPageSection
-   */
-  omit?: Prisma.ProductPageSectionOmit<ExtArgs> | null
-  /**
-   * The data used to create many ProductPageSections.
-   */
-  data: Prisma.ProductPageSectionCreateManyInput | Prisma.ProductPageSectionCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductPageSectionIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * ProductPageSection update
  */
 export type ProductPageSectionUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1552,36 +1426,6 @@ export type ProductPageSectionUpdateManyArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many ProductPageSections to update.
    */
   limit?: number
-}
-
-/**
- * ProductPageSection updateManyAndReturn
- */
-export type ProductPageSectionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductPageSection
-   */
-  select?: Prisma.ProductPageSectionSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductPageSection
-   */
-  omit?: Prisma.ProductPageSectionOmit<ExtArgs> | null
-  /**
-   * The data used to update ProductPageSections.
-   */
-  data: Prisma.XOR<Prisma.ProductPageSectionUpdateManyMutationInput, Prisma.ProductPageSectionUncheckedUpdateManyInput>
-  /**
-   * Filter which ProductPageSections to update
-   */
-  where?: Prisma.ProductPageSectionWhereInput
-  /**
-   * Limit how many ProductPageSections to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductPageSectionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

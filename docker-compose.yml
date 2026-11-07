@@ -1,21 +1,39 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: aarham-apparel-postgres
+  mysql:
+    image: mysql:8.4
+    container_name: aarham-apparel-mysql
     restart: unless-stopped
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: aarham_apparel
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: aarham_apparel
+      MYSQL_USER: aarham
+      MYSQL_PASSWORD: aarham
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d aarham_apparel"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       interval: 10s
       timeout: 5s
       retries: 5
 
+  # Browse the database at http://localhost:8080 (user: aarham / aarham)
+  phpmyadmin:
+    image: phpmyadmin:5
+    container_name: aarham-apparel-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
 volumes:
-  postgres_data:
+  mysql_data:

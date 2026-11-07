@@ -205,7 +205,7 @@ export type LegalDocumentWhereInput = {
   AND?: Prisma.LegalDocumentWhereInput | Prisma.LegalDocumentWhereInput[]
   OR?: Prisma.LegalDocumentWhereInput[]
   NOT?: Prisma.LegalDocumentWhereInput | Prisma.LegalDocumentWhereInput[]
-  id?: Prisma.UuidFilter<"LegalDocument"> | string
+  id?: Prisma.StringFilter<"LegalDocument"> | string
   title?: Prisma.StringFilter<"LegalDocument"> | string
   slug?: Prisma.StringFilter<"LegalDocument"> | string
   content?: Prisma.StringFilter<"LegalDocument"> | string
@@ -226,6 +226,7 @@ export type LegalDocumentOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.LegalDocumentOrderByRelevanceInput
 }
 
 export type LegalDocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -262,7 +263,7 @@ export type LegalDocumentScalarWhereWithAggregatesInput = {
   AND?: Prisma.LegalDocumentScalarWhereWithAggregatesInput | Prisma.LegalDocumentScalarWhereWithAggregatesInput[]
   OR?: Prisma.LegalDocumentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.LegalDocumentScalarWhereWithAggregatesInput | Prisma.LegalDocumentScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"LegalDocument"> | string
+  id?: Prisma.StringWithAggregatesFilter<"LegalDocument"> | string
   title?: Prisma.StringWithAggregatesFilter<"LegalDocument"> | string
   slug?: Prisma.StringWithAggregatesFilter<"LegalDocument"> | string
   content?: Prisma.StringWithAggregatesFilter<"LegalDocument"> | string
@@ -357,6 +358,12 @@ export type LegalDocumentUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type LegalDocumentOrderByRelevanceInput = {
+  fields: Prisma.LegalDocumentOrderByRelevanceFieldEnum | Prisma.LegalDocumentOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type LegalDocumentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -407,29 +414,7 @@ export type LegalDocumentSelect<ExtArgs extends runtime.Types.Extensions.Interna
   updatedAt?: boolean
 }, ExtArgs["result"]["legalDocument"]>
 
-export type LegalDocumentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  slug?: boolean
-  content?: boolean
-  version?: boolean
-  isSystem?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["legalDocument"]>
 
-export type LegalDocumentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  slug?: boolean
-  content?: boolean
-  version?: boolean
-  isSystem?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["legalDocument"]>
 
 export type LegalDocumentSelectScalar = {
   id?: boolean
@@ -576,30 +561,6 @@ export interface LegalDocumentDelegate<ExtArgs extends runtime.Types.Extensions.
   createMany<T extends LegalDocumentCreateManyArgs>(args?: Prisma.SelectSubset<T, LegalDocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many LegalDocuments and returns the data saved in the database.
-   * @param {LegalDocumentCreateManyAndReturnArgs} args - Arguments to create many LegalDocuments.
-   * @example
-   * // Create many LegalDocuments
-   * const legalDocument = await prisma.legalDocument.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many LegalDocuments and only return the `id`
-   * const legalDocumentWithIdOnly = await prisma.legalDocument.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends LegalDocumentCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, LegalDocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LegalDocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a LegalDocument.
    * @param {LegalDocumentDeleteArgs} args - Arguments to delete one LegalDocument.
    * @example
@@ -662,36 +623,6 @@ export interface LegalDocumentDelegate<ExtArgs extends runtime.Types.Extensions.
    * 
    */
   updateMany<T extends LegalDocumentUpdateManyArgs>(args: Prisma.SelectSubset<T, LegalDocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more LegalDocuments and returns the data updated in the database.
-   * @param {LegalDocumentUpdateManyAndReturnArgs} args - Arguments to update many LegalDocuments.
-   * @example
-   * // Update many LegalDocuments
-   * const legalDocument = await prisma.legalDocument.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more LegalDocuments and only return the `id`
-   * const legalDocumentWithIdOnly = await prisma.legalDocument.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends LegalDocumentUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, LegalDocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LegalDocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one LegalDocument.
@@ -1104,25 +1035,6 @@ export type LegalDocumentCreateManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * LegalDocument createManyAndReturn
- */
-export type LegalDocumentCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the LegalDocument
-   */
-  select?: Prisma.LegalDocumentSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the LegalDocument
-   */
-  omit?: Prisma.LegalDocumentOmit<ExtArgs> | null
-  /**
-   * The data used to create many LegalDocuments.
-   */
-  data: Prisma.LegalDocumentCreateManyInput | Prisma.LegalDocumentCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * LegalDocument update
  */
 export type LegalDocumentUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1148,32 +1060,6 @@ export type LegalDocumentUpdateArgs<ExtArgs extends runtime.Types.Extensions.Int
  * LegalDocument updateMany
  */
 export type LegalDocumentUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update LegalDocuments.
-   */
-  data: Prisma.XOR<Prisma.LegalDocumentUpdateManyMutationInput, Prisma.LegalDocumentUncheckedUpdateManyInput>
-  /**
-   * Filter which LegalDocuments to update
-   */
-  where?: Prisma.LegalDocumentWhereInput
-  /**
-   * Limit how many LegalDocuments to update.
-   */
-  limit?: number
-}
-
-/**
- * LegalDocument updateManyAndReturn
- */
-export type LegalDocumentUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the LegalDocument
-   */
-  select?: Prisma.LegalDocumentSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the LegalDocument
-   */
-  omit?: Prisma.LegalDocumentOmit<ExtArgs> | null
   /**
    * The data used to update LegalDocuments.
    */

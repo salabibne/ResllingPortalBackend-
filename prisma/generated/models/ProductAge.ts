@@ -156,8 +156,8 @@ export type ProductAgeWhereInput = {
   AND?: Prisma.ProductAgeWhereInput | Prisma.ProductAgeWhereInput[]
   OR?: Prisma.ProductAgeWhereInput[]
   NOT?: Prisma.ProductAgeWhereInput | Prisma.ProductAgeWhereInput[]
-  productId?: Prisma.UuidFilter<"ProductAge"> | string
-  ageVariantId?: Prisma.UuidFilter<"ProductAge"> | string
+  productId?: Prisma.StringFilter<"ProductAge"> | string
+  ageVariantId?: Prisma.StringFilter<"ProductAge"> | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   ageVariant?: Prisma.XOR<Prisma.AgeVariantScalarRelationFilter, Prisma.AgeVariantWhereInput>
 }
@@ -167,6 +167,7 @@ export type ProductAgeOrderByWithRelationInput = {
   ageVariantId?: Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
   ageVariant?: Prisma.AgeVariantOrderByWithRelationInput
+  _relevance?: Prisma.ProductAgeOrderByRelevanceInput
 }
 
 export type ProductAgeWhereUniqueInput = Prisma.AtLeast<{
@@ -174,8 +175,8 @@ export type ProductAgeWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ProductAgeWhereInput | Prisma.ProductAgeWhereInput[]
   OR?: Prisma.ProductAgeWhereInput[]
   NOT?: Prisma.ProductAgeWhereInput | Prisma.ProductAgeWhereInput[]
-  productId?: Prisma.UuidFilter<"ProductAge"> | string
-  ageVariantId?: Prisma.UuidFilter<"ProductAge"> | string
+  productId?: Prisma.StringFilter<"ProductAge"> | string
+  ageVariantId?: Prisma.StringFilter<"ProductAge"> | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   ageVariant?: Prisma.XOR<Prisma.AgeVariantScalarRelationFilter, Prisma.AgeVariantWhereInput>
 }, "productId_ageVariantId">
@@ -192,8 +193,8 @@ export type ProductAgeScalarWhereWithAggregatesInput = {
   AND?: Prisma.ProductAgeScalarWhereWithAggregatesInput | Prisma.ProductAgeScalarWhereWithAggregatesInput[]
   OR?: Prisma.ProductAgeScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProductAgeScalarWhereWithAggregatesInput | Prisma.ProductAgeScalarWhereWithAggregatesInput[]
-  productId?: Prisma.UuidWithAggregatesFilter<"ProductAge"> | string
-  ageVariantId?: Prisma.UuidWithAggregatesFilter<"ProductAge"> | string
+  productId?: Prisma.StringWithAggregatesFilter<"ProductAge"> | string
+  ageVariantId?: Prisma.StringWithAggregatesFilter<"ProductAge"> | string
 }
 
 export type ProductAgeCreateInput = {
@@ -238,6 +239,12 @@ export type ProductAgeListRelationFilter = {
 
 export type ProductAgeOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ProductAgeOrderByRelevanceInput = {
+  fields: Prisma.ProductAgeOrderByRelevanceFieldEnum | Prisma.ProductAgeOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type ProductAgeProductIdAgeVariantIdCompoundUniqueInput = {
@@ -382,8 +389,8 @@ export type ProductAgeScalarWhereInput = {
   AND?: Prisma.ProductAgeScalarWhereInput | Prisma.ProductAgeScalarWhereInput[]
   OR?: Prisma.ProductAgeScalarWhereInput[]
   NOT?: Prisma.ProductAgeScalarWhereInput | Prisma.ProductAgeScalarWhereInput[]
-  productId?: Prisma.UuidFilter<"ProductAge"> | string
-  ageVariantId?: Prisma.UuidFilter<"ProductAge"> | string
+  productId?: Prisma.StringFilter<"ProductAge"> | string
+  ageVariantId?: Prisma.StringFilter<"ProductAge"> | string
 }
 
 export type ProductAgeCreateWithoutAgeVariantInput = {
@@ -461,19 +468,7 @@ export type ProductAgeSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   ageVariant?: boolean | Prisma.AgeVariantDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productAge"]>
 
-export type ProductAgeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  productId?: boolean
-  ageVariantId?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  ageVariant?: boolean | Prisma.AgeVariantDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["productAge"]>
 
-export type ProductAgeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  productId?: boolean
-  ageVariantId?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  ageVariant?: boolean | Prisma.AgeVariantDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["productAge"]>
 
 export type ProductAgeSelectScalar = {
   productId?: boolean
@@ -482,14 +477,6 @@ export type ProductAgeSelectScalar = {
 
 export type ProductAgeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"productId" | "ageVariantId", ExtArgs["result"]["productAge"]>
 export type ProductAgeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  ageVariant?: boolean | Prisma.AgeVariantDefaultArgs<ExtArgs>
-}
-export type ProductAgeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  ageVariant?: boolean | Prisma.AgeVariantDefaultArgs<ExtArgs>
-}
-export type ProductAgeIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   ageVariant?: boolean | Prisma.AgeVariantDefaultArgs<ExtArgs>
 }
@@ -621,30 +608,6 @@ export interface ProductAgeDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends ProductAgeCreateManyArgs>(args?: Prisma.SelectSubset<T, ProductAgeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many ProductAges and returns the data saved in the database.
-   * @param {ProductAgeCreateManyAndReturnArgs} args - Arguments to create many ProductAges.
-   * @example
-   * // Create many ProductAges
-   * const productAge = await prisma.productAge.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many ProductAges and only return the `productId`
-   * const productAgeWithProductIdOnly = await prisma.productAge.createManyAndReturn({
-   *   select: { productId: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends ProductAgeCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ProductAgeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductAgePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a ProductAge.
    * @param {ProductAgeDeleteArgs} args - Arguments to delete one ProductAge.
    * @example
@@ -707,36 +670,6 @@ export interface ProductAgeDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends ProductAgeUpdateManyArgs>(args: Prisma.SelectSubset<T, ProductAgeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more ProductAges and returns the data updated in the database.
-   * @param {ProductAgeUpdateManyAndReturnArgs} args - Arguments to update many ProductAges.
-   * @example
-   * // Update many ProductAges
-   * const productAge = await prisma.productAge.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more ProductAges and only return the `productId`
-   * const productAgeWithProductIdOnly = await prisma.productAge.updateManyAndReturn({
-   *   select: { productId: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends ProductAgeUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ProductAgeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductAgePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one ProductAge.
@@ -1168,29 +1101,6 @@ export type ProductAgeCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * ProductAge createManyAndReturn
- */
-export type ProductAgeCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductAge
-   */
-  select?: Prisma.ProductAgeSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductAge
-   */
-  omit?: Prisma.ProductAgeOmit<ExtArgs> | null
-  /**
-   * The data used to create many ProductAges.
-   */
-  data: Prisma.ProductAgeCreateManyInput | Prisma.ProductAgeCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductAgeIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * ProductAge update
  */
 export type ProductAgeUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1232,36 +1142,6 @@ export type ProductAgeUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many ProductAges to update.
    */
   limit?: number
-}
-
-/**
- * ProductAge updateManyAndReturn
- */
-export type ProductAgeUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductAge
-   */
-  select?: Prisma.ProductAgeSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductAge
-   */
-  omit?: Prisma.ProductAgeOmit<ExtArgs> | null
-  /**
-   * The data used to update ProductAges.
-   */
-  data: Prisma.XOR<Prisma.ProductAgeUpdateManyMutationInput, Prisma.ProductAgeUncheckedUpdateManyInput>
-  /**
-   * Filter which ProductAges to update
-   */
-  where?: Prisma.ProductAgeWhereInput
-  /**
-   * Limit how many ProductAges to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductAgeIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

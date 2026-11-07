@@ -191,7 +191,7 @@ export type CmsFounderBlogWhereInput = {
   AND?: Prisma.CmsFounderBlogWhereInput | Prisma.CmsFounderBlogWhereInput[]
   OR?: Prisma.CmsFounderBlogWhereInput[]
   NOT?: Prisma.CmsFounderBlogWhereInput | Prisma.CmsFounderBlogWhereInput[]
-  id?: Prisma.UuidFilter<"CmsFounderBlog"> | string
+  id?: Prisma.StringFilter<"CmsFounderBlog"> | string
   title?: Prisma.StringFilter<"CmsFounderBlog"> | string
   imageUrl?: Prisma.StringFilter<"CmsFounderBlog"> | string
   description?: Prisma.StringFilter<"CmsFounderBlog"> | string
@@ -208,6 +208,7 @@ export type CmsFounderBlogOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsFounderBlogOrderByRelevanceInput
 }
 
 export type CmsFounderBlogWhereUniqueInput = Prisma.AtLeast<{
@@ -240,7 +241,7 @@ export type CmsFounderBlogScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsFounderBlogScalarWhereWithAggregatesInput | Prisma.CmsFounderBlogScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsFounderBlogScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsFounderBlogScalarWhereWithAggregatesInput | Prisma.CmsFounderBlogScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsFounderBlog"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsFounderBlog"> | string
   title?: Prisma.StringWithAggregatesFilter<"CmsFounderBlog"> | string
   imageUrl?: Prisma.StringWithAggregatesFilter<"CmsFounderBlog"> | string
   description?: Prisma.StringWithAggregatesFilter<"CmsFounderBlog"> | string
@@ -319,6 +320,12 @@ export type CmsFounderBlogUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsFounderBlogOrderByRelevanceInput = {
+  fields: Prisma.CmsFounderBlogOrderByRelevanceFieldEnum | Prisma.CmsFounderBlogOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsFounderBlogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -361,25 +368,7 @@ export type CmsFounderBlogSelect<ExtArgs extends runtime.Types.Extensions.Intern
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsFounderBlog"]>
 
-export type CmsFounderBlogSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  imageUrl?: boolean
-  description?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsFounderBlog"]>
 
-export type CmsFounderBlogSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  imageUrl?: boolean
-  description?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsFounderBlog"]>
 
 export type CmsFounderBlogSelectScalar = {
   id?: boolean
@@ -522,30 +511,6 @@ export interface CmsFounderBlogDelegate<ExtArgs extends runtime.Types.Extensions
   createMany<T extends CmsFounderBlogCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsFounderBlogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsFounderBlogs and returns the data saved in the database.
-   * @param {CmsFounderBlogCreateManyAndReturnArgs} args - Arguments to create many CmsFounderBlogs.
-   * @example
-   * // Create many CmsFounderBlogs
-   * const cmsFounderBlog = await prisma.cmsFounderBlog.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsFounderBlogs and only return the `id`
-   * const cmsFounderBlogWithIdOnly = await prisma.cmsFounderBlog.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsFounderBlogCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsFounderBlogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsFounderBlogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsFounderBlog.
    * @param {CmsFounderBlogDeleteArgs} args - Arguments to delete one CmsFounderBlog.
    * @example
@@ -608,36 +573,6 @@ export interface CmsFounderBlogDelegate<ExtArgs extends runtime.Types.Extensions
    * 
    */
   updateMany<T extends CmsFounderBlogUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsFounderBlogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsFounderBlogs and returns the data updated in the database.
-   * @param {CmsFounderBlogUpdateManyAndReturnArgs} args - Arguments to update many CmsFounderBlogs.
-   * @example
-   * // Update many CmsFounderBlogs
-   * const cmsFounderBlog = await prisma.cmsFounderBlog.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsFounderBlogs and only return the `id`
-   * const cmsFounderBlogWithIdOnly = await prisma.cmsFounderBlog.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsFounderBlogUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsFounderBlogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsFounderBlogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsFounderBlog.
@@ -1048,25 +983,6 @@ export type CmsFounderBlogCreateManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * CmsFounderBlog createManyAndReturn
- */
-export type CmsFounderBlogCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsFounderBlog
-   */
-  select?: Prisma.CmsFounderBlogSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsFounderBlog
-   */
-  omit?: Prisma.CmsFounderBlogOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsFounderBlogs.
-   */
-  data: Prisma.CmsFounderBlogCreateManyInput | Prisma.CmsFounderBlogCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsFounderBlog update
  */
 export type CmsFounderBlogUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1092,32 +1008,6 @@ export type CmsFounderBlogUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
  * CmsFounderBlog updateMany
  */
 export type CmsFounderBlogUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsFounderBlogs.
-   */
-  data: Prisma.XOR<Prisma.CmsFounderBlogUpdateManyMutationInput, Prisma.CmsFounderBlogUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsFounderBlogs to update
-   */
-  where?: Prisma.CmsFounderBlogWhereInput
-  /**
-   * Limit how many CmsFounderBlogs to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsFounderBlog updateManyAndReturn
- */
-export type CmsFounderBlogUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsFounderBlog
-   */
-  select?: Prisma.CmsFounderBlogSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsFounderBlog
-   */
-  omit?: Prisma.CmsFounderBlogOmit<ExtArgs> | null
   /**
    * The data used to update CmsFounderBlogs.
    */

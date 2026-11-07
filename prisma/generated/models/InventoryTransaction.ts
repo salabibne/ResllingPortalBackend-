@@ -261,15 +261,15 @@ export type InventoryTransactionWhereInput = {
   AND?: Prisma.InventoryTransactionWhereInput | Prisma.InventoryTransactionWhereInput[]
   OR?: Prisma.InventoryTransactionWhereInput[]
   NOT?: Prisma.InventoryTransactionWhereInput | Prisma.InventoryTransactionWhereInput[]
-  id?: Prisma.UuidFilter<"InventoryTransaction"> | string
-  inventoryId?: Prisma.UuidFilter<"InventoryTransaction"> | string
+  id?: Prisma.StringFilter<"InventoryTransaction"> | string
+  inventoryId?: Prisma.StringFilter<"InventoryTransaction"> | string
   transactionQuantity?: Prisma.IntFilter<"InventoryTransaction"> | number
   stockBefore?: Prisma.IntFilter<"InventoryTransaction"> | number
   stockAfter?: Prisma.IntFilter<"InventoryTransaction"> | number
   stockType?: Prisma.EnumInventoryTxTypeFilter<"InventoryTransaction"> | $Enums.InventoryTxType
   purpose?: Prisma.EnumInventoryTxPurposeFilter<"InventoryTransaction"> | $Enums.InventoryTxPurpose
   reference?: Prisma.StringNullableFilter<"InventoryTransaction"> | string | null
-  performedBy?: Prisma.UuidFilter<"InventoryTransaction"> | string
+  performedBy?: Prisma.StringFilter<"InventoryTransaction"> | string
   notes?: Prisma.StringNullableFilter<"InventoryTransaction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"InventoryTransaction"> | Date | string
   inventory?: Prisma.XOR<Prisma.InventoryScalarRelationFilter, Prisma.InventoryWhereInput>
@@ -288,6 +288,7 @@ export type InventoryTransactionOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   inventory?: Prisma.InventoryOrderByWithRelationInput
+  _relevance?: Prisma.InventoryTransactionOrderByRelevanceInput
 }
 
 export type InventoryTransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -295,14 +296,14 @@ export type InventoryTransactionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.InventoryTransactionWhereInput | Prisma.InventoryTransactionWhereInput[]
   OR?: Prisma.InventoryTransactionWhereInput[]
   NOT?: Prisma.InventoryTransactionWhereInput | Prisma.InventoryTransactionWhereInput[]
-  inventoryId?: Prisma.UuidFilter<"InventoryTransaction"> | string
+  inventoryId?: Prisma.StringFilter<"InventoryTransaction"> | string
   transactionQuantity?: Prisma.IntFilter<"InventoryTransaction"> | number
   stockBefore?: Prisma.IntFilter<"InventoryTransaction"> | number
   stockAfter?: Prisma.IntFilter<"InventoryTransaction"> | number
   stockType?: Prisma.EnumInventoryTxTypeFilter<"InventoryTransaction"> | $Enums.InventoryTxType
   purpose?: Prisma.EnumInventoryTxPurposeFilter<"InventoryTransaction"> | $Enums.InventoryTxPurpose
   reference?: Prisma.StringNullableFilter<"InventoryTransaction"> | string | null
-  performedBy?: Prisma.UuidFilter<"InventoryTransaction"> | string
+  performedBy?: Prisma.StringFilter<"InventoryTransaction"> | string
   notes?: Prisma.StringNullableFilter<"InventoryTransaction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"InventoryTransaction"> | Date | string
   inventory?: Prisma.XOR<Prisma.InventoryScalarRelationFilter, Prisma.InventoryWhereInput>
@@ -331,15 +332,15 @@ export type InventoryTransactionScalarWhereWithAggregatesInput = {
   AND?: Prisma.InventoryTransactionScalarWhereWithAggregatesInput | Prisma.InventoryTransactionScalarWhereWithAggregatesInput[]
   OR?: Prisma.InventoryTransactionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.InventoryTransactionScalarWhereWithAggregatesInput | Prisma.InventoryTransactionScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"InventoryTransaction"> | string
-  inventoryId?: Prisma.UuidWithAggregatesFilter<"InventoryTransaction"> | string
+  id?: Prisma.StringWithAggregatesFilter<"InventoryTransaction"> | string
+  inventoryId?: Prisma.StringWithAggregatesFilter<"InventoryTransaction"> | string
   transactionQuantity?: Prisma.IntWithAggregatesFilter<"InventoryTransaction"> | number
   stockBefore?: Prisma.IntWithAggregatesFilter<"InventoryTransaction"> | number
   stockAfter?: Prisma.IntWithAggregatesFilter<"InventoryTransaction"> | number
   stockType?: Prisma.EnumInventoryTxTypeWithAggregatesFilter<"InventoryTransaction"> | $Enums.InventoryTxType
   purpose?: Prisma.EnumInventoryTxPurposeWithAggregatesFilter<"InventoryTransaction"> | $Enums.InventoryTxPurpose
   reference?: Prisma.StringNullableWithAggregatesFilter<"InventoryTransaction"> | string | null
-  performedBy?: Prisma.UuidWithAggregatesFilter<"InventoryTransaction"> | string
+  performedBy?: Prisma.StringWithAggregatesFilter<"InventoryTransaction"> | string
   notes?: Prisma.StringNullableWithAggregatesFilter<"InventoryTransaction"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"InventoryTransaction"> | Date | string
 }
@@ -449,6 +450,12 @@ export type InventoryTransactionListRelationFilter = {
 
 export type InventoryTransactionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type InventoryTransactionOrderByRelevanceInput = {
+  fields: Prisma.InventoryTransactionOrderByRelevanceFieldEnum | Prisma.InventoryTransactionOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type InventoryTransactionCountOrderByAggregateInput = {
@@ -611,15 +618,15 @@ export type InventoryTransactionScalarWhereInput = {
   AND?: Prisma.InventoryTransactionScalarWhereInput | Prisma.InventoryTransactionScalarWhereInput[]
   OR?: Prisma.InventoryTransactionScalarWhereInput[]
   NOT?: Prisma.InventoryTransactionScalarWhereInput | Prisma.InventoryTransactionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"InventoryTransaction"> | string
-  inventoryId?: Prisma.UuidFilter<"InventoryTransaction"> | string
+  id?: Prisma.StringFilter<"InventoryTransaction"> | string
+  inventoryId?: Prisma.StringFilter<"InventoryTransaction"> | string
   transactionQuantity?: Prisma.IntFilter<"InventoryTransaction"> | number
   stockBefore?: Prisma.IntFilter<"InventoryTransaction"> | number
   stockAfter?: Prisma.IntFilter<"InventoryTransaction"> | number
   stockType?: Prisma.EnumInventoryTxTypeFilter<"InventoryTransaction"> | $Enums.InventoryTxType
   purpose?: Prisma.EnumInventoryTxPurposeFilter<"InventoryTransaction"> | $Enums.InventoryTxPurpose
   reference?: Prisma.StringNullableFilter<"InventoryTransaction"> | string | null
-  performedBy?: Prisma.UuidFilter<"InventoryTransaction"> | string
+  performedBy?: Prisma.StringFilter<"InventoryTransaction"> | string
   notes?: Prisma.StringNullableFilter<"InventoryTransaction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"InventoryTransaction"> | Date | string
 }
@@ -693,35 +700,7 @@ export type InventoryTransactionSelect<ExtArgs extends runtime.Types.Extensions.
   inventory?: boolean | Prisma.InventoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["inventoryTransaction"]>
 
-export type InventoryTransactionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  inventoryId?: boolean
-  transactionQuantity?: boolean
-  stockBefore?: boolean
-  stockAfter?: boolean
-  stockType?: boolean
-  purpose?: boolean
-  reference?: boolean
-  performedBy?: boolean
-  notes?: boolean
-  createdAt?: boolean
-  inventory?: boolean | Prisma.InventoryDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["inventoryTransaction"]>
 
-export type InventoryTransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  inventoryId?: boolean
-  transactionQuantity?: boolean
-  stockBefore?: boolean
-  stockAfter?: boolean
-  stockType?: boolean
-  purpose?: boolean
-  reference?: boolean
-  performedBy?: boolean
-  notes?: boolean
-  createdAt?: boolean
-  inventory?: boolean | Prisma.InventoryDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["inventoryTransaction"]>
 
 export type InventoryTransactionSelectScalar = {
   id?: boolean
@@ -739,12 +718,6 @@ export type InventoryTransactionSelectScalar = {
 
 export type InventoryTransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "inventoryId" | "transactionQuantity" | "stockBefore" | "stockAfter" | "stockType" | "purpose" | "reference" | "performedBy" | "notes" | "createdAt", ExtArgs["result"]["inventoryTransaction"]>
 export type InventoryTransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  inventory?: boolean | Prisma.InventoryDefaultArgs<ExtArgs>
-}
-export type InventoryTransactionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  inventory?: boolean | Prisma.InventoryDefaultArgs<ExtArgs>
-}
-export type InventoryTransactionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   inventory?: boolean | Prisma.InventoryDefaultArgs<ExtArgs>
 }
 
@@ -883,30 +856,6 @@ export interface InventoryTransactionDelegate<ExtArgs extends runtime.Types.Exte
   createMany<T extends InventoryTransactionCreateManyArgs>(args?: Prisma.SelectSubset<T, InventoryTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many InventoryTransactions and returns the data saved in the database.
-   * @param {InventoryTransactionCreateManyAndReturnArgs} args - Arguments to create many InventoryTransactions.
-   * @example
-   * // Create many InventoryTransactions
-   * const inventoryTransaction = await prisma.inventoryTransaction.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many InventoryTransactions and only return the `id`
-   * const inventoryTransactionWithIdOnly = await prisma.inventoryTransaction.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends InventoryTransactionCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, InventoryTransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventoryTransactionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a InventoryTransaction.
    * @param {InventoryTransactionDeleteArgs} args - Arguments to delete one InventoryTransaction.
    * @example
@@ -969,36 +918,6 @@ export interface InventoryTransactionDelegate<ExtArgs extends runtime.Types.Exte
    * 
    */
   updateMany<T extends InventoryTransactionUpdateManyArgs>(args: Prisma.SelectSubset<T, InventoryTransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more InventoryTransactions and returns the data updated in the database.
-   * @param {InventoryTransactionUpdateManyAndReturnArgs} args - Arguments to update many InventoryTransactions.
-   * @example
-   * // Update many InventoryTransactions
-   * const inventoryTransaction = await prisma.inventoryTransaction.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more InventoryTransactions and only return the `id`
-   * const inventoryTransactionWithIdOnly = await prisma.inventoryTransaction.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends InventoryTransactionUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, InventoryTransactionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InventoryTransactionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one InventoryTransaction.
@@ -1438,29 +1357,6 @@ export type InventoryTransactionCreateManyArgs<ExtArgs extends runtime.Types.Ext
 }
 
 /**
- * InventoryTransaction createManyAndReturn
- */
-export type InventoryTransactionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the InventoryTransaction
-   */
-  select?: Prisma.InventoryTransactionSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the InventoryTransaction
-   */
-  omit?: Prisma.InventoryTransactionOmit<ExtArgs> | null
-  /**
-   * The data used to create many InventoryTransactions.
-   */
-  data: Prisma.InventoryTransactionCreateManyInput | Prisma.InventoryTransactionCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.InventoryTransactionIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * InventoryTransaction update
  */
 export type InventoryTransactionUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1502,36 +1398,6 @@ export type InventoryTransactionUpdateManyArgs<ExtArgs extends runtime.Types.Ext
    * Limit how many InventoryTransactions to update.
    */
   limit?: number
-}
-
-/**
- * InventoryTransaction updateManyAndReturn
- */
-export type InventoryTransactionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the InventoryTransaction
-   */
-  select?: Prisma.InventoryTransactionSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the InventoryTransaction
-   */
-  omit?: Prisma.InventoryTransactionOmit<ExtArgs> | null
-  /**
-   * The data used to update InventoryTransactions.
-   */
-  data: Prisma.XOR<Prisma.InventoryTransactionUpdateManyMutationInput, Prisma.InventoryTransactionUncheckedUpdateManyInput>
-  /**
-   * Filter which InventoryTransactions to update
-   */
-  where?: Prisma.InventoryTransactionWhereInput
-  /**
-   * Limit how many InventoryTransactions to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.InventoryTransactionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

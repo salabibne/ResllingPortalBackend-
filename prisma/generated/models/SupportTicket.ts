@@ -205,9 +205,9 @@ export type SupportTicketWhereInput = {
   AND?: Prisma.SupportTicketWhereInput | Prisma.SupportTicketWhereInput[]
   OR?: Prisma.SupportTicketWhereInput[]
   NOT?: Prisma.SupportTicketWhereInput | Prisma.SupportTicketWhereInput[]
-  id?: Prisma.UuidFilter<"SupportTicket"> | string
+  id?: Prisma.StringFilter<"SupportTicket"> | string
   ticketId?: Prisma.StringFilter<"SupportTicket"> | string
-  userId?: Prisma.UuidFilter<"SupportTicket"> | string
+  userId?: Prisma.StringFilter<"SupportTicket"> | string
   reason?: Prisma.EnumSupportTicketReasonFilter<"SupportTicket"> | $Enums.SupportTicketReason
   message?: Prisma.StringFilter<"SupportTicket"> | string
   status?: Prisma.EnumSupportTicketStatusFilter<"SupportTicket"> | $Enums.SupportTicketStatus
@@ -228,6 +228,7 @@ export type SupportTicketOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  _relevance?: Prisma.SupportTicketOrderByRelevanceInput
 }
 
 export type SupportTicketWhereUniqueInput = Prisma.AtLeast<{
@@ -236,7 +237,7 @@ export type SupportTicketWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SupportTicketWhereInput | Prisma.SupportTicketWhereInput[]
   OR?: Prisma.SupportTicketWhereInput[]
   NOT?: Prisma.SupportTicketWhereInput | Prisma.SupportTicketWhereInput[]
-  userId?: Prisma.UuidFilter<"SupportTicket"> | string
+  userId?: Prisma.StringFilter<"SupportTicket"> | string
   reason?: Prisma.EnumSupportTicketReasonFilter<"SupportTicket"> | $Enums.SupportTicketReason
   message?: Prisma.StringFilter<"SupportTicket"> | string
   status?: Prisma.EnumSupportTicketStatusFilter<"SupportTicket"> | $Enums.SupportTicketStatus
@@ -265,9 +266,9 @@ export type SupportTicketScalarWhereWithAggregatesInput = {
   AND?: Prisma.SupportTicketScalarWhereWithAggregatesInput | Prisma.SupportTicketScalarWhereWithAggregatesInput[]
   OR?: Prisma.SupportTicketScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SupportTicketScalarWhereWithAggregatesInput | Prisma.SupportTicketScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"SupportTicket"> | string
+  id?: Prisma.StringWithAggregatesFilter<"SupportTicket"> | string
   ticketId?: Prisma.StringWithAggregatesFilter<"SupportTicket"> | string
-  userId?: Prisma.UuidWithAggregatesFilter<"SupportTicket"> | string
+  userId?: Prisma.StringWithAggregatesFilter<"SupportTicket"> | string
   reason?: Prisma.EnumSupportTicketReasonWithAggregatesFilter<"SupportTicket"> | $Enums.SupportTicketReason
   message?: Prisma.StringWithAggregatesFilter<"SupportTicket"> | string
   status?: Prisma.EnumSupportTicketStatusWithAggregatesFilter<"SupportTicket"> | $Enums.SupportTicketStatus
@@ -367,6 +368,12 @@ export type SupportTicketListRelationFilter = {
 
 export type SupportTicketOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type SupportTicketOrderByRelevanceInput = {
+  fields: Prisma.SupportTicketOrderByRelevanceFieldEnum | Prisma.SupportTicketOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type SupportTicketCountOrderByAggregateInput = {
@@ -507,9 +514,9 @@ export type SupportTicketScalarWhereInput = {
   AND?: Prisma.SupportTicketScalarWhereInput | Prisma.SupportTicketScalarWhereInput[]
   OR?: Prisma.SupportTicketScalarWhereInput[]
   NOT?: Prisma.SupportTicketScalarWhereInput | Prisma.SupportTicketScalarWhereInput[]
-  id?: Prisma.UuidFilter<"SupportTicket"> | string
+  id?: Prisma.StringFilter<"SupportTicket"> | string
   ticketId?: Prisma.StringFilter<"SupportTicket"> | string
-  userId?: Prisma.UuidFilter<"SupportTicket"> | string
+  userId?: Prisma.StringFilter<"SupportTicket"> | string
   reason?: Prisma.EnumSupportTicketReasonFilter<"SupportTicket"> | $Enums.SupportTicketReason
   message?: Prisma.StringFilter<"SupportTicket"> | string
   status?: Prisma.EnumSupportTicketStatusFilter<"SupportTicket"> | $Enums.SupportTicketStatus
@@ -577,31 +584,7 @@ export type SupportTicketSelect<ExtArgs extends runtime.Types.Extensions.Interna
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["supportTicket"]>
 
-export type SupportTicketSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  ticketId?: boolean
-  userId?: boolean
-  reason?: boolean
-  message?: boolean
-  status?: boolean
-  adminNotes?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["supportTicket"]>
 
-export type SupportTicketSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  ticketId?: boolean
-  userId?: boolean
-  reason?: boolean
-  message?: boolean
-  status?: boolean
-  adminNotes?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["supportTicket"]>
 
 export type SupportTicketSelectScalar = {
   id?: boolean
@@ -617,12 +600,6 @@ export type SupportTicketSelectScalar = {
 
 export type SupportTicketOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ticketId" | "userId" | "reason" | "message" | "status" | "adminNotes" | "createdAt" | "updatedAt", ExtArgs["result"]["supportTicket"]>
 export type SupportTicketInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-}
-export type SupportTicketIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-}
-export type SupportTicketIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
@@ -759,30 +736,6 @@ export interface SupportTicketDelegate<ExtArgs extends runtime.Types.Extensions.
   createMany<T extends SupportTicketCreateManyArgs>(args?: Prisma.SelectSubset<T, SupportTicketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many SupportTickets and returns the data saved in the database.
-   * @param {SupportTicketCreateManyAndReturnArgs} args - Arguments to create many SupportTickets.
-   * @example
-   * // Create many SupportTickets
-   * const supportTicket = await prisma.supportTicket.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many SupportTickets and only return the `id`
-   * const supportTicketWithIdOnly = await prisma.supportTicket.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends SupportTicketCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, SupportTicketCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a SupportTicket.
    * @param {SupportTicketDeleteArgs} args - Arguments to delete one SupportTicket.
    * @example
@@ -845,36 +798,6 @@ export interface SupportTicketDelegate<ExtArgs extends runtime.Types.Extensions.
    * 
    */
   updateMany<T extends SupportTicketUpdateManyArgs>(args: Prisma.SelectSubset<T, SupportTicketUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more SupportTickets and returns the data updated in the database.
-   * @param {SupportTicketUpdateManyAndReturnArgs} args - Arguments to update many SupportTickets.
-   * @example
-   * // Update many SupportTickets
-   * const supportTicket = await prisma.supportTicket.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more SupportTickets and only return the `id`
-   * const supportTicketWithIdOnly = await prisma.supportTicket.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends SupportTicketUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, SupportTicketUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one SupportTicket.
@@ -1312,29 +1235,6 @@ export type SupportTicketCreateManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * SupportTicket createManyAndReturn
- */
-export type SupportTicketCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SupportTicket
-   */
-  select?: Prisma.SupportTicketSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the SupportTicket
-   */
-  omit?: Prisma.SupportTicketOmit<ExtArgs> | null
-  /**
-   * The data used to create many SupportTickets.
-   */
-  data: Prisma.SupportTicketCreateManyInput | Prisma.SupportTicketCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SupportTicketIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * SupportTicket update
  */
 export type SupportTicketUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1376,36 +1276,6 @@ export type SupportTicketUpdateManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many SupportTickets to update.
    */
   limit?: number
-}
-
-/**
- * SupportTicket updateManyAndReturn
- */
-export type SupportTicketUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SupportTicket
-   */
-  select?: Prisma.SupportTicketSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the SupportTicket
-   */
-  omit?: Prisma.SupportTicketOmit<ExtArgs> | null
-  /**
-   * The data used to update SupportTickets.
-   */
-  data: Prisma.XOR<Prisma.SupportTicketUpdateManyMutationInput, Prisma.SupportTicketUncheckedUpdateManyInput>
-  /**
-   * Filter which SupportTickets to update
-   */
-  where?: Prisma.SupportTicketWhereInput
-  /**
-   * Limit how many SupportTickets to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SupportTicketIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

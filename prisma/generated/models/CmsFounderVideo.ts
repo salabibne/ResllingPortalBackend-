@@ -191,7 +191,7 @@ export type CmsFounderVideoWhereInput = {
   AND?: Prisma.CmsFounderVideoWhereInput | Prisma.CmsFounderVideoWhereInput[]
   OR?: Prisma.CmsFounderVideoWhereInput[]
   NOT?: Prisma.CmsFounderVideoWhereInput | Prisma.CmsFounderVideoWhereInput[]
-  id?: Prisma.UuidFilter<"CmsFounderVideo"> | string
+  id?: Prisma.StringFilter<"CmsFounderVideo"> | string
   title?: Prisma.StringFilter<"CmsFounderVideo"> | string
   videoLink?: Prisma.StringFilter<"CmsFounderVideo"> | string
   description?: Prisma.StringFilter<"CmsFounderVideo"> | string
@@ -208,6 +208,7 @@ export type CmsFounderVideoOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsFounderVideoOrderByRelevanceInput
 }
 
 export type CmsFounderVideoWhereUniqueInput = Prisma.AtLeast<{
@@ -240,7 +241,7 @@ export type CmsFounderVideoScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsFounderVideoScalarWhereWithAggregatesInput | Prisma.CmsFounderVideoScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsFounderVideoScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsFounderVideoScalarWhereWithAggregatesInput | Prisma.CmsFounderVideoScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsFounderVideo"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsFounderVideo"> | string
   title?: Prisma.StringWithAggregatesFilter<"CmsFounderVideo"> | string
   videoLink?: Prisma.StringWithAggregatesFilter<"CmsFounderVideo"> | string
   description?: Prisma.StringWithAggregatesFilter<"CmsFounderVideo"> | string
@@ -319,6 +320,12 @@ export type CmsFounderVideoUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsFounderVideoOrderByRelevanceInput = {
+  fields: Prisma.CmsFounderVideoOrderByRelevanceFieldEnum | Prisma.CmsFounderVideoOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsFounderVideoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -361,25 +368,7 @@ export type CmsFounderVideoSelect<ExtArgs extends runtime.Types.Extensions.Inter
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsFounderVideo"]>
 
-export type CmsFounderVideoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  videoLink?: boolean
-  description?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsFounderVideo"]>
 
-export type CmsFounderVideoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  videoLink?: boolean
-  description?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsFounderVideo"]>
 
 export type CmsFounderVideoSelectScalar = {
   id?: boolean
@@ -522,30 +511,6 @@ export interface CmsFounderVideoDelegate<ExtArgs extends runtime.Types.Extension
   createMany<T extends CmsFounderVideoCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsFounderVideoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsFounderVideos and returns the data saved in the database.
-   * @param {CmsFounderVideoCreateManyAndReturnArgs} args - Arguments to create many CmsFounderVideos.
-   * @example
-   * // Create many CmsFounderVideos
-   * const cmsFounderVideo = await prisma.cmsFounderVideo.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsFounderVideos and only return the `id`
-   * const cmsFounderVideoWithIdOnly = await prisma.cmsFounderVideo.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsFounderVideoCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsFounderVideoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsFounderVideoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsFounderVideo.
    * @param {CmsFounderVideoDeleteArgs} args - Arguments to delete one CmsFounderVideo.
    * @example
@@ -608,36 +573,6 @@ export interface CmsFounderVideoDelegate<ExtArgs extends runtime.Types.Extension
    * 
    */
   updateMany<T extends CmsFounderVideoUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsFounderVideoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsFounderVideos and returns the data updated in the database.
-   * @param {CmsFounderVideoUpdateManyAndReturnArgs} args - Arguments to update many CmsFounderVideos.
-   * @example
-   * // Update many CmsFounderVideos
-   * const cmsFounderVideo = await prisma.cmsFounderVideo.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsFounderVideos and only return the `id`
-   * const cmsFounderVideoWithIdOnly = await prisma.cmsFounderVideo.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsFounderVideoUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsFounderVideoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsFounderVideoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsFounderVideo.
@@ -1048,25 +983,6 @@ export type CmsFounderVideoCreateManyArgs<ExtArgs extends runtime.Types.Extensio
 }
 
 /**
- * CmsFounderVideo createManyAndReturn
- */
-export type CmsFounderVideoCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsFounderVideo
-   */
-  select?: Prisma.CmsFounderVideoSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsFounderVideo
-   */
-  omit?: Prisma.CmsFounderVideoOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsFounderVideos.
-   */
-  data: Prisma.CmsFounderVideoCreateManyInput | Prisma.CmsFounderVideoCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsFounderVideo update
  */
 export type CmsFounderVideoUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1092,32 +1008,6 @@ export type CmsFounderVideoUpdateArgs<ExtArgs extends runtime.Types.Extensions.I
  * CmsFounderVideo updateMany
  */
 export type CmsFounderVideoUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsFounderVideos.
-   */
-  data: Prisma.XOR<Prisma.CmsFounderVideoUpdateManyMutationInput, Prisma.CmsFounderVideoUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsFounderVideos to update
-   */
-  where?: Prisma.CmsFounderVideoWhereInput
-  /**
-   * Limit how many CmsFounderVideos to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsFounderVideo updateManyAndReturn
- */
-export type CmsFounderVideoUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsFounderVideo
-   */
-  select?: Prisma.CmsFounderVideoSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsFounderVideo
-   */
-  omit?: Prisma.CmsFounderVideoOmit<ExtArgs> | null
   /**
    * The data used to update CmsFounderVideos.
    */

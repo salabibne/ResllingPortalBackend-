@@ -218,7 +218,7 @@ export type CourierSettingWhereInput = {
   AND?: Prisma.CourierSettingWhereInput | Prisma.CourierSettingWhereInput[]
   OR?: Prisma.CourierSettingWhereInput[]
   NOT?: Prisma.CourierSettingWhereInput | Prisma.CourierSettingWhereInput[]
-  id?: Prisma.UuidFilter<"CourierSetting"> | string
+  id?: Prisma.StringFilter<"CourierSetting"> | string
   title?: Prisma.StringFilter<"CourierSetting"> | string
   chargeText?: Prisma.StringFilter<"CourierSetting"> | string
   defaultCharge?: Prisma.DecimalFilter<"CourierSetting"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -233,6 +233,7 @@ export type CourierSettingOrderByWithRelationInput = {
   defaultCharge?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CourierSettingOrderByRelevanceInput
 }
 
 export type CourierSettingWhereUniqueInput = Prisma.AtLeast<{
@@ -265,7 +266,7 @@ export type CourierSettingScalarWhereWithAggregatesInput = {
   AND?: Prisma.CourierSettingScalarWhereWithAggregatesInput | Prisma.CourierSettingScalarWhereWithAggregatesInput[]
   OR?: Prisma.CourierSettingScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CourierSettingScalarWhereWithAggregatesInput | Prisma.CourierSettingScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CourierSetting"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CourierSetting"> | string
   title?: Prisma.StringWithAggregatesFilter<"CourierSetting"> | string
   chargeText?: Prisma.StringWithAggregatesFilter<"CourierSetting"> | string
   defaultCharge?: Prisma.DecimalWithAggregatesFilter<"CourierSetting"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -336,6 +337,12 @@ export type CourierSettingUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CourierSettingOrderByRelevanceInput = {
+  fields: Prisma.CourierSettingOrderByRelevanceFieldEnum | Prisma.CourierSettingOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CourierSettingCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -382,23 +389,7 @@ export type CourierSettingSelect<ExtArgs extends runtime.Types.Extensions.Intern
   updatedAt?: boolean
 }, ExtArgs["result"]["courierSetting"]>
 
-export type CourierSettingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  chargeText?: boolean
-  defaultCharge?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["courierSetting"]>
 
-export type CourierSettingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  chargeText?: boolean
-  defaultCharge?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["courierSetting"]>
 
 export type CourierSettingSelectScalar = {
   id?: boolean
@@ -539,30 +530,6 @@ export interface CourierSettingDelegate<ExtArgs extends runtime.Types.Extensions
   createMany<T extends CourierSettingCreateManyArgs>(args?: Prisma.SelectSubset<T, CourierSettingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CourierSettings and returns the data saved in the database.
-   * @param {CourierSettingCreateManyAndReturnArgs} args - Arguments to create many CourierSettings.
-   * @example
-   * // Create many CourierSettings
-   * const courierSetting = await prisma.courierSetting.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CourierSettings and only return the `id`
-   * const courierSettingWithIdOnly = await prisma.courierSetting.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CourierSettingCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CourierSettingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourierSettingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CourierSetting.
    * @param {CourierSettingDeleteArgs} args - Arguments to delete one CourierSetting.
    * @example
@@ -625,36 +592,6 @@ export interface CourierSettingDelegate<ExtArgs extends runtime.Types.Extensions
    * 
    */
   updateMany<T extends CourierSettingUpdateManyArgs>(args: Prisma.SelectSubset<T, CourierSettingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CourierSettings and returns the data updated in the database.
-   * @param {CourierSettingUpdateManyAndReturnArgs} args - Arguments to update many CourierSettings.
-   * @example
-   * // Update many CourierSettings
-   * const courierSetting = await prisma.courierSetting.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CourierSettings and only return the `id`
-   * const courierSettingWithIdOnly = await prisma.courierSetting.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CourierSettingUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CourierSettingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourierSettingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CourierSetting.
@@ -1064,25 +1001,6 @@ export type CourierSettingCreateManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * CourierSetting createManyAndReturn
- */
-export type CourierSettingCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CourierSetting
-   */
-  select?: Prisma.CourierSettingSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CourierSetting
-   */
-  omit?: Prisma.CourierSettingOmit<ExtArgs> | null
-  /**
-   * The data used to create many CourierSettings.
-   */
-  data: Prisma.CourierSettingCreateManyInput | Prisma.CourierSettingCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CourierSetting update
  */
 export type CourierSettingUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1108,32 +1026,6 @@ export type CourierSettingUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
  * CourierSetting updateMany
  */
 export type CourierSettingUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CourierSettings.
-   */
-  data: Prisma.XOR<Prisma.CourierSettingUpdateManyMutationInput, Prisma.CourierSettingUncheckedUpdateManyInput>
-  /**
-   * Filter which CourierSettings to update
-   */
-  where?: Prisma.CourierSettingWhereInput
-  /**
-   * Limit how many CourierSettings to update.
-   */
-  limit?: number
-}
-
-/**
- * CourierSetting updateManyAndReturn
- */
-export type CourierSettingUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CourierSetting
-   */
-  select?: Prisma.CourierSettingSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CourierSetting
-   */
-  omit?: Prisma.CourierSettingOmit<ExtArgs> | null
   /**
    * The data used to update CourierSettings.
    */

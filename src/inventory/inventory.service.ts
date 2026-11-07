@@ -6,6 +6,7 @@ import {
 import { Prisma, InventoryTxType, InventoryTxPurpose } from '../../prisma/generated/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { AdjustStockDto } from './dto/adjust-stock.dto';
+import { withTransactionRetry } from '../prisma/transaction-retry';
 
 @Injectable()
 export class InventoryService {
@@ -23,7 +24,9 @@ export class InventoryService {
    * 4. Write immutable InventoryTransaction record.
    */
   async adjustStock(dto: AdjustStockDto) {
-    return this.prisma.$transaction(
+    // Concurrent adjustments on the same row can deadlock under MySQL's
+    // SERIALIZABLE isolation; retry those instead of returning a 500.
+    return withTransactionRetry(() => this.prisma.$transaction(
       async (tx) => {
         // 1. Fetch current inventory state by productId + productSizeId
         const inventory = dto.productSizeId
@@ -106,7 +109,7 @@ export class InventoryService {
         // concurrent adjustStock calls are properly sequenced
         isolationLevel: 'Serializable',
       },
-    );
+    ));
   }
 
   // ─── READ ───────────────────────────────────────────────────────────

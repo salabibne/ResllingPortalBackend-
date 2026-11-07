@@ -1,14 +1,12 @@
 import { PrismaClient, CommonStatus, UserRole } from './prisma/generated/client';
-import { PrismaPg } from '@prisma/adapter-pg';
+import { createMySqlAdapter } from './src/prisma/mysql-adapter';
 import { config } from 'dotenv';
 import * as bcrypt from 'bcryptjs';
 
 config();
 
 const prisma = new PrismaClient({
-  adapter: new PrismaPg({
-    connectionString: process.env.DATABASE_URL ?? '',
-  }),
+  adapter: createMySqlAdapter(),
 });
 
 async function main() {

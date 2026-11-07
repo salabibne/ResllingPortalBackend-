@@ -184,7 +184,7 @@ export type CmsSocialMediaWhereInput = {
   AND?: Prisma.CmsSocialMediaWhereInput | Prisma.CmsSocialMediaWhereInput[]
   OR?: Prisma.CmsSocialMediaWhereInput[]
   NOT?: Prisma.CmsSocialMediaWhereInput | Prisma.CmsSocialMediaWhereInput[]
-  id?: Prisma.UuidFilter<"CmsSocialMedia"> | string
+  id?: Prisma.StringFilter<"CmsSocialMedia"> | string
   name?: Prisma.StringFilter<"CmsSocialMedia"> | string
   iconName?: Prisma.StringFilter<"CmsSocialMedia"> | string
   status?: Prisma.EnumCommonStatusFilter<"CmsSocialMedia"> | $Enums.CommonStatus
@@ -199,6 +199,7 @@ export type CmsSocialMediaOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsSocialMediaOrderByRelevanceInput
 }
 
 export type CmsSocialMediaWhereUniqueInput = Prisma.AtLeast<{
@@ -229,7 +230,7 @@ export type CmsSocialMediaScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsSocialMediaScalarWhereWithAggregatesInput | Prisma.CmsSocialMediaScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsSocialMediaScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsSocialMediaScalarWhereWithAggregatesInput | Prisma.CmsSocialMediaScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsSocialMedia"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsSocialMedia"> | string
   name?: Prisma.StringWithAggregatesFilter<"CmsSocialMedia"> | string
   iconName?: Prisma.StringWithAggregatesFilter<"CmsSocialMedia"> | string
   status?: Prisma.EnumCommonStatusWithAggregatesFilter<"CmsSocialMedia"> | $Enums.CommonStatus
@@ -300,6 +301,12 @@ export type CmsSocialMediaUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsSocialMediaOrderByRelevanceInput = {
+  fields: Prisma.CmsSocialMediaOrderByRelevanceFieldEnum | Prisma.CmsSocialMediaOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsSocialMediaCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -338,23 +345,7 @@ export type CmsSocialMediaSelect<ExtArgs extends runtime.Types.Extensions.Intern
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsSocialMedia"]>
 
-export type CmsSocialMediaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  iconName?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsSocialMedia"]>
 
-export type CmsSocialMediaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  iconName?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsSocialMedia"]>
 
 export type CmsSocialMediaSelectScalar = {
   id?: boolean
@@ -495,30 +486,6 @@ export interface CmsSocialMediaDelegate<ExtArgs extends runtime.Types.Extensions
   createMany<T extends CmsSocialMediaCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsSocialMediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsSocialMedias and returns the data saved in the database.
-   * @param {CmsSocialMediaCreateManyAndReturnArgs} args - Arguments to create many CmsSocialMedias.
-   * @example
-   * // Create many CmsSocialMedias
-   * const cmsSocialMedia = await prisma.cmsSocialMedia.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsSocialMedias and only return the `id`
-   * const cmsSocialMediaWithIdOnly = await prisma.cmsSocialMedia.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsSocialMediaCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsSocialMediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsSocialMediaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsSocialMedia.
    * @param {CmsSocialMediaDeleteArgs} args - Arguments to delete one CmsSocialMedia.
    * @example
@@ -581,36 +548,6 @@ export interface CmsSocialMediaDelegate<ExtArgs extends runtime.Types.Extensions
    * 
    */
   updateMany<T extends CmsSocialMediaUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsSocialMediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsSocialMedias and returns the data updated in the database.
-   * @param {CmsSocialMediaUpdateManyAndReturnArgs} args - Arguments to update many CmsSocialMedias.
-   * @example
-   * // Update many CmsSocialMedias
-   * const cmsSocialMedia = await prisma.cmsSocialMedia.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsSocialMedias and only return the `id`
-   * const cmsSocialMediaWithIdOnly = await prisma.cmsSocialMedia.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsSocialMediaUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsSocialMediaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsSocialMediaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsSocialMedia.
@@ -1020,25 +957,6 @@ export type CmsSocialMediaCreateManyArgs<ExtArgs extends runtime.Types.Extension
 }
 
 /**
- * CmsSocialMedia createManyAndReturn
- */
-export type CmsSocialMediaCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsSocialMedia
-   */
-  select?: Prisma.CmsSocialMediaSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsSocialMedia
-   */
-  omit?: Prisma.CmsSocialMediaOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsSocialMedias.
-   */
-  data: Prisma.CmsSocialMediaCreateManyInput | Prisma.CmsSocialMediaCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsSocialMedia update
  */
 export type CmsSocialMediaUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1064,32 +982,6 @@ export type CmsSocialMediaUpdateArgs<ExtArgs extends runtime.Types.Extensions.In
  * CmsSocialMedia updateMany
  */
 export type CmsSocialMediaUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsSocialMedias.
-   */
-  data: Prisma.XOR<Prisma.CmsSocialMediaUpdateManyMutationInput, Prisma.CmsSocialMediaUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsSocialMedias to update
-   */
-  where?: Prisma.CmsSocialMediaWhereInput
-  /**
-   * Limit how many CmsSocialMedias to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsSocialMedia updateManyAndReturn
- */
-export type CmsSocialMediaUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsSocialMedia
-   */
-  select?: Prisma.CmsSocialMediaSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsSocialMedia
-   */
-  omit?: Prisma.CmsSocialMediaOmit<ExtArgs> | null
   /**
    * The data used to update CmsSocialMedias.
    */

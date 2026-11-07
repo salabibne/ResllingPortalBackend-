@@ -15,6 +15,7 @@ import {
   InventoryTxType,
   OrderProcessingStatus,
   PaymentStatus,
+  Prisma,
   UserRole,
 } from '../../prisma/generated/client';
 import { PrismaService } from '../prisma/prisma.service';
@@ -40,6 +41,7 @@ import {
 type InternalStatusUpdate = {
   processingStatus?: OrderProcessingStatus;
   paymentStatus?: PaymentStatus;
+  courierStatus?: string;
 };
 
 @Injectable()
@@ -51,6 +53,54 @@ export class OrderService implements OnModuleInit {
 
   /** Guards the scheduled courier sync against overlapping runs. */
   private courierSyncRunning = false;
+
+  /**
+   * Takes `quantity` units out of an inventory row in a single atomic UPDATE
+   * that only succeeds while enough stock is left, so two orders placed at the
+   * same moment can never oversell or overwrite each other's deduction.
+   * Throws (rolling back the surrounding transaction) when stock ran out.
+   */
+  private async takeStock(
+    tx: Prisma.TransactionClient,
+    inventoryId: string,
+    quantity: number,
+    productLabel: string,
+  ) {
+    const result = await tx.inventory.updateMany({
+      where: { id: inventoryId, currentStock: { gte: quantity } },
+      data: { currentStock: { decrement: quantity } },
+    });
+    if (result.count === 0) {
+      // A locking read returns the live value; a plain read inside this
+      // transaction could show an older snapshot under MySQL REPEATABLE READ.
+      const [row] = await tx.$queryRaw<{ current_stock: number | bigint }[]>`
+        SELECT current_stock FROM inventory WHERE id = ${inventoryId} FOR UPDATE
+      `;
+      throw new BadRequestException(
+        `Insufficient stock for "${productLabel}". Available: ${Number(row?.current_stock ?? 0)}, Requested: ${quantity}`,
+      );
+    }
+    // The row was just updated by this transaction, so this read sees the new value.
+    const { currentStock } = await tx.inventory.findUniqueOrThrow({
+      where: { id: inventoryId },
+      select: { currentStock: true },
+    });
+    return { stockBefore: currentStock + quantity, stockAfter: currentStock };
+  }
+
+  /** Puts `quantity` units back into an inventory row atomically. */
+  private async returnStock(
+    tx: Prisma.TransactionClient,
+    inventoryId: string,
+    quantity: number,
+  ) {
+    const { currentStock } = await tx.inventory.update({
+      where: { id: inventoryId },
+      data: { currentStock: { increment: quantity } },
+      select: { currentStock: true },
+    });
+    return { stockBefore: currentStock - quantity, stockAfter: currentStock };
+  }
 
   /**
    * Public, capability-style tracking lookup. Returns only status data — never
@@ -371,13 +421,14 @@ export class OrderService implements OnModuleInit {
 
       // Deduct stock from Inventory & Create InventoryTransaction (STOCK_OUT / SELL)
       for (const item of validatedItems) {
-        const stockBefore = item.currentStock;
-        const stockAfter = stockBefore - item.quantity;
-
-        await tx.inventory.update({
-          where: { id: item.inventoryId },
-          data: { currentStock: stockAfter },
-        });
+        // Re-checked atomically here: the check above ran before the
+        // transaction, so another order may have taken the stock since.
+        const { stockBefore, stockAfter } = await this.takeStock(
+          tx,
+          item.inventoryId,
+          item.quantity,
+          item.productName,
+        );
 
         await tx.inventoryTransaction.create({
           data: {
@@ -609,14 +660,13 @@ export class OrderService implements OnModuleInit {
         });
 
         if (inv) {
-          const stockBefore = inv.currentStock;
-          const stockAfter = stockBefore - item.quantity;
-
-          // Update Inventory stock
-          await tx.inventory.update({
-            where: { id: inv.id },
-            data: { currentStock: stockAfter },
-          });
+          // Atomic, conditional deduction (fails if another order took the stock).
+          const { stockBefore, stockAfter } = await this.takeStock(
+            tx,
+            inv.id,
+            item.quantity,
+            item.product.name,
+          );
 
           // Record Inventory Transaction
           await tx.inventoryTransaction.create({
@@ -679,7 +729,7 @@ export class OrderService implements OnModuleInit {
         where.courierConsignmentId = null;
         where.courierTrackingCode = null;
       } else if (courierStatus === 'RETURNED') {
-        where.courierStatus = { contains: 'return', mode: 'insensitive' };
+        where.courierStatus = { contains: 'return' };
       } else {
         where.courierStatus = courierStatus.toLowerCase();
       }
@@ -688,7 +738,6 @@ export class OrderService implements OnModuleInit {
     if (consignmentId && consignmentId.trim() !== '') {
       where.courierConsignmentId = {
         contains: consignmentId.trim(),
-        mode: 'insensitive',
       };
     }
 
@@ -725,9 +774,9 @@ export class OrderService implements OnModuleInit {
     if (customerPhone && customerPhone.trim() !== '') {
       const phoneClean = customerPhone.trim();
       const phoneCondition = [
-        { customerPhone: { contains: phoneClean, mode: 'insensitive' } },
-        { customerSecondaryPhone: { contains: phoneClean, mode: 'insensitive' } },
-        { customer: { phone: { contains: phoneClean, mode: 'insensitive' } } },
+        { customerPhone: { contains: phoneClean } },
+        { customerSecondaryPhone: { contains: phoneClean } },
+        { customer: { phone: { contains: phoneClean } } },
       ];
       if (where.OR) {
         // Wrap existing OR inside AND logic
@@ -749,12 +798,12 @@ export class OrderService implements OnModuleInit {
           searchClean,
         );
       const searchCondition: any[] = [
-        { orderRef: { contains: searchClean, mode: 'insensitive' } },
-        { customerName: { contains: searchClean, mode: 'insensitive' } },
-        { customerPhone: { contains: searchClean, mode: 'insensitive' } },
-        { shippingAddress: { contains: searchClean, mode: 'insensitive' } },
-        { courierConsignmentId: { contains: searchClean, mode: 'insensitive' } },
-        { courierTrackingCode: { contains: searchClean, mode: 'insensitive' } },
+        { orderRef: { contains: searchClean } },
+        { customerName: { contains: searchClean } },
+        { customerPhone: { contains: searchClean } },
+        { shippingAddress: { contains: searchClean } },
+        { courierConsignmentId: { contains: searchClean } },
+        { courierTrackingCode: { contains: searchClean } },
       ];
       // UUID columns do not support LIKE/contains in Postgres
       if (isUuidSearch) {
@@ -1076,7 +1125,8 @@ export class OrderService implements OnModuleInit {
 
   /**
    * Cancel an order that has not been handed to the courier yet (Admin/Staff only).
-   * Stock is NOT restored automatically — staff restock by hand from Inventory.
+   * Stock is restored automatically (logged as a RETURN in the inventory
+   * history), the same way a courier cancellation restocks.
    */
   async cancelOrder(orderId: string, staffUser: any) {
     const order = await this.prisma.order.findUnique({ where: { id: orderId } });
@@ -1090,23 +1140,24 @@ export class OrderService implements OnModuleInit {
       );
     }
 
-    if (courierGroupOf(order.courierStatus) === 'CANCELLED') {
+    if (
+      courierGroupOf(order.courierStatus) === 'CANCELLED' ||
+      order.processingStatus === OrderProcessingStatus.CANCELLED
+    ) {
       throw new BadRequestException('Order is already cancelled');
     }
 
-    return this.prisma.order.update({
-      where: { id: orderId },
-      data: {
-        courierStatus: 'cancelled',
+    // Shares the courier-cancel path: restocks every item atomically, writes
+    // the inventory history, and a double click restocks only once.
+    return this.updateOrderStatus(
+      orderId,
+      {
         processingStatus: OrderProcessingStatus.CANCELLED,
         paymentStatus: PaymentStatus.CANCELLED,
-        orderProcessedBy: staffUser.id,
+        courierStatus: 'cancelled',
       },
-      include: {
-        customer: { select: { id: true, name: true, email: true } },
-        orderItems: true,
-      },
-    });
+      staffUser,
+    );
   }
 
   /**
@@ -1136,6 +1187,26 @@ export class OrderService implements OnModuleInit {
     const willBeRestocked = isRestockStatus(dto.processingStatus);
 
     return this.prisma.$transaction(async (tx) => {
+      // 0. When this change moves stock, claim the status transition first with
+      //    a compare-and-swap. If the courier webhook and the scheduled sync
+      //    handle the same order at the same moment, only one of them wins;
+      //    the other sees the status already changed and leaves stock alone.
+      if (dto.processingStatus && wasRestocked !== willBeRestocked) {
+        const claimed = await tx.order.updateMany({
+          where: { id: orderId, processingStatus: order.processingStatus },
+          data: { processingStatus: dto.processingStatus },
+        });
+        if (claimed.count === 0) {
+          return tx.order.findUniqueOrThrow({
+            where: { id: orderId },
+            include: {
+              customer: { select: { id: true, name: true, email: true } },
+              orderItems: true,
+            },
+          });
+        }
+      }
+
       // 1. If transitioning from active -> CANCELLED/RETURNED, restore stock (STOCK_IN)
       if (!wasRestocked && willBeRestocked && dto.processingStatus) {
         for (const item of order.orderItems) {
@@ -1147,13 +1218,11 @@ export class OrderService implements OnModuleInit {
           });
 
           if (inv) {
-            const stockBefore = inv.currentStock;
-            const stockAfter = stockBefore + item.quantity;
-
-            await tx.inventory.update({
-              where: { id: inv.id },
-              data: { currentStock: stockAfter },
-            });
+            const { stockBefore, stockAfter } = await this.returnStock(
+              tx,
+              inv.id,
+              item.quantity,
+            );
 
             await tx.inventoryTransaction.create({
               data: {
@@ -1174,7 +1243,8 @@ export class OrderService implements OnModuleInit {
 
       // 2. If transitioning from CANCELLED/RETURNED -> active status, re-deduct stock (STOCK_OUT)
       if (wasRestocked && dto.processingStatus && !willBeRestocked) {
-        // Validate stock availability first
+        // Deduct stock atomically; any item short on stock throws and rolls
+        // back the whole reactivation (including items already deducted).
         for (const item of order.orderItems) {
           const inv = await tx.inventory.findFirst({
             where: {
@@ -1183,29 +1253,23 @@ export class OrderService implements OnModuleInit {
             },
           });
 
-          if (!inv || inv.currentStock < item.quantity) {
+          if (!inv) {
             throw new BadRequestException(
-              `Cannot reactivate order. Insufficient stock for product ID "${item.productId}". Available: ${inv?.currentStock || 0}, Required: ${item.quantity}`,
+              `Cannot reactivate order. No inventory record for product ID "${item.productId}"`,
             );
           }
-        }
 
-        // Deduct stock
-        for (const item of order.orderItems) {
-          const inv = await tx.inventory.findFirst({
-            where: {
-              productId: item.productId,
-              productSizeId: item.productSizeId || null,
-            },
-          });
-
-          if (inv) {
-            const stockBefore = inv.currentStock;
-            const stockAfter = stockBefore - item.quantity;
-
-            await tx.inventory.update({
-              where: { id: inv.id },
-              data: { currentStock: stockAfter },
+          {
+            const { stockBefore, stockAfter } = await this.takeStock(
+              tx,
+              inv.id,
+              item.quantity,
+              `product ID ${item.productId}`,
+            ).catch((error) => {
+              if (error instanceof BadRequestException) {
+                throw new BadRequestException(`Cannot reactivate order. ${error.message}`);
+              }
+              throw error;
             });
 
             await tx.inventoryTransaction.create({
@@ -1231,6 +1295,7 @@ export class OrderService implements OnModuleInit {
         data: {
           ...(dto.processingStatus && { processingStatus: dto.processingStatus }),
           ...(dto.paymentStatus && { paymentStatus: dto.paymentStatus }),
+          ...(dto.courierStatus && { courierStatus: dto.courierStatus }),
           orderProcessedBy: staffUser.id,
         },
         include: {

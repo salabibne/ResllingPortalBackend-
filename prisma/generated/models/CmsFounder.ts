@@ -191,7 +191,7 @@ export type CmsFounderWhereInput = {
   AND?: Prisma.CmsFounderWhereInput | Prisma.CmsFounderWhereInput[]
   OR?: Prisma.CmsFounderWhereInput[]
   NOT?: Prisma.CmsFounderWhereInput | Prisma.CmsFounderWhereInput[]
-  id?: Prisma.UuidFilter<"CmsFounder"> | string
+  id?: Prisma.StringFilter<"CmsFounder"> | string
   title?: Prisma.StringFilter<"CmsFounder"> | string
   description?: Prisma.StringFilter<"CmsFounder"> | string
   imageUrl?: Prisma.StringFilter<"CmsFounder"> | string
@@ -208,6 +208,7 @@ export type CmsFounderOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsFounderOrderByRelevanceInput
 }
 
 export type CmsFounderWhereUniqueInput = Prisma.AtLeast<{
@@ -240,7 +241,7 @@ export type CmsFounderScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsFounderScalarWhereWithAggregatesInput | Prisma.CmsFounderScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsFounderScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsFounderScalarWhereWithAggregatesInput | Prisma.CmsFounderScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsFounder"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsFounder"> | string
   title?: Prisma.StringWithAggregatesFilter<"CmsFounder"> | string
   description?: Prisma.StringWithAggregatesFilter<"CmsFounder"> | string
   imageUrl?: Prisma.StringWithAggregatesFilter<"CmsFounder"> | string
@@ -319,6 +320,12 @@ export type CmsFounderUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsFounderOrderByRelevanceInput = {
+  fields: Prisma.CmsFounderOrderByRelevanceFieldEnum | Prisma.CmsFounderOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsFounderCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -361,25 +368,7 @@ export type CmsFounderSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsFounder"]>
 
-export type CmsFounderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  description?: boolean
-  imageUrl?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsFounder"]>
 
-export type CmsFounderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  description?: boolean
-  imageUrl?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsFounder"]>
 
 export type CmsFounderSelectScalar = {
   id?: boolean
@@ -522,30 +511,6 @@ export interface CmsFounderDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends CmsFounderCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsFounderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsFounders and returns the data saved in the database.
-   * @param {CmsFounderCreateManyAndReturnArgs} args - Arguments to create many CmsFounders.
-   * @example
-   * // Create many CmsFounders
-   * const cmsFounder = await prisma.cmsFounder.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsFounders and only return the `id`
-   * const cmsFounderWithIdOnly = await prisma.cmsFounder.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsFounderCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsFounderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsFounderPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsFounder.
    * @param {CmsFounderDeleteArgs} args - Arguments to delete one CmsFounder.
    * @example
@@ -608,36 +573,6 @@ export interface CmsFounderDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends CmsFounderUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsFounderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsFounders and returns the data updated in the database.
-   * @param {CmsFounderUpdateManyAndReturnArgs} args - Arguments to update many CmsFounders.
-   * @example
-   * // Update many CmsFounders
-   * const cmsFounder = await prisma.cmsFounder.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsFounders and only return the `id`
-   * const cmsFounderWithIdOnly = await prisma.cmsFounder.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsFounderUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsFounderUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsFounderPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsFounder.
@@ -1048,25 +983,6 @@ export type CmsFounderCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * CmsFounder createManyAndReturn
- */
-export type CmsFounderCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsFounder
-   */
-  select?: Prisma.CmsFounderSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsFounder
-   */
-  omit?: Prisma.CmsFounderOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsFounders.
-   */
-  data: Prisma.CmsFounderCreateManyInput | Prisma.CmsFounderCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsFounder update
  */
 export type CmsFounderUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1092,32 +1008,6 @@ export type CmsFounderUpdateArgs<ExtArgs extends runtime.Types.Extensions.Intern
  * CmsFounder updateMany
  */
 export type CmsFounderUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsFounders.
-   */
-  data: Prisma.XOR<Prisma.CmsFounderUpdateManyMutationInput, Prisma.CmsFounderUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsFounders to update
-   */
-  where?: Prisma.CmsFounderWhereInput
-  /**
-   * Limit how many CmsFounders to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsFounder updateManyAndReturn
- */
-export type CmsFounderUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsFounder
-   */
-  select?: Prisma.CmsFounderSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsFounder
-   */
-  omit?: Prisma.CmsFounderOmit<ExtArgs> | null
   /**
    * The data used to update CmsFounders.
    */

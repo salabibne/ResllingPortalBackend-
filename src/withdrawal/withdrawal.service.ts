@@ -256,12 +256,12 @@ export class WithdrawalService {
     if (query.search?.trim()) {
       const search = query.search.trim();
       where.OR = [
-        { transactionId: { contains: search, mode: 'insensitive' } },
-        { accountDetails: { contains: search, mode: 'insensitive' } },
-        { reseller: { name: { contains: search, mode: 'insensitive' } } },
-        { reseller: { phone: { contains: search, mode: 'insensitive' } } },
-        { reseller: { email: { contains: search, mode: 'insensitive' } } },
-        { reseller: { pageName: { contains: search, mode: 'insensitive' } } },
+        { transactionId: { contains: search } },
+        { accountDetails: { contains: search } },
+        { reseller: { name: { contains: search } } },
+        { reseller: { phone: { contains: search } } },
+        { reseller: { email: { contains: search } } },
+        { reseller: { pageName: { contains: search } } },
       ];
     }
 

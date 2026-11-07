@@ -240,8 +240,8 @@ export type ProductPageConfigWhereInput = {
   AND?: Prisma.ProductPageConfigWhereInput | Prisma.ProductPageConfigWhereInput[]
   OR?: Prisma.ProductPageConfigWhereInput[]
   NOT?: Prisma.ProductPageConfigWhereInput | Prisma.ProductPageConfigWhereInput[]
-  id?: Prisma.UuidFilter<"ProductPageConfig"> | string
-  productId?: Prisma.UuidFilter<"ProductPageConfig"> | string
+  id?: Prisma.StringFilter<"ProductPageConfig"> | string
+  productId?: Prisma.StringFilter<"ProductPageConfig"> | string
   customTitle?: Prisma.StringNullableFilter<"ProductPageConfig"> | string | null
   customDescription?: Prisma.StringNullableFilter<"ProductPageConfig"> | string | null
   bannerImageUrl?: Prisma.StringNullableFilter<"ProductPageConfig"> | string | null
@@ -275,6 +275,7 @@ export type ProductPageConfigOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   product?: Prisma.ProductOrderByWithRelationInput
   sections?: Prisma.ProductPageSectionOrderByRelationAggregateInput
+  _relevance?: Prisma.ProductPageConfigOrderByRelevanceInput
 }
 
 export type ProductPageConfigWhereUniqueInput = Prisma.AtLeast<{
@@ -323,8 +324,8 @@ export type ProductPageConfigScalarWhereWithAggregatesInput = {
   AND?: Prisma.ProductPageConfigScalarWhereWithAggregatesInput | Prisma.ProductPageConfigScalarWhereWithAggregatesInput[]
   OR?: Prisma.ProductPageConfigScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProductPageConfigScalarWhereWithAggregatesInput | Prisma.ProductPageConfigScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"ProductPageConfig"> | string
-  productId?: Prisma.UuidWithAggregatesFilter<"ProductPageConfig"> | string
+  id?: Prisma.StringWithAggregatesFilter<"ProductPageConfig"> | string
+  productId?: Prisma.StringWithAggregatesFilter<"ProductPageConfig"> | string
   customTitle?: Prisma.StringNullableWithAggregatesFilter<"ProductPageConfig"> | string | null
   customDescription?: Prisma.StringNullableWithAggregatesFilter<"ProductPageConfig"> | string | null
   bannerImageUrl?: Prisma.StringNullableWithAggregatesFilter<"ProductPageConfig"> | string | null
@@ -464,6 +465,12 @@ export type ProductPageConfigUncheckedUpdateManyInput = {
 export type ProductPageConfigNullableScalarRelationFilter = {
   is?: Prisma.ProductPageConfigWhereInput | null
   isNot?: Prisma.ProductPageConfigWhereInput | null
+}
+
+export type ProductPageConfigOrderByRelevanceInput = {
+  fields: Prisma.ProductPageConfigOrderByRelevanceFieldEnum | Prisma.ProductPageConfigOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type ProductPageConfigCountOrderByAggregateInput = {
@@ -787,41 +794,7 @@ export type ProductPageConfigSelect<ExtArgs extends runtime.Types.Extensions.Int
   _count?: boolean | Prisma.ProductPageConfigCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productPageConfig"]>
 
-export type ProductPageConfigSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  productId?: boolean
-  customTitle?: boolean
-  customDescription?: boolean
-  bannerImageUrl?: boolean
-  videoUrl?: boolean
-  showReviews?: boolean
-  showFaq?: boolean
-  showRelatedItems?: boolean
-  isLandingPage?: boolean
-  metaTitle?: boolean
-  metaDescription?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["productPageConfig"]>
 
-export type ProductPageConfigSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  productId?: boolean
-  customTitle?: boolean
-  customDescription?: boolean
-  bannerImageUrl?: boolean
-  videoUrl?: boolean
-  showReviews?: boolean
-  showFaq?: boolean
-  showRelatedItems?: boolean
-  isLandingPage?: boolean
-  metaTitle?: boolean
-  metaDescription?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["productPageConfig"]>
 
 export type ProductPageConfigSelectScalar = {
   id?: boolean
@@ -845,12 +818,6 @@ export type ProductPageConfigInclude<ExtArgs extends runtime.Types.Extensions.In
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   sections?: boolean | Prisma.ProductPageConfig$sectionsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductPageConfigCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type ProductPageConfigIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-}
-export type ProductPageConfigIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 
 export type $ProductPageConfigPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -992,30 +959,6 @@ export interface ProductPageConfigDelegate<ExtArgs extends runtime.Types.Extensi
   createMany<T extends ProductPageConfigCreateManyArgs>(args?: Prisma.SelectSubset<T, ProductPageConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many ProductPageConfigs and returns the data saved in the database.
-   * @param {ProductPageConfigCreateManyAndReturnArgs} args - Arguments to create many ProductPageConfigs.
-   * @example
-   * // Create many ProductPageConfigs
-   * const productPageConfig = await prisma.productPageConfig.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many ProductPageConfigs and only return the `id`
-   * const productPageConfigWithIdOnly = await prisma.productPageConfig.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends ProductPageConfigCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ProductPageConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPageConfigPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a ProductPageConfig.
    * @param {ProductPageConfigDeleteArgs} args - Arguments to delete one ProductPageConfig.
    * @example
@@ -1078,36 +1021,6 @@ export interface ProductPageConfigDelegate<ExtArgs extends runtime.Types.Extensi
    * 
    */
   updateMany<T extends ProductPageConfigUpdateManyArgs>(args: Prisma.SelectSubset<T, ProductPageConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more ProductPageConfigs and returns the data updated in the database.
-   * @param {ProductPageConfigUpdateManyAndReturnArgs} args - Arguments to update many ProductPageConfigs.
-   * @example
-   * // Update many ProductPageConfigs
-   * const productPageConfig = await prisma.productPageConfig.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more ProductPageConfigs and only return the `id`
-   * const productPageConfigWithIdOnly = await prisma.productPageConfig.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends ProductPageConfigUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ProductPageConfigUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPageConfigPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one ProductPageConfig.
@@ -1551,29 +1464,6 @@ export type ProductPageConfigCreateManyArgs<ExtArgs extends runtime.Types.Extens
 }
 
 /**
- * ProductPageConfig createManyAndReturn
- */
-export type ProductPageConfigCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductPageConfig
-   */
-  select?: Prisma.ProductPageConfigSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductPageConfig
-   */
-  omit?: Prisma.ProductPageConfigOmit<ExtArgs> | null
-  /**
-   * The data used to create many ProductPageConfigs.
-   */
-  data: Prisma.ProductPageConfigCreateManyInput | Prisma.ProductPageConfigCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductPageConfigIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * ProductPageConfig update
  */
 export type ProductPageConfigUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1615,36 +1505,6 @@ export type ProductPageConfigUpdateManyArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many ProductPageConfigs to update.
    */
   limit?: number
-}
-
-/**
- * ProductPageConfig updateManyAndReturn
- */
-export type ProductPageConfigUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductPageConfig
-   */
-  select?: Prisma.ProductPageConfigSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductPageConfig
-   */
-  omit?: Prisma.ProductPageConfigOmit<ExtArgs> | null
-  /**
-   * The data used to update ProductPageConfigs.
-   */
-  data: Prisma.XOR<Prisma.ProductPageConfigUpdateManyMutationInput, Prisma.ProductPageConfigUncheckedUpdateManyInput>
-  /**
-   * Filter which ProductPageConfigs to update
-   */
-  where?: Prisma.ProductPageConfigWhereInput
-  /**
-   * Limit how many ProductPageConfigs to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductPageConfigIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

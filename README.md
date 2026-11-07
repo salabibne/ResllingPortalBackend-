@@ -2,10 +2,10 @@
 
 [![NestJS](https://img.shields.io/badge/NestJS-10.0-E0234E?style=for-the-badge&logo=nestjs)](https://nestjs.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-7.8.0-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16.0-4169E1?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.x-4479A1?style=for-the-badge&logo=mysql)](https://www.mysql.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 
-The **Backend RESTful API Service** for the **Aarham Apparel Platform**. Built with **NestJS**, **Prisma ORM**, and **PostgreSQL**, this service handles business logic, complex data modeling for dual-tier pricing, inventory audit ledgers, secure authentication, and order processing workflows.
+The **Backend RESTful API Service** for the **Aarham Apparel Platform**. Built with **NestJS**, **Prisma ORM**, and **MySQL**, this service handles business logic, complex data modeling for dual-tier pricing, inventory audit ledgers, secure authentication, and order processing workflows.
 
 ---
 
@@ -103,7 +103,7 @@ Create a `.env` file in the `Backend/` directory:
 
 ```env
 # Database connection
-DATABASE_URL="postgresql://postgres:password@localhost:5432/aarham_apparel?schema=public"
+DATABASE_URL="mysql://aarham:aarham@localhost:3306/aarham_apparel"
 
 # JWT Authentication
 ACCESS_TOKEN_SECRET="your_access_token_secret_key_here"
@@ -147,20 +147,34 @@ npm run start:prod
 ```
 Backend API will be accessible at: `http://localhost:3000`
 
+### 4. API Write-Request Checks (Postman)
+[`write_requests_postman_collection.json`](./write_requests_postman_collection.json) runs POST, PATCH and DELETE requests across categories, products, inventory, cart and orders (32 requests, 42 assertions). It also checks that cancelling an order puts its stock back.
+
+> ⚠️ It creates users, products and orders, cancels an order and deactivates categories. Run it against a **local or test database only**, never production.
+
+```bash
+# 1. Create the test admin (admin@example.com) used by the collection
+npx ts-node scratch-create-admin.ts
+
+# 2. Start the API (see step 3), then run the collection
+postman collection run write_requests_postman_collection.json -e local_postman_environment.json
+```
+[`local_postman_environment.json`](./local_postman_environment.json) points at `http://localhost:3000` and holds the local test admin's login. A run passes when the exit code is `0`. You can also import both files into the Postman app and use the Collection Runner.
+
 ---
 
 ## ☁️ Render Deployment
 
-This repo ships with a [`render.yaml`](./render.yaml) Blueprint that deploys a **Node web service** and connects it to your existing Render **PostgreSQL** instance (`resellingplatform`).
+This repo ships with a [`render.yaml`](./render.yaml) Blueprint that deploys a **Node web service** and connects it to an external **MySQL / MariaDB** database (Render has no managed MySQL, so use your hosting provider's MySQL, e.g. cPanel + phpMyAdmin).
 
 1. Push the repo to GitHub, then in the Render Dashboard choose **New → Blueprint** and select the repository.
 2. On sync, Render prompts for the values marked `sync: false`. Paste them in the dashboard — they are stored as encrypted secrets and are **never** committed to the repo:
-   - `DATABASE_URL` — the **Internal Database URL** of the `resellingplatform` instance (`postgresql://resellingplatform_user:…@dpg-db1ib31srm7s73bqrklg-a/resellingplatform`).
+   - `DATABASE_URL` — the MySQL connection string, `mysql://USER:PASSWORD@HOST:3306/DATABASE`. On shared hosting, allow the Render server under **Remote MySQL** first.
    - `FRONTEND_URL` — the deployed frontend origin used for CORS.
    - `STEADFAST_API_KEY` / `STEADFAST_SECRET_KEY` — courier credentials (optional at first boot).
 3. `PORT` is provided by Render; the JWT secrets are generated automatically.
 
-> The internal host (`dpg-…-a`) only resolves from a service inside Render, so the web service region must match the database's region. Supply the URL through `sync` (dashboard) rather than hardcoding it in the Blueprint.
+> The database must accept connections from Render's outbound IPs. Supply the URL through `sync` (dashboard) rather than hardcoding it in the Blueprint.
 
 **How it runs**
 - Build: `npm ci --include=dev && npm run build` (installs dev deps, generates Prisma Client, compiles Nest).

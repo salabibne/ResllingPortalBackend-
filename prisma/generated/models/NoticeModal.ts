@@ -226,7 +226,7 @@ export type NoticeModalWhereInput = {
   AND?: Prisma.NoticeModalWhereInput | Prisma.NoticeModalWhereInput[]
   OR?: Prisma.NoticeModalWhereInput[]
   NOT?: Prisma.NoticeModalWhereInput | Prisma.NoticeModalWhereInput[]
-  id?: Prisma.UuidFilter<"NoticeModal"> | string
+  id?: Prisma.StringFilter<"NoticeModal"> | string
   title?: Prisma.StringFilter<"NoticeModal"> | string
   content?: Prisma.StringFilter<"NoticeModal"> | string
   imageUrl?: Prisma.StringNullableFilter<"NoticeModal"> | string | null
@@ -253,6 +253,7 @@ export type NoticeModalOrderByWithRelationInput = {
   endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.NoticeModalOrderByRelevanceInput
 }
 
 export type NoticeModalWhereUniqueInput = Prisma.AtLeast<{
@@ -295,7 +296,7 @@ export type NoticeModalScalarWhereWithAggregatesInput = {
   AND?: Prisma.NoticeModalScalarWhereWithAggregatesInput | Prisma.NoticeModalScalarWhereWithAggregatesInput[]
   OR?: Prisma.NoticeModalScalarWhereWithAggregatesInput[]
   NOT?: Prisma.NoticeModalScalarWhereWithAggregatesInput | Prisma.NoticeModalScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"NoticeModal"> | string
+  id?: Prisma.StringWithAggregatesFilter<"NoticeModal"> | string
   title?: Prisma.StringWithAggregatesFilter<"NoticeModal"> | string
   content?: Prisma.StringWithAggregatesFilter<"NoticeModal"> | string
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"NoticeModal"> | string | null
@@ -414,6 +415,12 @@ export type NoticeModalUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type NoticeModalOrderByRelevanceInput = {
+  fields: Prisma.NoticeModalOrderByRelevanceFieldEnum | Prisma.NoticeModalOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type NoticeModalCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -480,35 +487,7 @@ export type NoticeModalSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   updatedAt?: boolean
 }, ExtArgs["result"]["noticeModal"]>
 
-export type NoticeModalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  content?: boolean
-  imageUrl?: boolean
-  buttonText?: boolean
-  buttonLink?: boolean
-  targetAudience?: boolean
-  status?: boolean
-  startDate?: boolean
-  endDate?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["noticeModal"]>
 
-export type NoticeModalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  content?: boolean
-  imageUrl?: boolean
-  buttonText?: boolean
-  buttonLink?: boolean
-  targetAudience?: boolean
-  status?: boolean
-  startDate?: boolean
-  endDate?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["noticeModal"]>
 
 export type NoticeModalSelectScalar = {
   id?: boolean
@@ -661,30 +640,6 @@ export interface NoticeModalDelegate<ExtArgs extends runtime.Types.Extensions.In
   createMany<T extends NoticeModalCreateManyArgs>(args?: Prisma.SelectSubset<T, NoticeModalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many NoticeModals and returns the data saved in the database.
-   * @param {NoticeModalCreateManyAndReturnArgs} args - Arguments to create many NoticeModals.
-   * @example
-   * // Create many NoticeModals
-   * const noticeModal = await prisma.noticeModal.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many NoticeModals and only return the `id`
-   * const noticeModalWithIdOnly = await prisma.noticeModal.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends NoticeModalCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, NoticeModalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NoticeModalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a NoticeModal.
    * @param {NoticeModalDeleteArgs} args - Arguments to delete one NoticeModal.
    * @example
@@ -747,36 +702,6 @@ export interface NoticeModalDelegate<ExtArgs extends runtime.Types.Extensions.In
    * 
    */
   updateMany<T extends NoticeModalUpdateManyArgs>(args: Prisma.SelectSubset<T, NoticeModalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more NoticeModals and returns the data updated in the database.
-   * @param {NoticeModalUpdateManyAndReturnArgs} args - Arguments to update many NoticeModals.
-   * @example
-   * // Update many NoticeModals
-   * const noticeModal = await prisma.noticeModal.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more NoticeModals and only return the `id`
-   * const noticeModalWithIdOnly = await prisma.noticeModal.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends NoticeModalUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, NoticeModalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NoticeModalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one NoticeModal.
@@ -1192,25 +1117,6 @@ export type NoticeModalCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * NoticeModal createManyAndReturn
- */
-export type NoticeModalCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the NoticeModal
-   */
-  select?: Prisma.NoticeModalSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the NoticeModal
-   */
-  omit?: Prisma.NoticeModalOmit<ExtArgs> | null
-  /**
-   * The data used to create many NoticeModals.
-   */
-  data: Prisma.NoticeModalCreateManyInput | Prisma.NoticeModalCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * NoticeModal update
  */
 export type NoticeModalUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1236,32 +1142,6 @@ export type NoticeModalUpdateArgs<ExtArgs extends runtime.Types.Extensions.Inter
  * NoticeModal updateMany
  */
 export type NoticeModalUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update NoticeModals.
-   */
-  data: Prisma.XOR<Prisma.NoticeModalUpdateManyMutationInput, Prisma.NoticeModalUncheckedUpdateManyInput>
-  /**
-   * Filter which NoticeModals to update
-   */
-  where?: Prisma.NoticeModalWhereInput
-  /**
-   * Limit how many NoticeModals to update.
-   */
-  limit?: number
-}
-
-/**
- * NoticeModal updateManyAndReturn
- */
-export type NoticeModalUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the NoticeModal
-   */
-  select?: Prisma.NoticeModalSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the NoticeModal
-   */
-  omit?: Prisma.NoticeModalOmit<ExtArgs> | null
   /**
    * The data used to update NoticeModals.
    */

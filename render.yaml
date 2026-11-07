@@ -1,5 +1,5 @@
-# This project connects to the existing Render PostgreSQL instance
-# (`resellingplatform`) rather than provisioning a managed database here.
+# This project connects to an external MySQL / MariaDB database
+# (Render has no managed MySQL). DATABASE_URL format: mysql://USER:PASS@HOST:3306/DB
 # Its connection string is supplied via the dashboard (`sync: false`) below.
 
 services:

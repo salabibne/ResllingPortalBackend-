@@ -1,7 +1,7 @@
 import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common';
-import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from "../../prisma/generated/client";
 import { config } from 'dotenv';
+import { createMySqlAdapter } from './mysql-adapter';
 
 config();
 
@@ -9,9 +9,7 @@ config();
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   constructor() {
     super({
-      adapter: new PrismaPg({
-        connectionString: process.env.DATABASE_URL ?? '',
-      }),
+      adapter: createMySqlAdapter(),
     });
   }
 

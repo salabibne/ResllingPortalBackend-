@@ -22,7 +22,7 @@ export interface LegacyRow {
   subtitle: string | null;
   description: string | null;
   imageUrl: string | null;
-  images: string[];
+  images: unknown;
   imageDescription: string | null;
   buttonText: string | null;
   buttonLink: string | null;
@@ -39,7 +39,7 @@ export interface ConvertedSection {
   subtitle: string | null;
   description: string | null;
   imageUrl: string | null;
-  images: string[];
+  images: unknown;
   imageDescription: string | null;
   buttonText: string | null;
   buttonLink: string | null;

@@ -163,9 +163,9 @@ export type ProductColorWhereInput = {
   AND?: Prisma.ProductColorWhereInput | Prisma.ProductColorWhereInput[]
   OR?: Prisma.ProductColorWhereInput[]
   NOT?: Prisma.ProductColorWhereInput | Prisma.ProductColorWhereInput[]
-  id?: Prisma.UuidFilter<"ProductColor"> | string
-  productId?: Prisma.UuidFilter<"ProductColor"> | string
-  colorId?: Prisma.UuidFilter<"ProductColor"> | string
+  id?: Prisma.StringFilter<"ProductColor"> | string
+  productId?: Prisma.StringFilter<"ProductColor"> | string
+  colorId?: Prisma.StringFilter<"ProductColor"> | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   color?: Prisma.XOR<Prisma.ColorScalarRelationFilter, Prisma.ColorWhereInput>
   cartItems?: Prisma.CartItemListRelationFilter
@@ -180,6 +180,7 @@ export type ProductColorOrderByWithRelationInput = {
   color?: Prisma.ColorOrderByWithRelationInput
   cartItems?: Prisma.CartItemOrderByRelationAggregateInput
   orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
+  _relevance?: Prisma.ProductColorOrderByRelevanceInput
 }
 
 export type ProductColorWhereUniqueInput = Prisma.AtLeast<{
@@ -188,8 +189,8 @@ export type ProductColorWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ProductColorWhereInput | Prisma.ProductColorWhereInput[]
   OR?: Prisma.ProductColorWhereInput[]
   NOT?: Prisma.ProductColorWhereInput | Prisma.ProductColorWhereInput[]
-  productId?: Prisma.UuidFilter<"ProductColor"> | string
-  colorId?: Prisma.UuidFilter<"ProductColor"> | string
+  productId?: Prisma.StringFilter<"ProductColor"> | string
+  colorId?: Prisma.StringFilter<"ProductColor"> | string
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   color?: Prisma.XOR<Prisma.ColorScalarRelationFilter, Prisma.ColorWhereInput>
   cartItems?: Prisma.CartItemListRelationFilter
@@ -209,9 +210,9 @@ export type ProductColorScalarWhereWithAggregatesInput = {
   AND?: Prisma.ProductColorScalarWhereWithAggregatesInput | Prisma.ProductColorScalarWhereWithAggregatesInput[]
   OR?: Prisma.ProductColorScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProductColorScalarWhereWithAggregatesInput | Prisma.ProductColorScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"ProductColor"> | string
-  productId?: Prisma.UuidWithAggregatesFilter<"ProductColor"> | string
-  colorId?: Prisma.UuidWithAggregatesFilter<"ProductColor"> | string
+  id?: Prisma.StringWithAggregatesFilter<"ProductColor"> | string
+  productId?: Prisma.StringWithAggregatesFilter<"ProductColor"> | string
+  colorId?: Prisma.StringWithAggregatesFilter<"ProductColor"> | string
 }
 
 export type ProductColorCreateInput = {
@@ -270,6 +271,12 @@ export type ProductColorListRelationFilter = {
 
 export type ProductColorOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ProductColorOrderByRelevanceInput = {
+  fields: Prisma.ProductColorOrderByRelevanceFieldEnum | Prisma.ProductColorOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type ProductColorProductIdColorIdCompoundUniqueInput = {
@@ -460,9 +467,9 @@ export type ProductColorScalarWhereInput = {
   AND?: Prisma.ProductColorScalarWhereInput | Prisma.ProductColorScalarWhereInput[]
   OR?: Prisma.ProductColorScalarWhereInput[]
   NOT?: Prisma.ProductColorScalarWhereInput | Prisma.ProductColorScalarWhereInput[]
-  id?: Prisma.UuidFilter<"ProductColor"> | string
-  productId?: Prisma.UuidFilter<"ProductColor"> | string
-  colorId?: Prisma.UuidFilter<"ProductColor"> | string
+  id?: Prisma.StringFilter<"ProductColor"> | string
+  productId?: Prisma.StringFilter<"ProductColor"> | string
+  colorId?: Prisma.StringFilter<"ProductColor"> | string
 }
 
 export type ProductColorCreateWithoutColorInput = {
@@ -692,21 +699,7 @@ export type ProductColorSelect<ExtArgs extends runtime.Types.Extensions.Internal
   _count?: boolean | Prisma.ProductColorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productColor"]>
 
-export type ProductColorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  productId?: boolean
-  colorId?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  color?: boolean | Prisma.ColorDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["productColor"]>
 
-export type ProductColorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  productId?: boolean
-  colorId?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  color?: boolean | Prisma.ColorDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["productColor"]>
 
 export type ProductColorSelectScalar = {
   id?: boolean
@@ -721,14 +714,6 @@ export type ProductColorInclude<ExtArgs extends runtime.Types.Extensions.Interna
   cartItems?: boolean | Prisma.ProductColor$cartItemsArgs<ExtArgs>
   orderItems?: boolean | Prisma.ProductColor$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.ProductColorCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type ProductColorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  color?: boolean | Prisma.ColorDefaultArgs<ExtArgs>
-}
-export type ProductColorIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
-  color?: boolean | Prisma.ColorDefaultArgs<ExtArgs>
 }
 
 export type $ProductColorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -861,30 +846,6 @@ export interface ProductColorDelegate<ExtArgs extends runtime.Types.Extensions.I
   createMany<T extends ProductColorCreateManyArgs>(args?: Prisma.SelectSubset<T, ProductColorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many ProductColors and returns the data saved in the database.
-   * @param {ProductColorCreateManyAndReturnArgs} args - Arguments to create many ProductColors.
-   * @example
-   * // Create many ProductColors
-   * const productColor = await prisma.productColor.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many ProductColors and only return the `id`
-   * const productColorWithIdOnly = await prisma.productColor.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends ProductColorCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ProductColorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductColorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a ProductColor.
    * @param {ProductColorDeleteArgs} args - Arguments to delete one ProductColor.
    * @example
@@ -947,36 +908,6 @@ export interface ProductColorDelegate<ExtArgs extends runtime.Types.Extensions.I
    * 
    */
   updateMany<T extends ProductColorUpdateManyArgs>(args: Prisma.SelectSubset<T, ProductColorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more ProductColors and returns the data updated in the database.
-   * @param {ProductColorUpdateManyAndReturnArgs} args - Arguments to update many ProductColors.
-   * @example
-   * // Update many ProductColors
-   * const productColor = await prisma.productColor.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more ProductColors and only return the `id`
-   * const productColorWithIdOnly = await prisma.productColor.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends ProductColorUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ProductColorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductColorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one ProductColor.
@@ -1411,29 +1342,6 @@ export type ProductColorCreateManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
- * ProductColor createManyAndReturn
- */
-export type ProductColorCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductColor
-   */
-  select?: Prisma.ProductColorSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductColor
-   */
-  omit?: Prisma.ProductColorOmit<ExtArgs> | null
-  /**
-   * The data used to create many ProductColors.
-   */
-  data: Prisma.ProductColorCreateManyInput | Prisma.ProductColorCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductColorIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * ProductColor update
  */
 export type ProductColorUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1475,36 +1383,6 @@ export type ProductColorUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many ProductColors to update.
    */
   limit?: number
-}
-
-/**
- * ProductColor updateManyAndReturn
- */
-export type ProductColorUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProductColor
-   */
-  select?: Prisma.ProductColorSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProductColor
-   */
-  omit?: Prisma.ProductColorOmit<ExtArgs> | null
-  /**
-   * The data used to update ProductColors.
-   */
-  data: Prisma.XOR<Prisma.ProductColorUpdateManyMutationInput, Prisma.ProductColorUncheckedUpdateManyInput>
-  /**
-   * Filter which ProductColors to update
-   */
-  where?: Prisma.ProductColorWhereInput
-  /**
-   * Limit how many ProductColors to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductColorIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

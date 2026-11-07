@@ -219,7 +219,7 @@ export type CmsAboutWhereInput = {
   AND?: Prisma.CmsAboutWhereInput | Prisma.CmsAboutWhereInput[]
   OR?: Prisma.CmsAboutWhereInput[]
   NOT?: Prisma.CmsAboutWhereInput | Prisma.CmsAboutWhereInput[]
-  id?: Prisma.UuidFilter<"CmsAbout"> | string
+  id?: Prisma.StringFilter<"CmsAbout"> | string
   title?: Prisma.StringFilter<"CmsAbout"> | string
   description?: Prisma.StringFilter<"CmsAbout"> | string
   youtubeLink?: Prisma.StringFilter<"CmsAbout"> | string
@@ -244,6 +244,7 @@ export type CmsAboutOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsAboutOrderByRelevanceInput
 }
 
 export type CmsAboutWhereUniqueInput = Prisma.AtLeast<{
@@ -284,7 +285,7 @@ export type CmsAboutScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsAboutScalarWhereWithAggregatesInput | Prisma.CmsAboutScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsAboutScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsAboutScalarWhereWithAggregatesInput | Prisma.CmsAboutScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsAbout"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsAbout"> | string
   title?: Prisma.StringWithAggregatesFilter<"CmsAbout"> | string
   description?: Prisma.StringWithAggregatesFilter<"CmsAbout"> | string
   youtubeLink?: Prisma.StringWithAggregatesFilter<"CmsAbout"> | string
@@ -395,6 +396,12 @@ export type CmsAboutUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsAboutOrderByRelevanceInput = {
+  fields: Prisma.CmsAboutOrderByRelevanceFieldEnum | Prisma.CmsAboutOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsAboutCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -453,33 +460,7 @@ export type CmsAboutSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsAbout"]>
 
-export type CmsAboutSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  description?: boolean
-  youtubeLink?: boolean
-  buttonText1?: boolean
-  buttonLink1?: boolean
-  buttonText2?: boolean
-  buttonLink2?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsAbout"]>
 
-export type CmsAboutSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  description?: boolean
-  youtubeLink?: boolean
-  buttonText1?: boolean
-  buttonLink1?: boolean
-  buttonText2?: boolean
-  buttonLink2?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsAbout"]>
 
 export type CmsAboutSelectScalar = {
   id?: boolean
@@ -630,30 +611,6 @@ export interface CmsAboutDelegate<ExtArgs extends runtime.Types.Extensions.Inter
   createMany<T extends CmsAboutCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsAboutCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsAbouts and returns the data saved in the database.
-   * @param {CmsAboutCreateManyAndReturnArgs} args - Arguments to create many CmsAbouts.
-   * @example
-   * // Create many CmsAbouts
-   * const cmsAbout = await prisma.cmsAbout.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsAbouts and only return the `id`
-   * const cmsAboutWithIdOnly = await prisma.cmsAbout.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsAboutCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsAboutCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsAboutPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsAbout.
    * @param {CmsAboutDeleteArgs} args - Arguments to delete one CmsAbout.
    * @example
@@ -716,36 +673,6 @@ export interface CmsAboutDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    * 
    */
   updateMany<T extends CmsAboutUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsAboutUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsAbouts and returns the data updated in the database.
-   * @param {CmsAboutUpdateManyAndReturnArgs} args - Arguments to update many CmsAbouts.
-   * @example
-   * // Update many CmsAbouts
-   * const cmsAbout = await prisma.cmsAbout.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsAbouts and only return the `id`
-   * const cmsAboutWithIdOnly = await prisma.cmsAbout.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsAboutUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsAboutUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsAboutPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsAbout.
@@ -1160,25 +1087,6 @@ export type CmsAboutCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * CmsAbout createManyAndReturn
- */
-export type CmsAboutCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsAbout
-   */
-  select?: Prisma.CmsAboutSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsAbout
-   */
-  omit?: Prisma.CmsAboutOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsAbouts.
-   */
-  data: Prisma.CmsAboutCreateManyInput | Prisma.CmsAboutCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsAbout update
  */
 export type CmsAboutUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1204,32 +1112,6 @@ export type CmsAboutUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
  * CmsAbout updateMany
  */
 export type CmsAboutUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsAbouts.
-   */
-  data: Prisma.XOR<Prisma.CmsAboutUpdateManyMutationInput, Prisma.CmsAboutUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsAbouts to update
-   */
-  where?: Prisma.CmsAboutWhereInput
-  /**
-   * Limit how many CmsAbouts to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsAbout updateManyAndReturn
- */
-export type CmsAboutUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsAbout
-   */
-  select?: Prisma.CmsAboutSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsAbout
-   */
-  omit?: Prisma.CmsAboutOmit<ExtArgs> | null
   /**
    * The data used to update CmsAbouts.
    */

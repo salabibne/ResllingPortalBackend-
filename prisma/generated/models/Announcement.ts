@@ -198,7 +198,7 @@ export type AnnouncementWhereInput = {
   AND?: Prisma.AnnouncementWhereInput | Prisma.AnnouncementWhereInput[]
   OR?: Prisma.AnnouncementWhereInput[]
   NOT?: Prisma.AnnouncementWhereInput | Prisma.AnnouncementWhereInput[]
-  id?: Prisma.UuidFilter<"Announcement"> | string
+  id?: Prisma.StringFilter<"Announcement"> | string
   title?: Prisma.StringFilter<"Announcement"> | string
   content?: Prisma.StringFilter<"Announcement"> | string
   linkUrl?: Prisma.StringNullableFilter<"Announcement"> | string | null
@@ -217,6 +217,7 @@ export type AnnouncementOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.AnnouncementOrderByRelevanceInput
 }
 
 export type AnnouncementWhereUniqueInput = Prisma.AtLeast<{
@@ -251,7 +252,7 @@ export type AnnouncementScalarWhereWithAggregatesInput = {
   AND?: Prisma.AnnouncementScalarWhereWithAggregatesInput | Prisma.AnnouncementScalarWhereWithAggregatesInput[]
   OR?: Prisma.AnnouncementScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AnnouncementScalarWhereWithAggregatesInput | Prisma.AnnouncementScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Announcement"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Announcement"> | string
   title?: Prisma.StringWithAggregatesFilter<"Announcement"> | string
   content?: Prisma.StringWithAggregatesFilter<"Announcement"> | string
   linkUrl?: Prisma.StringNullableWithAggregatesFilter<"Announcement"> | string | null
@@ -338,6 +339,12 @@ export type AnnouncementUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type AnnouncementOrderByRelevanceInput = {
+  fields: Prisma.AnnouncementOrderByRelevanceFieldEnum | Prisma.AnnouncementOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type AnnouncementCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -384,27 +391,7 @@ export type AnnouncementSelect<ExtArgs extends runtime.Types.Extensions.Internal
   updatedAt?: boolean
 }, ExtArgs["result"]["announcement"]>
 
-export type AnnouncementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  content?: boolean
-  linkUrl?: boolean
-  expiresDate?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["announcement"]>
 
-export type AnnouncementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  content?: boolean
-  linkUrl?: boolean
-  expiresDate?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["announcement"]>
 
 export type AnnouncementSelectScalar = {
   id?: boolean
@@ -549,30 +536,6 @@ export interface AnnouncementDelegate<ExtArgs extends runtime.Types.Extensions.I
   createMany<T extends AnnouncementCreateManyArgs>(args?: Prisma.SelectSubset<T, AnnouncementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many Announcements and returns the data saved in the database.
-   * @param {AnnouncementCreateManyAndReturnArgs} args - Arguments to create many Announcements.
-   * @example
-   * // Create many Announcements
-   * const announcement = await prisma.announcement.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many Announcements and only return the `id`
-   * const announcementWithIdOnly = await prisma.announcement.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends AnnouncementCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, AnnouncementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a Announcement.
    * @param {AnnouncementDeleteArgs} args - Arguments to delete one Announcement.
    * @example
@@ -635,36 +598,6 @@ export interface AnnouncementDelegate<ExtArgs extends runtime.Types.Extensions.I
    * 
    */
   updateMany<T extends AnnouncementUpdateManyArgs>(args: Prisma.SelectSubset<T, AnnouncementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more Announcements and returns the data updated in the database.
-   * @param {AnnouncementUpdateManyAndReturnArgs} args - Arguments to update many Announcements.
-   * @example
-   * // Update many Announcements
-   * const announcement = await prisma.announcement.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more Announcements and only return the `id`
-   * const announcementWithIdOnly = await prisma.announcement.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends AnnouncementUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, AnnouncementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AnnouncementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Announcement.
@@ -1076,25 +1009,6 @@ export type AnnouncementCreateManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
- * Announcement createManyAndReturn
- */
-export type AnnouncementCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Announcement
-   */
-  select?: Prisma.AnnouncementSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the Announcement
-   */
-  omit?: Prisma.AnnouncementOmit<ExtArgs> | null
-  /**
-   * The data used to create many Announcements.
-   */
-  data: Prisma.AnnouncementCreateManyInput | Prisma.AnnouncementCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * Announcement update
  */
 export type AnnouncementUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1120,32 +1034,6 @@ export type AnnouncementUpdateArgs<ExtArgs extends runtime.Types.Extensions.Inte
  * Announcement updateMany
  */
 export type AnnouncementUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update Announcements.
-   */
-  data: Prisma.XOR<Prisma.AnnouncementUpdateManyMutationInput, Prisma.AnnouncementUncheckedUpdateManyInput>
-  /**
-   * Filter which Announcements to update
-   */
-  where?: Prisma.AnnouncementWhereInput
-  /**
-   * Limit how many Announcements to update.
-   */
-  limit?: number
-}
-
-/**
- * Announcement updateManyAndReturn
- */
-export type AnnouncementUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Announcement
-   */
-  select?: Prisma.AnnouncementSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the Announcement
-   */
-  omit?: Prisma.AnnouncementOmit<ExtArgs> | null
   /**
    * The data used to update Announcements.
    */

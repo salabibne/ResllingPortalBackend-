@@ -57,8 +57,8 @@ export class SupportService {
       ...(query.search
         ? {
             OR: [
-              { ticketId: { contains: query.search, mode: 'insensitive' as const } },
-              { message: { contains: query.search, mode: 'insensitive' as const } },
+              { ticketId: { contains: query.search } },
+              { message: { contains: query.search } },
             ],
           }
         : {}),
@@ -131,16 +131,16 @@ export class SupportService {
       ...(query.search
         ? {
             OR: [
-              { ticketId: { contains: query.search, mode: 'insensitive' as const } },
-              { message: { contains: query.search, mode: 'insensitive' as const } },
+              { ticketId: { contains: query.search } },
+              { message: { contains: query.search } },
               {
                 user: {
-                  name: { contains: query.search, mode: 'insensitive' as const },
+                  name: { contains: query.search },
                 },
               },
               {
                 user: {
-                  email: { contains: query.search, mode: 'insensitive' as const },
+                  email: { contains: query.search },
                 },
               },
             ],

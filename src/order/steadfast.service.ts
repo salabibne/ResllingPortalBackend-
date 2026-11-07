@@ -127,7 +127,7 @@ export class SteadfastService {
 
     if (!apiKey || !secretKey || apiKey.includes('your_steadfast')) {
       const dbApi = await this.prisma.externalApi.findFirst({
-        where: { apiName: { contains: 'steadfast', mode: 'insensitive' } },
+        where: { apiName: { contains: 'steadfast' } },
       });
       if (dbApi && dbApi.credentials) {
         try {
@@ -164,7 +164,7 @@ export class SteadfastService {
   }> {
     try {
       const dbApi = await this.prisma.externalApi.findFirst({
-        where: { apiName: { contains: 'steadfast', mode: 'insensitive' } },
+        where: { apiName: { contains: 'steadfast' } },
       });
       if (!dbApi?.credentials) return { apiKey: '', secretKey: '' };
 

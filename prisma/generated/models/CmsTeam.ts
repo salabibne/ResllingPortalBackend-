@@ -239,7 +239,7 @@ export type CmsTeamWhereInput = {
   AND?: Prisma.CmsTeamWhereInput | Prisma.CmsTeamWhereInput[]
   OR?: Prisma.CmsTeamWhereInput[]
   NOT?: Prisma.CmsTeamWhereInput | Prisma.CmsTeamWhereInput[]
-  id?: Prisma.UuidFilter<"CmsTeam"> | string
+  id?: Prisma.StringFilter<"CmsTeam"> | string
   name?: Prisma.StringFilter<"CmsTeam"> | string
   designation?: Prisma.StringFilter<"CmsTeam"> | string
   imageUrl?: Prisma.StringFilter<"CmsTeam"> | string
@@ -260,6 +260,7 @@ export type CmsTeamOrderByWithRelationInput = {
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsTeamOrderByRelevanceInput
 }
 
 export type CmsTeamWhereUniqueInput = Prisma.AtLeast<{
@@ -298,7 +299,7 @@ export type CmsTeamScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsTeamScalarWhereWithAggregatesInput | Prisma.CmsTeamScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsTeamScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsTeamScalarWhereWithAggregatesInput | Prisma.CmsTeamScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsTeam"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsTeam"> | string
   name?: Prisma.StringWithAggregatesFilter<"CmsTeam"> | string
   designation?: Prisma.StringWithAggregatesFilter<"CmsTeam"> | string
   imageUrl?: Prisma.StringWithAggregatesFilter<"CmsTeam"> | string
@@ -393,6 +394,12 @@ export type CmsTeamUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsTeamOrderByRelevanceInput = {
+  fields: Prisma.CmsTeamOrderByRelevanceFieldEnum | Prisma.CmsTeamOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsTeamCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
@@ -451,29 +458,7 @@ export type CmsTeamSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsTeam"]>
 
-export type CmsTeamSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  designation?: boolean
-  imageUrl?: boolean
-  message?: boolean
-  status?: boolean
-  sortOrder?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsTeam"]>
 
-export type CmsTeamSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  designation?: boolean
-  imageUrl?: boolean
-  message?: boolean
-  status?: boolean
-  sortOrder?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsTeam"]>
 
 export type CmsTeamSelectScalar = {
   id?: boolean
@@ -620,30 +605,6 @@ export interface CmsTeamDelegate<ExtArgs extends runtime.Types.Extensions.Intern
   createMany<T extends CmsTeamCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsTeamCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsTeams and returns the data saved in the database.
-   * @param {CmsTeamCreateManyAndReturnArgs} args - Arguments to create many CmsTeams.
-   * @example
-   * // Create many CmsTeams
-   * const cmsTeam = await prisma.cmsTeam.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsTeams and only return the `id`
-   * const cmsTeamWithIdOnly = await prisma.cmsTeam.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsTeamCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsTeamCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsTeamPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsTeam.
    * @param {CmsTeamDeleteArgs} args - Arguments to delete one CmsTeam.
    * @example
@@ -706,36 +667,6 @@ export interface CmsTeamDelegate<ExtArgs extends runtime.Types.Extensions.Intern
    * 
    */
   updateMany<T extends CmsTeamUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsTeamUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsTeams and returns the data updated in the database.
-   * @param {CmsTeamUpdateManyAndReturnArgs} args - Arguments to update many CmsTeams.
-   * @example
-   * // Update many CmsTeams
-   * const cmsTeam = await prisma.cmsTeam.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsTeams and only return the `id`
-   * const cmsTeamWithIdOnly = await prisma.cmsTeam.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsTeamUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsTeamUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsTeamPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsTeam.
@@ -1148,25 +1079,6 @@ export type CmsTeamCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
- * CmsTeam createManyAndReturn
- */
-export type CmsTeamCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsTeam
-   */
-  select?: Prisma.CmsTeamSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsTeam
-   */
-  omit?: Prisma.CmsTeamOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsTeams.
-   */
-  data: Prisma.CmsTeamCreateManyInput | Prisma.CmsTeamCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsTeam update
  */
 export type CmsTeamUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1192,32 +1104,6 @@ export type CmsTeamUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
  * CmsTeam updateMany
  */
 export type CmsTeamUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsTeams.
-   */
-  data: Prisma.XOR<Prisma.CmsTeamUpdateManyMutationInput, Prisma.CmsTeamUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsTeams to update
-   */
-  where?: Prisma.CmsTeamWhereInput
-  /**
-   * Limit how many CmsTeams to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsTeam updateManyAndReturn
- */
-export type CmsTeamUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsTeam
-   */
-  select?: Prisma.CmsTeamSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsTeam
-   */
-  omit?: Prisma.CmsTeamOmit<ExtArgs> | null
   /**
    * The data used to update CmsTeams.
    */

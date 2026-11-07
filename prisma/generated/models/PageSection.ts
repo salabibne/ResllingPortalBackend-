@@ -251,7 +251,7 @@ export type PageSectionGroupByOutputType = {
   subtitle: string | null
   description: string | null
   imageUrl: string | null
-  images: string[]
+  images: runtime.JsonValue
   imageDescription: string | null
   buttonText: string | null
   buttonLink: string | null
@@ -283,8 +283,8 @@ export type PageSectionWhereInput = {
   AND?: Prisma.PageSectionWhereInput | Prisma.PageSectionWhereInput[]
   OR?: Prisma.PageSectionWhereInput[]
   NOT?: Prisma.PageSectionWhereInput | Prisma.PageSectionWhereInput[]
-  id?: Prisma.UuidFilter<"PageSection"> | string
-  customPageId?: Prisma.UuidFilter<"PageSection"> | string
+  id?: Prisma.StringFilter<"PageSection"> | string
+  customPageId?: Prisma.StringFilter<"PageSection"> | string
   type?: Prisma.StringNullableFilter<"PageSection"> | string | null
   variant?: Prisma.StringNullableFilter<"PageSection"> | string | null
   settings?: Prisma.JsonNullableFilter<"PageSection">
@@ -294,7 +294,7 @@ export type PageSectionWhereInput = {
   subtitle?: Prisma.StringNullableFilter<"PageSection"> | string | null
   description?: Prisma.StringNullableFilter<"PageSection"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"PageSection"> | string | null
-  images?: Prisma.StringNullableListFilter<"PageSection">
+  images?: Prisma.JsonFilter<"PageSection">
   imageDescription?: Prisma.StringNullableFilter<"PageSection"> | string | null
   buttonText?: Prisma.StringNullableFilter<"PageSection"> | string | null
   buttonLink?: Prisma.StringNullableFilter<"PageSection"> | string | null
@@ -322,6 +322,7 @@ export type PageSectionOrderByWithRelationInput = {
   content?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   customPage?: Prisma.CustomPageOrderByWithRelationInput
+  _relevance?: Prisma.PageSectionOrderByRelevanceInput
 }
 
 export type PageSectionWhereUniqueInput = Prisma.AtLeast<{
@@ -329,7 +330,7 @@ export type PageSectionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PageSectionWhereInput | Prisma.PageSectionWhereInput[]
   OR?: Prisma.PageSectionWhereInput[]
   NOT?: Prisma.PageSectionWhereInput | Prisma.PageSectionWhereInput[]
-  customPageId?: Prisma.UuidFilter<"PageSection"> | string
+  customPageId?: Prisma.StringFilter<"PageSection"> | string
   type?: Prisma.StringNullableFilter<"PageSection"> | string | null
   variant?: Prisma.StringNullableFilter<"PageSection"> | string | null
   settings?: Prisma.JsonNullableFilter<"PageSection">
@@ -339,7 +340,7 @@ export type PageSectionWhereUniqueInput = Prisma.AtLeast<{
   subtitle?: Prisma.StringNullableFilter<"PageSection"> | string | null
   description?: Prisma.StringNullableFilter<"PageSection"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"PageSection"> | string | null
-  images?: Prisma.StringNullableListFilter<"PageSection">
+  images?: Prisma.JsonFilter<"PageSection">
   imageDescription?: Prisma.StringNullableFilter<"PageSection"> | string | null
   buttonText?: Prisma.StringNullableFilter<"PageSection"> | string | null
   buttonLink?: Prisma.StringNullableFilter<"PageSection"> | string | null
@@ -377,8 +378,8 @@ export type PageSectionScalarWhereWithAggregatesInput = {
   AND?: Prisma.PageSectionScalarWhereWithAggregatesInput | Prisma.PageSectionScalarWhereWithAggregatesInput[]
   OR?: Prisma.PageSectionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PageSectionScalarWhereWithAggregatesInput | Prisma.PageSectionScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"PageSection"> | string
-  customPageId?: Prisma.UuidWithAggregatesFilter<"PageSection"> | string
+  id?: Prisma.StringWithAggregatesFilter<"PageSection"> | string
+  customPageId?: Prisma.StringWithAggregatesFilter<"PageSection"> | string
   type?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
   variant?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
   settings?: Prisma.JsonNullableWithAggregatesFilter<"PageSection">
@@ -388,7 +389,7 @@ export type PageSectionScalarWhereWithAggregatesInput = {
   subtitle?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
-  images?: Prisma.StringNullableListFilter<"PageSection">
+  images?: Prisma.JsonWithAggregatesFilter<"PageSection">
   imageDescription?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
   buttonText?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
   buttonLink?: Prisma.StringNullableWithAggregatesFilter<"PageSection"> | string | null
@@ -407,7 +408,7 @@ export type PageSectionCreateInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.PageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
@@ -428,7 +429,7 @@ export type PageSectionUncheckedCreateInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.PageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
@@ -447,7 +448,7 @@ export type PageSectionUpdateInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.PageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -468,7 +469,7 @@ export type PageSectionUncheckedUpdateInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.PageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -488,7 +489,7 @@ export type PageSectionCreateManyInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.PageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
@@ -507,7 +508,7 @@ export type PageSectionUpdateManyMutationInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.PageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -527,7 +528,7 @@ export type PageSectionUncheckedUpdateManyInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.PageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -545,12 +546,10 @@ export type PageSectionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
+export type PageSectionOrderByRelevanceInput = {
+  fields: Prisma.PageSectionOrderByRelevanceFieldEnum | Prisma.PageSectionOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type PageSectionCountOrderByAggregateInput = {
@@ -657,15 +656,6 @@ export type PageSectionUncheckedUpdateManyWithoutCustomPageNestedInput = {
   deleteMany?: Prisma.PageSectionScalarWhereInput | Prisma.PageSectionScalarWhereInput[]
 }
 
-export type PageSectionCreateimagesInput = {
-  set: string[]
-}
-
-export type PageSectionUpdateimagesInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
 export type PageSectionCreateWithoutCustomPageInput = {
   id?: string
   type?: string | null
@@ -677,7 +667,7 @@ export type PageSectionCreateWithoutCustomPageInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.PageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
@@ -696,7 +686,7 @@ export type PageSectionUncheckedCreateWithoutCustomPageInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.PageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
@@ -734,8 +724,8 @@ export type PageSectionScalarWhereInput = {
   AND?: Prisma.PageSectionScalarWhereInput | Prisma.PageSectionScalarWhereInput[]
   OR?: Prisma.PageSectionScalarWhereInput[]
   NOT?: Prisma.PageSectionScalarWhereInput | Prisma.PageSectionScalarWhereInput[]
-  id?: Prisma.UuidFilter<"PageSection"> | string
-  customPageId?: Prisma.UuidFilter<"PageSection"> | string
+  id?: Prisma.StringFilter<"PageSection"> | string
+  customPageId?: Prisma.StringFilter<"PageSection"> | string
   type?: Prisma.StringNullableFilter<"PageSection"> | string | null
   variant?: Prisma.StringNullableFilter<"PageSection"> | string | null
   settings?: Prisma.JsonNullableFilter<"PageSection">
@@ -745,7 +735,7 @@ export type PageSectionScalarWhereInput = {
   subtitle?: Prisma.StringNullableFilter<"PageSection"> | string | null
   description?: Prisma.StringNullableFilter<"PageSection"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"PageSection"> | string | null
-  images?: Prisma.StringNullableListFilter<"PageSection">
+  images?: Prisma.JsonFilter<"PageSection">
   imageDescription?: Prisma.StringNullableFilter<"PageSection"> | string | null
   buttonText?: Prisma.StringNullableFilter<"PageSection"> | string | null
   buttonLink?: Prisma.StringNullableFilter<"PageSection"> | string | null
@@ -764,7 +754,7 @@ export type PageSectionCreateManyCustomPageInput = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  images?: Prisma.PageSectionCreateimagesInput | string[]
+  images: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: string | null
   buttonText?: string | null
   buttonLink?: string | null
@@ -783,7 +773,7 @@ export type PageSectionUpdateWithoutCustomPageInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.PageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -802,7 +792,7 @@ export type PageSectionUncheckedUpdateWithoutCustomPageInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.PageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -821,7 +811,7 @@ export type PageSectionUncheckedUpdateManyWithoutCustomPageInput = {
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  images?: Prisma.PageSectionUpdateimagesInput | string[]
+  images?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   imageDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -852,47 +842,7 @@ export type PageSectionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   customPage?: boolean | Prisma.CustomPageDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["pageSection"]>
 
-export type PageSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  customPageId?: boolean
-  type?: boolean
-  variant?: boolean
-  settings?: boolean
-  isEnabled?: boolean
-  status?: boolean
-  title?: boolean
-  subtitle?: boolean
-  description?: boolean
-  imageUrl?: boolean
-  images?: boolean
-  imageDescription?: boolean
-  buttonText?: boolean
-  buttonLink?: boolean
-  content?: boolean
-  sortOrder?: boolean
-  customPage?: boolean | Prisma.CustomPageDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["pageSection"]>
 
-export type PageSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  customPageId?: boolean
-  type?: boolean
-  variant?: boolean
-  settings?: boolean
-  isEnabled?: boolean
-  status?: boolean
-  title?: boolean
-  subtitle?: boolean
-  description?: boolean
-  imageUrl?: boolean
-  images?: boolean
-  imageDescription?: boolean
-  buttonText?: boolean
-  buttonLink?: boolean
-  content?: boolean
-  sortOrder?: boolean
-  customPage?: boolean | Prisma.CustomPageDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["pageSection"]>
 
 export type PageSectionSelectScalar = {
   id?: boolean
@@ -918,12 +868,6 @@ export type PageSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type PageSectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   customPage?: boolean | Prisma.CustomPageDefaultArgs<ExtArgs>
 }
-export type PageSectionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  customPage?: boolean | Prisma.CustomPageDefaultArgs<ExtArgs>
-}
-export type PageSectionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  customPage?: boolean | Prisma.CustomPageDefaultArgs<ExtArgs>
-}
 
 export type $PageSectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PageSection"
@@ -942,7 +886,7 @@ export type $PageSectionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     subtitle: string | null
     description: string | null
     imageUrl: string | null
-    images: string[]
+    images: runtime.JsonValue
     imageDescription: string | null
     buttonText: string | null
     buttonLink: string | null
@@ -1066,30 +1010,6 @@ export interface PageSectionDelegate<ExtArgs extends runtime.Types.Extensions.In
   createMany<T extends PageSectionCreateManyArgs>(args?: Prisma.SelectSubset<T, PageSectionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many PageSections and returns the data saved in the database.
-   * @param {PageSectionCreateManyAndReturnArgs} args - Arguments to create many PageSections.
-   * @example
-   * // Create many PageSections
-   * const pageSection = await prisma.pageSection.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many PageSections and only return the `id`
-   * const pageSectionWithIdOnly = await prisma.pageSection.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends PageSectionCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, PageSectionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PageSectionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a PageSection.
    * @param {PageSectionDeleteArgs} args - Arguments to delete one PageSection.
    * @example
@@ -1152,36 +1072,6 @@ export interface PageSectionDelegate<ExtArgs extends runtime.Types.Extensions.In
    * 
    */
   updateMany<T extends PageSectionUpdateManyArgs>(args: Prisma.SelectSubset<T, PageSectionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more PageSections and returns the data updated in the database.
-   * @param {PageSectionUpdateManyAndReturnArgs} args - Arguments to update many PageSections.
-   * @example
-   * // Update many PageSections
-   * const pageSection = await prisma.pageSection.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more PageSections and only return the `id`
-   * const pageSectionWithIdOnly = await prisma.pageSection.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends PageSectionUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, PageSectionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PageSectionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one PageSection.
@@ -1383,7 +1273,7 @@ export interface PageSectionFieldRefs {
   readonly subtitle: Prisma.FieldRef<"PageSection", 'String'>
   readonly description: Prisma.FieldRef<"PageSection", 'String'>
   readonly imageUrl: Prisma.FieldRef<"PageSection", 'String'>
-  readonly images: Prisma.FieldRef<"PageSection", 'String[]'>
+  readonly images: Prisma.FieldRef<"PageSection", 'Json'>
   readonly imageDescription: Prisma.FieldRef<"PageSection", 'String'>
   readonly buttonText: Prisma.FieldRef<"PageSection", 'String'>
   readonly buttonLink: Prisma.FieldRef<"PageSection", 'String'>
@@ -1627,29 +1517,6 @@ export type PageSectionCreateManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * PageSection createManyAndReturn
- */
-export type PageSectionCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PageSection
-   */
-  select?: Prisma.PageSectionSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the PageSection
-   */
-  omit?: Prisma.PageSectionOmit<ExtArgs> | null
-  /**
-   * The data used to create many PageSections.
-   */
-  data: Prisma.PageSectionCreateManyInput | Prisma.PageSectionCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PageSectionIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * PageSection update
  */
 export type PageSectionUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1691,36 +1558,6 @@ export type PageSectionUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many PageSections to update.
    */
   limit?: number
-}
-
-/**
- * PageSection updateManyAndReturn
- */
-export type PageSectionUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PageSection
-   */
-  select?: Prisma.PageSectionSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the PageSection
-   */
-  omit?: Prisma.PageSectionOmit<ExtArgs> | null
-  /**
-   * The data used to update PageSections.
-   */
-  data: Prisma.XOR<Prisma.PageSectionUpdateManyMutationInput, Prisma.PageSectionUncheckedUpdateManyInput>
-  /**
-   * Filter which PageSections to update
-   */
-  where?: Prisma.PageSectionWhereInput
-  /**
-   * Limit how many PageSections to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PageSectionIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

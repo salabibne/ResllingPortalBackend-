@@ -477,10 +477,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.UserCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
-        }
         delete: {
           args: Prisma.UserDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>
@@ -496,10 +492,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.UserUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPayload>[]
         }
         upsert: {
           args: Prisma.UserUpsertArgs<ExtArgs>
@@ -551,10 +543,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CategoryCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CategoryCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>[]
-        }
         delete: {
           args: Prisma.CategoryDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>
@@ -570,10 +558,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CategoryUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CategoryUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CategoryPayload>[]
         }
         upsert: {
           args: Prisma.CategoryUpsertArgs<ExtArgs>
@@ -625,10 +609,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.SubcategoryCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.SubcategoryCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoryPayload>[]
-        }
         delete: {
           args: Prisma.SubcategoryDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoryPayload>
@@ -644,10 +624,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.SubcategoryUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.SubcategoryUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SubcategoryPayload>[]
         }
         upsert: {
           args: Prisma.SubcategoryUpsertArgs<ExtArgs>
@@ -699,10 +675,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ChildCategoryCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ChildCategoryCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChildCategoryPayload>[]
-        }
         delete: {
           args: Prisma.ChildCategoryDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ChildCategoryPayload>
@@ -718,10 +690,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ChildCategoryUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ChildCategoryUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ChildCategoryPayload>[]
         }
         upsert: {
           args: Prisma.ChildCategoryUpsertArgs<ExtArgs>
@@ -773,10 +741,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.BrandCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.BrandCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandPayload>[]
-        }
         delete: {
           args: Prisma.BrandDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandPayload>
@@ -792,10 +756,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.BrandUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.BrandUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$BrandPayload>[]
         }
         upsert: {
           args: Prisma.BrandUpsertArgs<ExtArgs>
@@ -847,10 +807,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ProductCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ProductCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPayload>[]
-        }
         delete: {
           args: Prisma.ProductDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPayload>
@@ -866,10 +822,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ProductUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ProductUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPayload>[]
         }
         upsert: {
           args: Prisma.ProductUpsertArgs<ExtArgs>
@@ -921,10 +873,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ProductImageCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ProductImageCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductImagePayload>[]
-        }
         delete: {
           args: Prisma.ProductImageDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductImagePayload>
@@ -940,10 +888,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ProductImageUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ProductImageUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductImagePayload>[]
         }
         upsert: {
           args: Prisma.ProductImageUpsertArgs<ExtArgs>
@@ -995,10 +939,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ColorCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ColorCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>[]
-        }
         delete: {
           args: Prisma.ColorDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>
@@ -1014,10 +954,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ColorUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ColorUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ColorPayload>[]
         }
         upsert: {
           args: Prisma.ColorUpsertArgs<ExtArgs>
@@ -1069,10 +1005,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ProductColorCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ProductColorCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>[]
-        }
         delete: {
           args: Prisma.ProductColorDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>
@@ -1088,10 +1020,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ProductColorUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ProductColorUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductColorPayload>[]
         }
         upsert: {
           args: Prisma.ProductColorUpsertArgs<ExtArgs>
@@ -1143,10 +1071,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.SizeCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.SizeCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SizePayload>[]
-        }
         delete: {
           args: Prisma.SizeDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$SizePayload>
@@ -1162,10 +1086,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.SizeUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.SizeUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SizePayload>[]
         }
         upsert: {
           args: Prisma.SizeUpsertArgs<ExtArgs>
@@ -1217,10 +1137,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ProductSizeCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ProductSizeCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductSizePayload>[]
-        }
         delete: {
           args: Prisma.ProductSizeDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductSizePayload>
@@ -1236,10 +1152,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ProductSizeUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ProductSizeUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductSizePayload>[]
         }
         upsert: {
           args: Prisma.ProductSizeUpsertArgs<ExtArgs>
@@ -1291,10 +1203,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.AgeVariantCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.AgeVariantCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AgeVariantPayload>[]
-        }
         delete: {
           args: Prisma.AgeVariantDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$AgeVariantPayload>
@@ -1310,10 +1218,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.AgeVariantUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.AgeVariantUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AgeVariantPayload>[]
         }
         upsert: {
           args: Prisma.AgeVariantUpsertArgs<ExtArgs>
@@ -1365,10 +1269,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ProductAgeCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ProductAgeCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductAgePayload>[]
-        }
         delete: {
           args: Prisma.ProductAgeDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductAgePayload>
@@ -1384,10 +1284,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ProductAgeUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ProductAgeUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductAgePayload>[]
         }
         upsert: {
           args: Prisma.ProductAgeUpsertArgs<ExtArgs>
@@ -1439,10 +1335,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.InventoryCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.InventoryCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventoryPayload>[]
-        }
         delete: {
           args: Prisma.InventoryDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$InventoryPayload>
@@ -1458,10 +1350,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.InventoryUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.InventoryUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventoryPayload>[]
         }
         upsert: {
           args: Prisma.InventoryUpsertArgs<ExtArgs>
@@ -1513,10 +1401,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.InventoryTransactionCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.InventoryTransactionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventoryTransactionPayload>[]
-        }
         delete: {
           args: Prisma.InventoryTransactionDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$InventoryTransactionPayload>
@@ -1532,10 +1416,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.InventoryTransactionUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.InventoryTransactionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$InventoryTransactionPayload>[]
         }
         upsert: {
           args: Prisma.InventoryTransactionUpsertArgs<ExtArgs>
@@ -1587,10 +1467,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CartCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CartCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CartPayload>[]
-        }
         delete: {
           args: Prisma.CartDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CartPayload>
@@ -1606,10 +1482,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CartUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CartUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CartPayload>[]
         }
         upsert: {
           args: Prisma.CartUpsertArgs<ExtArgs>
@@ -1661,10 +1533,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CartItemCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CartItemCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CartItemPayload>[]
-        }
         delete: {
           args: Prisma.CartItemDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CartItemPayload>
@@ -1680,10 +1548,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CartItemUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CartItemUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CartItemPayload>[]
         }
         upsert: {
           args: Prisma.CartItemUpsertArgs<ExtArgs>
@@ -1735,10 +1599,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.OrderCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.OrderCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>[]
-        }
         delete: {
           args: Prisma.OrderDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>
@@ -1754,10 +1614,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.OrderUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.OrderUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderPayload>[]
         }
         upsert: {
           args: Prisma.OrderUpsertArgs<ExtArgs>
@@ -1809,10 +1665,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CourierPickupCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CourierPickupCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>[]
-        }
         delete: {
           args: Prisma.CourierPickupDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>
@@ -1828,10 +1680,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CourierPickupUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CourierPickupUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierPickupPayload>[]
         }
         upsert: {
           args: Prisma.CourierPickupUpsertArgs<ExtArgs>
@@ -1883,10 +1731,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.OrderItemCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.OrderItemCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderItemPayload>[]
-        }
         delete: {
           args: Prisma.OrderItemDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderItemPayload>
@@ -1902,10 +1746,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.OrderItemUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.OrderItemUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrderItemPayload>[]
         }
         upsert: {
           args: Prisma.OrderItemUpsertArgs<ExtArgs>
@@ -1957,10 +1797,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsSocialMediaCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsSocialMediaCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsSocialMediaPayload>[]
-        }
         delete: {
           args: Prisma.CmsSocialMediaDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsSocialMediaPayload>
@@ -1976,10 +1812,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsSocialMediaUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsSocialMediaUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsSocialMediaPayload>[]
         }
         upsert: {
           args: Prisma.CmsSocialMediaUpsertArgs<ExtArgs>
@@ -2031,10 +1863,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsContactCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsContactCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsContactPayload>[]
-        }
         delete: {
           args: Prisma.CmsContactDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsContactPayload>
@@ -2050,10 +1878,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsContactUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsContactUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsContactPayload>[]
         }
         upsert: {
           args: Prisma.CmsContactUpsertArgs<ExtArgs>
@@ -2105,10 +1929,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsBrandCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsBrandCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>[]
-        }
         delete: {
           args: Prisma.CmsBrandDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>
@@ -2124,10 +1944,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsBrandUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsBrandUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsBrandPayload>[]
         }
         upsert: {
           args: Prisma.CmsBrandUpsertArgs<ExtArgs>
@@ -2179,10 +1995,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsHeroCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsHeroCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsHeroPayload>[]
-        }
         delete: {
           args: Prisma.CmsHeroDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsHeroPayload>
@@ -2198,10 +2010,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsHeroUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsHeroUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsHeroPayload>[]
         }
         upsert: {
           args: Prisma.CmsHeroUpsertArgs<ExtArgs>
@@ -2253,10 +2061,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsAboutCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsAboutCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsAboutPayload>[]
-        }
         delete: {
           args: Prisma.CmsAboutDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsAboutPayload>
@@ -2272,10 +2076,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsAboutUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsAboutUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsAboutPayload>[]
         }
         upsert: {
           args: Prisma.CmsAboutUpsertArgs<ExtArgs>
@@ -2327,10 +2127,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsSectionCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsSectionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsSectionPayload>[]
-        }
         delete: {
           args: Prisma.CmsSectionDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsSectionPayload>
@@ -2346,10 +2142,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsSectionUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsSectionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsSectionPayload>[]
         }
         upsert: {
           args: Prisma.CmsSectionUpsertArgs<ExtArgs>
@@ -2401,10 +2193,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsFounderCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsFounderCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsFounderPayload>[]
-        }
         delete: {
           args: Prisma.CmsFounderDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsFounderPayload>
@@ -2420,10 +2208,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsFounderUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsFounderUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsFounderPayload>[]
         }
         upsert: {
           args: Prisma.CmsFounderUpsertArgs<ExtArgs>
@@ -2475,10 +2259,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsFounderBlogCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsFounderBlogCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsFounderBlogPayload>[]
-        }
         delete: {
           args: Prisma.CmsFounderBlogDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsFounderBlogPayload>
@@ -2494,10 +2274,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsFounderBlogUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsFounderBlogUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsFounderBlogPayload>[]
         }
         upsert: {
           args: Prisma.CmsFounderBlogUpsertArgs<ExtArgs>
@@ -2549,10 +2325,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsFounderVideoCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsFounderVideoCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsFounderVideoPayload>[]
-        }
         delete: {
           args: Prisma.CmsFounderVideoDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsFounderVideoPayload>
@@ -2568,10 +2340,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsFounderVideoUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsFounderVideoUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsFounderVideoPayload>[]
         }
         upsert: {
           args: Prisma.CmsFounderVideoUpsertArgs<ExtArgs>
@@ -2623,10 +2391,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CmsTeamCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CmsTeamCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>[]
-        }
         delete: {
           args: Prisma.CmsTeamDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>
@@ -2642,10 +2406,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CmsTeamUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CmsTeamUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CmsTeamPayload>[]
         }
         upsert: {
           args: Prisma.CmsTeamUpsertArgs<ExtArgs>
@@ -2697,10 +2457,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CustomPageCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CustomPageCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomPagePayload>[]
-        }
         delete: {
           args: Prisma.CustomPageDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomPagePayload>
@@ -2716,10 +2472,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CustomPageUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CustomPageUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CustomPagePayload>[]
         }
         upsert: {
           args: Prisma.CustomPageUpsertArgs<ExtArgs>
@@ -2771,10 +2523,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.PageSectionCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.PageSectionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSectionPayload>[]
-        }
         delete: {
           args: Prisma.PageSectionDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSectionPayload>
@@ -2790,10 +2538,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.PageSectionUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.PageSectionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSectionPayload>[]
         }
         upsert: {
           args: Prisma.PageSectionUpsertArgs<ExtArgs>
@@ -2845,10 +2589,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.MediaAssetCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.MediaAssetCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
-        }
         delete: {
           args: Prisma.MediaAssetDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>
@@ -2864,10 +2604,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.MediaAssetUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.MediaAssetUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$MediaAssetPayload>[]
         }
         upsert: {
           args: Prisma.MediaAssetUpsertArgs<ExtArgs>
@@ -2919,10 +2655,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ProductPageConfigCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ProductPageConfigCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPageConfigPayload>[]
-        }
         delete: {
           args: Prisma.ProductPageConfigDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPageConfigPayload>
@@ -2938,10 +2670,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ProductPageConfigUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ProductPageConfigUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPageConfigPayload>[]
         }
         upsert: {
           args: Prisma.ProductPageConfigUpsertArgs<ExtArgs>
@@ -2993,10 +2721,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ProductPageSectionCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ProductPageSectionCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPageSectionPayload>[]
-        }
         delete: {
           args: Prisma.ProductPageSectionDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPageSectionPayload>
@@ -3012,10 +2736,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ProductPageSectionUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ProductPageSectionUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ProductPageSectionPayload>[]
         }
         upsert: {
           args: Prisma.ProductPageSectionUpsertArgs<ExtArgs>
@@ -3067,10 +2787,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.AnnouncementCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.AnnouncementCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>[]
-        }
         delete: {
           args: Prisma.AnnouncementDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>
@@ -3086,10 +2802,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.AnnouncementUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.AnnouncementUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$AnnouncementPayload>[]
         }
         upsert: {
           args: Prisma.AnnouncementUpsertArgs<ExtArgs>
@@ -3141,10 +2853,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.ExternalApiCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.ExternalApiCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExternalApiPayload>[]
-        }
         delete: {
           args: Prisma.ExternalApiDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$ExternalApiPayload>
@@ -3160,10 +2868,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.ExternalApiUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.ExternalApiUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExternalApiPayload>[]
         }
         upsert: {
           args: Prisma.ExternalApiUpsertArgs<ExtArgs>
@@ -3215,10 +2919,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.LegalDocumentCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.LegalDocumentCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalDocumentPayload>[]
-        }
         delete: {
           args: Prisma.LegalDocumentDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalDocumentPayload>
@@ -3234,10 +2934,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.LegalDocumentUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.LegalDocumentUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$LegalDocumentPayload>[]
         }
         upsert: {
           args: Prisma.LegalDocumentUpsertArgs<ExtArgs>
@@ -3289,10 +2985,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.CourierSettingCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.CourierSettingCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>[]
-        }
         delete: {
           args: Prisma.CourierSettingDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>
@@ -3308,10 +3000,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.CourierSettingUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CourierSettingUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CourierSettingPayload>[]
         }
         upsert: {
           args: Prisma.CourierSettingUpsertArgs<ExtArgs>
@@ -3363,10 +3051,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.WithdrawalCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.WithdrawalCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>[]
-        }
         delete: {
           args: Prisma.WithdrawalDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>
@@ -3382,10 +3066,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.WithdrawalUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.WithdrawalUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$WithdrawalPayload>[]
         }
         upsert: {
           args: Prisma.WithdrawalUpsertArgs<ExtArgs>
@@ -3437,10 +3117,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.NoticeModalCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.NoticeModalCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>[]
-        }
         delete: {
           args: Prisma.NoticeModalDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>
@@ -3456,10 +3132,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.NoticeModalUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.NoticeModalUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$NoticeModalPayload>[]
         }
         upsert: {
           args: Prisma.NoticeModalUpsertArgs<ExtArgs>
@@ -3511,10 +3183,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.SupportTicketCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
-        createManyAndReturn: {
-          args: Prisma.SupportTicketCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>[]
-        }
         delete: {
           args: Prisma.SupportTicketDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>
@@ -3530,10 +3198,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateMany: {
           args: Prisma.SupportTicketUpdateManyArgs<ExtArgs>
           result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.SupportTicketUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$SupportTicketPayload>[]
         }
         upsert: {
           args: Prisma.SupportTicketUpsertArgs<ExtArgs>
@@ -4265,12 +3929,11 @@ export const NullableJsonNullValueInput = {
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
-export const QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
 } as const
 
-export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const NullsOrder = {
@@ -4281,6 +3944,211 @@ export const NullsOrder = {
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
+export const UserOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  secondaryPhone: 'secondaryPhone',
+  passwordHash: 'passwordHash',
+  refreshTokenHash: 'refreshTokenHash',
+  OrganizationId: 'OrganizationId',
+  imageUrl: 'imageUrl',
+  pageName: 'pageName',
+  presentDistrict: 'presentDistrict',
+  presentThana: 'presentThana',
+  permanentDistrict: 'permanentDistrict',
+  permanentThana: 'permanentThana'
+} as const
+
+export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+export const CategoryOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  imageUrl: 'imageUrl'
+} as const
+
+export type CategoryOrderByRelevanceFieldEnum = (typeof CategoryOrderByRelevanceFieldEnum)[keyof typeof CategoryOrderByRelevanceFieldEnum]
+
+
+export const SubcategoryOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  categoryId: 'categoryId'
+} as const
+
+export type SubcategoryOrderByRelevanceFieldEnum = (typeof SubcategoryOrderByRelevanceFieldEnum)[keyof typeof SubcategoryOrderByRelevanceFieldEnum]
+
+
+export const ChildCategoryOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  subcategoryId: 'subcategoryId'
+} as const
+
+export type ChildCategoryOrderByRelevanceFieldEnum = (typeof ChildCategoryOrderByRelevanceFieldEnum)[keyof typeof ChildCategoryOrderByRelevanceFieldEnum]
+
+
+export const BrandOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  imageUrl: 'imageUrl'
+} as const
+
+export type BrandOrderByRelevanceFieldEnum = (typeof BrandOrderByRelevanceFieldEnum)[keyof typeof BrandOrderByRelevanceFieldEnum]
+
+
+export const ProductOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  categoryId: 'categoryId',
+  subcategoryId: 'subcategoryId',
+  childCategoryId: 'childCategoryId',
+  brandId: 'brandId',
+  videoUrl: 'videoUrl',
+  unit: 'unit',
+  description: 'description'
+} as const
+
+export type ProductOrderByRelevanceFieldEnum = (typeof ProductOrderByRelevanceFieldEnum)[keyof typeof ProductOrderByRelevanceFieldEnum]
+
+
+export const ProductImageOrderByRelevanceFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  imageUrl: 'imageUrl'
+} as const
+
+export type ProductImageOrderByRelevanceFieldEnum = (typeof ProductImageOrderByRelevanceFieldEnum)[keyof typeof ProductImageOrderByRelevanceFieldEnum]
+
+
+export const ColorOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  colorCode: 'colorCode'
+} as const
+
+export type ColorOrderByRelevanceFieldEnum = (typeof ColorOrderByRelevanceFieldEnum)[keyof typeof ColorOrderByRelevanceFieldEnum]
+
+
+export const ProductColorOrderByRelevanceFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  colorId: 'colorId'
+} as const
+
+export type ProductColorOrderByRelevanceFieldEnum = (typeof ProductColorOrderByRelevanceFieldEnum)[keyof typeof ProductColorOrderByRelevanceFieldEnum]
+
+
+export const SizeOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type SizeOrderByRelevanceFieldEnum = (typeof SizeOrderByRelevanceFieldEnum)[keyof typeof SizeOrderByRelevanceFieldEnum]
+
+
+export const ProductSizeOrderByRelevanceFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  sizeId: 'sizeId'
+} as const
+
+export type ProductSizeOrderByRelevanceFieldEnum = (typeof ProductSizeOrderByRelevanceFieldEnum)[keyof typeof ProductSizeOrderByRelevanceFieldEnum]
+
+
+export const AgeVariantOrderByRelevanceFieldEnum = {
+  id: 'id',
+  ageRange: 'ageRange'
+} as const
+
+export type AgeVariantOrderByRelevanceFieldEnum = (typeof AgeVariantOrderByRelevanceFieldEnum)[keyof typeof AgeVariantOrderByRelevanceFieldEnum]
+
+
+export const ProductAgeOrderByRelevanceFieldEnum = {
+  productId: 'productId',
+  ageVariantId: 'ageVariantId'
+} as const
+
+export type ProductAgeOrderByRelevanceFieldEnum = (typeof ProductAgeOrderByRelevanceFieldEnum)[keyof typeof ProductAgeOrderByRelevanceFieldEnum]
+
+
+export const InventoryOrderByRelevanceFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  productSizeId: 'productSizeId',
+  supplierName: 'supplierName',
+  supplierMobile: 'supplierMobile',
+  notes: 'notes'
+} as const
+
+export type InventoryOrderByRelevanceFieldEnum = (typeof InventoryOrderByRelevanceFieldEnum)[keyof typeof InventoryOrderByRelevanceFieldEnum]
+
+
+export const InventoryTransactionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  inventoryId: 'inventoryId',
+  reference: 'reference',
+  performedBy: 'performedBy',
+  notes: 'notes'
+} as const
+
+export type InventoryTransactionOrderByRelevanceFieldEnum = (typeof InventoryTransactionOrderByRelevanceFieldEnum)[keyof typeof InventoryTransactionOrderByRelevanceFieldEnum]
+
+
+export const CartOrderByRelevanceFieldEnum = {
+  id: 'id',
+  customerId: 'customerId',
+  promoCode: 'promoCode',
+  notes: 'notes',
+  status: 'status'
+} as const
+
+export type CartOrderByRelevanceFieldEnum = (typeof CartOrderByRelevanceFieldEnum)[keyof typeof CartOrderByRelevanceFieldEnum]
+
+
+export const CartItemOrderByRelevanceFieldEnum = {
+  id: 'id',
+  cartId: 'cartId',
+  productId: 'productId',
+  productSizeId: 'productSizeId',
+  productColorId: 'productColorId'
+} as const
+
+export type CartItemOrderByRelevanceFieldEnum = (typeof CartItemOrderByRelevanceFieldEnum)[keyof typeof CartItemOrderByRelevanceFieldEnum]
+
+
+export const OrderOrderByRelevanceFieldEnum = {
+  id: 'id',
+  orderRef: 'orderRef',
+  cartId: 'cartId',
+  customerId: 'customerId',
+  resellerId: 'resellerId',
+  customerName: 'customerName',
+  customerPhone: 'customerPhone',
+  customerSecondaryPhone: 'customerSecondaryPhone',
+  customerEmail: 'customerEmail',
+  customerDistrict: 'customerDistrict',
+  customerThana: 'customerThana',
+  orderProcessedBy: 'orderProcessedBy',
+  shippingAddress: 'shippingAddress',
+  notes: 'notes',
+  courierProvider: 'courierProvider',
+  courierConsignmentId: 'courierConsignmentId',
+  courierTrackingCode: 'courierTrackingCode',
+  courierStatus: 'courierStatus',
+  courierNotes: 'courierNotes',
+  courierTrackingLink: 'courierTrackingLink',
+  courierBookingState: 'courierBookingState',
+  courierReturnStatus: 'courierReturnStatus',
+  courierReturnReason: 'courierReturnReason'
+} as const
+
+export type OrderOrderByRelevanceFieldEnum = (typeof OrderOrderByRelevanceFieldEnum)[keyof typeof OrderOrderByRelevanceFieldEnum]
+
+
 export const JsonNullValueFilter = {
   DbNull: DbNull,
   JsonNull: JsonNull,
@@ -4288,6 +4156,300 @@ export const JsonNullValueFilter = {
 } as const
 
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const CourierPickupOrderByRelevanceFieldEnum = {
+  id: 'id',
+  provider: 'provider',
+  address: 'address',
+  contactNumber: 'contactNumber',
+  note: 'note',
+  status: 'status',
+  createdBy: 'createdBy'
+} as const
+
+export type CourierPickupOrderByRelevanceFieldEnum = (typeof CourierPickupOrderByRelevanceFieldEnum)[keyof typeof CourierPickupOrderByRelevanceFieldEnum]
+
+
+export const OrderItemOrderByRelevanceFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  productId: 'productId',
+  productSizeId: 'productSizeId',
+  productColorId: 'productColorId'
+} as const
+
+export type OrderItemOrderByRelevanceFieldEnum = (typeof OrderItemOrderByRelevanceFieldEnum)[keyof typeof OrderItemOrderByRelevanceFieldEnum]
+
+
+export const CmsSocialMediaOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  iconName: 'iconName'
+} as const
+
+export type CmsSocialMediaOrderByRelevanceFieldEnum = (typeof CmsSocialMediaOrderByRelevanceFieldEnum)[keyof typeof CmsSocialMediaOrderByRelevanceFieldEnum]
+
+
+export const CmsContactOrderByRelevanceFieldEnum = {
+  id: 'id',
+  phone: 'phone',
+  email: 'email',
+  address: 'address',
+  telegram: 'telegram',
+  whatsapp: 'whatsapp',
+  facebook: 'facebook'
+} as const
+
+export type CmsContactOrderByRelevanceFieldEnum = (typeof CmsContactOrderByRelevanceFieldEnum)[keyof typeof CmsContactOrderByRelevanceFieldEnum]
+
+
+export const CmsBrandOrderByRelevanceFieldEnum = {
+  id: 'id',
+  logoUrl: 'logoUrl'
+} as const
+
+export type CmsBrandOrderByRelevanceFieldEnum = (typeof CmsBrandOrderByRelevanceFieldEnum)[keyof typeof CmsBrandOrderByRelevanceFieldEnum]
+
+
+export const CmsHeroOrderByRelevanceFieldEnum = {
+  id: 'id',
+  heroTitle: 'heroTitle',
+  heroSubtitle: 'heroSubtitle',
+  buttonText1: 'buttonText1',
+  buttonLink1: 'buttonLink1',
+  buttonText2: 'buttonText2',
+  buttonLink2: 'buttonLink2',
+  imageUrl: 'imageUrl'
+} as const
+
+export type CmsHeroOrderByRelevanceFieldEnum = (typeof CmsHeroOrderByRelevanceFieldEnum)[keyof typeof CmsHeroOrderByRelevanceFieldEnum]
+
+
+export const CmsAboutOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  youtubeLink: 'youtubeLink',
+  buttonText1: 'buttonText1',
+  buttonLink1: 'buttonLink1',
+  buttonText2: 'buttonText2',
+  buttonLink2: 'buttonLink2'
+} as const
+
+export type CmsAboutOrderByRelevanceFieldEnum = (typeof CmsAboutOrderByRelevanceFieldEnum)[keyof typeof CmsAboutOrderByRelevanceFieldEnum]
+
+
+export const CmsSectionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  cardTitle: 'cardTitle',
+  cardIcon: 'cardIcon',
+  cardDescription: 'cardDescription',
+  cardButton: 'cardButton',
+  cardLink: 'cardLink'
+} as const
+
+export type CmsSectionOrderByRelevanceFieldEnum = (typeof CmsSectionOrderByRelevanceFieldEnum)[keyof typeof CmsSectionOrderByRelevanceFieldEnum]
+
+
+export const CmsFounderOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  imageUrl: 'imageUrl'
+} as const
+
+export type CmsFounderOrderByRelevanceFieldEnum = (typeof CmsFounderOrderByRelevanceFieldEnum)[keyof typeof CmsFounderOrderByRelevanceFieldEnum]
+
+
+export const CmsFounderBlogOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  imageUrl: 'imageUrl',
+  description: 'description'
+} as const
+
+export type CmsFounderBlogOrderByRelevanceFieldEnum = (typeof CmsFounderBlogOrderByRelevanceFieldEnum)[keyof typeof CmsFounderBlogOrderByRelevanceFieldEnum]
+
+
+export const CmsFounderVideoOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  videoLink: 'videoLink',
+  description: 'description'
+} as const
+
+export type CmsFounderVideoOrderByRelevanceFieldEnum = (typeof CmsFounderVideoOrderByRelevanceFieldEnum)[keyof typeof CmsFounderVideoOrderByRelevanceFieldEnum]
+
+
+export const CmsTeamOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name',
+  designation: 'designation',
+  imageUrl: 'imageUrl',
+  message: 'message'
+} as const
+
+export type CmsTeamOrderByRelevanceFieldEnum = (typeof CmsTeamOrderByRelevanceFieldEnum)[keyof typeof CmsTeamOrderByRelevanceFieldEnum]
+
+
+export const CustomPageOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  content: 'content',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  buttonTitle: 'buttonTitle',
+  buttonLink: 'buttonLink'
+} as const
+
+export type CustomPageOrderByRelevanceFieldEnum = (typeof CustomPageOrderByRelevanceFieldEnum)[keyof typeof CustomPageOrderByRelevanceFieldEnum]
+
+
+export const PageSectionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  customPageId: 'customPageId',
+  type: 'type',
+  variant: 'variant',
+  title: 'title',
+  subtitle: 'subtitle',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  imageDescription: 'imageDescription',
+  buttonText: 'buttonText',
+  buttonLink: 'buttonLink'
+} as const
+
+export type PageSectionOrderByRelevanceFieldEnum = (typeof PageSectionOrderByRelevanceFieldEnum)[keyof typeof PageSectionOrderByRelevanceFieldEnum]
+
+
+export const MediaAssetOrderByRelevanceFieldEnum = {
+  id: 'id',
+  url: 'url',
+  filename: 'filename',
+  mimeType: 'mimeType'
+} as const
+
+export type MediaAssetOrderByRelevanceFieldEnum = (typeof MediaAssetOrderByRelevanceFieldEnum)[keyof typeof MediaAssetOrderByRelevanceFieldEnum]
+
+
+export const ProductPageConfigOrderByRelevanceFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  customTitle: 'customTitle',
+  customDescription: 'customDescription',
+  bannerImageUrl: 'bannerImageUrl',
+  videoUrl: 'videoUrl',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription'
+} as const
+
+export type ProductPageConfigOrderByRelevanceFieldEnum = (typeof ProductPageConfigOrderByRelevanceFieldEnum)[keyof typeof ProductPageConfigOrderByRelevanceFieldEnum]
+
+
+export const ProductPageSectionOrderByRelevanceFieldEnum = {
+  id: 'id',
+  productPageConfigId: 'productPageConfigId',
+  title: 'title',
+  subtitle: 'subtitle',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  imageDescription: 'imageDescription',
+  buttonText: 'buttonText',
+  buttonLink: 'buttonLink'
+} as const
+
+export type ProductPageSectionOrderByRelevanceFieldEnum = (typeof ProductPageSectionOrderByRelevanceFieldEnum)[keyof typeof ProductPageSectionOrderByRelevanceFieldEnum]
+
+
+export const AnnouncementOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  linkUrl: 'linkUrl'
+} as const
+
+export type AnnouncementOrderByRelevanceFieldEnum = (typeof AnnouncementOrderByRelevanceFieldEnum)[keyof typeof AnnouncementOrderByRelevanceFieldEnum]
+
+
+export const ExternalApiOrderByRelevanceFieldEnum = {
+  id: 'id',
+  apiName: 'apiName',
+  apiUrl: 'apiUrl',
+  credentials: 'credentials',
+  description: 'description'
+} as const
+
+export type ExternalApiOrderByRelevanceFieldEnum = (typeof ExternalApiOrderByRelevanceFieldEnum)[keyof typeof ExternalApiOrderByRelevanceFieldEnum]
+
+
+export const LegalDocumentOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  content: 'content',
+  version: 'version'
+} as const
+
+export type LegalDocumentOrderByRelevanceFieldEnum = (typeof LegalDocumentOrderByRelevanceFieldEnum)[keyof typeof LegalDocumentOrderByRelevanceFieldEnum]
+
+
+export const CourierSettingOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  chargeText: 'chargeText'
+} as const
+
+export type CourierSettingOrderByRelevanceFieldEnum = (typeof CourierSettingOrderByRelevanceFieldEnum)[keyof typeof CourierSettingOrderByRelevanceFieldEnum]
+
+
+export const WithdrawalOrderByRelevanceFieldEnum = {
+  id: 'id',
+  resellerId: 'resellerId',
+  accountDetails: 'accountDetails',
+  resellerNotes: 'resellerNotes',
+  transactionId: 'transactionId',
+  proofImageUrl: 'proofImageUrl',
+  adminNotes: 'adminNotes',
+  processedBy: 'processedBy'
+} as const
+
+export type WithdrawalOrderByRelevanceFieldEnum = (typeof WithdrawalOrderByRelevanceFieldEnum)[keyof typeof WithdrawalOrderByRelevanceFieldEnum]
+
+
+export const NoticeModalOrderByRelevanceFieldEnum = {
+  id: 'id',
+  title: 'title',
+  content: 'content',
+  imageUrl: 'imageUrl',
+  buttonText: 'buttonText',
+  buttonLink: 'buttonLink'
+} as const
+
+export type NoticeModalOrderByRelevanceFieldEnum = (typeof NoticeModalOrderByRelevanceFieldEnum)[keyof typeof NoticeModalOrderByRelevanceFieldEnum]
+
+
+export const SupportTicketOrderByRelevanceFieldEnum = {
+  id: 'id',
+  ticketId: 'ticketId',
+  userId: 'userId',
+  message: 'message',
+  adminNotes: 'adminNotes'
+} as const
+
+export type SupportTicketOrderByRelevanceFieldEnum = (typeof SupportTicketOrderByRelevanceFieldEnum)[keyof typeof SupportTicketOrderByRelevanceFieldEnum]
 
 
 
@@ -4304,23 +4466,9 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
 
 
 /**
- * Reference to a field of type 'String[]'
- */
-export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
-
-
-/**
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-/**
- * Reference to a field of type 'DateTime[]'
- */
-export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -4332,13 +4480,6 @@ export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
- * Reference to a field of type 'UserRole[]'
- */
-export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole[]'>
-    
-
-
-/**
  * Reference to a field of type 'CommonStatus'
  */
 export type EnumCommonStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommonStatus'>
@@ -4346,23 +4487,9 @@ export type EnumCommonStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
 
 
 /**
- * Reference to a field of type 'CommonStatus[]'
- */
-export type ListEnumCommonStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CommonStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'Decimal'
  */
 export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal[]'
- */
-export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -4381,23 +4508,9 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
 
 
 /**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
  * Reference to a field of type 'InventoryTxType'
  */
 export type EnumInventoryTxTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryTxType'>
-    
-
-
-/**
- * Reference to a field of type 'InventoryTxType[]'
- */
-export type ListEnumInventoryTxTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryTxType[]'>
     
 
 
@@ -4409,23 +4522,9 @@ export type EnumInventoryTxPurposeFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
- * Reference to a field of type 'InventoryTxPurpose[]'
- */
-export type ListEnumInventoryTxPurposeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryTxPurpose[]'>
-    
-
-
-/**
  * Reference to a field of type 'PaymentStatus'
  */
 export type EnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus'>
-    
-
-
-/**
- * Reference to a field of type 'PaymentStatus[]'
- */
-export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentStatus[]'>
     
 
 
@@ -4437,23 +4536,9 @@ export type EnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
- * Reference to a field of type 'PaymentMethod[]'
- */
-export type ListEnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod[]'>
-    
-
-
-/**
  * Reference to a field of type 'OrderProcessingStatus'
  */
 export type EnumOrderProcessingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderProcessingStatus'>
-    
-
-
-/**
- * Reference to a field of type 'OrderProcessingStatus[]'
- */
-export type ListEnumOrderProcessingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrderProcessingStatus[]'>
     
 
 
@@ -4479,23 +4564,9 @@ export type EnumPageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$Prism
 
 
 /**
- * Reference to a field of type 'PageStatus[]'
- */
-export type ListEnumPageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PageStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'PayoutMethod'
  */
 export type EnumPayoutMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayoutMethod'>
-    
-
-
-/**
- * Reference to a field of type 'PayoutMethod[]'
- */
-export type ListEnumPayoutMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PayoutMethod[]'>
     
 
 
@@ -4507,23 +4578,9 @@ export type EnumWithdrawalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
- * Reference to a field of type 'WithdrawalStatus[]'
- */
-export type ListEnumWithdrawalStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WithdrawalStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'NoticeAudience'
  */
 export type EnumNoticeAudienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NoticeAudience'>
-    
-
-
-/**
- * Reference to a field of type 'NoticeAudience[]'
- */
-export type ListEnumNoticeAudienceFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NoticeAudience[]'>
     
 
 
@@ -4535,13 +4592,6 @@ export type EnumSupportTicketReasonFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
- * Reference to a field of type 'SupportTicketReason[]'
- */
-export type ListEnumSupportTicketReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketReason[]'>
-    
-
-
-/**
  * Reference to a field of type 'SupportTicketStatus'
  */
 export type EnumSupportTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketStatus'>
@@ -4549,23 +4599,9 @@ export type EnumSupportTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
- * Reference to a field of type 'SupportTicketStatus[]'
- */
-export type ListEnumSupportTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SupportTicketStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-/**
- * Reference to a field of type 'Float[]'
- */
-export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 /**

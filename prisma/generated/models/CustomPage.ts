@@ -226,7 +226,7 @@ export type CustomPageWhereInput = {
   AND?: Prisma.CustomPageWhereInput | Prisma.CustomPageWhereInput[]
   OR?: Prisma.CustomPageWhereInput[]
   NOT?: Prisma.CustomPageWhereInput | Prisma.CustomPageWhereInput[]
-  id?: Prisma.UuidFilter<"CustomPage"> | string
+  id?: Prisma.StringFilter<"CustomPage"> | string
   title?: Prisma.StringFilter<"CustomPage"> | string
   slug?: Prisma.StringFilter<"CustomPage"> | string
   content?: Prisma.StringNullableFilter<"CustomPage"> | string | null
@@ -255,6 +255,7 @@ export type CustomPageOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   sections?: Prisma.PageSectionOrderByRelationAggregateInput
+  _relevance?: Prisma.CustomPageOrderByRelevanceInput
 }
 
 export type CustomPageWhereUniqueInput = Prisma.AtLeast<{
@@ -298,7 +299,7 @@ export type CustomPageScalarWhereWithAggregatesInput = {
   AND?: Prisma.CustomPageScalarWhereWithAggregatesInput | Prisma.CustomPageScalarWhereWithAggregatesInput[]
   OR?: Prisma.CustomPageScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CustomPageScalarWhereWithAggregatesInput | Prisma.CustomPageScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CustomPage"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CustomPage"> | string
   title?: Prisma.StringWithAggregatesFilter<"CustomPage"> | string
   slug?: Prisma.StringWithAggregatesFilter<"CustomPage"> | string
   content?: Prisma.StringNullableWithAggregatesFilter<"CustomPage"> | string | null
@@ -419,6 +420,12 @@ export type CustomPageUncheckedUpdateManyInput = {
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type CustomPageOrderByRelevanceInput = {
+  fields: Prisma.CustomPageOrderByRelevanceFieldEnum | Prisma.CustomPageOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type CustomPageCountOrderByAggregateInput = {
@@ -613,35 +620,7 @@ export type CustomPageSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   _count?: boolean | Prisma.CustomPageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customPage"]>
 
-export type CustomPageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  slug?: boolean
-  content?: boolean
-  metaTitle?: boolean
-  metaDescription?: boolean
-  status?: boolean
-  isSystem?: boolean
-  buttonTitle?: boolean
-  buttonLink?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["customPage"]>
 
-export type CustomPageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  title?: boolean
-  slug?: boolean
-  content?: boolean
-  metaTitle?: boolean
-  metaDescription?: boolean
-  status?: boolean
-  isSystem?: boolean
-  buttonTitle?: boolean
-  buttonLink?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["customPage"]>
 
 export type CustomPageSelectScalar = {
   id?: boolean
@@ -663,8 +642,6 @@ export type CustomPageInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   sections?: boolean | Prisma.CustomPage$sectionsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomPageCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type CustomPageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type CustomPageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $CustomPagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CustomPage"
@@ -802,30 +779,6 @@ export interface CustomPageDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends CustomPageCreateManyArgs>(args?: Prisma.SelectSubset<T, CustomPageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CustomPages and returns the data saved in the database.
-   * @param {CustomPageCreateManyAndReturnArgs} args - Arguments to create many CustomPages.
-   * @example
-   * // Create many CustomPages
-   * const customPage = await prisma.customPage.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CustomPages and only return the `id`
-   * const customPageWithIdOnly = await prisma.customPage.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CustomPageCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CustomPageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomPagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CustomPage.
    * @param {CustomPageDeleteArgs} args - Arguments to delete one CustomPage.
    * @example
@@ -888,36 +841,6 @@ export interface CustomPageDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends CustomPageUpdateManyArgs>(args: Prisma.SelectSubset<T, CustomPageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CustomPages and returns the data updated in the database.
-   * @param {CustomPageUpdateManyAndReturnArgs} args - Arguments to update many CustomPages.
-   * @example
-   * // Update many CustomPages
-   * const customPage = await prisma.customPage.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CustomPages and only return the `id`
-   * const customPageWithIdOnly = await prisma.customPage.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CustomPageUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CustomPageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomPagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CustomPage.
@@ -1358,25 +1281,6 @@ export type CustomPageCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * CustomPage createManyAndReturn
- */
-export type CustomPageCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CustomPage
-   */
-  select?: Prisma.CustomPageSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CustomPage
-   */
-  omit?: Prisma.CustomPageOmit<ExtArgs> | null
-  /**
-   * The data used to create many CustomPages.
-   */
-  data: Prisma.CustomPageCreateManyInput | Prisma.CustomPageCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CustomPage update
  */
 export type CustomPageUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1406,32 +1310,6 @@ export type CustomPageUpdateArgs<ExtArgs extends runtime.Types.Extensions.Intern
  * CustomPage updateMany
  */
 export type CustomPageUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CustomPages.
-   */
-  data: Prisma.XOR<Prisma.CustomPageUpdateManyMutationInput, Prisma.CustomPageUncheckedUpdateManyInput>
-  /**
-   * Filter which CustomPages to update
-   */
-  where?: Prisma.CustomPageWhereInput
-  /**
-   * Limit how many CustomPages to update.
-   */
-  limit?: number
-}
-
-/**
- * CustomPage updateManyAndReturn
- */
-export type CustomPageUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CustomPage
-   */
-  select?: Prisma.CustomPageSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CustomPage
-   */
-  omit?: Prisma.CustomPageOmit<ExtArgs> | null
   /**
    * The data used to update CustomPages.
    */

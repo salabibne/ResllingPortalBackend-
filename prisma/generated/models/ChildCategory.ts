@@ -184,9 +184,9 @@ export type ChildCategoryWhereInput = {
   AND?: Prisma.ChildCategoryWhereInput | Prisma.ChildCategoryWhereInput[]
   OR?: Prisma.ChildCategoryWhereInput[]
   NOT?: Prisma.ChildCategoryWhereInput | Prisma.ChildCategoryWhereInput[]
-  id?: Prisma.UuidFilter<"ChildCategory"> | string
+  id?: Prisma.StringFilter<"ChildCategory"> | string
   name?: Prisma.StringFilter<"ChildCategory"> | string
-  subcategoryId?: Prisma.UuidFilter<"ChildCategory"> | string
+  subcategoryId?: Prisma.StringFilter<"ChildCategory"> | string
   status?: Prisma.EnumCommonStatusFilter<"ChildCategory"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFilter<"ChildCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ChildCategory"> | Date | string
@@ -203,6 +203,7 @@ export type ChildCategoryOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   subcategory?: Prisma.SubcategoryOrderByWithRelationInput
   products?: Prisma.ProductOrderByRelationAggregateInput
+  _relevance?: Prisma.ChildCategoryOrderByRelevanceInput
 }
 
 export type ChildCategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -211,7 +212,7 @@ export type ChildCategoryWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ChildCategoryWhereInput[]
   NOT?: Prisma.ChildCategoryWhereInput | Prisma.ChildCategoryWhereInput[]
   name?: Prisma.StringFilter<"ChildCategory"> | string
-  subcategoryId?: Prisma.UuidFilter<"ChildCategory"> | string
+  subcategoryId?: Prisma.StringFilter<"ChildCategory"> | string
   status?: Prisma.EnumCommonStatusFilter<"ChildCategory"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFilter<"ChildCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ChildCategory"> | Date | string
@@ -235,9 +236,9 @@ export type ChildCategoryScalarWhereWithAggregatesInput = {
   AND?: Prisma.ChildCategoryScalarWhereWithAggregatesInput | Prisma.ChildCategoryScalarWhereWithAggregatesInput[]
   OR?: Prisma.ChildCategoryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ChildCategoryScalarWhereWithAggregatesInput | Prisma.ChildCategoryScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"ChildCategory"> | string
+  id?: Prisma.StringWithAggregatesFilter<"ChildCategory"> | string
   name?: Prisma.StringWithAggregatesFilter<"ChildCategory"> | string
-  subcategoryId?: Prisma.UuidWithAggregatesFilter<"ChildCategory"> | string
+  subcategoryId?: Prisma.StringWithAggregatesFilter<"ChildCategory"> | string
   status?: Prisma.EnumCommonStatusWithAggregatesFilter<"ChildCategory"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ChildCategory"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ChildCategory"> | Date | string
@@ -317,6 +318,12 @@ export type ChildCategoryListRelationFilter = {
 
 export type ChildCategoryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ChildCategoryOrderByRelevanceInput = {
+  fields: Prisma.ChildCategoryOrderByRelevanceFieldEnum | Prisma.ChildCategoryOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type ChildCategoryCountOrderByAggregateInput = {
@@ -457,9 +464,9 @@ export type ChildCategoryScalarWhereInput = {
   AND?: Prisma.ChildCategoryScalarWhereInput | Prisma.ChildCategoryScalarWhereInput[]
   OR?: Prisma.ChildCategoryScalarWhereInput[]
   NOT?: Prisma.ChildCategoryScalarWhereInput | Prisma.ChildCategoryScalarWhereInput[]
-  id?: Prisma.UuidFilter<"ChildCategory"> | string
+  id?: Prisma.StringFilter<"ChildCategory"> | string
   name?: Prisma.StringFilter<"ChildCategory"> | string
-  subcategoryId?: Prisma.UuidFilter<"ChildCategory"> | string
+  subcategoryId?: Prisma.StringFilter<"ChildCategory"> | string
   status?: Prisma.EnumCommonStatusFilter<"ChildCategory"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFilter<"ChildCategory"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ChildCategory"> | Date | string
@@ -594,25 +601,7 @@ export type ChildCategorySelect<ExtArgs extends runtime.Types.Extensions.Interna
   _count?: boolean | Prisma.ChildCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["childCategory"]>
 
-export type ChildCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  subcategoryId?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  subcategory?: boolean | Prisma.SubcategoryDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["childCategory"]>
 
-export type ChildCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  subcategoryId?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  subcategory?: boolean | Prisma.SubcategoryDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["childCategory"]>
 
 export type ChildCategorySelectScalar = {
   id?: boolean
@@ -628,12 +617,6 @@ export type ChildCategoryInclude<ExtArgs extends runtime.Types.Extensions.Intern
   subcategory?: boolean | Prisma.SubcategoryDefaultArgs<ExtArgs>
   products?: boolean | Prisma.ChildCategory$productsArgs<ExtArgs>
   _count?: boolean | Prisma.ChildCategoryCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type ChildCategoryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  subcategory?: boolean | Prisma.SubcategoryDefaultArgs<ExtArgs>
-}
-export type ChildCategoryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  subcategory?: boolean | Prisma.SubcategoryDefaultArgs<ExtArgs>
 }
 
 export type $ChildCategoryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -767,30 +750,6 @@ export interface ChildCategoryDelegate<ExtArgs extends runtime.Types.Extensions.
   createMany<T extends ChildCategoryCreateManyArgs>(args?: Prisma.SelectSubset<T, ChildCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many ChildCategories and returns the data saved in the database.
-   * @param {ChildCategoryCreateManyAndReturnArgs} args - Arguments to create many ChildCategories.
-   * @example
-   * // Create many ChildCategories
-   * const childCategory = await prisma.childCategory.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many ChildCategories and only return the `id`
-   * const childCategoryWithIdOnly = await prisma.childCategory.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends ChildCategoryCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, ChildCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChildCategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a ChildCategory.
    * @param {ChildCategoryDeleteArgs} args - Arguments to delete one ChildCategory.
    * @example
@@ -853,36 +812,6 @@ export interface ChildCategoryDelegate<ExtArgs extends runtime.Types.Extensions.
    * 
    */
   updateMany<T extends ChildCategoryUpdateManyArgs>(args: Prisma.SelectSubset<T, ChildCategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more ChildCategories and returns the data updated in the database.
-   * @param {ChildCategoryUpdateManyAndReturnArgs} args - Arguments to update many ChildCategories.
-   * @example
-   * // Update many ChildCategories
-   * const childCategory = await prisma.childCategory.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more ChildCategories and only return the `id`
-   * const childCategoryWithIdOnly = await prisma.childCategory.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends ChildCategoryUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, ChildCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ChildCategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one ChildCategory.
@@ -1318,29 +1247,6 @@ export type ChildCategoryCreateManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * ChildCategory createManyAndReturn
- */
-export type ChildCategoryCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ChildCategory
-   */
-  select?: Prisma.ChildCategorySelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ChildCategory
-   */
-  omit?: Prisma.ChildCategoryOmit<ExtArgs> | null
-  /**
-   * The data used to create many ChildCategories.
-   */
-  data: Prisma.ChildCategoryCreateManyInput | Prisma.ChildCategoryCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ChildCategoryIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * ChildCategory update
  */
 export type ChildCategoryUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1382,36 +1288,6 @@ export type ChildCategoryUpdateManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many ChildCategories to update.
    */
   limit?: number
-}
-
-/**
- * ChildCategory updateManyAndReturn
- */
-export type ChildCategoryUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ChildCategory
-   */
-  select?: Prisma.ChildCategorySelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the ChildCategory
-   */
-  omit?: Prisma.ChildCategoryOmit<ExtArgs> | null
-  /**
-   * The data used to update ChildCategories.
-   */
-  data: Prisma.XOR<Prisma.ChildCategoryUpdateManyMutationInput, Prisma.ChildCategoryUncheckedUpdateManyInput>
-  /**
-   * Filter which ChildCategories to update
-   */
-  where?: Prisma.ChildCategoryWhereInput
-  /**
-   * Limit how many ChildCategories to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ChildCategoryIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

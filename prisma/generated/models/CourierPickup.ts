@@ -271,7 +271,7 @@ export type CourierPickupWhereInput = {
   AND?: Prisma.CourierPickupWhereInput | Prisma.CourierPickupWhereInput[]
   OR?: Prisma.CourierPickupWhereInput[]
   NOT?: Prisma.CourierPickupWhereInput | Prisma.CourierPickupWhereInput[]
-  id?: Prisma.UuidFilter<"CourierPickup"> | string
+  id?: Prisma.StringFilter<"CourierPickup"> | string
   provider?: Prisma.StringFilter<"CourierPickup"> | string
   addressId?: Prisma.IntNullableFilter<"CourierPickup"> | number | null
   policeStationId?: Prisma.IntNullableFilter<"CourierPickup"> | number | null
@@ -281,7 +281,7 @@ export type CourierPickupWhereInput = {
   estimQty?: Prisma.IntNullableFilter<"CourierPickup"> | number | null
   status?: Prisma.StringNullableFilter<"CourierPickup"> | string | null
   providerResponse?: Prisma.JsonNullableFilter<"CourierPickup">
-  createdBy?: Prisma.UuidNullableFilter<"CourierPickup"> | string | null
+  createdBy?: Prisma.StringNullableFilter<"CourierPickup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CourierPickup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CourierPickup"> | Date | string
 }
@@ -300,6 +300,7 @@ export type CourierPickupOrderByWithRelationInput = {
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CourierPickupOrderByRelevanceInput
 }
 
 export type CourierPickupWhereUniqueInput = Prisma.AtLeast<{
@@ -316,7 +317,7 @@ export type CourierPickupWhereUniqueInput = Prisma.AtLeast<{
   estimQty?: Prisma.IntNullableFilter<"CourierPickup"> | number | null
   status?: Prisma.StringNullableFilter<"CourierPickup"> | string | null
   providerResponse?: Prisma.JsonNullableFilter<"CourierPickup">
-  createdBy?: Prisma.UuidNullableFilter<"CourierPickup"> | string | null
+  createdBy?: Prisma.StringNullableFilter<"CourierPickup"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CourierPickup"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CourierPickup"> | Date | string
 }, "id">
@@ -346,7 +347,7 @@ export type CourierPickupScalarWhereWithAggregatesInput = {
   AND?: Prisma.CourierPickupScalarWhereWithAggregatesInput | Prisma.CourierPickupScalarWhereWithAggregatesInput[]
   OR?: Prisma.CourierPickupScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CourierPickupScalarWhereWithAggregatesInput | Prisma.CourierPickupScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CourierPickup"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CourierPickup"> | string
   provider?: Prisma.StringWithAggregatesFilter<"CourierPickup"> | string
   addressId?: Prisma.IntNullableWithAggregatesFilter<"CourierPickup"> | number | null
   policeStationId?: Prisma.IntNullableWithAggregatesFilter<"CourierPickup"> | number | null
@@ -356,7 +357,7 @@ export type CourierPickupScalarWhereWithAggregatesInput = {
   estimQty?: Prisma.IntNullableWithAggregatesFilter<"CourierPickup"> | number | null
   status?: Prisma.StringNullableWithAggregatesFilter<"CourierPickup"> | string | null
   providerResponse?: Prisma.JsonNullableWithAggregatesFilter<"CourierPickup">
-  createdBy?: Prisma.UuidNullableWithAggregatesFilter<"CourierPickup"> | string | null
+  createdBy?: Prisma.StringNullableWithAggregatesFilter<"CourierPickup"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CourierPickup"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CourierPickup"> | Date | string
 }
@@ -473,6 +474,12 @@ export type CourierPickupUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CourierPickupOrderByRelevanceInput = {
+  fields: Prisma.CourierPickupOrderByRelevanceFieldEnum | Prisma.CourierPickupOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CourierPickupCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   provider?: Prisma.SortOrder
@@ -549,37 +556,7 @@ export type CourierPickupSelect<ExtArgs extends runtime.Types.Extensions.Interna
   updatedAt?: boolean
 }, ExtArgs["result"]["courierPickup"]>
 
-export type CourierPickupSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  provider?: boolean
-  addressId?: boolean
-  policeStationId?: boolean
-  address?: boolean
-  contactNumber?: boolean
-  note?: boolean
-  estimQty?: boolean
-  status?: boolean
-  providerResponse?: boolean
-  createdBy?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["courierPickup"]>
 
-export type CourierPickupSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  provider?: boolean
-  addressId?: boolean
-  policeStationId?: boolean
-  address?: boolean
-  contactNumber?: boolean
-  note?: boolean
-  estimQty?: boolean
-  status?: boolean
-  providerResponse?: boolean
-  createdBy?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["courierPickup"]>
 
 export type CourierPickupSelectScalar = {
   id?: boolean
@@ -734,30 +711,6 @@ export interface CourierPickupDelegate<ExtArgs extends runtime.Types.Extensions.
   createMany<T extends CourierPickupCreateManyArgs>(args?: Prisma.SelectSubset<T, CourierPickupCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CourierPickups and returns the data saved in the database.
-   * @param {CourierPickupCreateManyAndReturnArgs} args - Arguments to create many CourierPickups.
-   * @example
-   * // Create many CourierPickups
-   * const courierPickup = await prisma.courierPickup.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CourierPickups and only return the `id`
-   * const courierPickupWithIdOnly = await prisma.courierPickup.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CourierPickupCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CourierPickupCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourierPickupPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CourierPickup.
    * @param {CourierPickupDeleteArgs} args - Arguments to delete one CourierPickup.
    * @example
@@ -820,36 +773,6 @@ export interface CourierPickupDelegate<ExtArgs extends runtime.Types.Extensions.
    * 
    */
   updateMany<T extends CourierPickupUpdateManyArgs>(args: Prisma.SelectSubset<T, CourierPickupUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CourierPickups and returns the data updated in the database.
-   * @param {CourierPickupUpdateManyAndReturnArgs} args - Arguments to update many CourierPickups.
-   * @example
-   * // Update many CourierPickups
-   * const courierPickup = await prisma.courierPickup.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CourierPickups and only return the `id`
-   * const courierPickupWithIdOnly = await prisma.courierPickup.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CourierPickupUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CourierPickupUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CourierPickupPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CourierPickup.
@@ -1266,25 +1189,6 @@ export type CourierPickupCreateManyArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 /**
- * CourierPickup createManyAndReturn
- */
-export type CourierPickupCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CourierPickup
-   */
-  select?: Prisma.CourierPickupSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CourierPickup
-   */
-  omit?: Prisma.CourierPickupOmit<ExtArgs> | null
-  /**
-   * The data used to create many CourierPickups.
-   */
-  data: Prisma.CourierPickupCreateManyInput | Prisma.CourierPickupCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CourierPickup update
  */
 export type CourierPickupUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1310,32 +1214,6 @@ export type CourierPickupUpdateArgs<ExtArgs extends runtime.Types.Extensions.Int
  * CourierPickup updateMany
  */
 export type CourierPickupUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CourierPickups.
-   */
-  data: Prisma.XOR<Prisma.CourierPickupUpdateManyMutationInput, Prisma.CourierPickupUncheckedUpdateManyInput>
-  /**
-   * Filter which CourierPickups to update
-   */
-  where?: Prisma.CourierPickupWhereInput
-  /**
-   * Limit how many CourierPickups to update.
-   */
-  limit?: number
-}
-
-/**
- * CourierPickup updateManyAndReturn
- */
-export type CourierPickupUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CourierPickup
-   */
-  select?: Prisma.CourierPickupSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CourierPickup
-   */
-  omit?: Prisma.CourierPickupOmit<ExtArgs> | null
   /**
    * The data used to update CourierPickups.
    */

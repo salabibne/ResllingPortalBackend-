@@ -65,6 +65,7 @@ export class CustomPagesService implements OnModuleInit {
             subtitle: 'Feature',
             description: row.cardDescription,
             imageUrl: row.imageUrl || '',
+            images: [],
             buttonText: row.cardButton || '',
             buttonLink: row.cardLink || '#',
             sortOrder: index + 1,
@@ -94,6 +95,7 @@ export class CustomPagesService implements OnModuleInit {
             subtitle: row.designation || '',
             description: row.message || '',
             imageUrl: row.imageUrl || '',
+            images: [],
             sortOrder: index + 1,
             content: { type: 'team_member', isActive: true },
           })),
@@ -167,8 +169,8 @@ export class CustomPagesService implements OnModuleInit {
     }
     if (query?.search) {
       where.OR = [
-        { title: { contains: query.search, mode: 'insensitive' } },
-        { slug: { contains: query.search, mode: 'insensitive' } },
+        { title: { contains: query.search } },
+        { slug: { contains: query.search } },
       ];
     }
 
@@ -234,7 +236,7 @@ export class CustomPagesService implements OnModuleInit {
         buttonTitle: 'Shop Collection',
         buttonLink: '/shop',
         sections: {
-          create: this.getDefaultHomeSectionsData(),
+          create: this.getDefaultHomeSectionsData().map((sec) => ({ images: [], ...sec })),
         },
       },
       include: {
@@ -296,6 +298,7 @@ export class CustomPagesService implements OnModuleInit {
       await this.prisma.pageSection.create({
         data: {
           customPageId: pageId,
+          images: [],
           ...sec,
         },
       });

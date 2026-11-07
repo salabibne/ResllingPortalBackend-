@@ -16,6 +16,7 @@ import {
   sanitizeUrl,
 } from './section-registry';
 import { convertLegacyRows, hasLegacyRows } from './legacy-sections';
+import { toStringArray } from '../prisma/json-array';
 
 const HOME_SLUG = 'home';
 const MAX_PRODUCTS = 200;
@@ -60,7 +61,7 @@ interface PageSectionRow {
   subtitle: string | null;
   description: string | null;
   imageUrl: string | null;
-  images: string[];
+  images: unknown;
   imageDescription: string | null;
   buttonText: string | null;
   buttonLink: string | null;
@@ -139,6 +140,7 @@ export class HomepageService {
               subtitle: section.subtitle,
               description: section.description,
               imageUrl: section.imageUrl,
+              images: [],
               buttonText: section.buttonText,
               buttonLink: section.buttonLink,
               settings: section.settings as Prisma.InputJsonValue,
@@ -274,6 +276,7 @@ export class HomepageService {
         subtitle: (dto.subtitle ?? definition.defaults.subtitle ?? '').slice(0, 200),
         description: (dto.description ?? definition.defaults.description ?? '').slice(0, 2000),
         imageUrl: sanitizeUrl(dto.imageUrl ?? definition.defaults.imageUrl),
+        images: [],
         imageDescription: dto.imageDescription?.slice(0, 300),
         buttonText: (dto.buttonText ?? definition.defaults.buttonText ?? '').slice(0, 100),
         buttonLink: sanitizeUrl(dto.buttonLink ?? definition.defaults.buttonLink),
@@ -377,7 +380,7 @@ export class HomepageService {
         subtitle: existing.subtitle,
         description: existing.description,
         imageUrl: existing.imageUrl,
-        images: existing.images,
+        images: toStringArray(existing.images),
         imageDescription: existing.imageDescription,
         buttonText: existing.buttonText,
         buttonLink: existing.buttonLink,
@@ -441,7 +444,7 @@ export class HomepageService {
           subtitle: draft.subtitle,
           description: draft.description,
           imageUrl: draft.imageUrl,
-          images: draft.images,
+          images: toStringArray(draft.images),
           imageDescription: draft.imageDescription,
           buttonText: draft.buttonText,
           buttonLink: draft.buttonLink,
@@ -497,6 +500,7 @@ export class HomepageService {
           subtitle: section.subtitle,
           description: section.description,
           imageUrl: section.imageUrl,
+          images: [],
           buttonText: section.buttonText,
           buttonLink: section.buttonLink,
           settings: section.settings as Prisma.InputJsonValue,
@@ -547,7 +551,7 @@ export class HomepageService {
         subtitle: row.subtitle,
         description: row.description,
         imageUrl: row.imageUrl,
-        images: row.images,
+        images: toStringArray(row.images),
         imageDescription: row.imageDescription,
         buttonText: row.buttonText,
         buttonLink: row.buttonLink,

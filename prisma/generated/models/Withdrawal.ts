@@ -274,8 +274,8 @@ export type WithdrawalWhereInput = {
   AND?: Prisma.WithdrawalWhereInput | Prisma.WithdrawalWhereInput[]
   OR?: Prisma.WithdrawalWhereInput[]
   NOT?: Prisma.WithdrawalWhereInput | Prisma.WithdrawalWhereInput[]
-  id?: Prisma.UuidFilter<"Withdrawal"> | string
-  resellerId?: Prisma.UuidFilter<"Withdrawal"> | string
+  id?: Prisma.StringFilter<"Withdrawal"> | string
+  resellerId?: Prisma.StringFilter<"Withdrawal"> | string
   amount?: Prisma.DecimalFilter<"Withdrawal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   payoutMethod?: Prisma.EnumPayoutMethodFilter<"Withdrawal"> | $Enums.PayoutMethod
   accountDetails?: Prisma.StringFilter<"Withdrawal"> | string
@@ -284,7 +284,7 @@ export type WithdrawalWhereInput = {
   transactionId?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
   proofImageUrl?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
   adminNotes?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
-  processedBy?: Prisma.UuidNullableFilter<"Withdrawal"> | string | null
+  processedBy?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
   processedAt?: Prisma.DateTimeNullableFilter<"Withdrawal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Withdrawal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Withdrawal"> | Date | string
@@ -309,6 +309,7 @@ export type WithdrawalOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   reseller?: Prisma.UserOrderByWithRelationInput
   processedByUser?: Prisma.UserOrderByWithRelationInput
+  _relevance?: Prisma.WithdrawalOrderByRelevanceInput
 }
 
 export type WithdrawalWhereUniqueInput = Prisma.AtLeast<{
@@ -316,7 +317,7 @@ export type WithdrawalWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.WithdrawalWhereInput | Prisma.WithdrawalWhereInput[]
   OR?: Prisma.WithdrawalWhereInput[]
   NOT?: Prisma.WithdrawalWhereInput | Prisma.WithdrawalWhereInput[]
-  resellerId?: Prisma.UuidFilter<"Withdrawal"> | string
+  resellerId?: Prisma.StringFilter<"Withdrawal"> | string
   amount?: Prisma.DecimalFilter<"Withdrawal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   payoutMethod?: Prisma.EnumPayoutMethodFilter<"Withdrawal"> | $Enums.PayoutMethod
   accountDetails?: Prisma.StringFilter<"Withdrawal"> | string
@@ -325,7 +326,7 @@ export type WithdrawalWhereUniqueInput = Prisma.AtLeast<{
   transactionId?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
   proofImageUrl?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
   adminNotes?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
-  processedBy?: Prisma.UuidNullableFilter<"Withdrawal"> | string | null
+  processedBy?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
   processedAt?: Prisma.DateTimeNullableFilter<"Withdrawal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Withdrawal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Withdrawal"> | Date | string
@@ -359,8 +360,8 @@ export type WithdrawalScalarWhereWithAggregatesInput = {
   AND?: Prisma.WithdrawalScalarWhereWithAggregatesInput | Prisma.WithdrawalScalarWhereWithAggregatesInput[]
   OR?: Prisma.WithdrawalScalarWhereWithAggregatesInput[]
   NOT?: Prisma.WithdrawalScalarWhereWithAggregatesInput | Prisma.WithdrawalScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Withdrawal"> | string
-  resellerId?: Prisma.UuidWithAggregatesFilter<"Withdrawal"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Withdrawal"> | string
+  resellerId?: Prisma.StringWithAggregatesFilter<"Withdrawal"> | string
   amount?: Prisma.DecimalWithAggregatesFilter<"Withdrawal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   payoutMethod?: Prisma.EnumPayoutMethodWithAggregatesFilter<"Withdrawal"> | $Enums.PayoutMethod
   accountDetails?: Prisma.StringWithAggregatesFilter<"Withdrawal"> | string
@@ -369,7 +370,7 @@ export type WithdrawalScalarWhereWithAggregatesInput = {
   transactionId?: Prisma.StringNullableWithAggregatesFilter<"Withdrawal"> | string | null
   proofImageUrl?: Prisma.StringNullableWithAggregatesFilter<"Withdrawal"> | string | null
   adminNotes?: Prisma.StringNullableWithAggregatesFilter<"Withdrawal"> | string | null
-  processedBy?: Prisma.UuidNullableWithAggregatesFilter<"Withdrawal"> | string | null
+  processedBy?: Prisma.StringNullableWithAggregatesFilter<"Withdrawal"> | string | null
   processedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Withdrawal"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Withdrawal"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Withdrawal"> | Date | string
@@ -500,6 +501,12 @@ export type WithdrawalListRelationFilter = {
 
 export type WithdrawalOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type WithdrawalOrderByRelevanceInput = {
+  fields: Prisma.WithdrawalOrderByRelevanceFieldEnum | Prisma.WithdrawalOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type WithdrawalCountOrderByAggregateInput = {
@@ -757,8 +764,8 @@ export type WithdrawalScalarWhereInput = {
   AND?: Prisma.WithdrawalScalarWhereInput | Prisma.WithdrawalScalarWhereInput[]
   OR?: Prisma.WithdrawalScalarWhereInput[]
   NOT?: Prisma.WithdrawalScalarWhereInput | Prisma.WithdrawalScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Withdrawal"> | string
-  resellerId?: Prisma.UuidFilter<"Withdrawal"> | string
+  id?: Prisma.StringFilter<"Withdrawal"> | string
+  resellerId?: Prisma.StringFilter<"Withdrawal"> | string
   amount?: Prisma.DecimalFilter<"Withdrawal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   payoutMethod?: Prisma.EnumPayoutMethodFilter<"Withdrawal"> | $Enums.PayoutMethod
   accountDetails?: Prisma.StringFilter<"Withdrawal"> | string
@@ -767,7 +774,7 @@ export type WithdrawalScalarWhereInput = {
   transactionId?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
   proofImageUrl?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
   adminNotes?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
-  processedBy?: Prisma.UuidNullableFilter<"Withdrawal"> | string | null
+  processedBy?: Prisma.StringNullableFilter<"Withdrawal"> | string | null
   processedAt?: Prisma.DateTimeNullableFilter<"Withdrawal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Withdrawal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Withdrawal"> | Date | string
@@ -938,43 +945,7 @@ export type WithdrawalSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   processedByUser?: boolean | Prisma.Withdrawal$processedByUserArgs<ExtArgs>
 }, ExtArgs["result"]["withdrawal"]>
 
-export type WithdrawalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  resellerId?: boolean
-  amount?: boolean
-  payoutMethod?: boolean
-  accountDetails?: boolean
-  status?: boolean
-  resellerNotes?: boolean
-  transactionId?: boolean
-  proofImageUrl?: boolean
-  adminNotes?: boolean
-  processedBy?: boolean
-  processedAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  reseller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  processedByUser?: boolean | Prisma.Withdrawal$processedByUserArgs<ExtArgs>
-}, ExtArgs["result"]["withdrawal"]>
 
-export type WithdrawalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  resellerId?: boolean
-  amount?: boolean
-  payoutMethod?: boolean
-  accountDetails?: boolean
-  status?: boolean
-  resellerNotes?: boolean
-  transactionId?: boolean
-  proofImageUrl?: boolean
-  adminNotes?: boolean
-  processedBy?: boolean
-  processedAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  reseller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  processedByUser?: boolean | Prisma.Withdrawal$processedByUserArgs<ExtArgs>
-}, ExtArgs["result"]["withdrawal"]>
 
 export type WithdrawalSelectScalar = {
   id?: boolean
@@ -995,14 +966,6 @@ export type WithdrawalSelectScalar = {
 
 export type WithdrawalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "resellerId" | "amount" | "payoutMethod" | "accountDetails" | "status" | "resellerNotes" | "transactionId" | "proofImageUrl" | "adminNotes" | "processedBy" | "processedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["withdrawal"]>
 export type WithdrawalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  reseller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  processedByUser?: boolean | Prisma.Withdrawal$processedByUserArgs<ExtArgs>
-}
-export type WithdrawalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  reseller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  processedByUser?: boolean | Prisma.Withdrawal$processedByUserArgs<ExtArgs>
-}
-export type WithdrawalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reseller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   processedByUser?: boolean | Prisma.Withdrawal$processedByUserArgs<ExtArgs>
 }
@@ -1146,30 +1109,6 @@ export interface WithdrawalDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends WithdrawalCreateManyArgs>(args?: Prisma.SelectSubset<T, WithdrawalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many Withdrawals and returns the data saved in the database.
-   * @param {WithdrawalCreateManyAndReturnArgs} args - Arguments to create many Withdrawals.
-   * @example
-   * // Create many Withdrawals
-   * const withdrawal = await prisma.withdrawal.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many Withdrawals and only return the `id`
-   * const withdrawalWithIdOnly = await prisma.withdrawal.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends WithdrawalCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, WithdrawalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a Withdrawal.
    * @param {WithdrawalDeleteArgs} args - Arguments to delete one Withdrawal.
    * @example
@@ -1232,36 +1171,6 @@ export interface WithdrawalDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends WithdrawalUpdateManyArgs>(args: Prisma.SelectSubset<T, WithdrawalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more Withdrawals and returns the data updated in the database.
-   * @param {WithdrawalUpdateManyAndReturnArgs} args - Arguments to update many Withdrawals.
-   * @example
-   * // Update many Withdrawals
-   * const withdrawal = await prisma.withdrawal.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more Withdrawals and only return the `id`
-   * const withdrawalWithIdOnly = await prisma.withdrawal.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends WithdrawalUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, WithdrawalUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WithdrawalPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Withdrawal.
@@ -1705,29 +1614,6 @@ export type WithdrawalCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * Withdrawal createManyAndReturn
- */
-export type WithdrawalCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Withdrawal
-   */
-  select?: Prisma.WithdrawalSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the Withdrawal
-   */
-  omit?: Prisma.WithdrawalOmit<ExtArgs> | null
-  /**
-   * The data used to create many Withdrawals.
-   */
-  data: Prisma.WithdrawalCreateManyInput | Prisma.WithdrawalCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.WithdrawalIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * Withdrawal update
  */
 export type WithdrawalUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1769,36 +1655,6 @@ export type WithdrawalUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * Limit how many Withdrawals to update.
    */
   limit?: number
-}
-
-/**
- * Withdrawal updateManyAndReturn
- */
-export type WithdrawalUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Withdrawal
-   */
-  select?: Prisma.WithdrawalSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the Withdrawal
-   */
-  omit?: Prisma.WithdrawalOmit<ExtArgs> | null
-  /**
-   * The data used to update Withdrawals.
-   */
-  data: Prisma.XOR<Prisma.WithdrawalUpdateManyMutationInput, Prisma.WithdrawalUncheckedUpdateManyInput>
-  /**
-   * Filter which Withdrawals to update
-   */
-  where?: Prisma.WithdrawalWhereInput
-  /**
-   * Limit how many Withdrawals to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.WithdrawalIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

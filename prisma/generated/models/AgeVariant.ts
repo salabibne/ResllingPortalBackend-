@@ -163,7 +163,7 @@ export type AgeVariantWhereInput = {
   AND?: Prisma.AgeVariantWhereInput | Prisma.AgeVariantWhereInput[]
   OR?: Prisma.AgeVariantWhereInput[]
   NOT?: Prisma.AgeVariantWhereInput | Prisma.AgeVariantWhereInput[]
-  id?: Prisma.UuidFilter<"AgeVariant"> | string
+  id?: Prisma.StringFilter<"AgeVariant"> | string
   ageRange?: Prisma.StringFilter<"AgeVariant"> | string
   status?: Prisma.EnumCommonStatusFilter<"AgeVariant"> | $Enums.CommonStatus
   products?: Prisma.ProductAgeListRelationFilter
@@ -174,6 +174,7 @@ export type AgeVariantOrderByWithRelationInput = {
   ageRange?: Prisma.SortOrder
   status?: Prisma.SortOrder
   products?: Prisma.ProductAgeOrderByRelationAggregateInput
+  _relevance?: Prisma.AgeVariantOrderByRelevanceInput
 }
 
 export type AgeVariantWhereUniqueInput = Prisma.AtLeast<{
@@ -199,7 +200,7 @@ export type AgeVariantScalarWhereWithAggregatesInput = {
   AND?: Prisma.AgeVariantScalarWhereWithAggregatesInput | Prisma.AgeVariantScalarWhereWithAggregatesInput[]
   OR?: Prisma.AgeVariantScalarWhereWithAggregatesInput[]
   NOT?: Prisma.AgeVariantScalarWhereWithAggregatesInput | Prisma.AgeVariantScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"AgeVariant"> | string
+  id?: Prisma.StringWithAggregatesFilter<"AgeVariant"> | string
   ageRange?: Prisma.StringWithAggregatesFilter<"AgeVariant"> | string
   status?: Prisma.EnumCommonStatusWithAggregatesFilter<"AgeVariant"> | $Enums.CommonStatus
 }
@@ -248,6 +249,12 @@ export type AgeVariantUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ageRange?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
+}
+
+export type AgeVariantOrderByRelevanceInput = {
+  fields: Prisma.AgeVariantOrderByRelevanceFieldEnum | Prisma.AgeVariantOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type AgeVariantCountOrderByAggregateInput = {
@@ -366,17 +373,7 @@ export type AgeVariantSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   _count?: boolean | Prisma.AgeVariantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["ageVariant"]>
 
-export type AgeVariantSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  ageRange?: boolean
-  status?: boolean
-}, ExtArgs["result"]["ageVariant"]>
 
-export type AgeVariantSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  ageRange?: boolean
-  status?: boolean
-}, ExtArgs["result"]["ageVariant"]>
 
 export type AgeVariantSelectScalar = {
   id?: boolean
@@ -389,8 +386,6 @@ export type AgeVariantInclude<ExtArgs extends runtime.Types.Extensions.InternalA
   products?: boolean | Prisma.AgeVariant$productsArgs<ExtArgs>
   _count?: boolean | Prisma.AgeVariantCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type AgeVariantIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type AgeVariantIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $AgeVariantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "AgeVariant"
@@ -519,30 +514,6 @@ export interface AgeVariantDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends AgeVariantCreateManyArgs>(args?: Prisma.SelectSubset<T, AgeVariantCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many AgeVariants and returns the data saved in the database.
-   * @param {AgeVariantCreateManyAndReturnArgs} args - Arguments to create many AgeVariants.
-   * @example
-   * // Create many AgeVariants
-   * const ageVariant = await prisma.ageVariant.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many AgeVariants and only return the `id`
-   * const ageVariantWithIdOnly = await prisma.ageVariant.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends AgeVariantCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, AgeVariantCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AgeVariantPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a AgeVariant.
    * @param {AgeVariantDeleteArgs} args - Arguments to delete one AgeVariant.
    * @example
@@ -605,36 +576,6 @@ export interface AgeVariantDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends AgeVariantUpdateManyArgs>(args: Prisma.SelectSubset<T, AgeVariantUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more AgeVariants and returns the data updated in the database.
-   * @param {AgeVariantUpdateManyAndReturnArgs} args - Arguments to update many AgeVariants.
-   * @example
-   * // Update many AgeVariants
-   * const ageVariant = await prisma.ageVariant.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more AgeVariants and only return the `id`
-   * const ageVariantWithIdOnly = await prisma.ageVariant.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends AgeVariantUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, AgeVariantUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AgeVariantPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one AgeVariant.
@@ -1066,25 +1007,6 @@ export type AgeVariantCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * AgeVariant createManyAndReturn
- */
-export type AgeVariantCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AgeVariant
-   */
-  select?: Prisma.AgeVariantSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the AgeVariant
-   */
-  omit?: Prisma.AgeVariantOmit<ExtArgs> | null
-  /**
-   * The data used to create many AgeVariants.
-   */
-  data: Prisma.AgeVariantCreateManyInput | Prisma.AgeVariantCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * AgeVariant update
  */
 export type AgeVariantUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1114,32 +1036,6 @@ export type AgeVariantUpdateArgs<ExtArgs extends runtime.Types.Extensions.Intern
  * AgeVariant updateMany
  */
 export type AgeVariantUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update AgeVariants.
-   */
-  data: Prisma.XOR<Prisma.AgeVariantUpdateManyMutationInput, Prisma.AgeVariantUncheckedUpdateManyInput>
-  /**
-   * Filter which AgeVariants to update
-   */
-  where?: Prisma.AgeVariantWhereInput
-  /**
-   * Limit how many AgeVariants to update.
-   */
-  limit?: number
-}
-
-/**
- * AgeVariant updateManyAndReturn
- */
-export type AgeVariantUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AgeVariant
-   */
-  select?: Prisma.AgeVariantSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the AgeVariant
-   */
-  omit?: Prisma.AgeVariantOmit<ExtArgs> | null
   /**
    * The data used to update AgeVariants.
    */

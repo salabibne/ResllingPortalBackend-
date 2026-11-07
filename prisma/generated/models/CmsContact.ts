@@ -212,7 +212,7 @@ export type CmsContactWhereInput = {
   AND?: Prisma.CmsContactWhereInput | Prisma.CmsContactWhereInput[]
   OR?: Prisma.CmsContactWhereInput[]
   NOT?: Prisma.CmsContactWhereInput | Prisma.CmsContactWhereInput[]
-  id?: Prisma.UuidFilter<"CmsContact"> | string
+  id?: Prisma.StringFilter<"CmsContact"> | string
   phone?: Prisma.StringFilter<"CmsContact"> | string
   email?: Prisma.StringFilter<"CmsContact"> | string
   address?: Prisma.StringFilter<"CmsContact"> | string
@@ -235,6 +235,7 @@ export type CmsContactOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsContactOrderByRelevanceInput
 }
 
 export type CmsContactWhereUniqueInput = Prisma.AtLeast<{
@@ -273,7 +274,7 @@ export type CmsContactScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsContactScalarWhereWithAggregatesInput | Prisma.CmsContactScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsContactScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsContactScalarWhereWithAggregatesInput | Prisma.CmsContactScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsContact"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsContact"> | string
   phone?: Prisma.StringWithAggregatesFilter<"CmsContact"> | string
   email?: Prisma.StringWithAggregatesFilter<"CmsContact"> | string
   address?: Prisma.StringWithAggregatesFilter<"CmsContact"> | string
@@ -376,6 +377,12 @@ export type CmsContactUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsContactOrderByRelevanceInput = {
+  fields: Prisma.CmsContactOrderByRelevanceFieldEnum | Prisma.CmsContactOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsContactCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   phone?: Prisma.SortOrder
@@ -430,31 +437,7 @@ export type CmsContactSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsContact"]>
 
-export type CmsContactSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  phone?: boolean
-  email?: boolean
-  address?: boolean
-  telegram?: boolean
-  whatsapp?: boolean
-  facebook?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsContact"]>
 
-export type CmsContactSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  phone?: boolean
-  email?: boolean
-  address?: boolean
-  telegram?: boolean
-  whatsapp?: boolean
-  facebook?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsContact"]>
 
 export type CmsContactSelectScalar = {
   id?: boolean
@@ -603,30 +586,6 @@ export interface CmsContactDelegate<ExtArgs extends runtime.Types.Extensions.Int
   createMany<T extends CmsContactCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsContactCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsContacts and returns the data saved in the database.
-   * @param {CmsContactCreateManyAndReturnArgs} args - Arguments to create many CmsContacts.
-   * @example
-   * // Create many CmsContacts
-   * const cmsContact = await prisma.cmsContact.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsContacts and only return the `id`
-   * const cmsContactWithIdOnly = await prisma.cmsContact.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsContactCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsContactCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsContactPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsContact.
    * @param {CmsContactDeleteArgs} args - Arguments to delete one CmsContact.
    * @example
@@ -689,36 +648,6 @@ export interface CmsContactDelegate<ExtArgs extends runtime.Types.Extensions.Int
    * 
    */
   updateMany<T extends CmsContactUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsContactUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsContacts and returns the data updated in the database.
-   * @param {CmsContactUpdateManyAndReturnArgs} args - Arguments to update many CmsContacts.
-   * @example
-   * // Update many CmsContacts
-   * const cmsContact = await prisma.cmsContact.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsContacts and only return the `id`
-   * const cmsContactWithIdOnly = await prisma.cmsContact.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsContactUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsContactUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsContactPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsContact.
@@ -1132,25 +1061,6 @@ export type CmsContactCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * CmsContact createManyAndReturn
- */
-export type CmsContactCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsContact
-   */
-  select?: Prisma.CmsContactSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsContact
-   */
-  omit?: Prisma.CmsContactOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsContacts.
-   */
-  data: Prisma.CmsContactCreateManyInput | Prisma.CmsContactCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsContact update
  */
 export type CmsContactUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1176,32 +1086,6 @@ export type CmsContactUpdateArgs<ExtArgs extends runtime.Types.Extensions.Intern
  * CmsContact updateMany
  */
 export type CmsContactUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsContacts.
-   */
-  data: Prisma.XOR<Prisma.CmsContactUpdateManyMutationInput, Prisma.CmsContactUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsContacts to update
-   */
-  where?: Prisma.CmsContactWhereInput
-  /**
-   * Limit how many CmsContacts to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsContact updateManyAndReturn
- */
-export type CmsContactUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsContact
-   */
-  select?: Prisma.CmsContactSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsContact
-   */
-  omit?: Prisma.CmsContactOmit<ExtArgs> | null
   /**
    * The data used to update CmsContacts.
    */

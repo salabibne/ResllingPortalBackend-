@@ -524,12 +524,12 @@ export type OrderWhereInput = {
   AND?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   OR?: Prisma.OrderWhereInput[]
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
-  id?: Prisma.UuidFilter<"Order"> | string
+  id?: Prisma.StringFilter<"Order"> | string
   orderRef?: Prisma.StringNullableFilter<"Order"> | string | null
-  cartId?: Prisma.UuidNullableFilter<"Order"> | string | null
-  customerId?: Prisma.UuidFilter<"Order"> | string
+  cartId?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerId?: Prisma.StringFilter<"Order"> | string
   isResellerOrder?: Prisma.BoolFilter<"Order"> | boolean
-  resellerId?: Prisma.UuidNullableFilter<"Order"> | string | null
+  resellerId?: Prisma.StringNullableFilter<"Order"> | string | null
   customerName?: Prisma.StringNullableFilter<"Order"> | string | null
   customerPhone?: Prisma.StringNullableFilter<"Order"> | string | null
   customerSecondaryPhone?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -544,7 +544,7 @@ export type OrderWhereInput = {
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"Order"> | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFilter<"Order"> | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFilter<"Order"> | $Enums.OrderProcessingStatus
-  orderProcessedBy?: Prisma.UuidNullableFilter<"Order"> | string | null
+  orderProcessedBy?: Prisma.StringNullableFilter<"Order"> | string | null
   subtotal?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   courierCharge?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   discount?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -623,6 +623,7 @@ export type OrderOrderByWithRelationInput = {
   customer?: Prisma.UserOrderByWithRelationInput
   reseller?: Prisma.UserOrderByWithRelationInput
   orderItems?: Prisma.OrderItemOrderByRelationAggregateInput
+  _relevance?: Prisma.OrderOrderByRelevanceInput
 }
 
 export type OrderWhereUniqueInput = Prisma.AtLeast<{
@@ -632,10 +633,10 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   OR?: Prisma.OrderWhereInput[]
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
-  cartId?: Prisma.UuidNullableFilter<"Order"> | string | null
-  customerId?: Prisma.UuidFilter<"Order"> | string
+  cartId?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerId?: Prisma.StringFilter<"Order"> | string
   isResellerOrder?: Prisma.BoolFilter<"Order"> | boolean
-  resellerId?: Prisma.UuidNullableFilter<"Order"> | string | null
+  resellerId?: Prisma.StringNullableFilter<"Order"> | string | null
   customerName?: Prisma.StringNullableFilter<"Order"> | string | null
   customerPhone?: Prisma.StringNullableFilter<"Order"> | string | null
   customerSecondaryPhone?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -650,7 +651,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"Order"> | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFilter<"Order"> | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFilter<"Order"> | $Enums.OrderProcessingStatus
-  orderProcessedBy?: Prisma.UuidNullableFilter<"Order"> | string | null
+  orderProcessedBy?: Prisma.StringNullableFilter<"Order"> | string | null
   subtotal?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   courierCharge?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   discount?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -736,12 +737,12 @@ export type OrderScalarWhereWithAggregatesInput = {
   AND?: Prisma.OrderScalarWhereWithAggregatesInput | Prisma.OrderScalarWhereWithAggregatesInput[]
   OR?: Prisma.OrderScalarWhereWithAggregatesInput[]
   NOT?: Prisma.OrderScalarWhereWithAggregatesInput | Prisma.OrderScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"Order"> | string
+  id?: Prisma.StringWithAggregatesFilter<"Order"> | string
   orderRef?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
-  cartId?: Prisma.UuidNullableWithAggregatesFilter<"Order"> | string | null
-  customerId?: Prisma.UuidWithAggregatesFilter<"Order"> | string
+  cartId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  customerId?: Prisma.StringWithAggregatesFilter<"Order"> | string
   isResellerOrder?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
-  resellerId?: Prisma.UuidNullableWithAggregatesFilter<"Order"> | string | null
+  resellerId?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   customerName?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   customerPhone?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   customerSecondaryPhone?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -756,7 +757,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   paymentStatus?: Prisma.EnumPaymentStatusWithAggregatesFilter<"Order"> | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodWithAggregatesFilter<"Order"> | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusWithAggregatesFilter<"Order"> | $Enums.OrderProcessingStatus
-  orderProcessedBy?: Prisma.UuidNullableWithAggregatesFilter<"Order"> | string | null
+  orderProcessedBy?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   subtotal?: Prisma.DecimalWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   courierCharge?: Prisma.DecimalWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   discount?: Prisma.DecimalWithAggregatesFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -1120,6 +1121,12 @@ export type OrderListRelationFilter = {
 
 export type OrderOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type OrderOrderByRelevanceInput = {
+  fields: Prisma.OrderOrderByRelevanceFieldEnum | Prisma.OrderOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
 }
 
 export type OrderCourierProviderCourierConsignmentIdCompoundUniqueInput = {
@@ -1697,12 +1704,12 @@ export type OrderScalarWhereInput = {
   AND?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
   OR?: Prisma.OrderScalarWhereInput[]
   NOT?: Prisma.OrderScalarWhereInput | Prisma.OrderScalarWhereInput[]
-  id?: Prisma.UuidFilter<"Order"> | string
+  id?: Prisma.StringFilter<"Order"> | string
   orderRef?: Prisma.StringNullableFilter<"Order"> | string | null
-  cartId?: Prisma.UuidNullableFilter<"Order"> | string | null
-  customerId?: Prisma.UuidFilter<"Order"> | string
+  cartId?: Prisma.StringNullableFilter<"Order"> | string | null
+  customerId?: Prisma.StringFilter<"Order"> | string
   isResellerOrder?: Prisma.BoolFilter<"Order"> | boolean
-  resellerId?: Prisma.UuidNullableFilter<"Order"> | string | null
+  resellerId?: Prisma.StringNullableFilter<"Order"> | string | null
   customerName?: Prisma.StringNullableFilter<"Order"> | string | null
   customerPhone?: Prisma.StringNullableFilter<"Order"> | string | null
   customerSecondaryPhone?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -1717,7 +1724,7 @@ export type OrderScalarWhereInput = {
   paymentStatus?: Prisma.EnumPaymentStatusFilter<"Order"> | $Enums.PaymentStatus
   paymentMethod?: Prisma.EnumPaymentMethodFilter<"Order"> | $Enums.PaymentMethod
   processingStatus?: Prisma.EnumOrderProcessingStatusFilter<"Order"> | $Enums.OrderProcessingStatus
-  orderProcessedBy?: Prisma.UuidNullableFilter<"Order"> | string | null
+  orderProcessedBy?: Prisma.StringNullableFilter<"Order"> | string | null
   subtotal?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   courierCharge?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   discount?: Prisma.DecimalFilter<"Order"> | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -2724,105 +2731,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["order"]>
 
-export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  orderRef?: boolean
-  cartId?: boolean
-  customerId?: boolean
-  isResellerOrder?: boolean
-  resellerId?: boolean
-  customerName?: boolean
-  customerPhone?: boolean
-  customerSecondaryPhone?: boolean
-  customerEmail?: boolean
-  customerDistrict?: boolean
-  customerThana?: boolean
-  resellerSubtotal?: boolean
-  resellerSellPrice?: boolean
-  resellerProfit?: boolean
-  isAdvanceCourierPaid?: boolean
-  advanceCourierAmount?: boolean
-  paymentStatus?: boolean
-  paymentMethod?: boolean
-  processingStatus?: boolean
-  orderProcessedBy?: boolean
-  subtotal?: boolean
-  courierCharge?: boolean
-  discount?: boolean
-  total?: boolean
-  shippingAddress?: boolean
-  notes?: boolean
-  courierProvider?: boolean
-  courierConsignmentId?: boolean
-  courierTrackingCode?: boolean
-  courierStatus?: boolean
-  courierSubmittedAt?: boolean
-  courierLastSyncedAt?: boolean
-  courierDeliveryType?: boolean
-  courierNotes?: boolean
-  courierTrackingLink?: boolean
-  courierCodAmount?: boolean
-  courierBookingState?: boolean
-  courierReturnRequestId?: boolean
-  courierReturnStatus?: boolean
-  courierReturnReason?: boolean
-  courierReturnRequestedAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
-  customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
-}, ExtArgs["result"]["order"]>
 
-export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  orderRef?: boolean
-  cartId?: boolean
-  customerId?: boolean
-  isResellerOrder?: boolean
-  resellerId?: boolean
-  customerName?: boolean
-  customerPhone?: boolean
-  customerSecondaryPhone?: boolean
-  customerEmail?: boolean
-  customerDistrict?: boolean
-  customerThana?: boolean
-  resellerSubtotal?: boolean
-  resellerSellPrice?: boolean
-  resellerProfit?: boolean
-  isAdvanceCourierPaid?: boolean
-  advanceCourierAmount?: boolean
-  paymentStatus?: boolean
-  paymentMethod?: boolean
-  processingStatus?: boolean
-  orderProcessedBy?: boolean
-  subtotal?: boolean
-  courierCharge?: boolean
-  discount?: boolean
-  total?: boolean
-  shippingAddress?: boolean
-  notes?: boolean
-  courierProvider?: boolean
-  courierConsignmentId?: boolean
-  courierTrackingCode?: boolean
-  courierStatus?: boolean
-  courierSubmittedAt?: boolean
-  courierLastSyncedAt?: boolean
-  courierDeliveryType?: boolean
-  courierNotes?: boolean
-  courierTrackingLink?: boolean
-  courierCodAmount?: boolean
-  courierBookingState?: boolean
-  courierReturnRequestId?: boolean
-  courierReturnStatus?: boolean
-  courierReturnReason?: boolean
-  courierReturnRequestedAt?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
-  customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
-}, ExtArgs["result"]["order"]>
 
 export type OrderSelectScalar = {
   id?: boolean
@@ -2878,16 +2787,6 @@ export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
   orderItems?: boolean | Prisma.Order$orderItemsArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
-}
-export type OrderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
-  customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
-}
-export type OrderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  cart?: boolean | Prisma.Order$cartArgs<ExtArgs>
-  customer?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  reseller?: boolean | Prisma.Order$resellerArgs<ExtArgs>
 }
 
 export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3061,30 +2960,6 @@ export interface OrderDelegate<ExtArgs extends runtime.Types.Extensions.Internal
   createMany<T extends OrderCreateManyArgs>(args?: Prisma.SelectSubset<T, OrderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many Orders and returns the data saved in the database.
-   * @param {OrderCreateManyAndReturnArgs} args - Arguments to create many Orders.
-   * @example
-   * // Create many Orders
-   * const order = await prisma.order.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many Orders and only return the `id`
-   * const orderWithIdOnly = await prisma.order.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends OrderCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, OrderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a Order.
    * @param {OrderDeleteArgs} args - Arguments to delete one Order.
    * @example
@@ -3147,36 +3022,6 @@ export interface OrderDelegate<ExtArgs extends runtime.Types.Extensions.Internal
    * 
    */
   updateMany<T extends OrderUpdateManyArgs>(args: Prisma.SelectSubset<T, OrderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more Orders and returns the data updated in the database.
-   * @param {OrderUpdateManyAndReturnArgs} args - Arguments to update many Orders.
-   * @example
-   * // Update many Orders
-   * const order = await prisma.order.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more Orders and only return the `id`
-   * const orderWithIdOnly = await prisma.order.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends OrderUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, OrderUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one Order.
@@ -3652,29 +3497,6 @@ export type OrderCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Order createManyAndReturn
- */
-export type OrderCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Order
-   */
-  select?: Prisma.OrderSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the Order
-   */
-  omit?: Prisma.OrderOmit<ExtArgs> | null
-  /**
-   * The data used to create many Orders.
-   */
-  data: Prisma.OrderCreateManyInput | Prisma.OrderCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.OrderIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * Order update
  */
 export type OrderUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3716,36 +3538,6 @@ export type OrderUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Limit how many Orders to update.
    */
   limit?: number
-}
-
-/**
- * Order updateManyAndReturn
- */
-export type OrderUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Order
-   */
-  select?: Prisma.OrderSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the Order
-   */
-  omit?: Prisma.OrderOmit<ExtArgs> | null
-  /**
-   * The data used to update Orders.
-   */
-  data: Prisma.XOR<Prisma.OrderUpdateManyMutationInput, Prisma.OrderUncheckedUpdateManyInput>
-  /**
-   * Filter which Orders to update
-   */
-  where?: Prisma.OrderWhereInput
-  /**
-   * Limit how many Orders to update.
-   */
-  limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.OrderIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**

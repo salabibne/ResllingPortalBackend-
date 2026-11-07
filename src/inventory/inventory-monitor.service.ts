@@ -28,26 +28,30 @@ export class InventoryMonitorService {
     const totalStockUnits = agg._sum.currentStock || 0;
 
     // Use queryRaw for computed total stock value based on product purchase price
-    const [{ totalStockValue }] = await this.prisma.$queryRaw<
-      { totalStockValue: number }[]
+    // MySQL returns SUM(decimal) as a DECIMAL, so convert it to a plain number.
+    const [valueRow] = await this.prisma.$queryRaw<
+      { totalStockValue: unknown }[]
     >`
-      SELECT COALESCE(SUM(i.current_stock * p.purchase_price), 0)::float as "totalStockValue"
+      SELECT COALESCE(SUM(i.current_stock * p.purchase_price), 0) AS totalStockValue
       FROM inventory i
       JOIN product p ON i.product_id = p.id
     `;
+    const totalStockValue = Number(valueRow?.totalStockValue ?? 0);
 
     // Separate count queries
     const outOfStockCount = await this.prisma.inventory.count({
       where: { currentStock: 0 },
     });
 
-    const [{ lowStockCount }] = await this.prisma.$queryRaw<
-      { lowStockCount: number }[]
+    // MySQL returns COUNT(*) as BIGINT, so convert it to a plain number.
+    const [lowRow] = await this.prisma.$queryRaw<
+      { lowStockCount: bigint | number }[]
     >`
-      SELECT COUNT(*)::int as "lowStockCount"
+      SELECT COUNT(*) AS lowStockCount
       FROM inventory
       WHERE current_stock <= stock_limit_alert AND current_stock > 0
     `;
+    const lowStockCount = Number(lowRow?.lowStockCount ?? 0);
 
     // 2. Count distinct products
     const distinctProducts = await this.prisma.inventory.findMany({
@@ -129,11 +133,13 @@ export class InventoryMonitorService {
       ? Prisma.sql`current_stock <= stock_limit_alert`
       : Prisma.sql`current_stock <= stock_limit_alert AND current_stock > 0`;
 
-    const [{ total }] = await this.prisma.$queryRaw<{ total: number }[]>`
-      SELECT COUNT(*)::int as total
+    // MySQL returns COUNT(*) as BIGINT, so convert it to a plain number.
+    const [countRow] = await this.prisma.$queryRaw<{ total: bigint | number }[]>`
+      SELECT COUNT(*) AS total
       FROM inventory
       WHERE ${stockCondition}
     `;
+    const total = Number(countRow?.total ?? 0);
 
     const idsResult = await this.prisma.$queryRaw<{ id: string }[]>`
       SELECT id
@@ -200,7 +206,7 @@ export class InventoryMonitorService {
 
     // Partial match on reference (PO numbers, invoice refs)
     if (dto.reference) {
-      where.reference = { contains: dto.reference, mode: 'insensitive' };
+      where.reference = { contains: dto.reference };
     }
 
     // Date range filter

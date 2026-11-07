@@ -177,7 +177,7 @@ export type CmsBrandWhereInput = {
   AND?: Prisma.CmsBrandWhereInput | Prisma.CmsBrandWhereInput[]
   OR?: Prisma.CmsBrandWhereInput[]
   NOT?: Prisma.CmsBrandWhereInput | Prisma.CmsBrandWhereInput[]
-  id?: Prisma.UuidFilter<"CmsBrand"> | string
+  id?: Prisma.StringFilter<"CmsBrand"> | string
   logoUrl?: Prisma.StringNullableFilter<"CmsBrand"> | string | null
   status?: Prisma.EnumCommonStatusFilter<"CmsBrand"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeFilter<"CmsBrand"> | Date | string
@@ -190,6 +190,7 @@ export type CmsBrandOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  _relevance?: Prisma.CmsBrandOrderByRelevanceInput
 }
 
 export type CmsBrandWhereUniqueInput = Prisma.AtLeast<{
@@ -218,7 +219,7 @@ export type CmsBrandScalarWhereWithAggregatesInput = {
   AND?: Prisma.CmsBrandScalarWhereWithAggregatesInput | Prisma.CmsBrandScalarWhereWithAggregatesInput[]
   OR?: Prisma.CmsBrandScalarWhereWithAggregatesInput[]
   NOT?: Prisma.CmsBrandScalarWhereWithAggregatesInput | Prisma.CmsBrandScalarWhereWithAggregatesInput[]
-  id?: Prisma.UuidWithAggregatesFilter<"CmsBrand"> | string
+  id?: Prisma.StringWithAggregatesFilter<"CmsBrand"> | string
   logoUrl?: Prisma.StringNullableWithAggregatesFilter<"CmsBrand"> | string | null
   status?: Prisma.EnumCommonStatusWithAggregatesFilter<"CmsBrand"> | $Enums.CommonStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CmsBrand"> | Date | string
@@ -281,6 +282,12 @@ export type CmsBrandUncheckedUpdateManyInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type CmsBrandOrderByRelevanceInput = {
+  fields: Prisma.CmsBrandOrderByRelevanceFieldEnum | Prisma.CmsBrandOrderByRelevanceFieldEnum[]
+  sort: Prisma.SortOrder
+  search: string
+}
+
 export type CmsBrandCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
@@ -315,21 +322,7 @@ export type CmsBrandSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   updatedAt?: boolean
 }, ExtArgs["result"]["cmsBrand"]>
 
-export type CmsBrandSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  logoUrl?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsBrand"]>
 
-export type CmsBrandSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  logoUrl?: boolean
-  status?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-}, ExtArgs["result"]["cmsBrand"]>
 
 export type CmsBrandSelectScalar = {
   id?: boolean
@@ -468,30 +461,6 @@ export interface CmsBrandDelegate<ExtArgs extends runtime.Types.Extensions.Inter
   createMany<T extends CmsBrandCreateManyArgs>(args?: Prisma.SelectSubset<T, CmsBrandCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
 
   /**
-   * Create many CmsBrands and returns the data saved in the database.
-   * @param {CmsBrandCreateManyAndReturnArgs} args - Arguments to create many CmsBrands.
-   * @example
-   * // Create many CmsBrands
-   * const cmsBrand = await prisma.cmsBrand.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many CmsBrands and only return the `id`
-   * const cmsBrandWithIdOnly = await prisma.cmsBrand.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends CmsBrandCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, CmsBrandCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsBrandPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a CmsBrand.
    * @param {CmsBrandDeleteArgs} args - Arguments to delete one CmsBrand.
    * @example
@@ -554,36 +523,6 @@ export interface CmsBrandDelegate<ExtArgs extends runtime.Types.Extensions.Inter
    * 
    */
   updateMany<T extends CmsBrandUpdateManyArgs>(args: Prisma.SelectSubset<T, CmsBrandUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Update zero or more CmsBrands and returns the data updated in the database.
-   * @param {CmsBrandUpdateManyAndReturnArgs} args - Arguments to update many CmsBrands.
-   * @example
-   * // Update many CmsBrands
-   * const cmsBrand = await prisma.cmsBrand.updateManyAndReturn({
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Update zero or more CmsBrands and only return the `id`
-   * const cmsBrandWithIdOnly = await prisma.cmsBrand.updateManyAndReturn({
-   *   select: { id: true },
-   *   where: {
-   *     // ... provide filter here
-   *   },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  updateManyAndReturn<T extends CmsBrandUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, CmsBrandUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CmsBrandPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
   /**
    * Create or update one CmsBrand.
@@ -992,25 +931,6 @@ export type CmsBrandCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * CmsBrand createManyAndReturn
- */
-export type CmsBrandCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsBrand
-   */
-  select?: Prisma.CmsBrandSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsBrand
-   */
-  omit?: Prisma.CmsBrandOmit<ExtArgs> | null
-  /**
-   * The data used to create many CmsBrands.
-   */
-  data: Prisma.CmsBrandCreateManyInput | Prisma.CmsBrandCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
  * CmsBrand update
  */
 export type CmsBrandUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1036,32 +956,6 @@ export type CmsBrandUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
  * CmsBrand updateMany
  */
 export type CmsBrandUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to update CmsBrands.
-   */
-  data: Prisma.XOR<Prisma.CmsBrandUpdateManyMutationInput, Prisma.CmsBrandUncheckedUpdateManyInput>
-  /**
-   * Filter which CmsBrands to update
-   */
-  where?: Prisma.CmsBrandWhereInput
-  /**
-   * Limit how many CmsBrands to update.
-   */
-  limit?: number
-}
-
-/**
- * CmsBrand updateManyAndReturn
- */
-export type CmsBrandUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the CmsBrand
-   */
-  select?: Prisma.CmsBrandSelectUpdateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the CmsBrand
-   */
-  omit?: Prisma.CmsBrandOmit<ExtArgs> | null
   /**
    * The data used to update CmsBrands.
    */
