@@ -830,7 +830,7 @@ export class OrderService implements OnModuleInit {
             select: { id: true, name: true, email: true, phone: true, role: true, pageName: true },
           },
           reseller: {
-            select: { id: true, name: true, email: true, phone: true, pageName: true },
+            select: { id: true, name: true, email: true, phone: true, secondaryPhone: true, pageName: true },
           },
           orderItems: {
             include: {
@@ -1009,7 +1009,7 @@ export class OrderService implements OnModuleInit {
           select: { id: true, name: true, email: true, phone: true, pageName: true },
         },
         reseller: {
-          select: { id: true, name: true, email: true, phone: true, pageName: true },
+          select: { id: true, name: true, email: true, phone: true, secondaryPhone: true, pageName: true },
         },
         orderItems: {
           include: {

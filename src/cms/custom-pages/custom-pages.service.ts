@@ -56,8 +56,8 @@ export class CustomPagesService implements OnModuleInit {
         content: heading
           ? `<h2>${this.escapeHtml(heading.title)}</h2><p>${this.escapeHtml(heading.description)}</p>`
           : '',
-        metaTitle: heading?.title || 'Why Choose Aarham Apparel',
-        metaDescription: heading?.description || 'Feature cards for Aarham Apparel',
+        metaTitle: heading?.title || 'Why Choose Online Uddokta Platform',
+        metaDescription: heading?.description || 'Feature cards for Online Uddokta Platform',
         status: 'PUBLISHED',
         sections: {
           create: rows.map((row, index) => ({
@@ -86,8 +86,8 @@ export class CustomPagesService implements OnModuleInit {
         title: 'Our Team',
         slug: 'team',
         content: '',
-        metaTitle: 'Our Team - Aarham Apparel',
-        metaDescription: 'The creative minds behind Aarham Apparel.',
+        metaTitle: 'Our Team - Online Uddokta Platform',
+        metaDescription: 'The creative minds behind Online Uddokta Platform.',
         status: 'PUBLISHED',
         sections: {
           create: rows.map((row, index) => ({
@@ -152,7 +152,7 @@ export class CustomPagesService implements OnModuleInit {
         title: 'Founder',
         slug: 'founder',
         content: '',
-        metaTitle: 'Founder - Aarham Apparel',
+        metaTitle: 'Founder - Online Uddokta Platform',
         metaDescription: 'Founder profile, blogs and videos.',
         status: 'PUBLISHED',
         sections: { create: sections },
@@ -228,9 +228,9 @@ export class CustomPagesService implements OnModuleInit {
       data: {
         title: 'Home Page',
         slug: 'home',
-        content: 'Main official homepage of Aarham Apparel',
-        metaTitle: 'Aarham Apparel | Modern Fashion & Premium Clothing',
-        metaDescription: 'Explore the finest collection of apparel and modern fashion at Aarham Apparel.',
+        content: 'Main official homepage of Online Uddokta Platform',
+        metaTitle: 'Online Uddokta Platform | Start Your Online Business',
+        metaDescription: 'Start your online business with Online Uddokta Platform - source products and resell them at your own selling price.',
         status: 'PUBLISHED',
         isSystem: true,
         buttonTitle: 'Shop Collection',

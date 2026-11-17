@@ -18,10 +18,14 @@ import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { MediaService } from './media.service';
 
+// Every staff role that can save a record with an image (categories/brands
+// are editable by SALES_EXECUTIVE and INVENTOR too) must be able to upload it.
 const MEDIA_WRITE_ROLES = [
   UserRole.SUPER_ADMIN,
   UserRole.ADMIN,
   UserRole.MANAGER,
+  UserRole.SALES_EXECUTIVE,
+  UserRole.INVENTOR,
 ];
 
 const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;

@@ -7,7 +7,7 @@ export class AppService {
 
   getHello() {
     return {
-      message: 'Aarham Apparel backend is running',
+      message: 'Online Uddokta Platform backend is running',
     };
   }
 

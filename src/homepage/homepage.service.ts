@@ -125,9 +125,9 @@ export class HomepageService {
           title: 'Home Page',
           slug: HOME_SLUG,
           content: 'Main official homepage',
-          metaTitle: 'Aarham Apparel | Modern Fashion & Premium Clothing',
+          metaTitle: 'Online Uddokta Platform | Start Your Online Business',
           metaDescription:
-            'Explore the finest collection of apparel and modern fashion at Aarham Apparel.',
+            'Start your online business with Online Uddokta Platform - source products and resell them at your own selling price.',
           status: PageStatus.PUBLISHED,
           isSystem: true,
           buttonTitle: 'Shop Collection',
