@@ -11,7 +11,7 @@ export class TeamService {
     return this.prisma.cmsTeam.create({
       data: {
         name: dto.name,
-        designation: dto.designation,
+        designation: dto.designation ?? '',
         imageUrl: dto.imageUrl,
         message: dto.message,
         status: dto.status,

@@ -7,8 +7,8 @@ export class CreateTeamDto {
   name!: string;
 
   @IsString()
-  @IsNotEmpty()
-  designation!: string;
+  @IsOptional()
+  designation?: string;
 
   @IsString()
   @IsNotEmpty()

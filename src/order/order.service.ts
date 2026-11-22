@@ -27,6 +27,7 @@ import { SendToCourierDto, BulkSendCourierDto } from './dto/send-to-courier.dto'
 import { CreateCourierPickupDto } from './dto/create-courier-pickup.dto';
 import { CreateCourierReturnDto } from './dto/create-courier-return.dto';
 import { SteadfastService } from './steadfast.service';
+import { getVerification } from '../user/reseller-verification';
 import {
   COURIER_STATUS_GROUPS,
   CourierStatusGroup,
@@ -271,6 +272,19 @@ export class OrderService implements OnModuleInit {
    * Create a Reseller Order directly on behalf of an end-customer.
    */
   async createResellerOrder(resellerUser: any, dto: CreateResellerOrderDto) {
+    // Only resellers with a complete (verified) profile may place orders.
+    if (resellerUser?.role === UserRole.RESELLER) {
+      const verification = getVerification(resellerUser);
+      if (!verification.isVerified) {
+        throw new ForbiddenException({
+          statusCode: 403,
+          code: 'PROFILE_NOT_VERIFIED',
+          message: 'অর্ডার করতে প্রথমে প্রোফাইল ভেরিফাই করুন',
+          missing: verification.missing,
+        });
+      }
+    }
+
     if (!dto.items || dto.items.length === 0) {
       throw new BadRequestException('Order must contain at least one item');
     }
@@ -480,12 +494,23 @@ export class OrderService implements OnModuleInit {
     let inTransitOrders = 0;
     let deliveredOrders = 0;
     let cancelledOrders = 0;
+    let returnedOrders = 0;
+    let todayOrders = 0;
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
     let totalResellerProfit = 0;
     let pendingResellerProfit = 0;
     let totalResellerSales = 0;
     let totalWholesaleCost = 0;
 
     for (const ord of orders) {
+      if (ord.createdAt >= startOfToday) todayOrders++;
+      if (
+        ord.processingStatus === OrderProcessingStatus.RETURNED ||
+        String(ord.courierStatus || '').toLowerCase().includes('return')
+      ) {
+        returnedOrders++;
+      }
       switch (courierGroupOf(ord.courierStatus)) {
         case 'ORDER_PLACED':
           orderPlacedOrders++;
@@ -544,6 +569,8 @@ export class OrderService implements OnModuleInit {
       inTransitOrders,
       deliveredOrders,
       cancelledOrders,
+      returnedOrders,
+      todayOrders,
       totalResellerProfit,
       pendingResellerProfit,
       totalResellerSales,

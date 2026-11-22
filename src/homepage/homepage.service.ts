@@ -621,6 +621,11 @@ export class HomepageService {
     const productSections = sections.filter((section) => section.type === 'products');
     const categorySections = sections.filter((section) => section.type === 'categories');
     const logoSection = sections.find((section) => section.type === 'logos');
+    const teamSections = sections.filter((section) => section.type === 'team');
+    const teamLimit = teamSections.reduce(
+      (max, section) => Math.max(max, Math.min(Number(section.settings.limit ?? 12), 24)),
+      0,
+    );
 
     const products: Record<string, unknown[]> = {};
 
@@ -629,7 +634,7 @@ export class HomepageService {
     const needsProductBrands = productSections.length > 0;
     const needsCategories = categorySections.length > 0 || productSections.length > 0;
 
-    const [categories, brands, productBrands] = await Promise.all([
+    const [categories, brands, productBrands, team] = await Promise.all([
       needsCategories
         ? this.prisma.category.findMany({
             where: { status: CommonStatus.ACTIVE },
@@ -648,6 +653,14 @@ export class HomepageService {
             where: { status: CommonStatus.ACTIVE },
             orderBy: { name: 'asc' },
             select: { id: true, name: true },
+          })
+        : Promise.resolve([]),
+      teamSections.length
+        ? this.prisma.cmsTeam.findMany({
+            where: { status: CommonStatus.ACTIVE },
+            orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
+            take: teamLimit,
+            select: { id: true, name: true, designation: true, imageUrl: true, message: true },
           })
         : Promise.resolve([]),
     ]);
@@ -688,8 +701,8 @@ export class HomepageService {
       const manualMap = new Map(manualProducts.map((product) => [product.id, product]));
 
       for (const section of productSections) {
-        const limit = Math.min(Math.max(Number(section.settings.limit ?? 8), 1), 24);
-        const source = String(section.settings.productSource ?? 'new');
+        const limit = Math.min(Math.max(Number(section.settings.limit ?? 8), 1), 48);
+        const source = String(section.settings.productSource ?? 'all');
 
         let list: typeof catalogue = [];
 
@@ -714,14 +727,17 @@ export class HomepageService {
           list = ids.length
             ? catalogue.filter((product) => ids.includes(product.brandId))
             : [];
-        } else {
+        } else if (source === 'new') {
           list = catalogue.filter((product) => product.showAsNewArrival);
+        } else {
+          // 'all': every active product, newest first — fills automatically on upload.
+          list = catalogue;
         }
 
         products[section.id] = list.slice(0, limit);
       }
     }
 
-    return { products, categories, brands, productBrands };
+    return { products, categories, brands, productBrands, team };
   }
 }

@@ -5,6 +5,7 @@ import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { RegisterDto } from './dto/register.dto';
 import { JwtAccessGuard } from './guards/jwt-access.guard';
+import { getVerification } from '../user/reseller-verification';
 
 type AuthenticatedRequest = Request & {
   user?: unknown;
@@ -32,6 +33,7 @@ export class AuthController {
   @UseGuards(JwtAccessGuard)
   @Get('me')
   me(@Req() request: AuthenticatedRequest) {
-    return request.user;
+    const user = request.user as Record<string, unknown> | undefined;
+    return user ? { ...user, verification: getVerification(user) } : user;
   }
 }

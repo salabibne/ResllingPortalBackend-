@@ -22,7 +22,9 @@ export type HomepageSectionType =
   | 'stats'
   | 'steps'
   | 'checklist'
-  | 'cta';
+  | 'cta'
+  | 'video'
+  | 'team';
 
 export type FieldKind =
   | 'string'
@@ -40,7 +42,8 @@ export type FieldKind =
   | 'promoCards'
   | 'statItems'
   | 'stepItems'
-  | 'checklistItems';
+  | 'checklistItems'
+  | 'videoItems';
 
 export interface FieldDefinition {
   kind: FieldKind;
@@ -161,7 +164,7 @@ export const SECTION_REGISTRY: Record<HomepageSectionType, SectionTypeDefinition
     type: 'products',
     label: 'Product collection',
     category: 'Product collections',
-    description: 'Grid or carousel sourced from real products — new arrivals, discounts, a category, a brand, or a manual pick.',
+    description: 'Grid or carousel sourced from real products — all products (automatic), new arrivals, discounts, a category, a brand, or a manual pick.',
     variants: [
       { id: 'grid', label: 'Product grid', description: 'Responsive grid of product cards.' },
       { id: 'carousel', label: 'Product carousel', description: 'Horizontal scrolling product cards.' },
@@ -174,15 +177,15 @@ export const SECTION_REGISTRY: Record<HomepageSectionType, SectionTypeDefinition
       description: '',
       buttonText: 'View all products',
       buttonLink: '/shop',
-      settings: { productSource: 'new', productIds: [], categoryIds: [], brandIds: [], limit: 8, columns: 4, paddingTop: 12, paddingBottom: 12 },
+      settings: { productSource: 'all', productIds: [], categoryIds: [], brandIds: [], limit: 8, columns: 4, paddingTop: 12, paddingBottom: 12 },
     },
     fields: {
       ...COMMON_FIELDS,
-      productSource: { kind: 'enum', values: ['new', 'discount', 'category', 'brand', 'manual'] },
+      productSource: { kind: 'enum', values: ['all', 'new', 'discount', 'category', 'brand', 'manual'] },
       productIds: { kind: 'uuidArray' },
       categoryIds: { kind: 'uuidArray' },
       brandIds: { kind: 'uuidArray' },
-      limit: { kind: 'int', min: 1, max: 24 },
+      limit: { kind: 'int', min: 1, max: 48 },
       columns: { kind: 'int', min: 1, max: 6 },
       showAddToCart: { kind: 'bool' },
     },
@@ -465,6 +468,51 @@ export const SECTION_REGISTRY: Record<HomepageSectionType, SectionTypeDefinition
       secondaryButtonStyle: { kind: 'enum', values: BUTTON_STYLE },
     },
   },
+
+  video: {
+    type: 'video',
+    label: 'Video',
+    category: 'Media',
+    description: 'Plays YouTube, Facebook or .mp4 videos from a link. Place it between image sections.',
+    variants: [
+      { id: 'single', label: 'Single video', description: 'One large 16:9 player.' },
+      { id: 'grid', label: 'Video grid', description: 'Two or three players side by side.' },
+    ],
+    defaults: {
+      title: '',
+      subtitle: '',
+      description: '',
+      settings: { columns: 2, videos: [], alignment: 'center', paddingTop: 12, paddingBottom: 12 },
+    },
+    fields: {
+      ...COMMON_FIELDS,
+      columns: { kind: 'int', min: 1, max: 3 },
+      autoplay: { kind: 'bool' },
+      videos: { kind: 'videoItems' },
+    },
+  },
+
+  team: {
+    type: 'team',
+    label: 'Our Team',
+    category: 'Brand storytelling',
+    description: 'Team members from CMS → Our Team: round photo, name and a description below.',
+    variants: [
+      { id: 'circles', label: 'Round photos', description: 'Round photo with the description in a rounded box below.' },
+      { id: 'cards', label: 'Cards', description: 'A rounded card per team member.' },
+    ],
+    defaults: {
+      title: 'আমাদের টিম',
+      subtitle: 'Our Team',
+      description: '',
+      settings: { columns: 4, limit: 12, alignment: 'center', paddingTop: 12, paddingBottom: 12 },
+    },
+    fields: {
+      ...COMMON_FIELDS,
+      columns: { kind: 'int', min: 1, max: 4 },
+      limit: { kind: 'int', min: 1, max: 24 },
+    },
+  },
 };
 
 export const SECTION_TYPES = Object.keys(SECTION_REGISTRY) as HomepageSectionType[];
@@ -588,6 +636,34 @@ function sanitizeTestimonialItems(value: unknown): Record<string, unknown>[] | u
       imageUrl: sanitizeUrl(item.imageUrl),
     }))
     .filter((item) => item.name && item.quote);
+}
+
+const VIDEO_URL_PATTERNS = [
+  /^https:\/\/(www\.|m\.)?youtube\.com\/(watch\?|shorts\/|embed\/|live\/)/i,
+  /^https:\/\/youtu\.be\//i,
+  /^https:\/\/(www\.|m\.|web\.)?facebook\.com\/.+/i,
+  /^https:\/\/fb\.watch\//i,
+  /^https:\/\/(player\.)?vimeo\.com\//i,
+  /^(https?:\/\/[^\s]+|\/[^\s]*)\.(mp4|webm|ogg)(\?[^\s]*)?$/i,
+];
+
+/** YouTube, Facebook, Vimeo or a direct video file; anything else is dropped. */
+export function sanitizeVideoUrl(value: unknown): string | undefined {
+  const url = sanitizeUrl(value);
+  if (!url) return undefined;
+  return VIDEO_URL_PATTERNS.some((pattern) => pattern.test(url)) ? url : undefined;
+}
+
+function sanitizeVideoItems(value: unknown): Record<string, string>[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  return value
+    .slice(0, 6)
+    .filter((item): item is Record<string, unknown> => !!item && typeof item === 'object')
+    .map((item) => ({
+      url: sanitizeVideoUrl(item.url) ?? '',
+      title: sanitizeString(item.title, 160) ?? '',
+    }))
+    .filter((item) => item.url);
 }
 
 function sanitizeFaqItems(value: unknown): Record<string, string>[] | undefined {
@@ -718,6 +794,11 @@ export function sanitizeSettings(
       }
       case 'checklistItems': {
         const v = sanitizeChecklistItems(value);
+        if (v !== undefined) out[key] = v;
+        break;
+      }
+      case 'videoItems': {
+        const v = sanitizeVideoItems(value);
         if (v !== undefined) out[key] = v;
         break;
       }

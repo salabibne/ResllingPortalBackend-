@@ -38,6 +38,8 @@ export type UserMinAggregateOutputType = {
   imageUrl: string | null
   status: $Enums.CommonStatus | null
   pageName: string | null
+  nidNumber: string | null
+  presentAddress: string | null
   presentDistrict: string | null
   presentThana: string | null
   permanentDistrict: string | null
@@ -61,6 +63,8 @@ export type UserMaxAggregateOutputType = {
   imageUrl: string | null
   status: $Enums.CommonStatus | null
   pageName: string | null
+  nidNumber: string | null
+  presentAddress: string | null
   presentDistrict: string | null
   presentThana: string | null
   permanentDistrict: string | null
@@ -84,6 +88,8 @@ export type UserCountAggregateOutputType = {
   imageUrl: number
   status: number
   pageName: number
+  nidNumber: number
+  presentAddress: number
   presentDistrict: number
   presentThana: number
   permanentDistrict: number
@@ -109,6 +115,8 @@ export type UserMinAggregateInputType = {
   imageUrl?: true
   status?: true
   pageName?: true
+  nidNumber?: true
+  presentAddress?: true
   presentDistrict?: true
   presentThana?: true
   permanentDistrict?: true
@@ -132,6 +140,8 @@ export type UserMaxAggregateInputType = {
   imageUrl?: true
   status?: true
   pageName?: true
+  nidNumber?: true
+  presentAddress?: true
   presentDistrict?: true
   presentThana?: true
   permanentDistrict?: true
@@ -155,6 +165,8 @@ export type UserCountAggregateInputType = {
   imageUrl?: true
   status?: true
   pageName?: true
+  nidNumber?: true
+  presentAddress?: true
   presentDistrict?: true
   presentThana?: true
   permanentDistrict?: true
@@ -251,6 +263,8 @@ export type UserGroupByOutputType = {
   imageUrl: string | null
   status: $Enums.CommonStatus
   pageName: string | null
+  nidNumber: string | null
+  presentAddress: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -295,6 +309,8 @@ export type UserWhereInput = {
   imageUrl?: Prisma.StringNullableFilter<"User"> | string | null
   status?: Prisma.EnumCommonStatusFilter<"User"> | $Enums.CommonStatus
   pageName?: Prisma.StringNullableFilter<"User"> | string | null
+  nidNumber?: Prisma.StringNullableFilter<"User"> | string | null
+  presentAddress?: Prisma.StringNullableFilter<"User"> | string | null
   presentDistrict?: Prisma.StringFilter<"User"> | string
   presentThana?: Prisma.StringFilter<"User"> | string
   permanentDistrict?: Prisma.StringFilter<"User"> | string
@@ -324,6 +340,8 @@ export type UserOrderByWithRelationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   pageName?: Prisma.SortOrderInput | Prisma.SortOrder
+  nidNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  presentAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   presentDistrict?: Prisma.SortOrder
   presentThana?: Prisma.SortOrder
   permanentDistrict?: Prisma.SortOrder
@@ -345,6 +363,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   email?: string
   phone?: string
   pageName?: string
+  nidNumber?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -357,6 +376,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OrganizationId?: Prisma.StringFilter<"User"> | string
   imageUrl?: Prisma.StringNullableFilter<"User"> | string | null
   status?: Prisma.EnumCommonStatusFilter<"User"> | $Enums.CommonStatus
+  presentAddress?: Prisma.StringNullableFilter<"User"> | string | null
   presentDistrict?: Prisma.StringFilter<"User"> | string
   presentThana?: Prisma.StringFilter<"User"> | string
   permanentDistrict?: Prisma.StringFilter<"User"> | string
@@ -370,7 +390,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   withdrawals?: Prisma.WithdrawalListRelationFilter
   processedWithdrawals?: Prisma.WithdrawalListRelationFilter
   supportTickets?: Prisma.SupportTicketListRelationFilter
-}, "id" | "email" | "phone" | "pageName">
+}, "id" | "email" | "phone" | "pageName" | "nidNumber">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -386,6 +406,8 @@ export type UserOrderByWithAggregationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   pageName?: Prisma.SortOrderInput | Prisma.SortOrder
+  nidNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  presentAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   presentDistrict?: Prisma.SortOrder
   presentThana?: Prisma.SortOrder
   permanentDistrict?: Prisma.SortOrder
@@ -415,6 +437,8 @@ export type UserScalarWhereWithAggregatesInput = {
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   status?: Prisma.EnumCommonStatusWithAggregatesFilter<"User"> | $Enums.CommonStatus
   pageName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  nidNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  presentAddress?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   presentDistrict?: Prisma.StringWithAggregatesFilter<"User"> | string
   presentThana?: Prisma.StringWithAggregatesFilter<"User"> | string
   permanentDistrict?: Prisma.StringWithAggregatesFilter<"User"> | string
@@ -438,6 +462,8 @@ export type UserCreateInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -467,6 +493,8 @@ export type UserUncheckedCreateInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -496,6 +524,8 @@ export type UserUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -525,6 +555,8 @@ export type UserUncheckedUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -554,6 +586,8 @@ export type UserCreateManyInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -577,6 +611,8 @@ export type UserUpdateManyMutationInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -600,6 +636,8 @@ export type UserUncheckedUpdateManyInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -629,6 +667,8 @@ export type UserCountOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   pageName?: Prisma.SortOrder
+  nidNumber?: Prisma.SortOrder
+  presentAddress?: Prisma.SortOrder
   presentDistrict?: Prisma.SortOrder
   presentThana?: Prisma.SortOrder
   permanentDistrict?: Prisma.SortOrder
@@ -652,6 +692,8 @@ export type UserMaxOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   pageName?: Prisma.SortOrder
+  nidNumber?: Prisma.SortOrder
+  presentAddress?: Prisma.SortOrder
   presentDistrict?: Prisma.SortOrder
   presentThana?: Prisma.SortOrder
   permanentDistrict?: Prisma.SortOrder
@@ -675,6 +717,8 @@ export type UserMinOrderByAggregateInput = {
   imageUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   pageName?: Prisma.SortOrder
+  nidNumber?: Prisma.SortOrder
+  presentAddress?: Prisma.SortOrder
   presentDistrict?: Prisma.SortOrder
   presentThana?: Prisma.SortOrder
   permanentDistrict?: Prisma.SortOrder
@@ -820,6 +864,8 @@ export type UserCreateWithoutCartsInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -848,6 +894,8 @@ export type UserUncheckedCreateWithoutCartsInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -892,6 +940,8 @@ export type UserUpdateWithoutCartsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -920,6 +970,8 @@ export type UserUncheckedUpdateWithoutCartsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -948,6 +1000,8 @@ export type UserCreateWithoutOrdersInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -976,6 +1030,8 @@ export type UserUncheckedCreateWithoutOrdersInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -1009,6 +1065,8 @@ export type UserCreateWithoutResellerOrdersInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -1037,6 +1095,8 @@ export type UserUncheckedCreateWithoutResellerOrdersInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -1081,6 +1141,8 @@ export type UserUpdateWithoutOrdersInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1109,6 +1171,8 @@ export type UserUncheckedUpdateWithoutOrdersInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1148,6 +1212,8 @@ export type UserUpdateWithoutResellerOrdersInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1176,6 +1242,8 @@ export type UserUncheckedUpdateWithoutResellerOrdersInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1204,6 +1272,8 @@ export type UserCreateWithoutWithdrawalsInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -1232,6 +1302,8 @@ export type UserUncheckedCreateWithoutWithdrawalsInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -1265,6 +1337,8 @@ export type UserCreateWithoutProcessedWithdrawalsInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -1293,6 +1367,8 @@ export type UserUncheckedCreateWithoutProcessedWithdrawalsInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -1337,6 +1413,8 @@ export type UserUpdateWithoutWithdrawalsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1365,6 +1443,8 @@ export type UserUncheckedUpdateWithoutWithdrawalsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1404,6 +1484,8 @@ export type UserUpdateWithoutProcessedWithdrawalsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1432,6 +1514,8 @@ export type UserUncheckedUpdateWithoutProcessedWithdrawalsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1460,6 +1544,8 @@ export type UserCreateWithoutSupportTicketsInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -1488,6 +1574,8 @@ export type UserUncheckedCreateWithoutSupportTicketsInput = {
   imageUrl?: string | null
   status?: $Enums.CommonStatus
   pageName?: string | null
+  nidNumber?: string | null
+  presentAddress?: string | null
   presentDistrict: string
   presentThana: string
   permanentDistrict: string
@@ -1532,6 +1620,8 @@ export type UserUpdateWithoutSupportTicketsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1560,6 +1650,8 @@ export type UserUncheckedUpdateWithoutSupportTicketsInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumCommonStatusFieldUpdateOperationsInput | $Enums.CommonStatus
   pageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nidNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  presentAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   presentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
   presentThana?: Prisma.StringFieldUpdateOperationsInput | string
   permanentDistrict?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1664,6 +1756,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   imageUrl?: boolean
   status?: boolean
   pageName?: boolean
+  nidNumber?: boolean
+  presentAddress?: boolean
   presentDistrict?: boolean
   presentThana?: boolean
   permanentDistrict?: boolean
@@ -1696,6 +1790,8 @@ export type UserSelectScalar = {
   imageUrl?: boolean
   status?: boolean
   pageName?: boolean
+  nidNumber?: boolean
+  presentAddress?: boolean
   presentDistrict?: boolean
   presentThana?: boolean
   permanentDistrict?: boolean
@@ -1705,7 +1801,7 @@ export type UserSelectScalar = {
   deletedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "secondaryPhone" | "passwordHash" | "refreshTokenHash" | "refreshTokenExpiresAt" | "role" | "OrganizationId" | "imageUrl" | "status" | "pageName" | "presentDistrict" | "presentThana" | "permanentDistrict" | "permanentThana" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "phone" | "secondaryPhone" | "passwordHash" | "refreshTokenHash" | "refreshTokenExpiresAt" | "role" | "OrganizationId" | "imageUrl" | "status" | "pageName" | "nidNumber" | "presentAddress" | "presentDistrict" | "presentThana" | "permanentDistrict" | "permanentThana" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   carts?: boolean | Prisma.User$cartsArgs<ExtArgs>
   orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
@@ -1740,6 +1836,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     imageUrl: string | null
     status: $Enums.CommonStatus
     pageName: string | null
+    nidNumber: string | null
+    presentAddress: string | null
     presentDistrict: string
     presentThana: string
     permanentDistrict: string
@@ -2135,6 +2233,8 @@ export interface UserFieldRefs {
   readonly imageUrl: Prisma.FieldRef<"User", 'String'>
   readonly status: Prisma.FieldRef<"User", 'CommonStatus'>
   readonly pageName: Prisma.FieldRef<"User", 'String'>
+  readonly nidNumber: Prisma.FieldRef<"User", 'String'>
+  readonly presentAddress: Prisma.FieldRef<"User", 'String'>
   readonly presentDistrict: Prisma.FieldRef<"User", 'String'>
   readonly presentThana: Prisma.FieldRef<"User", 'String'>
   readonly permanentDistrict: Prisma.FieldRef<"User", 'String'>

@@ -26,6 +26,8 @@ const MEDIA_WRITE_ROLES = [
   UserRole.MANAGER,
   UserRole.SALES_EXECUTIVE,
   UserRole.INVENTOR,
+  // Resellers upload their own profile photo for verification.
+  UserRole.RESELLER,
 ];
 
 const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
