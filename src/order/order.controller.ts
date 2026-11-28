@@ -12,6 +12,7 @@ import {
 import { UserRole } from '../../prisma/generated/client';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Public } from '../auth/decorators/public.decorator';
+import { ActiveResellerGuard } from '../auth/guards/active-reseller.guard';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -243,13 +244,14 @@ export class OrderController {
   }
 
   @Post()
+  @UseGuards(ActiveResellerGuard)
   createOrder(@Req() req: any, @Body() dto: CreateOrderDto) {
     const customerId = req.user.id;
     return this.orderService.createOrderFromCart(customerId, dto);
   }
 
   @Post('reseller-checkout')
-  @UseGuards(RolesGuard)
+  @UseGuards(RolesGuard, ActiveResellerGuard)
   @Roles(...RESELLER_ROLES)
   createResellerOrder(@Req() req: any, @Body() dto: CreateResellerOrderDto) {
     return this.orderService.createResellerOrder(req.user, dto);

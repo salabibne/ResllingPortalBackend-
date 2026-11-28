@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { UserRole } from '../../prisma/generated/client';
 import { Roles } from '../auth/decorators/roles.decorator';
+import { ActiveResellerGuard } from '../auth/guards/active-reseller.guard';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import {
@@ -44,6 +45,7 @@ export class WithdrawalController {
 
   @Post('request')
   @Roles(...RESELLER_ROLES)
+  @UseGuards(ActiveResellerGuard)
   createRequest(@Req() req: any, @Body() dto: CreateWithdrawalDto) {
     const resellerId = req.user.id;
     return this.withdrawalService.createWithdrawalRequest(resellerId, dto);

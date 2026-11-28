@@ -9,6 +9,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
+import { ActiveResellerGuard } from '../auth/guards/active-reseller.guard';
 import { JwtAccessGuard } from '../auth/guards/jwt-access.guard';
 import { CartService } from './cart.service';
 import { AddToCartDto } from './dto/add-to-cart.dto';
@@ -27,6 +28,7 @@ export class CartController {
   }
 
   @Post('items')
+  @UseGuards(ActiveResellerGuard)
   addToCart(@Req() req: any, @Body() dto: AddToCartDto) {
     const customerId = req.user.id;
     const userRole = req.user.role;
@@ -34,6 +36,7 @@ export class CartController {
   }
 
   @Post('items/batch')
+  @UseGuards(ActiveResellerGuard)
   batchAddToCart(@Req() req: any, @Body() dto: BatchAddToCartDto) {
     const customerId = req.user.id;
     const userRole = req.user.role;
@@ -41,6 +44,7 @@ export class CartController {
   }
 
   @Patch('items/:id')
+  @UseGuards(ActiveResellerGuard)
   updateCartItem(
     @Req() req: any,
     @Param('id') cartItemId: string,

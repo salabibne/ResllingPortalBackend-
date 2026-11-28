@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { createHash } from 'node:crypto';
 import * as bcrypt from 'bcryptjs';
-import { CommonStatus, User, UserRole } from '../../prisma/generated/client';
+import { CommonStatus, Prisma, User, UserRole } from '../../prisma/generated/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { ACCESS_TOKEN_TTL, REFRESH_TOKEN_SECRET, REFRESH_TOKEN_TTL } from './auth.constants';
 import { LoginDto } from './dto/login.dto';
@@ -34,8 +34,6 @@ type RegisterApprovalResponse = {
   requiresApproval: true;
 };
 
-const RESELLER_PENDING_MESSAGE =
-  'Your reseller account is awaiting approval.';
 const RESELLER_INACTIVE_MESSAGE =
   'Your reseller account is not active. Please contact support.';
 
@@ -50,30 +48,47 @@ export class AuthService {
   async register(
     dto: RegisterDto,
   ): Promise<AuthResponse | RegisterApprovalResponse> {
-    await this.ensureUserDoesNotExist(dto.email, dto.phone);
+    // page_name is UNIQUE in the database; a blank value is stored as NULL so
+    // several sign-ups without a page name never collide.
+    const pageName = dto.pageName?.trim() || undefined;
+    await this.ensureUserDoesNotExist(dto.email, dto.phone, pageName);
 
     const passwordHash = await bcrypt.hash(dto.password, 12);
 
-    const user = await this.prismaService.user.create({
-      data: {
-        name: dto.name,
-        email: dto.email.toLowerCase(),
-        phone: dto.phone,
-        secondaryPhone: dto.secondaryPhone,
-        passwordHash,
-        role: dto.role,
-        OrganizationId: dto.organizationId,
-        imageUrl: dto.imageUrl,
-        // Always decided server-side. Resellers stay PENDING until an admin
-        // approves them; customers keep the existing immediate-login behaviour.
-        status: CommonStatus.PENDING,
-        pageName: dto.pageName,
-        presentDistrict: dto.presentDistrict,
-        presentThana: dto.presentThana,
-        permanentDistrict: dto.permanentDistrict,
-        permanentThana: dto.permanentThana,
-      },
-    });
+    const user = await this.prismaService.user
+      .create({
+        data: {
+          name: dto.name,
+          email: dto.email.toLowerCase(),
+          phone: dto.phone,
+          secondaryPhone: dto.secondaryPhone,
+          passwordHash,
+          role: dto.role,
+          OrganizationId: dto.organizationId,
+          imageUrl: dto.imageUrl,
+          // Always decided server-side. Resellers stay PENDING until an admin
+          // approves them; customers keep the existing immediate-login behaviour.
+          status: CommonStatus.PENDING,
+          pageName,
+          presentDistrict: dto.presentDistrict,
+          presentThana: dto.presentThana,
+          permanentDistrict: dto.permanentDistrict,
+          permanentThana: dto.permanentThana,
+        },
+      })
+      .catch((error: unknown) => {
+        // Race with another sign-up, or a clash with a soft-deleted account
+        // (unique indexes also cover deleted rows): answer 409, not 500.
+        if (
+          error instanceof Prisma.PrismaClientKnownRequestError &&
+          error.code === 'P2002'
+        ) {
+          throw new ConflictException(
+            'এই ইমেইল, ফোন নম্বর বা পেজের নাম দিয়ে আগেই অ্যাকাউন্ট খোলা হয়েছে',
+          );
+        }
+        throw error;
+      });
 
     if (user.role === UserRole.RESELLER) {
       // No tokens for a reseller that has not been approved yet.
@@ -150,14 +165,16 @@ export class AuthService {
 
   /**
    * Single source of truth for "may this account use the API?".
-   * Resellers must be ACTIVE; every other role keeps the pre-existing rules.
+   * Resellers may sign in while ACTIVE or PENDING: a pending reseller can
+   * browse, but ActiveResellerGuard blocks cart/order/withdrawal until an
+   * admin approves them. Every other role keeps the pre-existing rules.
    */
   private assertAccountEligible(user: User) {
     if (user.role === UserRole.RESELLER) {
-      if (user.status === CommonStatus.PENDING) {
-        throw new ForbiddenException(RESELLER_PENDING_MESSAGE);
-      }
-      if (user.status !== CommonStatus.ACTIVE) {
+      if (
+        user.status !== CommonStatus.ACTIVE &&
+        user.status !== CommonStatus.PENDING
+      ) {
         throw new ForbiddenException(RESELLER_INACTIVE_MESSAGE);
       }
       return;
@@ -225,7 +242,11 @@ export class AuthService {
     }
   }
 
-  private async ensureUserDoesNotExist(email: string, phone: string) {
+  private async ensureUserDoesNotExist(
+    email: string,
+    phone: string,
+    pageName?: string,
+  ) {
     const existingUser = await this.prismaService.user.findFirst({
       where: {
         deletedAt: null,
@@ -235,7 +256,21 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new ConflictException('Email or phone already exists');
+      throw new ConflictException(
+        'এই ইমেইল বা ফোন নম্বর দিয়ে আগেই অ্যাকাউন্ট খোলা হয়েছে',
+      );
+    }
+
+    if (pageName) {
+      const pageTaken = await this.prismaService.user.findFirst({
+        where: { pageName },
+        select: { id: true },
+      });
+      if (pageTaken) {
+        throw new ConflictException(
+          'এই পেজ / শপের নাম আগে থেকেই ব্যবহৃত হচ্ছে, অন্য একটি নাম দিন',
+        );
+      }
     }
   }
 
